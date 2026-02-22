@@ -42,8 +42,8 @@ export default function JoinBuilders() {
   if (submitted) return (
     <div className="max-w-2xl mx-auto px-4 py-20 text-center">
       <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
-      <h1 className="text-3xl font-bold text-stone-800 mb-3">Application Received!</h1>
-      <p className="text-stone-500 text-lg mb-6">Welcome to Stringed Collective. Your builder profile is being set up.</p>
+      <h1 className="text-3xl font-bold text-stone-800 mb-3">Storefront Created!</h1>
+      <p className="text-stone-500 text-lg mb-6">Your builder storefront has been set up. It will go live once our team reviews and approves it — usually within 1–2 business days.</p>
       <Link to={createPageUrl("Dashboard")} className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-8 py-3 rounded-xl inline-block">Go to Dashboard</Link>
     </div>
   );
