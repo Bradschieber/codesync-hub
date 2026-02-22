@@ -56,6 +56,10 @@ import CustomBuilds from './pages/CustomBuilds';
 import Dashboard from './pages/Dashboard';
 import DashboardProducts from './pages/DashboardProducts';
 import DashboardProfile from './pages/DashboardProfile';
+import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
+import Account from './pages/Account';
+import Orders from './pages/Orders';
+import Wishlist from './pages/Wishlist';
 import __Layout from './Layout.jsx';
 
 
@@ -69,6 +73,10 @@ export const PAGES = {
     "Dashboard": Dashboard,
     "DashboardProducts": DashboardProducts,
     "DashboardProfile": DashboardProfile,
+    "DashboardCustomBuilds": DashboardCustomBuilds,
+    "Account": Account,
+    "Orders": Orders,
+    "Wishlist": Wishlist,
 }
 
 export const pagesConfig = {
