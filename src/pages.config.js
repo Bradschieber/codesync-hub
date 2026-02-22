@@ -47,46 +47,46 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import Builders from './pages/Builders';
-import ProductDetail from './pages/ProductDetail';
+import About from './pages/About';
+import Account from './pages/Account';
 import BuilderProfile from './pages/BuilderProfile';
+import Builders from './pages/Builders';
+import Catalog from './pages/Catalog';
+import Checkout from './pages/Checkout';
+import Contact from './pages/Contact';
 import CustomBuilds from './pages/CustomBuilds';
 import Dashboard from './pages/Dashboard';
+import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import DashboardProducts from './pages/DashboardProducts';
 import DashboardProfile from './pages/DashboardProfile';
-import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
-import Account from './pages/Account';
-import Orders from './pages/Orders';
-import Wishlist from './pages/Wishlist';
+import Home from './pages/Home';
 import JoinBuilders from './pages/JoinBuilders';
-import About from './pages/About';
-import Contact from './pages/Contact';
+import Orders from './pages/Orders';
+import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
-import Checkout from './pages/Checkout';
+import Wishlist from './pages/Wishlist';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
-    "Catalog": Catalog,
-    "Builders": Builders,
-    "ProductDetail": ProductDetail,
+    "About": About,
+    "Account": Account,
     "BuilderProfile": BuilderProfile,
+    "Builders": Builders,
+    "Catalog": Catalog,
+    "Checkout": Checkout,
+    "Contact": Contact,
     "CustomBuilds": CustomBuilds,
     "Dashboard": Dashboard,
+    "DashboardCustomBuilds": DashboardCustomBuilds,
     "DashboardProducts": DashboardProducts,
     "DashboardProfile": DashboardProfile,
-    "DashboardCustomBuilds": DashboardCustomBuilds,
-    "Account": Account,
-    "Orders": Orders,
-    "Wishlist": Wishlist,
+    "Home": Home,
     "JoinBuilders": JoinBuilders,
-    "About": About,
-    "Contact": Contact,
+    "Orders": Orders,
+    "ProductDetail": ProductDetail,
     "Terms": Terms,
-    "Checkout": Checkout,
+    "Wishlist": Wishlist,
 }
 
 export const pagesConfig = {

@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import { Hammer, CheckCircle, Star, Users, DollarSign, Globe, Guitar } from "lucide-react";
 
 export default function JoinBuilders() {
-  const [form, setForm] = useState({ business_name: "", display_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
+  const [form, setForm] = useState({ business_name: "", first_name: "", last_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
