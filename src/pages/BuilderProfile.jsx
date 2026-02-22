@@ -142,6 +142,24 @@ export default function BuilderProfile() {
         </div>
       </div>
 
+      {/* Story Media Gallery */}
+      {media.length > 0 && (
+        <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-6">
+          <h2 className="font-bold text-stone-800 mb-4">The Shop & The Craft</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {media.map((url, i) => (
+              <div key={i} className="rounded-xl overflow-hidden aspect-video bg-stone-100">
+                {url.match(/\.(mp4|mov|webm|ogg)(\?|$)/i) ? (
+                  <video src={url} controls className="w-full h-full object-cover" />
+                ) : (
+                  <img src={url} alt={`${builder.business_name} - photo ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer" onClick={() => window.open(url, '_blank')} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Tabs */}
       <div className="border-b border-stone-200 mb-6 flex gap-1">
         {tabs.map(t => (
