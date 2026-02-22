@@ -114,6 +114,16 @@ export default function DashboardProfile() {
           </div>
         </div>
 
+        {/* Story Media */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-6">
+          <h2 className="font-bold text-stone-800 mb-1">Your Story in Photos & Video</h2>
+          <p className="text-stone-400 text-sm mb-4">Show buyers your shop, your process, and your past builds.</p>
+          <MediaUploader
+            mediaUrls={form.media_urls || []}
+            onChange={urls => setForm({ ...form, media_urls: urls })}
+          />
+        </div>
+
         {/* Addresses */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-4">Addresses</h2>
