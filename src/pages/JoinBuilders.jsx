@@ -129,7 +129,7 @@ export default function JoinBuilders() {
               <textarea required rows={4} value={form.bio} onChange={e => setForm({...form, bio: e.target.value})} placeholder="Tell us about your building experience, style, and what makes your instruments unique..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
             </div>
             <button type="submit" disabled={loading} className="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-xl transition-colors text-lg disabled:opacity-50">
-              {loading ? "Submitting..." : "Submit Application"}
+              {loading ? "Creating Storefront..." : "Create My Storefront"}
             </button>
           </form>
         </div>
