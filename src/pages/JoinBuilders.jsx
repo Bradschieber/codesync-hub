@@ -49,6 +49,33 @@ export default function JoinBuilders() {
     setLoading(false);
   }
 
+  if (user === undefined) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" />
+    </div>
+  );
+
+  if (user === null) return (
+    <div className="min-h-screen bg-stone-50 flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-white rounded-2xl border border-stone-200 p-10 text-center shadow-sm">
+        <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-5">
+          <Hammer className="w-8 h-8 text-amber-600" />
+        </div>
+        <h1 className="text-2xl font-bold text-stone-800 mb-3">Create a Free Account First</h1>
+        <p className="text-stone-500 mb-6 leading-relaxed">
+          To set up your builder storefront, you'll need a Stringed Collective account. It's free and only takes a minute.
+        </p>
+        <button
+          onClick={() => base44.auth.redirectToLogin(window.location.href)}
+          className="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 text-lg"
+        >
+          <LogIn className="w-5 h-5" /> Sign Up / Log In
+        </button>
+        <p className="text-stone-400 text-xs mt-4">Already have an account? The button above will log you in.</p>
+      </div>
+    </div>
+  );
+
   if (submitted) return (
     <div className="max-w-2xl mx-auto px-4 py-20 text-center">
       <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
