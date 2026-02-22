@@ -60,6 +60,11 @@ import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import Account from './pages/Account';
 import Orders from './pages/Orders';
 import Wishlist from './pages/Wishlist';
+import JoinBuilders from './pages/JoinBuilders';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Terms from './pages/Terms';
+import Checkout from './pages/Checkout';
 import __Layout from './Layout.jsx';
 
 
@@ -77,6 +82,11 @@ export const PAGES = {
     "Account": Account,
     "Orders": Orders,
     "Wishlist": Wishlist,
+    "JoinBuilders": JoinBuilders,
+    "About": About,
+    "Contact": Contact,
+    "Terms": Terms,
+    "Checkout": Checkout,
 }
 
 export const pagesConfig = {

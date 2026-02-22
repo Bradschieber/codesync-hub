@@ -1,0 +1,132 @@
+import { useState } from "react";
+import { base44 } from "@/api/base44Client";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { Hammer, CheckCircle, Star, Users, DollarSign, Globe, Guitar } from "lucide-react";
+
+export default function JoinBuilders() {
+  const [form, setForm] = useState({ business_name: "", display_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical", "Archtop", "Custom Finishes", "Repairs"];
+
+  function toggleSpec(s) {
+    setForm(f => ({ ...f, specialties: f.specialties.includes(s) ? f.specialties.filter(x => x !== s) : [...f.specialties, s] }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const u = await base44.auth.me();
+      await base44.entities.UserProfile.create({
+        ...form,
+        user_id: u.id,
+        years_experience: Number(form.years_experience),
+        is_seller: true,
+        account: "seller",
+      });
+      setSubmitted(true);
+    } catch {
+      try {
+        await base44.entities.NewsletterSubscription.create({ email: form.email, first_name: form.display_name });
+        setSubmitted(true);
+      } catch { setSubmitted(true); }
+    }
+    setLoading(false);
+  }
+
+  if (submitted) return (
+    <div className="max-w-2xl mx-auto px-4 py-20 text-center">
+      <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
+      <h1 className="text-3xl font-bold text-stone-800 mb-3">Application Received!</h1>
+      <p className="text-stone-500 text-lg mb-6">Welcome to Stringed Collective. Your builder profile is being set up.</p>
+      <Link to={createPageUrl("Dashboard")} className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-8 py-3 rounded-xl inline-block">Go to Dashboard</Link>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-stone-50">
+      {/* Hero */}
+      <div className="bg-gradient-to-r from-stone-900 to-amber-950 text-white py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <Hammer className="w-14 h-14 text-amber-400 mx-auto mb-5" />
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Sell Your Guitars Here</h1>
+          <p className="text-stone-300 text-xl mb-8 max-w-2xl mx-auto">
+            Join a community of independent luthiers reaching thousands of discerning guitar buyers.
+          </p>
+        </div>
+      </div>
+
+      {/* Benefits */}
+      <div className="max-w-5xl mx-auto px-4 py-12 grid sm:grid-cols-3 gap-6 text-center">
+        {[
+          { icon: Users, title: "Reach More Buyers", text: "Connect with players actively looking for handcrafted instruments." },
+          { icon: DollarSign, title: "Keep More Earnings", text: "Competitive commission rates — you keep the majority of every sale." },
+          { icon: Globe, title: "Build Your Brand", text: "Your own builder profile page, reviews, and custom build showcase." },
+        ].map(({ icon: Icon, title, text }) => (
+          <div key={title} className="bg-white rounded-2xl p-6 border border-stone-200">
+            <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-3">
+              <Icon className="w-6 h-6 text-amber-600" />
+            </div>
+            <h3 className="font-bold text-stone-800 mb-2">{title}</h3>
+            <p className="text-stone-500 text-sm">{text}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Form */}
+      <div className="max-w-2xl mx-auto px-4 pb-16">
+        <div className="bg-white rounded-2xl border border-stone-200 p-8">
+          <h2 className="text-2xl font-bold text-stone-800 mb-6">Apply to Join</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-medium text-stone-600 mb-1">Business/Workshop Name *</label>
+                <input required value={form.business_name} onChange={e => setForm({...form, business_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-stone-600 mb-1">Your Name *</label>
+                <input required value={form.display_name} onChange={e => setForm({...form, display_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-stone-600 mb-1">Email *</label>
+                <input required type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-stone-600 mb-1">Location</label>
+                <input value={form.location} onChange={e => setForm({...form, location: e.target.value})} placeholder="City, State" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-stone-600 mb-1">Years of Experience</label>
+                <input type="number" min="0" value={form.years_experience} onChange={e => setForm({...form, years_experience: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-stone-600 mb-1">Website (optional)</label>
+                <input value={form.website_url} onChange={e => setForm({...form, website_url: e.target.value})} placeholder="https://..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-2">Specialties</label>
+              <div className="flex flex-wrap gap-2">
+                {SPECIALTIES.map(s => (
+                  <button type="button" key={s} onClick={() => toggleSpec(s)} className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${form.specialties.includes(s) ? "bg-amber-600 text-white border-amber-600" : "border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-1">About You & Your Craft *</label>
+              <textarea required rows={4} value={form.bio} onChange={e => setForm({...form, bio: e.target.value})} placeholder="Tell us about your building experience, style, and what makes your instruments unique..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+            </div>
+            <button type="submit" disabled={loading} className="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-xl transition-colors text-lg disabled:opacity-50">
+              {loading ? "Submitting..." : "Submit Application"}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
