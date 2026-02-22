@@ -81,7 +81,8 @@ export default function JoinBuilders() {
       {/* Form */}
       <div className="max-w-2xl mx-auto px-4 pb-16">
         <div className="bg-white rounded-2xl border border-stone-200 p-8">
-          <h2 className="text-2xl font-bold text-stone-800 mb-6">Apply to Join</h2>
+          <h2 className="text-2xl font-bold text-stone-800 mb-1">Create Your Storefront</h2>
+          <p className="text-stone-400 text-sm mb-6">Fill out the form below to get started. Your storefront will be reviewed before going live.</p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
