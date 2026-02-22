@@ -5,10 +5,15 @@ import { createPageUrl } from "@/utils";
 import { Hammer, CheckCircle, Users, DollarSign, Globe, LogIn } from "lucide-react";
 
 export default function JoinBuilders() {
+  const [user, setUser] = useState(undefined); // undefined = loading, null = not logged in
   const [form, setForm] = useState({ business_name: "", first_name: "", last_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    base44.auth.me().then(u => setUser(u)).catch(() => setUser(null));
+  }, []);
 
   const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical", "Archtop", "Custom Finishes", "Repairs"];
 
