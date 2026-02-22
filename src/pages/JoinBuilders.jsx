@@ -22,15 +22,17 @@ export default function JoinBuilders() {
       const u = await base44.auth.me();
       await base44.entities.UserProfile.create({
         ...form,
+        display_name: `${form.first_name} ${form.last_name}`.trim(),
         user_id: u.id,
         years_experience: Number(form.years_experience),
         is_seller: true,
         account: "seller",
+        is_featured: false,
       });
       setSubmitted(true);
     } catch {
       try {
-        await base44.entities.NewsletterSubscription.create({ email: form.email, first_name: form.display_name });
+        await base44.entities.NewsletterSubscription.create({ email: form.email, first_name: form.first_name });
         setSubmitted(true);
       } catch { setSubmitted(true); }
     }
