@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ChevronLeft, Save, User, Plus, X } from "lucide-react";
+import { ChevronLeft, Save } from "lucide-react";
+import MediaUploader from "../components/dashboard/MediaUploader";
 
 const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical Guitars", "Archtop", "Semi-Hollow", "Resonator", "Lap Steel", "Banjo", "Ukulele", "Mandolin", "Custom Finishes", "Repairs & Restoration"];
 
