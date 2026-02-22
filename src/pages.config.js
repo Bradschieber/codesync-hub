@@ -51,6 +51,11 @@ import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import Builders from './pages/Builders';
 import ProductDetail from './pages/ProductDetail';
+import BuilderProfile from './pages/BuilderProfile';
+import CustomBuilds from './pages/CustomBuilds';
+import Dashboard from './pages/Dashboard';
+import DashboardProducts from './pages/DashboardProducts';
+import DashboardProfile from './pages/DashboardProfile';
 import __Layout from './Layout.jsx';
 
 
@@ -59,6 +64,11 @@ export const PAGES = {
     "Catalog": Catalog,
     "Builders": Builders,
     "ProductDetail": ProductDetail,
+    "BuilderProfile": BuilderProfile,
+    "CustomBuilds": CustomBuilds,
+    "Dashboard": Dashboard,
+    "DashboardProducts": DashboardProducts,
+    "DashboardProfile": DashboardProfile,
 }
 
 export const pagesConfig = {
