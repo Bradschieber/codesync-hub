@@ -2,12 +2,13 @@ import { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Hammer, CheckCircle, Star, Users, DollarSign, Globe, Guitar } from "lucide-react";
+import { Hammer, CheckCircle, Users, DollarSign, Globe } from "lucide-react";
 
 export default function JoinBuilders() {
   const [form, setForm] = useState({ business_name: "", first_name: "", last_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical", "Archtop", "Custom Finishes", "Repairs"];
 
@@ -18,8 +19,13 @@ export default function JoinBuilders() {
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
+    setError("");
     try {
       const u = await base44.auth.me();
+      if (!u) {
+        base44.auth.redirectToLogin(window.location.href);
+        return;
+      }
       await base44.entities.UserProfile.create({
         ...form,
         display_name: `${form.first_name} ${form.last_name}`.trim(),
@@ -28,13 +34,12 @@ export default function JoinBuilders() {
         is_seller: true,
         account: "seller",
         is_featured: false,
+        is_published: false,
       });
       setSubmitted(true);
-    } catch {
-      try {
-        await base44.entities.NewsletterSubscription.create({ email: form.email, first_name: form.first_name });
-        setSubmitted(true);
-      } catch { setSubmitted(true); }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+      console.error(err);
     }
     setLoading(false);
   }
@@ -83,6 +88,7 @@ export default function JoinBuilders() {
         <div className="bg-white rounded-2xl border border-stone-200 p-8">
           <h2 className="text-2xl font-bold text-stone-800 mb-1">Create Your Storefront</h2>
           <p className="text-stone-400 text-sm mb-6">Fill out the form below to get started. Your storefront will be reviewed before going live.</p>
+          {error && <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm">{error}</div>}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
