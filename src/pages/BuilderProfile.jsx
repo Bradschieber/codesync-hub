@@ -69,6 +69,8 @@ export default function BuilderProfile() {
     { id: "reviews", label: `Reviews (${reviews.length})` },
   ];
 
+  const media = builder.media_urls || [];
+
   const avgRating = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
 
   return (
