@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Hammer, CheckCircle, Users, DollarSign, Globe } from "lucide-react";
+import { Hammer, CheckCircle, Users, DollarSign, Globe, LogIn } from "lucide-react";
 
 export default function JoinBuilders() {
   const [form, setForm] = useState({ business_name: "", first_name: "", last_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
