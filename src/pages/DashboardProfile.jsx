@@ -2,8 +2,19 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ChevronLeft, Save } from "lucide-react";
+import { ChevronLeft, Save, Sparkles, User, Hammer, Music, Clock, Store, Camera, Shield, Heart } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
+
+const STORY_PROMPTS = [
+  { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?" },
+  { icon: Hammer, label: "Why You Build", hint: "What drew you to lutherie? Was there a moment, a person, a first guitar that started it all?" },
+  { icon: Music, label: "Your Philosophy", hint: "What makes a great playing experience for a musician? What do you obsess over when you're building?" },
+  { icon: Clock, label: "Your Journey", hint: "How long have you been building? How has your craft evolved over time?" },
+  { icon: Store, label: "Your Shop", hint: "Tell us about where the magic happens. What's your setup? What tools do you love?" },
+  { icon: Camera, label: "Meet the Builder & Shop Tour", hint: "Add photos and videos below — let buyers see your face, your hands, your workspace." },
+  { icon: Shield, label: "Your Commitment to Buyers", hint: "What's your warranty policy? Your satisfaction guarantee? How do you stand behind your work?" },
+  { icon: Heart, label: "Why Stringed Collective", hint: "Why did you choose to sell here? What excites you about connecting directly with players who care about craftsmanship?" },
+];
 
 export default function DashboardProfile() {
   const [user, setUser] = useState(null);
@@ -48,19 +59,22 @@ export default function DashboardProfile() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-2">
         <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-2xl font-bold text-stone-800">Builder Profile</h1>
       </div>
+      <p className="text-stone-400 text-sm mb-8 ml-8">Build your storefront — tell your story, show your craft, earn trust.</p>
 
       <form onSubmit={handleSave} className="space-y-6">
-        {/* Basic Info */}
+
+        {/* ── Section 1: The Basics ── */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
-          <h2 className="font-bold text-stone-800 mb-4">Basic Information</h2>
+          <h2 className="font-bold text-stone-800 mb-1">The Basics</h2>
+          <p className="text-stone-400 text-xs mb-5">How buyers will find and identify you.</p>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Business Name</label>
-              <input value={form.business_name || ""} onChange={e => setForm({...form, business_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-stone-600 mb-1">Business / Brand Name</label>
+              <input value={form.business_name || ""} onChange={e => setForm({...form, business_name: e.target.value})} placeholder="e.g. Hartman Guitars" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
             <div>
               <label className="block text-xs font-medium text-stone-600 mb-1">Display Name</label>
@@ -71,47 +85,86 @@ export default function DashboardProfile() {
               <input value={form.location || ""} onChange={e => setForm({...form, location: e.target.value})} placeholder="City, State" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Years of Experience</label>
-              <input type="number" min="0" value={form.years_experience || ""} onChange={e => setForm({...form, years_experience: Number(e.target.value)})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Website</label>
-              <input value={form.website_url || ""} onChange={e => setForm({...form, website_url: e.target.value})} placeholder="https://..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-stone-600 mb-1">Years Building</label>
+              <input type="number" min="0" value={form.years_experience || ""} onChange={e => setForm({...form, years_experience: Number(e.target.value)})} placeholder="e.g. 12" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
             <div>
               <label className="block text-xs font-medium text-stone-600 mb-1">Phone</label>
               <input value={form.phone || ""} onChange={e => setForm({...form, phone: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Facebook</label>
-              <input value={form.facebook_url || ""} onChange={e => setForm({...form, facebook_url: e.target.value})} placeholder="https://facebook.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-stone-600 mb-1">Website</label>
+              <input value={form.website_url || ""} onChange={e => setForm({...form, website_url: e.target.value})} placeholder="https://..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">X (Twitter)</label>
-              <input value={form.x_url || ""} onChange={e => setForm({...form, x_url: e.target.value})} placeholder="https://x.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-stone-600 mb-1">Facebook</label>
+              <input value={form.facebook_url || ""} onChange={e => setForm({...form, facebook_url: e.target.value})} placeholder="https://facebook.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
             <div>
               <label className="block text-xs font-medium text-stone-600 mb-1">Instagram</label>
               <input value={form.instagram_url || ""} onChange={e => setForm({...form, instagram_url: e.target.value})} placeholder="https://instagram.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
-          </div>
-          <div className="mt-4">
-            <label className="block text-xs font-medium text-stone-600 mb-1">Bio</label>
-            <textarea rows={4} value={form.bio || ""} onChange={e => setForm({...form, bio: e.target.value})} placeholder="Tell buyers about yourself, your craft, your journey..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-1">X (Twitter)</label>
+              <input value={form.x_url || ""} onChange={e => setForm({...form, x_url: e.target.value})} placeholder="https://x.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            </div>
           </div>
         </div>
 
-        {/* Story Media */}
+        {/* ── Section 2: Your Brand Story ── */}
+        <div className="bg-white rounded-2xl border border-amber-100 p-6">
+          <div className="flex items-start gap-3 mb-2">
+            <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Sparkles className="w-4 h-4 text-amber-600" />
+            </div>
+            <div>
+              <h2 className="font-bold text-stone-800">Tell Your Story</h2>
+              <p className="text-stone-400 text-xs mt-0.5">This is your stage. Buyers aren't just buying a guitar — they're buying into you. Make it personal, make it real.</p>
+            </div>
+          </div>
+
+          {/* Prompt Cards */}
+          <div className="mt-5 mb-5 grid sm:grid-cols-2 gap-3">
+            {STORY_PROMPTS.map(({ icon: Icon, label, hint }) => (
+              <div key={label} className="flex items-start gap-2.5 bg-amber-50 border border-amber-100 rounded-xl p-3">
+                <Icon className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-xs font-semibold text-stone-700">{label}</p>
+                  <p className="text-xs text-stone-400 mt-0.5 leading-relaxed">{hint}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <label className="block text-xs font-medium text-stone-600 mb-2">Your Brand Story</label>
+          <textarea
+            rows={14}
+            value={form.brand_story || ""}
+            onChange={e => setForm({...form, brand_story: e.target.value})}
+            placeholder={`Use the prompts above as a guide — but write in your own voice. There's no right or wrong format. Just be genuine.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
+            className="w-full border border-stone-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none leading-relaxed"
+          />
+          <p className="text-xs text-stone-400 mt-2">Tip: Longer, more personal stories build significantly more trust with buyers. Don't be shy.</p>
+        </div>
+
+        {/* ── Section 3: Photos & Video ── */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
-          <h2 className="font-bold text-stone-800 mb-1">Your Story in Photos & Video</h2>
-          <p className="text-stone-400 text-sm mb-4">Show buyers your shop, your process, and your past builds.</p>
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-9 h-9 rounded-xl bg-stone-100 flex items-center justify-center flex-shrink-0">
+              <Camera className="w-4 h-4 text-stone-500" />
+            </div>
+            <div>
+              <h2 className="font-bold text-stone-800">Photos & Video</h2>
+              <p className="text-stone-400 text-xs mt-0.5">Show buyers who you are and where your instruments come to life. Include a photo of yourself, your shop, your tools, and your builds in progress.</p>
+            </div>
+          </div>
           <MediaUploader
             mediaUrls={form.media_urls || []}
             onChange={urls => setForm({ ...form, media_urls: urls })}
           />
         </div>
 
-        {/* Addresses */}
+        {/* ── Section 4: Addresses ── */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-4">Addresses</h2>
           <div className="space-y-4">
