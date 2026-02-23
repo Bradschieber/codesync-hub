@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Star, MapPin, Globe, Heart, HeartOff, MessageSquare, Award, ChevronLeft } from "lucide-react";
+import { Guitar, Star, MapPin, Globe, Heart, HeartOff, MessageSquare, Award, ChevronLeft, Facebook, Instagram } from "lucide-react";
 
 export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
