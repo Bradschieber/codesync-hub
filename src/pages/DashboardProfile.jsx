@@ -44,13 +44,6 @@ export default function DashboardProfile() {
     setTimeout(() => setSaved(false), 3000);
   }
 
-  function toggleSpecialty(s) {
-    setForm(f => ({
-      ...f,
-      specialties: f.specialties?.includes(s) ? f.specialties.filter(x => x !== s) : [...(f.specialties || []), s]
-    }));
-  }
-
   if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" /></div>;
 
   return (
