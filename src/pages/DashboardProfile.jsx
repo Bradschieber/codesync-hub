@@ -5,8 +5,6 @@ import { createPageUrl } from "@/utils";
 import { ChevronLeft, Save } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 
-const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical Guitars", "Archtop", "Semi-Hollow", "Resonator", "Lap Steel", "Banjo", "Ukulele", "Mandolin", "Custom Finishes", "Repairs & Restoration"];
-
 export default function DashboardProfile() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
