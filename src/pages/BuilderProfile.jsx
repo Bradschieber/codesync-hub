@@ -102,7 +102,15 @@ export default function BuilderProfile() {
               </div>
             )}
             <div className="sm:flex-1 sm:pb-2">
-              <h1 className="text-2xl font-bold text-stone-800">{builder.business_name || builder.display_name}</h1>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-2xl font-bold text-stone-800">{builder.business_name || builder.display_name}</h1>
+                {builder.is_verified && (
+                  <span className="flex items-center gap-1 text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
+                    Verified Builder
+                  </span>
+                )}
+              </div>
               {builder.location && (
                 <p className="text-stone-400 text-sm flex items-center gap-1"><MapPin className="w-3 h-3" /> {builder.location}</p>
               )}
