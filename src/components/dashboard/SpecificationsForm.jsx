@@ -21,12 +21,15 @@ function SpecInput({ label, value, onChange, placeholder }) {
   );
 }
 
-function WoodSelect({ label, value, otherValue, onChange, onOtherChange }) {
+function WoodSelect({ label, value, otherValue, onChange, onOtherChange, bookMatchedValue, onBookMatchedChange }) {
   return (
     <>
       <SpecSelect label={label} value={value} onChange={onChange} options={WOOD_OPTIONS} />
       {value === "Other" && (
         <SpecInput label={`Specify ${label}`} value={otherValue} onChange={onOtherChange} placeholder="Enter wood type..." />
+      )}
+      {bookMatchedValue !== undefined && (
+        <SpecSelect label={`${label} Book Matched`} value={bookMatchedValue} onChange={onBookMatchedChange} options={["N/A", "Yes", "No"]} />
       )}
     </>
   );
