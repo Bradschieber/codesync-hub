@@ -123,7 +123,7 @@ function ProductForm({ product, profile, onSave, onClose }) {
     image_urls: [], offers_local_pickup: false, is_featured: false, specifications: {}
   });
   const [saving, setSaving] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
