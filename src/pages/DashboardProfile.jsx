@@ -74,10 +74,6 @@ export default function DashboardProfile() {
               <label className="block text-xs font-medium text-stone-600 mb-1">Years of Experience</label>
               <input type="number" min="0" value={form.years_experience || ""} onChange={e => setForm({...form, years_experience: Number(e.target.value)})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-stone-600 mb-1">Avatar URL</label>
-              <input value={form.avatar_url || ""} onChange={e => setForm({...form, avatar_url: e.target.value})} placeholder="https://..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            </div>
             <div>
               <label className="block text-xs font-medium text-stone-600 mb-1">Website</label>
               <input value={form.website_url || ""} onChange={e => setForm({...form, website_url: e.target.value})} placeholder="https://..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
