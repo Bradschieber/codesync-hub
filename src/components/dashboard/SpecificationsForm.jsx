@@ -215,6 +215,91 @@ export default function SpecificationsForm({ specs = {}, onChange }) {
         />
       </div>
 
+      {/* Neck Construction */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Neck Construction</label>
+        <textarea
+          value={specs.neckConstruction || ""}
+          onChange={e => update("neckConstruction", e.target.value)}
+          placeholder="Describe neck construction..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
+      {/* Neck Materials */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Neck Materials</label>
+        <textarea
+          value={specs.neckMaterials || ""}
+          onChange={e => update("neckMaterials", e.target.value)}
+          placeholder="Describe neck materials..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
+      {/* Scale Length + Nut Width */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium text-stone-600 mb-1">Scale Length (NN.NNN")</label>
+          <input
+            type="number"
+            step="0.001"
+            value={specs.scaleLength || ""}
+            onChange={e => update("scaleLength", e.target.value ? Number(e.target.value) : "")}
+            placeholder='e.g. 25.500'
+            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-stone-600 mb-1">Nut Width (N.NNN")</label>
+          <input
+            type="number"
+            step="0.001"
+            value={specs.nutWidth || ""}
+            onChange={e => update("nutWidth", e.target.value ? Number(e.target.value) : "")}
+            placeholder='e.g. 1.687'
+            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+        </div>
+      </div>
+
+      {/* Nut Material */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Nut Material</label>
+        <textarea
+          value={specs.nutMaterial || ""}
+          onChange={e => update("nutMaterial", e.target.value)}
+          placeholder="Describe nut material..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
+      {/* Fretboard Radius */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Fretboard Radius"
+          value={specs.fretboardRadius}
+          onChange={v => update("fretboardRadius", v)}
+          options={["N/A", "7.25\"", "9.5\"", "10\"", "12\"", "13.78\"", "14\"", "15\"", "16\"", "17\"", "20\"", "Other"]}
+        />
+        {specs.fretboardRadius === "Other" && (
+          <SpecInput label="Specify Fretboard Radius" value={specs.otherFretboardRadius} onChange={v => update("otherFretboardRadius", v)} placeholder='Enter radius...' />
+        )}
+      </div>
+
+      {/* Active/Passive Pickups */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Active/Passive Pickups"
+          value={specs.activePassivePickups}
+          onChange={v => update("activePassivePickups", v)}
+          options={["Active", "Passive"]}
+        />
+      </div>
+
       {/* Other → Description */}
       {bc === "Other" && (
         <div>
