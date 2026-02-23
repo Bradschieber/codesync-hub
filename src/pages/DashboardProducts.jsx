@@ -190,18 +190,29 @@ function ProductForm({ product, profile, onSave, onClose }) {
           </div>
         </div>
         <div>
-          <label className="block text-xs font-medium text-stone-600 mb-2">Image URLs</label>
-          <div className="flex gap-2 mb-2">
-            <input value={imgUrl} onChange={e => setImgUrl(e.target.value)} placeholder="Paste image URL..." className="flex-1 border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            <button type="button" onClick={addImageUrl} className="bg-stone-100 hover:bg-stone-200 px-3 py-2 rounded-xl text-sm"><Plus className="w-4 h-4" /></button>
-          </div>
+          <label className="block text-xs font-medium text-stone-600 mb-2">Photos & Videos</label>
+          <label className={`flex items-center justify-center gap-2 w-full border-2 border-dashed rounded-xl px-4 py-5 cursor-pointer transition-colors ${uploading ? "border-amber-300 bg-amber-50" : "border-stone-300 hover:border-amber-400 hover:bg-amber-50"}`}>
+            <input type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileUpload} disabled={uploading} />
+            {uploading ? (
+              <span className="text-amber-600 text-sm flex items-center gap-2"><div className="w-4 h-4 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /> Uploading...</span>
+            ) : (
+              <>
+                <Upload className="w-4 h-4 text-stone-400" />
+                <span className="text-sm text-stone-500">Click to upload photos or videos</span>
+              </>
+            )}
+          </label>
           {form.image_urls?.length > 0 && (
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 flex-wrap mt-3">
               {form.image_urls.map((url, i) => (
-                <div key={i} className="relative group">
-                  <img src={url} className="w-16 h-16 object-cover rounded-lg" />
-                  <button type="button" onClick={() => setForm(f => ({...f, image_urls: f.image_urls.filter((_, j) => j !== i)}))} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <X className="w-2.5 h-2.5" />
+                <div key={i} className="relative group w-20 h-20">
+                  {url.match(/\.(mp4|mov|webm|ogg)$/i) ? (
+                    <video src={url} className="w-full h-full object-cover rounded-lg" />
+                  ) : (
+                    <img src={url} className="w-full h-full object-cover rounded-lg" />
+                  )}
+                  <button type="button" onClick={() => setForm(f => ({...f, image_urls: f.image_urls.filter((_, j) => j !== i)}))} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <X className="w-3 h-3" />
                   </button>
                 </div>
               ))}
