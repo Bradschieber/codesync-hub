@@ -203,6 +203,10 @@ function ProductForm({ product, profile, onSave, onClose }) {
             </div>
           )}
         </div>
+        <SpecificationsForm
+          specs={form.specifications || {}}
+          onChange={specs => setForm(f => ({ ...f, specifications: specs }))}
+        />
         <div className="flex items-center gap-4 text-sm">
           <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" checked={form.offers_local_pickup} onChange={e => setForm({...form, offers_local_pickup: e.target.checked})} className="rounded border-stone-300" />
