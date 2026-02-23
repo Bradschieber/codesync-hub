@@ -139,11 +139,16 @@ function ProductForm({ product, profile, onSave, onClose }) {
     setSaving(false);
   }
 
-  function addImageUrl() {
-    if (imgUrl.trim()) {
-      setForm(f => ({ ...f, image_urls: [...(f.image_urls || []), imgUrl.trim()] }));
-      setImgUrl("");
+  async function handleFileUpload(e) {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    setUploading(true);
+    for (const file of files) {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setForm(f => ({ ...f, image_urls: [...(f.image_urls || []), file_url] }));
     }
+    setUploading(false);
+    e.target.value = "";
   }
 
   function toggleCat(cat) {
