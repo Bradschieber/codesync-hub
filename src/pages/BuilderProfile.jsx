@@ -132,13 +132,7 @@ export default function BuilderProfile() {
 
           {builder.bio && <p className="text-stone-600 leading-relaxed">{builder.bio}</p>}
 
-          {builder.specialties?.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4">
-              {builder.specialties.map(s => (
-                <span key={s} className="bg-amber-50 text-amber-700 border border-amber-200 text-sm px-3 py-1 rounded-full">{s}</span>
-              ))}
-            </div>
-          )}
+
         </div>
       </div>
 
