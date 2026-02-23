@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Plus, Pencil, Trash2, Guitar, Eye, EyeOff, ChevronLeft, X, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, Guitar, Eye, EyeOff, ChevronLeft, X, Upload, Image, Video } from "lucide-react";
 import SpecificationsForm from "../components/dashboard/SpecificationsForm";
 
 const CATEGORIES = ["Electric", "Acoustic", "Bass", "Classical", "Semi-Hollow", "12-String", "Archtop", "Other"];
