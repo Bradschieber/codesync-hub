@@ -128,6 +128,21 @@ export default function BuilderProfile() {
                 <Globe className="w-3 h-3" /> Website
               </a>
             )}
+            {builder.facebook_url && (
+              <a href={builder.facebook_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-600 hover:underline">
+                <Facebook className="w-3 h-3" /> Facebook
+              </a>
+            )}
+            {builder.instagram_url && (
+              <a href={builder.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-pink-600 hover:underline">
+                <Instagram className="w-3 h-3" /> Instagram
+              </a>
+            )}
+            {builder.x_url && (
+              <a href={builder.x_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-stone-700 hover:underline">
+                <span className="text-xs font-bold">𝕏</span> X
+              </a>
+            )}
           </div>
 
           {builder.bio && <p className="text-stone-600 leading-relaxed">{builder.bio}</p>}
