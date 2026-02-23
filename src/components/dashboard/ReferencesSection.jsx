@@ -61,6 +61,24 @@ export default function ReferencesSection({ profile }) {
         )}
       </div>
 
+      {/* How it works */}
+      <div className="mt-4 bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-2">
+        <p className="text-xs font-semibold text-stone-600 uppercase tracking-wide">How it works</p>
+        <ol className="space-y-1.5">
+          {[
+            "Submit up to 2 references from past buyers — include their name, a short quote, and a way to contact them.",
+            "Our team reaches out to verify each reference is authentic.",
+            "Once 2 references are verified, your profile earns the Verified Builder badge, which appears on your public profile and in search listings.",
+            "The verified badge builds buyer trust and can lead to more inquiries and sales.",
+          ].map((step, i) => (
+            <li key={i} className="flex items-start gap-2 text-xs text-stone-500 leading-relaxed">
+              <span className="w-4 h-4 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px]">{i + 1}</span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
+
       <div className="mt-4 mb-2 flex items-center gap-2">
         <div className="flex-1 h-2 rounded-full bg-stone-100 overflow-hidden">
           <div
