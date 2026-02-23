@@ -125,9 +125,17 @@ function BuilderCard({ builder }) {
           )}
         </div>
 
-        {builder.years_experience > 0 && (
-          <p className="text-xs text-stone-400 mt-3">{builder.years_experience} years of experience</p>
-        )}
+        <div className="flex items-center justify-between mt-3">
+          {builder.years_experience > 0 && (
+            <p className="text-xs text-stone-400">{builder.years_experience} years of experience</p>
+          )}
+          {builder.is_verified && (
+            <span className="flex items-center gap-1 text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
+              Verified
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   );

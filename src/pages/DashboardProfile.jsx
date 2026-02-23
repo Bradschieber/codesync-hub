@@ -266,6 +266,9 @@ export default function DashboardProfile() {
           </div>
         </div>
 
+        {/* ── Section 5: Buyer References ── */}
+        <ReferencesSection profile={profile} />
+
         <button type="submit" disabled={saving} className={`w-full flex items-center justify-center gap-2 font-semibold py-3.5 rounded-xl transition-colors ${saved ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"} disabled:opacity-50`}>
           <Save className="w-4 h-4" />
           {saving ? "Saving..." : saved ? "Saved!" : "Save Profile"}
