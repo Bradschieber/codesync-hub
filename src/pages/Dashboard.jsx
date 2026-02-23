@@ -101,6 +101,7 @@ export default function Dashboard() {
               { label: "Manage Products", sub: `${products.length} listings`, icon: Package, page: "DashboardProducts" },
               { label: "Custom Build Listings", sub: "Manage your offerings", icon: Hammer, page: "DashboardCustomBuilds" },
               { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
+              ...(profile?.account === "admin" ? [{ label: "Manage References", sub: "Verify buyer references", icon: Star, page: "AdminReferences" }] : []),
             ].map(({ label, sub, icon: Icon, page }) => (
               <Link key={page} to={createPageUrl(page)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-stone-50 transition-colors group">
                 <div className="w-10 h-10 bg-stone-100 rounded-xl flex items-center justify-center group-hover:bg-amber-100 transition-colors">
