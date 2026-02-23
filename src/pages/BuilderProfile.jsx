@@ -145,7 +145,11 @@ export default function BuilderProfile() {
             )}
           </div>
 
-          {builder.bio && <p className="text-stone-600 leading-relaxed">{builder.bio}</p>}
+          {builder.brand_story ? (
+            <div className="text-stone-600 leading-relaxed whitespace-pre-line">{builder.brand_story}</div>
+          ) : builder.bio ? (
+            <p className="text-stone-600 leading-relaxed">{builder.bio}</p>
+          ) : null}
 
 
         </div>
