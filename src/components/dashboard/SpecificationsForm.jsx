@@ -165,6 +165,56 @@ export default function SpecificationsForm({ specs = {}, onChange }) {
         )}
       </div>
 
+      {/* Color */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Color"
+          value={specs.color}
+          onChange={v => update("color", v)}
+          options={["Natural", "Blue", "Brown", "Black", "Red", "Purple", "Pink", "Gold/Yellow", "Green", "Silver", "Gray", "Other"]}
+        />
+        {specs.color === "Other" && (
+          <SpecInput label="Specify Color" value={specs.otherColor} onChange={v => update("otherColor", v)} placeholder="Enter color..." />
+        )}
+      </div>
+
+      {/* Frets */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Frets"
+          value={specs.frets}
+          onChange={v => update("frets", v)}
+          options={["Fretless", "Medium", "Tall", "Jumbo", "Other"]}
+        />
+        {specs.frets === "Other" && (
+          <SpecInput label="Specify Frets" value={specs.otherFrets} onChange={v => update("otherFrets", v)} placeholder="Enter fret type..." />
+        )}
+      </div>
+
+      {/* Fret Material */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Fret Material</label>
+        <textarea
+          value={specs.fretMaterial || ""}
+          onChange={e => update("fretMaterial", e.target.value)}
+          placeholder="Describe fret material..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
+      {/* Fret Details */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Fret Details</label>
+        <textarea
+          value={specs.fretDetails || ""}
+          onChange={e => update("fretDetails", e.target.value)}
+          placeholder="Describe fret details..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
       {/* Other → Description */}
       {bc === "Other" && (
         <div>
