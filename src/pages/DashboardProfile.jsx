@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ChevronLeft, Save, Sparkles, User, Hammer, Music, Clock, Store, Camera, Shield, Heart } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
+import ReferencesSection from "../components/dashboard/ReferencesSection";
 
 const STORY_PROMPTS = [
   { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?" },

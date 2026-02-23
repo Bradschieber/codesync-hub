@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Search, Star, MapPin, Award, Guitar } from "lucide-react";
+import { Search, Star, MapPin, Award, Guitar, Ribbon } from "lucide-react";
 
 export default function Builders() {
   const [builders, setBuilders] = useState([]);
