@@ -89,18 +89,6 @@ export default function DashboardProfile() {
           </div>
         </div>
 
-        {/* Specialties */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-6">
-          <h2 className="font-bold text-stone-800 mb-4">Specialties</h2>
-          <div className="flex flex-wrap gap-2">
-            {SPECIALTIES.map(s => (
-              <button type="button" key={s} onClick={() => toggleSpecialty(s)} className={`px-3 py-1.5 rounded-lg text-sm border transition-colors ${form.specialties?.includes(s) ? "bg-amber-600 text-white border-amber-600" : "border-stone-300 text-stone-600 hover:border-amber-400"}`}>
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Story Media */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-1">Your Story in Photos & Video</h2>
