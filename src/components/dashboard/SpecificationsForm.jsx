@@ -127,6 +127,44 @@ export default function SpecificationsForm({ specs = {}, onChange }) {
         </div>
       )}
 
+      {/* Top Grain Details */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Top Grain Details"
+          value={specs.topGrainDetails}
+          onChange={v => update("topGrainDetails", v)}
+          options={["Birdseye", "Burled", "Flamed", "Plain", "Quilted", "Spalted", "Other"]}
+        />
+        {specs.topGrainDetails === "Other" && (
+          <SpecInput label="Specify Top Grain Details" value={specs.otherTopGrainDetails} onChange={v => update("otherTopGrainDetails", v)} placeholder="Enter grain details..." />
+        )}
+      </div>
+
+      {/* Finish Materials and Description */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Finish Materials and Description</label>
+        <textarea
+          value={specs.finishMaterialsDescription || ""}
+          onChange={e => update("finishMaterialsDescription", e.target.value)}
+          placeholder="Describe finish materials..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
+      {/* Finish Pattern */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Finish Pattern"
+          value={specs.finishPattern}
+          onChange={v => update("finishPattern", v)}
+          options={["Solid", "Sunburst", "Fade", "Other"]}
+        />
+        {specs.finishPattern === "Other" && (
+          <SpecInput label="Specify Finish Pattern" value={specs.otherFinishPattern} onChange={v => update("otherFinishPattern", v)} placeholder="Enter finish pattern..." />
+        )}
+      </div>
+
       {/* Other → Description */}
       {bc === "Other" && (
         <div>
