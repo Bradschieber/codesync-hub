@@ -49,8 +49,8 @@ export default function ReferencesSection({ profile }) {
       <div className="flex items-start justify-between mb-1">
         <div>
           <h2 className="font-bold text-stone-800">Buyer References</h2>
-          <p className="text-stone-400 text-xs mt-0.5">
-            Submit 2 references from past customers to earn a Verified badge on your profile.
+          <p className="text-stone-400 text-xs mt-1 leading-relaxed">
+            Earn a <strong className="text-blue-600">Verified Builder</strong> badge on your profile and listings by submitting 2 references from past customers.
           </p>
         </div>
         {verifiedCount >= 2 && (
