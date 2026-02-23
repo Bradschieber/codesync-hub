@@ -300,6 +300,50 @@ export default function SpecificationsForm({ specs = {}, onChange }) {
         />
       </div>
 
+      {/* Pickup Configuration */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Pickup Configuration</label>
+        <textarea
+          value={specs.pickupConfiguration || ""}
+          onChange={e => update("pickupConfiguration", e.target.value)}
+          placeholder="Describe pickup configuration..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
+      {/* Preamp */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Preamp"
+          value={specs.preamp}
+          onChange={v => update("preamp", v)}
+          options={["Yes", "No"]}
+        />
+      </div>
+
+      {/* Case Includes */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SpecSelect
+          label="Case Includes"
+          value={specs.caseIncludes}
+          onChange={v => update("caseIncludes", v)}
+          options={["Yes", "No"]}
+        />
+      </div>
+
+      {/* Case Description */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Case Description</label>
+        <textarea
+          value={specs.caseDescription || ""}
+          onChange={e => update("caseDescription", e.target.value)}
+          placeholder="Describe the case..."
+          rows={2}
+          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+        />
+      </div>
+
       {/* Other → Description */}
       {bc === "Other" && (
         <div>
