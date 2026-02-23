@@ -166,6 +166,25 @@ export default function BuilderProfile() {
         </div>
       </div>
 
+      {/* Verified References */}
+      {builder.is_verified && references.length > 0 && (
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <svg className="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
+            <h2 className="font-bold text-blue-800">Verified Buyer References</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {references.map(ref => (
+              <div key={ref.id} className="bg-white rounded-xl p-4 border border-blue-100">
+                <Quote className="w-4 h-4 text-blue-300 mb-2" />
+                <p className="text-stone-600 text-sm italic leading-relaxed mb-3">"{ref.quote}"</p>
+                <p className="text-sm font-semibold text-stone-700">— {ref.buyer_name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Story Media Gallery */}
       {media.length > 0 && (
         <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-6">
