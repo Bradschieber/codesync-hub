@@ -82,6 +82,18 @@ export default function DashboardProfile() {
               <label className="block text-xs font-medium text-stone-600 mb-1">Phone</label>
               <input value={form.phone || ""} onChange={e => setForm({...form, phone: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-1">Facebook</label>
+              <input value={form.facebook_url || ""} onChange={e => setForm({...form, facebook_url: e.target.value})} placeholder="https://facebook.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-1">X (Twitter)</label>
+              <input value={form.x_url || ""} onChange={e => setForm({...form, x_url: e.target.value})} placeholder="https://x.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-1">Instagram</label>
+              <input value={form.instagram_url || ""} onChange={e => setForm({...form, instagram_url: e.target.value})} placeholder="https://instagram.com/..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            </div>
           </div>
           <div className="mt-4">
             <label className="block text-xs font-medium text-stone-600 mb-1">Bio</label>
