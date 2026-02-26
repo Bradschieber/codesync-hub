@@ -65,9 +65,9 @@ export default function Dashboard() {
   const unreadMessages = messages.filter(m => !m.is_read).length;
 
   const stats = [
-    { label: "Active Listings", value: products.filter(p => p.status === "available").length, icon: Package, color: "bg-blue-50 text-blue-600" },
-    { label: "Pending Requests", value: pendingRequests, icon: Hammer, color: "bg-amber-50 text-amber-600" },
-    { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "—", icon: Star, color: "bg-yellow-50 text-yellow-600" },
+    { label: "Active Listings", value: products.filter(p => p.status === "available").length, icon: Package, color: "bg-blue-50 text-blue-600", page: "DashboardActiveListings" },
+    { label: "Pending Requests", value: pendingRequests, icon: Hammer, color: "bg-amber-50 text-amber-600", page: "DashboardCustomBuilds" },
+    { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "—", icon: Star, color: "bg-yellow-50 text-yellow-600", page: "DashboardRatings" },
     { label: "Unread Messages", value: unreadMessages, icon: MessageSquare, color: "bg-green-50 text-green-600", page: "Messages" },
   ];
 
