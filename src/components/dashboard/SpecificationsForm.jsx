@@ -74,6 +74,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.instrumentCategory}
           onChange={v => update("instrumentCategory", v)}
           options={["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"]}
+          builderOptions={bo("instrumentCategory")}
+          builderNotes={bn("instrumentCategory")}
         />
         {specs.instrumentCategory === "Other" && (
           <SpecInput label="Specify Category" value={specs.otherInstrumentCategory} onChange={v => update("otherInstrumentCategory", v)} placeholder="Enter instrument category..." />
@@ -87,6 +89,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.handedness}
           onChange={v => update("handedness", v)}
           options={["Right-Handed", "Left-Handed"]}
+          builderOptions={bo("handedness")}
+          builderNotes={bn("handedness")}
         />
       </div>
 
@@ -97,6 +101,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.numberOfStrings}
           onChange={v => update("numberOfStrings", v)}
           options={["4 String", "5 String", "6 String", "8 String", "12 String", "Other"]}
+          builderOptions={bo("numberOfStrings")}
+          builderNotes={bn("numberOfStrings")}
         />
         {specs.numberOfStrings === "Other" && (
           <SpecInput label="Specify Number of Strings" value={specs.otherNumberOfStrings} onChange={v => update("otherNumberOfStrings", v)} placeholder="Enter number of strings..." />
@@ -109,7 +115,6 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           label="Body Construction"
           value={specs.bodyConstruction}
           onChange={v => {
-            // Clear old construction-specific fields when switching
             onChange({
               ...specs,
               bodyConstruction: v,
@@ -121,30 +126,32 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
             });
           }}
           options={["One Piece", "Two Piece", "Three Piece", "Other"]}
+          builderOptions={bo("bodyConstruction")}
+          builderNotes={bn("bodyConstruction")}
         />
       </div>
 
       {/* One Piece → Top Wood only */}
       {bc === "One Piece" && (
         <div className="grid sm:grid-cols-2 gap-4">
-          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} />
+          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
         </div>
       )}
 
       {/* Two Piece → Top Wood + Back Wood */}
       {bc === "Two Piece" && (
         <div className="grid sm:grid-cols-2 gap-4">
-          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} />
-          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} />
+          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
+          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </div>
       )}
 
       {/* Three Piece → Top Wood + Middle Wood + Back Wood */}
       {bc === "Three Piece" && (
         <div className="grid sm:grid-cols-2 gap-4">
-          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} />
-          <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} />
-          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} />
+          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
+          <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} builderOptions={bo("middleWood")} builderNotes={bn("middleWood")} />
+          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </div>
       )}
 
@@ -155,6 +162,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.topGrainDetails}
           onChange={v => update("topGrainDetails", v)}
           options={["Birdseye", "Burled", "Flamed", "Plain", "Quilted", "Spalted", "Other"]}
+          builderOptions={bo("topGrainDetails")}
+          builderNotes={bn("topGrainDetails")}
         />
         {specs.topGrainDetails === "Other" && (
           <SpecInput label="Specify Top Grain Details" value={specs.otherTopGrainDetails} onChange={v => update("otherTopGrainDetails", v)} placeholder="Enter grain details..." />
@@ -167,10 +176,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <textarea
           value={specs.finishMaterialsDescription || ""}
           onChange={e => update("finishMaterialsDescription", e.target.value)}
-          placeholder="Describe finish materials..."
+          placeholder={nt("finishMaterialsDescription") || "Describe finish materials..."}
           rows={2}
           className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
+        {nt("finishMaterialsDescription") && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("finishMaterialsDescription")}</p>
+        )}
       </div>
 
       {/* Finish Pattern */}
@@ -180,6 +192,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.finishPattern}
           onChange={v => update("finishPattern", v)}
           options={["Solid", "Sunburst", "Fade", "Other"]}
+          builderOptions={bo("finishPattern")}
+          builderNotes={bn("finishPattern")}
         />
         {specs.finishPattern === "Other" && (
           <SpecInput label="Specify Finish Pattern" value={specs.otherFinishPattern} onChange={v => update("otherFinishPattern", v)} placeholder="Enter finish pattern..." />
@@ -193,6 +207,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.color}
           onChange={v => update("color", v)}
           options={["Natural", "Blue", "Brown", "Black", "Red", "Purple", "Pink", "Gold/Yellow", "Green", "Silver", "Gray", "Other"]}
+          builderOptions={bo("color")}
+          builderNotes={bn("color")}
         />
         {specs.color === "Other" && (
           <SpecInput label="Specify Color" value={specs.otherColor} onChange={v => update("otherColor", v)} placeholder="Enter color..." />
@@ -206,6 +222,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.frets}
           onChange={v => update("frets", v)}
           options={["Fretless", "Medium", "Tall", "Jumbo", "Other"]}
+          builderOptions={bo("frets")}
+          builderNotes={bn("frets")}
         />
         {specs.frets === "Other" && (
           <SpecInput label="Specify Frets" value={specs.otherFrets} onChange={v => update("otherFrets", v)} placeholder="Enter fret type..." />
@@ -218,10 +236,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <textarea
           value={specs.fretMaterial || ""}
           onChange={e => update("fretMaterial", e.target.value)}
-          placeholder="Describe fret material..."
+          placeholder={nt("fretMaterial") || "Describe fret material..."}
           rows={2}
           className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
+        {nt("fretMaterial") && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("fretMaterial")}</p>
+        )}
       </div>
 
       {/* Fret Details */}
@@ -242,10 +263,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <textarea
           value={specs.neckConstruction || ""}
           onChange={e => update("neckConstruction", e.target.value)}
-          placeholder="Describe neck construction..."
+          placeholder={nt("neckConstruction") || "Describe neck construction..."}
           rows={2}
           className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
+        {nt("neckConstruction") && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("neckConstruction")}</p>
+        )}
       </div>
 
       {/* Neck Materials */}
@@ -254,10 +278,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <textarea
           value={specs.neckMaterials || ""}
           onChange={e => update("neckMaterials", e.target.value)}
-          placeholder="Describe neck materials..."
+          placeholder={nt("neckMaterials") || "Describe neck materials..."}
           rows={2}
           className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
+        {nt("neckMaterials") && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("neckMaterials")}</p>
+        )}
       </div>
 
       {/* Scale Length + Nut Width */}
@@ -292,10 +319,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <textarea
           value={specs.nutMaterial || ""}
           onChange={e => update("nutMaterial", e.target.value)}
-          placeholder="Describe nut material..."
+          placeholder={nt("nutMaterial") || "Describe nut material..."}
           rows={2}
           className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
+        {nt("nutMaterial") && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("nutMaterial")}</p>
+        )}
       </div>
 
       {/* Fretboard Radius */}
@@ -305,6 +335,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.fretboardRadius}
           onChange={v => update("fretboardRadius", v)}
           options={["N/A", "7.25\"", "9.5\"", "10\"", "12\"", "13.78\"", "14\"", "15\"", "16\"", "17\"", "20\"", "Other"]}
+          builderOptions={bo("fretboardRadius")}
+          builderNotes={bn("fretboardRadius")}
         />
         {specs.fretboardRadius === "Other" && (
           <SpecInput label="Specify Fretboard Radius" value={specs.otherFretboardRadius} onChange={v => update("otherFretboardRadius", v)} placeholder='Enter radius...' />
@@ -318,6 +350,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.activePassivePickups}
           onChange={v => update("activePassivePickups", v)}
           options={["Active", "Passive"]}
+          builderOptions={bo("activePassivePickups")}
+          builderNotes={bn("activePassivePickups")}
         />
       </div>
 
@@ -327,10 +361,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <textarea
           value={specs.pickupConfiguration || ""}
           onChange={e => update("pickupConfiguration", e.target.value)}
-          placeholder="Describe pickup configuration..."
+          placeholder={nt("pickupConfiguration") || "Describe pickup configuration..."}
           rows={2}
           className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
+        {nt("pickupConfiguration") && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("pickupConfiguration")}</p>
+        )}
       </div>
 
       {/* Preamp */}
@@ -340,6 +377,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.preamp}
           onChange={v => update("preamp", v)}
           options={["Yes", "No"]}
+          builderOptions={bo("preamp")}
+          builderNotes={bn("preamp")}
         />
       </div>
 
@@ -350,6 +389,8 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           value={specs.caseIncludes}
           onChange={v => update("caseIncludes", v)}
           options={["Yes", "No"]}
+          builderOptions={bo("caseIncludes")}
+          builderNotes={bn("caseIncludes")}
         />
       </div>
 
