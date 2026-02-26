@@ -131,7 +131,7 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Section 2: Your Business ── */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-6">
+        <div id="business" className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-1">Your Business</h2>
           <p className="text-stone-400 text-xs mb-5">Help buyers understand what working with you looks like.</p>
           <div className="grid sm:grid-cols-2 gap-4">
