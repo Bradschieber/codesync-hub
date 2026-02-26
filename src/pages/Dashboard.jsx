@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [requests, setRequests] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [recentOrders, setRecentOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => { loadDashboard(); }, []);
