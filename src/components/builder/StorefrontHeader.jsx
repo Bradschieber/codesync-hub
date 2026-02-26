@@ -95,6 +95,12 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
               <span className="text-amber-700 font-bold text-3xl">{(builder.business_name || "B")[0]}</span>
             </div>
           )}
+          {/* Logo */}
+          {builder.logo_url && (
+            <div className="w-24 h-16 bg-white rounded-xl border border-stone-200 shadow-md flex items-center justify-center p-2 -mt-8">
+              <img src={builder.logo_url} alt="Logo" className="max-w-full max-h-full object-contain" />
+            </div>
+          )}
           {layout !== "editorial" && (
             <div className="sm:flex-1 sm:pb-2">
               <div className="flex items-center gap-2 flex-wrap">
