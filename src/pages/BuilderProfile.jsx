@@ -225,6 +225,9 @@ export default function BuilderProfile() {
       {showContactForm && (
         <ContactModal builder={builder} user={user} onClose={() => setShowContactForm(false)} />
       )}
+      {showQuoteModal && (
+        <RequestQuoteModal builder={builder} user={user} onClose={() => setShowQuoteModal(false)} />
+      )}
     </div>
   );
 }
