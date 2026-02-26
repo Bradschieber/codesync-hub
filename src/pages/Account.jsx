@@ -148,6 +148,7 @@ export default function Account() {
               {saving ? "Saving..." : saved ? "Saved!" : "Save Changes"}
             </button>
           </form>
+          </div>
         </div>
       </div>
     </div>
