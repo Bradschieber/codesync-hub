@@ -292,6 +292,7 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Section 5: Notification Preferences ── */}
+        <div id="notifications" />
         {profile && (
           <NotificationPreferences
             profile={profile}
