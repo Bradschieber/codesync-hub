@@ -24,16 +24,20 @@ export default function Dashboard() {
       if (profiles.length > 0) {
         const p = profiles[0];
         setProfile(p);
-        const [prods, reqs, msgs, revs] = await Promise.all([
+        const builderName = p.business_name || p.display_name;
+        const [prods, reqs, msgs, revs, allOrders] = await Promise.all([
           base44.entities.Product.filter({ builder_id: p.id }, "-created_date", 20),
           base44.entities.CustomBuildRequest.filter({ builder_id: p.id }, "-created_date", 20),
           base44.entities.Message.filter({ recipient_id: p.id }, "-created_date", 10),
           base44.entities.BuilderReview.filter({ builder_id: p.id }, "-created_date", 10),
+          base44.entities.Order.list("-created_date", 200),
         ]);
         setProducts(prods);
         setRequests(reqs);
         setMessages(msgs);
         setReviews(revs);
+        const builderOrders = allOrders.filter(o => o.items?.some(item => item.builder_name === builderName));
+        setRecentOrders(builderOrders.slice(0, 5));
       }
     } catch {
       base44.auth.redirectToLogin();
