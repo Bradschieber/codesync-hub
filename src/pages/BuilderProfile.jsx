@@ -99,6 +99,31 @@ export default function BuilderProfile() {
 
       <StorefrontBrandStory builder={builder} />
 
+      {/* Custom Builds CTA */}
+      {builder.offers_custom_builds && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Hammer className="w-5 h-5 text-amber-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-stone-800 mb-1">Custom Builds Available</h3>
+              {builder.custom_build_description ? (
+                <p className="text-stone-600 text-sm leading-relaxed mb-4">{builder.custom_build_description}</p>
+              ) : (
+                <p className="text-stone-500 text-sm mb-4">This builder accepts custom build requests. Reach out to discuss your dream instrument.</p>
+              )}
+              <button
+                onClick={() => setShowQuoteModal(true)}
+                className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors"
+              >
+                Request a Quote
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <StorefrontMediaGallery builder={builder} media={media} />
 
       {/* Verified References */}
