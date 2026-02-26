@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Star, ChevronLeft, Quote } from "lucide-react";
+import { Guitar, Star, ChevronLeft, Quote, Hammer } from "lucide-react";
 import StorefrontHeader from "../components/builder/StorefrontHeader";
 import StorefrontBrandStory from "../components/builder/StorefrontBrandStory";
 import StorefrontMediaGallery from "../components/builder/StorefrontMediaGallery";
 import { getScheme } from "../components/builder/StorefrontHeader";
+import RequestQuoteModal from "../components/builder/RequestQuoteModal";
 
 export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
