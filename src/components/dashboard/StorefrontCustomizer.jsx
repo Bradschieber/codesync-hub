@@ -159,6 +159,9 @@ export default function StorefrontCustomizer({ form, setForm }) {
               onClick={() => setForm(f => ({ ...f, storefront_layout: l.id }))}
               className={`text-left p-3 rounded-xl border-2 transition-colors ${form.storefront_layout === l.id ? "border-amber-500 bg-amber-50" : "border-stone-200 hover:border-stone-300"}`}
             >
+              <div className="rounded-lg overflow-hidden border border-stone-200 mb-2">
+                {LAYOUT_THUMBNAILS[l.id]}
+              </div>
               <p className="font-semibold text-stone-800 text-sm">{l.label}</p>
               <p className="text-xs text-stone-400 mt-0.5">{l.description}</p>
             </button>
