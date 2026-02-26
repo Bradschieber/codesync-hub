@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { X } from "lucide-react";
 import SpecificationsForm from "../dashboard/SpecificationsForm";
 
 export default function RequestQuoteModal({ builder, user, onClose }) {
+  const [builderSpecOptions, setBuilderSpecOptions] = useState(null);
+
+  useEffect(() => {
+    async function loadSpecOptions() {
+      const listings = await base44.entities.CustomBuildListing.filter({ builder_id: builder.id }, "-created_date", 1);
+      if (listings.length > 0) setBuilderSpecOptions(listings[0].available_spec_options || {});
+      else setBuilderSpecOptions({});
+    }
+    loadSpecOptions();
+  }, [builder.id]);
+
   const [form, setForm] = useState({
     customer_name: user?.full_name || "",
     customer_email: user?.email || "",
