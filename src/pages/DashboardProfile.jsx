@@ -188,6 +188,9 @@ export default function DashboardProfile() {
           <p className="text-xs text-stone-400 mt-2">Tip: Longer, more personal stories build significantly more trust with buyers. Don't be shy.</p>
         </div>
 
+        {/* ── Storefront Style ── */}
+        <StorefrontCustomizer form={form} setForm={setForm} />
+
         {/* ── Section 3: Photos & Video ── */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
           <div className="flex items-start gap-3 mb-4">
