@@ -212,7 +212,7 @@ export default function DashboardProfile() {
         <div id="storefront"><StorefrontCustomizer form={form} setForm={setForm} /></div>
 
         {/* ── Section 3: Photos & Video ── */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-6">
+        <div id="photos" className="bg-white rounded-2xl border border-stone-200 p-6">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-9 h-9 rounded-xl bg-stone-100 flex items-center justify-center flex-shrink-0">
               <Camera className="w-4 h-4 text-stone-500" />
