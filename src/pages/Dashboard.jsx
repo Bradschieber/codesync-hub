@@ -103,6 +103,7 @@ export default function Dashboard() {
           <h2 className="font-bold text-stone-800 mb-4">Quick Actions</h2>
           <div className="space-y-2">
             {[
+              { label: "Incoming Orders", sub: `${recentOrders.length} recent orders`, icon: ShoppingBag, page: "BuilderOrders" },
               { label: "Manage Products", sub: `${products.length} listings`, icon: Package, page: "DashboardProducts" },
               { label: "Custom Build Listings", sub: "Manage your offerings", icon: Hammer, page: "DashboardCustomBuilds" },
               { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
