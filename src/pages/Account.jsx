@@ -77,7 +77,7 @@ export default function Account() {
         {/* Sidebar */}
         <div className="space-y-2">
           {[
-            { label: "Orders", icon: ShoppingBag, page: "Orders" },
+            { label: isSeller ? "Incoming Orders" : "Orders", icon: ShoppingBag, page: isSeller ? "BuilderOrders" : "Orders" },
             { label: "Wishlist", icon: Heart, page: "Wishlist" },
           ].map(({ label, icon: Icon, page }) => (
             <Link key={page} to={createPageUrl(page)} className="flex items-center gap-3 p-3 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 text-sm font-medium transition-colors">
