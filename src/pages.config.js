@@ -51,6 +51,7 @@ import About from './pages/About';
 import Account from './pages/Account';
 import AdminReferences from './pages/AdminReferences';
 import BuilderOrders from './pages/BuilderOrders';
+import BuilderProfile from './pages/BuilderProfile';
 import Builders from './pages/Builders';
 import Catalog from './pages/Catalog';
 import Checkout from './pages/Checkout';
@@ -59,6 +60,7 @@ import CustomBuilds from './pages/CustomBuilds';
 import Dashboard from './pages/Dashboard';
 import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import DashboardProducts from './pages/DashboardProducts';
+import DashboardProfile from './pages/DashboardProfile';
 import Home from './pages/Home';
 import JoinBuilders from './pages/JoinBuilders';
 import Messages from './pages/Messages';
@@ -66,8 +68,6 @@ import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import BuilderProfile from './pages/BuilderProfile';
-import DashboardProfile from './pages/DashboardProfile';
 import __Layout from './Layout.jsx';
 
 
@@ -76,6 +76,7 @@ export const PAGES = {
     "Account": Account,
     "AdminReferences": AdminReferences,
     "BuilderOrders": BuilderOrders,
+    "BuilderProfile": BuilderProfile,
     "Builders": Builders,
     "Catalog": Catalog,
     "Checkout": Checkout,
@@ -84,6 +85,7 @@ export const PAGES = {
     "Dashboard": Dashboard,
     "DashboardCustomBuilds": DashboardCustomBuilds,
     "DashboardProducts": DashboardProducts,
+    "DashboardProfile": DashboardProfile,
     "Home": Home,
     "JoinBuilders": JoinBuilders,
     "Messages": Messages,
@@ -91,8 +93,6 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "BuilderProfile": BuilderProfile,
-    "DashboardProfile": DashboardProfile,
 }
 
 export const pagesConfig = {

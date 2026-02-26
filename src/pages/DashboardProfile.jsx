@@ -157,32 +157,54 @@ export default function DashboardProfile() {
               <input type="number" min="0" max="100" value={form.deposit_percent || ""} onChange={e => setForm({...form, deposit_percent: Number(e.target.value)})} placeholder="e.g. 50" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
           </div>
-          {/* Custom Builds Toggle */}
+          {/* What do you offer? */}
           <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-xl">
-            <div className="flex items-center gap-3 mb-2">
-              <input
-                type="checkbox"
-                id="offers_custom_builds"
-                checked={form.offers_custom_builds || false}
-                onChange={e => setForm({ ...form, offers_custom_builds: e.target.checked })}
-                className="h-4 w-4 accent-amber-600 rounded"
-              />
-              <label htmlFor="offers_custom_builds" className="text-sm font-semibold text-stone-700">
-                I offer custom builds
-              </label>
-            </div>
-            <p className="text-xs text-stone-400 ml-7">When enabled, a "Request a Quote" button and your custom build description will appear on your public storefront.</p>
-            {form.offers_custom_builds && (
-              <div className="mt-3">
-                <label className="block text-xs font-medium text-stone-600 mb-1">Custom Build Description</label>
-                <textarea
-                  rows={4}
-                  value={form.custom_build_description || ""}
-                  onChange={e => setForm({ ...form, custom_build_description: e.target.value })}
-                  placeholder="Describe what you offer for custom builds — types of instruments, options available, your process, lead times, starting prices, etc."
-                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+            <p className="text-sm font-semibold text-stone-700 mb-1">What do you offer? <span className="text-red-500">*</span></p>
+            <p className="text-xs text-stone-400 mb-3">Select at least one. This determines what buyers can do on your storefront.</p>
+            <div className="space-y-3">
+              {/* Stock Builds */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="offers_stock_builds"
+                  checked={form.offers_stock_builds || false}
+                  onChange={e => setForm({ ...form, offers_stock_builds: e.target.checked })}
+                  className="h-4 w-4 accent-amber-600 rounded mt-0.5"
                 />
+                <div>
+                  <label htmlFor="offers_stock_builds" className="text-sm font-semibold text-stone-700 cursor-pointer">Stock Builds</label>
+                  <p className="text-xs text-stone-400 mt-0.5">Pre-made instruments listed with full specs, photos, and a fixed price — ready to ship.</p>
+                </div>
               </div>
+              {/* Custom Builds */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="offers_custom_builds"
+                  checked={form.offers_custom_builds || false}
+                  onChange={e => setForm({ ...form, offers_custom_builds: e.target.checked })}
+                  className="h-4 w-4 accent-amber-600 rounded mt-0.5"
+                />
+                <div>
+                  <label htmlFor="offers_custom_builds" className="text-sm font-semibold text-stone-700 cursor-pointer">Custom Builds</label>
+                  <p className="text-xs text-stone-400 mt-0.5">Buyers submit a quote request with their desired specs — you build it to order.</p>
+                  {form.offers_custom_builds && (
+                    <div className="mt-2">
+                      <label className="block text-xs font-medium text-stone-600 mb-1">Custom Build Description</label>
+                      <textarea
+                        rows={3}
+                        value={form.custom_build_description || ""}
+                        onChange={e => setForm({ ...form, custom_build_description: e.target.value })}
+                        placeholder="Describe what you offer — instrument types, options, process, lead times, starting prices, etc."
+                        className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            {!form.offers_stock_builds && !form.offers_custom_builds && (
+              <p className="text-xs text-red-500 mt-2">⚠ Please select at least one offering type.</p>
             )}
           </div>
 
