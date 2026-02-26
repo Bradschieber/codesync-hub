@@ -31,10 +31,10 @@ function SpecInput({ label, value, onChange, placeholder }) {
   );
 }
 
-function WoodSelect({ label, value, otherValue, onChange, onOtherChange, bookMatchedValue, onBookMatchedChange }) {
+function WoodSelect({ label, value, otherValue, onChange, onOtherChange, bookMatchedValue, onBookMatchedChange, builderOptions, builderNotes }) {
   return (
     <>
-      <SpecSelect label={label} value={value} onChange={onChange} options={WOOD_OPTIONS} />
+      <SpecSelect label={label} value={value} onChange={onChange} options={WOOD_OPTIONS} builderOptions={builderOptions} builderNotes={builderNotes} />
       {value === "Other" && (
         <SpecInput label={`Specify ${label}`} value={otherValue} onChange={onOtherChange} placeholder="Enter wood type..." />
       )}
