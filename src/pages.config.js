@@ -68,6 +68,7 @@ import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
+import DashboardActiveListings from './pages/DashboardActiveListings';
 import __Layout from './Layout.jsx';
 
 
@@ -93,6 +94,7 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
+    "DashboardActiveListings": DashboardActiveListings,
 }
 
 export const pagesConfig = {
