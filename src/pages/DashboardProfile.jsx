@@ -209,7 +209,7 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Storefront Style ── */}
-        <StorefrontCustomizer form={form} setForm={setForm} />
+        <div id="storefront"><StorefrontCustomizer form={form} setForm={setForm} /></div>
 
         {/* ── Section 3: Photos & Video ── */}
         <div className="bg-white rounded-2xl border border-stone-200 p-6">
