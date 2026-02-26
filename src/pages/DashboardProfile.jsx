@@ -157,6 +157,35 @@ export default function DashboardProfile() {
               <input type="number" min="0" max="100" value={form.deposit_percent || ""} onChange={e => setForm({...form, deposit_percent: Number(e.target.value)})} placeholder="e.g. 50" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
           </div>
+          {/* Custom Builds Toggle */}
+          <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-xl">
+            <div className="flex items-center gap-3 mb-2">
+              <input
+                type="checkbox"
+                id="offers_custom_builds"
+                checked={form.offers_custom_builds || false}
+                onChange={e => setForm({ ...form, offers_custom_builds: e.target.checked })}
+                className="h-4 w-4 accent-amber-600 rounded"
+              />
+              <label htmlFor="offers_custom_builds" className="text-sm font-semibold text-stone-700">
+                I offer custom builds
+              </label>
+            </div>
+            <p className="text-xs text-stone-400 ml-7">When enabled, a "Request a Quote" button and your custom build description will appear on your public storefront.</p>
+            {form.offers_custom_builds && (
+              <div className="mt-3">
+                <label className="block text-xs font-medium text-stone-600 mb-1">Custom Build Description</label>
+                <textarea
+                  rows={4}
+                  value={form.custom_build_description || ""}
+                  onChange={e => setForm({ ...form, custom_build_description: e.target.value })}
+                  placeholder="Describe what you offer for custom builds — types of instruments, options available, your process, lead times, starting prices, etc."
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                />
+              </div>
+            )}
+          </div>
+
           <div className="space-y-4 mt-4">
             <div>
               <label className="block text-xs font-medium text-stone-600 mb-1">Warranty Policy</label>
