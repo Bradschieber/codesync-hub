@@ -69,6 +69,7 @@ import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
 import DashboardActiveListings from './pages/DashboardActiveListings';
+import DashboardRatings from './pages/DashboardRatings';
 import __Layout from './Layout.jsx';
 
 
@@ -95,6 +96,7 @@ export const PAGES = {
     "Terms": Terms,
     "Wishlist": Wishlist,
     "DashboardActiveListings": DashboardActiveListings,
+    "DashboardRatings": DashboardRatings,
 }
 
 export const pagesConfig = {
