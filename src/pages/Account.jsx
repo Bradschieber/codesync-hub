@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { User, ShoppingBag, Heart, MessageSquare, Settings, LayoutDashboard, Save, Hammer, ExternalLink } from "lucide-react";
+import { ShoppingBag, Heart, LayoutDashboard, Save, Hammer, ExternalLink } from "lucide-react";
 
 export default function Account() {
   const [user, setUser] = useState(null);
@@ -43,7 +43,11 @@ export default function Account() {
     setTimeout(() => setSaved(false), 3000);
   }
 
-  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" /></div>;
+  if (loading) return (
+    <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" />
+    </div>
+  );
 
   const isSeller = profile?.account === "seller" || profile?.account === "admin";
 
@@ -83,10 +87,10 @@ export default function Account() {
           ))}
         </div>
 
-        {/* Profile Form */}
+        {/* Main Content */}
         <div className="md:col-span-2 space-y-6">
 
-          {/* Builder Profile Edit - prominently shown for builders */}
+          {/* Builder Profile Card */}
           {isSeller && (
             <div className="bg-white rounded-2xl border-2 border-amber-200 p-6">
               <div className="flex items-center justify-between mb-4">
@@ -113,44 +117,45 @@ export default function Account() {
             </div>
           )}
 
+          {/* Account Details */}
           <div className="bg-white rounded-2xl border border-stone-200 p-6">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center">
-              <span className="text-amber-700 font-bold text-2xl">{(user?.full_name || "U")[0]}</span>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center">
+                <span className="text-amber-700 font-bold text-2xl">{(user?.full_name || "U")[0]}</span>
+              </div>
+              <div>
+                <h2 className="font-bold text-stone-800">{user?.full_name}</h2>
+                <p className="text-stone-400 text-sm">{user?.email}</p>
+              </div>
             </div>
-            <div>
-              <h2 className="font-bold text-stone-800">{user?.full_name}</h2>
-              <p className="text-stone-400 text-sm">{user?.email}</p>
-            </div>
+            <form onSubmit={handleSave} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-stone-600 mb-1">First Name</label>
+                  <input value={form.first_name} onChange={e => setForm({...form, first_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-stone-600 mb-1">Last Name</label>
+                  <input value={form.last_name} onChange={e => setForm({...form, last_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-stone-600 mb-1">Display Name</label>
+                  <input value={form.display_name} onChange={e => setForm({...form, display_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-stone-600 mb-1">Location</label>
+                  <input value={form.location} onChange={e => setForm({...form, location: e.target.value})} placeholder="City, State" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                </div>
+              </div>
+              <button type="submit" disabled={saving} className={`flex items-center justify-center gap-2 font-semibold px-8 py-2.5 rounded-xl transition-colors text-sm ${saved ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"}`}>
+                <Save className="w-4 h-4" />
+                {saving ? "Saving..." : saved ? "Saved!" : "Save Changes"}
+              </button>
+            </form>
           </div>
 
-          <form onSubmit={handleSave} className="space-y-4">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">First Name</label>
-                <input value={form.first_name} onChange={e => setForm({...form, first_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Last Name</label>
-                <input value={form.last_name} onChange={e => setForm({...form, last_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Display Name</label>
-                <input value={form.display_name} onChange={e => setForm({...form, display_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Location</label>
-                <input value={form.location} onChange={e => setForm({...form, location: e.target.value})} placeholder="City, State" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-              </div>
-            </div>
-            <button type="submit" disabled={saving} className={`flex items-center justify-center gap-2 font-semibold px-8 py-2.5 rounded-xl transition-colors text-sm ${saved ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"}`}>
-              <Save className="w-4 h-4" />
-              {saving ? "Saving..." : saved ? "Saved!" : "Save Changes"}
-            </button>
-          </form>
-          </div>
-        </div>{/* end md:col-span-2 */}
-      </div>{/* end grid */}
+        </div>
+      </div>
     </div>
   );
 }
