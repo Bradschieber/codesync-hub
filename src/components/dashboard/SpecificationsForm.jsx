@@ -45,9 +45,20 @@ function WoodSelect({ label, value, otherValue, onChange, onOtherChange, bookMat
   );
 }
 
-export default function SpecificationsForm({ specs = {}, onChange }) {
+export default function SpecificationsForm({ specs = {}, onChange, builderSpecOptions = {} }) {
   function update(key, val) {
     onChange({ ...specs, [key]: val });
+  }
+
+  // Helper to get builder's available options & notes for a spec key
+  function bo(key) {
+    return builderSpecOptions[key]?.options || [];
+  }
+  function bn(key) {
+    return builderSpecOptions[key]?.notes || "";
+  }
+  function nt(key) {
+    return builderSpecOptions[key]?.notes || "";
   }
 
   const bc = specs.bodyConstruction;
