@@ -1,13 +1,23 @@
 const WOOD_OPTIONS = ["Alder", "Ash", "Basswood", "Bubinga", "Koa", "Mahogany", "Maple", "Pine", "Poplar", "Rosewood", "Walnut", "Other"];
 
-function SpecSelect({ label, value, onChange, options, placeholder = "Select..." }) {
+function SpecSelect({ label, value, onChange, options, placeholder = "Select...", builderOptions, builderNotes }) {
+  // If builder has defined available options, filter to only those; otherwise show all
+  const filteredOptions = builderOptions && builderOptions.length > 0
+    ? options.filter(o => builderOptions.includes(o))
+    : options;
+
   return (
     <div>
       <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
       <select value={value || ""} onChange={e => onChange(e.target.value)} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white">
         <option value="">{placeholder}</option>
-        {options.map(o => <option key={o} value={o}>{o}</option>)}
+        {filteredOptions.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
+      {builderNotes && (
+        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">
+          💡 {builderNotes}
+        </p>
+      )}
     </div>
   );
 }
