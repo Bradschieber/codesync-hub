@@ -67,6 +67,7 @@ import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
 import BuilderOrders from './pages/BuilderOrders';
+import Messages from './pages/Messages';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +92,7 @@ export const PAGES = {
     "Terms": Terms,
     "Wishlist": Wishlist,
     "BuilderOrders": BuilderOrders,
+    "Messages": Messages,
 }
 
 export const pagesConfig = {

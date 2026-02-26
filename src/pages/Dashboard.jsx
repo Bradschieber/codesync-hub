@@ -68,7 +68,7 @@ export default function Dashboard() {
     { label: "Active Listings", value: products.filter(p => p.status === "available").length, icon: Package, color: "bg-blue-50 text-blue-600" },
     { label: "Pending Requests", value: pendingRequests, icon: Hammer, color: "bg-amber-50 text-amber-600" },
     { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "—", icon: Star, color: "bg-yellow-50 text-yellow-600" },
-    { label: "Unread Messages", value: unreadMessages, icon: MessageSquare, color: "bg-green-50 text-green-600" },
+    { label: "Unread Messages", value: unreadMessages, icon: MessageSquare, color: "bg-green-50 text-green-600", page: "Messages" },
   ];
 
   return (
@@ -86,14 +86,14 @@ export default function Dashboard() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stats.map(({ label, value, icon: Icon, color }) => (
-          <div key={label} className="bg-white rounded-2xl p-5 border border-stone-200">
+        {stats.map(({ label, value, icon: Icon, color, page }) => (
+          <Link key={label} to={createPageUrl(page || "Dashboard")} className="bg-white rounded-2xl p-5 border border-stone-200 hover:bg-stone-50 transition-colors block">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${color}`}>
               <Icon className="w-5 h-5" />
             </div>
             <p className="text-2xl font-bold text-stone-800">{value}</p>
             <p className="text-sm text-stone-400">{label}</p>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -106,6 +106,7 @@ export default function Dashboard() {
               { label: "Incoming Orders", sub: `${recentOrders.length} recent orders`, icon: ShoppingBag, page: "BuilderOrders" },
               { label: "Manage Products", sub: `${products.length} listings`, icon: Package, page: "DashboardProducts" },
               { label: "Custom Build Listings", sub: "Manage your offerings", icon: Hammer, page: "DashboardCustomBuilds" },
+              { label: "Messages", sub: `${unreadMessages} unread`, icon: MessageSquare, page: "Messages" },
               { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
               ...(profile?.account === "admin" ? [{ label: "Manage References", sub: "Verify buyer references", icon: Star, page: "AdminReferences" }] : []),
             ].map(({ label, sub, icon: Icon, page }) => (
