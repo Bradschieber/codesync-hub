@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { User, ShoppingBag, Heart, MessageSquare, Settings, LayoutDashboard, Save } from "lucide-react";
+import { User, ShoppingBag, Heart, MessageSquare, Settings, LayoutDashboard, Save, Hammer, ExternalLink } from "lucide-react";
 
 export default function Account() {
   const [user, setUser] = useState(null);
