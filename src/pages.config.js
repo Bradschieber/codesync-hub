@@ -50,7 +50,7 @@
 import About from './pages/About';
 import Account from './pages/Account';
 import AdminReferences from './pages/AdminReferences';
-import BuilderProfile from './pages/BuilderProfile';
+import BuilderOrders from './pages/BuilderOrders';
 import Builders from './pages/Builders';
 import Catalog from './pages/Catalog';
 import Checkout from './pages/Checkout';
@@ -59,15 +59,15 @@ import CustomBuilds from './pages/CustomBuilds';
 import Dashboard from './pages/Dashboard';
 import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import DashboardProducts from './pages/DashboardProducts';
-import DashboardProfile from './pages/DashboardProfile';
 import Home from './pages/Home';
 import JoinBuilders from './pages/JoinBuilders';
+import Messages from './pages/Messages';
 import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import BuilderOrders from './pages/BuilderOrders';
-import Messages from './pages/Messages';
+import BuilderProfile from './pages/BuilderProfile';
+import DashboardProfile from './pages/DashboardProfile';
 import __Layout from './Layout.jsx';
 
 
@@ -75,7 +75,7 @@ export const PAGES = {
     "About": About,
     "Account": Account,
     "AdminReferences": AdminReferences,
-    "BuilderProfile": BuilderProfile,
+    "BuilderOrders": BuilderOrders,
     "Builders": Builders,
     "Catalog": Catalog,
     "Checkout": Checkout,
@@ -84,15 +84,15 @@ export const PAGES = {
     "Dashboard": Dashboard,
     "DashboardCustomBuilds": DashboardCustomBuilds,
     "DashboardProducts": DashboardProducts,
-    "DashboardProfile": DashboardProfile,
     "Home": Home,
     "JoinBuilders": JoinBuilders,
+    "Messages": Messages,
     "Orders": Orders,
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "BuilderOrders": BuilderOrders,
-    "Messages": Messages,
+    "BuilderProfile": BuilderProfile,
+    "DashboardProfile": DashboardProfile,
 }
 
 export const pagesConfig = {
