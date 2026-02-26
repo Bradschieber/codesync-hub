@@ -149,8 +149,8 @@ export default function Account() {
             </button>
           </form>
           </div>
-        </div>
-      </div>
+        </div>{/* end md:col-span-2 */}
+      </div>{/* end grid */}
     </div>
   );
 }
