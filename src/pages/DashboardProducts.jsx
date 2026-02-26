@@ -54,9 +54,11 @@ export default function DashboardProducts() {
       </div>
       <p className="text-stone-500 mb-6 ml-8">{products.length} listings</p>
 
-      <button onClick={() => { setEditing(null); setShowForm(true); }} className="flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white font-medium px-5 py-2.5 rounded-xl text-sm mb-6">
-        <Plus className="w-4 h-4" /> Add New Product
-      </button>
+      {!showForm && (
+        <button onClick={() => { setEditing(null); setShowForm(true); }} className="flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white font-medium px-5 py-2.5 rounded-xl text-sm mb-6">
+          <Plus className="w-4 h-4" /> Add New Product
+        </button>
+      )}
 
       {showForm && (
         <ProductForm
