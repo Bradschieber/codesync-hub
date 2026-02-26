@@ -49,6 +49,7 @@
  */
 import About from './pages/About';
 import Account from './pages/Account';
+import AdminReferences from './pages/AdminReferences';
 import BuilderProfile from './pages/BuilderProfile';
 import Builders from './pages/Builders';
 import Catalog from './pages/Catalog';
@@ -65,13 +66,13 @@ import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import AdminReferences from './pages/AdminReferences';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "About": About,
     "Account": Account,
+    "AdminReferences": AdminReferences,
     "BuilderProfile": BuilderProfile,
     "Builders": Builders,
     "Catalog": Catalog,
@@ -88,7 +89,6 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "AdminReferences": AdminReferences,
 }
 
 export const pagesConfig = {

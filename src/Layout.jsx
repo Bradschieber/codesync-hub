@@ -131,7 +131,7 @@ export default function Layout({ children, currentPageName }) {
                         <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50">
                           <Heart className="w-4 h-4" /> Wishlist
                         </Link>
-                        {(profile?.is_seller || profile?.account === 'seller' || profile?.account === 'admin') && (
+                        {(profile?.account === 'seller' || profile?.account === 'admin') && (
                           <Link to={createPageUrl("Dashboard")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50">
                             <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
                           </Link>
