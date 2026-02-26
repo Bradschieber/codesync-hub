@@ -154,10 +154,15 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
             <div>
               <h4 className="text-sm font-semibold text-stone-700 mb-1">Specifications <span className="text-stone-400 font-normal">(optional)</span></h4>
               <p className="text-xs text-stone-400 mb-3">Fill in as much or as little as you know. The builder can help you decide on anything you're unsure about.</p>
-              <SpecificationsForm
-                specs={form.specifications}
-                onChange={specs => setForm({ ...form, specifications: specs })}
-              />
+              {builderSpecOptions === null ? (
+                <div className="text-xs text-stone-400 py-4 text-center">Loading builder's available options...</div>
+              ) : (
+                <SpecificationsForm
+                  specs={form.specifications}
+                  onChange={specs => setForm({ ...form, specifications: specs })}
+                  builderSpecOptions={builderSpecOptions}
+                />
+              )}
             </div>
 
             <div className="flex gap-3 pt-2">
