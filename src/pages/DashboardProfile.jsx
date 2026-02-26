@@ -229,7 +229,7 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Section 4: Addresses ── */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-6">
+        <div id="addresses" className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-5">Addresses</h2>
 
           {/* Business Address */}
