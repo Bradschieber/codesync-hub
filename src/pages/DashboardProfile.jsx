@@ -267,7 +267,18 @@ export default function DashboardProfile() {
           </div>
         </div>
 
-        {/* ── Section 5: Buyer References ── */}
+        {/* ── Section 5: Notification Preferences ── */}
+        {profile && (
+          <NotificationPreferences
+            profile={profile}
+            onSave={async (data) => {
+              await base44.entities.UserProfile.update(profile.id, data);
+              setProfile({ ...profile, ...data });
+            }}
+          />
+        )}
+
+        {/* ── Section 6: Buyer References ── */}
         <ReferencesSection profile={profile} />
 
         <button type="submit" disabled={saving} className={`w-full flex items-center justify-center gap-2 font-semibold py-3.5 rounded-xl transition-colors ${saved ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"} disabled:opacity-50`}>
