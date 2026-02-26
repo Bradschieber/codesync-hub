@@ -6,7 +6,6 @@ import { ChevronLeft, Save, Sparkles, User, Hammer, Music, Clock, Store, Camera,
 import MediaUploader from "../components/dashboard/MediaUploader";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
 import NotificationPreferences from "../components/dashboard/NotificationPreferences";
-import StorefrontCustomizer from "../components/dashboard/StorefrontCustomizer";
 
 const STORY_PROMPTS = [
   { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?" },
