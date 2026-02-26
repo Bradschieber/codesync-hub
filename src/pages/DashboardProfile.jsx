@@ -91,7 +91,7 @@ export default function DashboardProfile() {
       <form onSubmit={handleSave} className="space-y-6">
 
         {/* ── Section 1: The Basics ── */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-6">
+        <div id="basics" className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-1">The Basics</h2>
           <p className="text-stone-400 text-xs mb-5">How buyers will find and identify you.</p>
           <div className="grid sm:grid-cols-2 gap-4">
