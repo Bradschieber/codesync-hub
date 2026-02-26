@@ -20,6 +20,7 @@ export default function BuilderProfile() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("products");
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showQuoteModal, setShowQuoteModal] = useState(false);
 
   const params = new URLSearchParams(window.location.search);
   const builderId = params.get("id");
