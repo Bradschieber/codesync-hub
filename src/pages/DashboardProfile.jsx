@@ -173,7 +173,7 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Section 3: Your Brand Story ── */}
-        <div className="bg-white rounded-2xl border border-amber-100 p-6">
+        <div id="story" className="bg-white rounded-2xl border border-amber-100 p-6">
           <div className="flex items-start gap-3 mb-2">
             <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
               <Sparkles className="w-4 h-4 text-amber-600" />
