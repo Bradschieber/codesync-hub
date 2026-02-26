@@ -1,6 +1,71 @@
 import { base44 } from "@/api/base44Client";
 import { Palette, Layout } from "lucide-react";
 
+const LAYOUT_THUMBNAILS = {
+  classic: (
+    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" fill="#f5f5f4"/>
+      {/* banner */}
+      <rect x="0" y="0" width="120" height="18" fill="#a8a29e"/>
+      {/* avatar */}
+      <circle cx="18" cy="22" r="7" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
+      {/* name line */}
+      <rect x="30" y="18" width="40" height="4" rx="2" fill="#d6d3d1"/>
+      <rect x="30" y="25" width="25" height="3" rx="1.5" fill="#e7e5e4"/>
+      {/* 3-col grid */}
+      <rect x="4" y="34" width="34" height="28" rx="2" fill="#d6d3d1"/>
+      <rect x="43" y="34" width="34" height="28" rx="2" fill="#d6d3d1"/>
+      <rect x="82" y="34" width="34" height="28" rx="2" fill="#d6d3d1"/>
+    </svg>
+  ),
+  bold: (
+    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" fill="#f5f5f4"/>
+      {/* tall banner */}
+      <rect x="0" y="0" width="120" height="28" fill="#a8a29e"/>
+      {/* avatar */}
+      <circle cx="18" cy="32" r="7" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
+      {/* name */}
+      <rect x="30" y="28" width="45" height="4" rx="2" fill="#d6d3d1"/>
+      <rect x="30" y="35" width="28" height="3" rx="1.5" fill="#e7e5e4"/>
+      {/* hero image */}
+      <rect x="4" y="44" width="112" height="22" rx="2" fill="#d6d3d1"/>
+    </svg>
+  ),
+  editorial: (
+    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" fill="#f5f5f4"/>
+      {/* tall banner */}
+      <rect x="0" y="0" width="120" height="34" fill="#a8a29e"/>
+      {/* name overlaid on banner */}
+      <rect x="8" y="20" width="55" height="5" rx="2" fill="#fff" fillOpacity="0.85"/>
+      <rect x="8" y="28" width="32" height="3" rx="1.5" fill="#fff" fillOpacity="0.6"/>
+      {/* avatar */}
+      <circle cx="18" cy="38" r="7" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
+      {/* 2-col grid */}
+      <rect x="4" y="50" width="54" height="16" rx="2" fill="#d6d3d1"/>
+      <rect x="62" y="50" width="54" height="16" rx="2" fill="#d6d3d1"/>
+    </svg>
+  ),
+  minimal: (
+    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" fill="#f5f5f4"/>
+      {/* thin banner */}
+      <rect x="0" y="0" width="120" height="12" fill="#a8a29e"/>
+      {/* avatar */}
+      <circle cx="18" cy="16" r="6" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
+      {/* name */}
+      <rect x="28" y="13" width="40" height="4" rx="2" fill="#d6d3d1"/>
+      <rect x="28" y="20" width="22" height="2.5" rx="1.25" fill="#e7e5e4"/>
+      {/* horizontal scroll row */}
+      <rect x="4" y="30" width="28" height="34" rx="2" fill="#d6d3d1"/>
+      <rect x="36" y="30" width="28" height="34" rx="2" fill="#d6d3d1"/>
+      <rect x="68" y="30" width="28" height="34" rx="2" fill="#d6d3d1"/>
+      <rect x="100" y="30" width="16" height="34" rx="2" fill="#e7e5e4"/>
+    </svg>
+  ),
+};
+
 const LAYOUTS = [
   { id: "classic", label: "Classic", description: "Standard header with 3-col media grid" },
   { id: "bold", label: "Bold", description: "Tall banner, featured hero image" },
