@@ -150,6 +150,37 @@ export default function Dashboard() {
           )}
         </div>
 
+        {/* Recent Orders */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-5 lg:col-span-2">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-stone-800">Recent Incoming Orders</h2>
+            <Link to={createPageUrl("BuilderOrders")} className="text-xs text-amber-600 hover:underline">View all</Link>
+          </div>
+          {recentOrders.length === 0 ? (
+            <p className="text-stone-400 text-sm text-center py-4">No orders yet.</p>
+          ) : (
+            <div className="space-y-3">
+              {recentOrders.map(order => {
+                const builderName = profile?.business_name || profile?.display_name;
+                const myItems = order.items?.filter(i => i.builder_name === builderName) || [];
+                const myTotal = myItems.reduce((sum, i) => sum + (i.product_price || 0) * (i.quantity || 1), 0);
+                return (
+                  <div key={order.id} className="flex items-center justify-between p-3 rounded-xl bg-stone-50">
+                    <div>
+                      <p className="font-medium text-stone-700 text-sm">Order #{order.id.slice(-8).toUpperCase()}</p>
+                      <p className="text-xs text-stone-400">{order.buyer_email} · {myItems.length} item{myItems.length !== 1 ? "s" : ""}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${order.status === "paid" ? "bg-blue-100 text-blue-700" : order.status === "pending" ? "bg-amber-100 text-amber-700" : order.status === "shipped" ? "bg-purple-100 text-purple-700" : "bg-stone-100 text-stone-600"}`}>{order.status}</span>
+                      <p className="font-bold text-amber-700 text-sm mt-0.5">${myTotal.toLocaleString()}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
         {/* Recent Reviews */}
         <div className="bg-white rounded-2xl border border-stone-200 p-5 lg:col-span-2">
           <h2 className="font-bold text-stone-800 mb-4">Recent Reviews</h2>
