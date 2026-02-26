@@ -47,51 +47,51 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import About from './pages/About';
-import Account from './pages/Account';
-import AdminReferences from './pages/AdminReferences';
-import BuilderProfile from './pages/BuilderProfile';
-import Builders from './pages/Builders';
-import Catalog from './pages/Catalog';
-import Checkout from './pages/Checkout';
-import Contact from './pages/Contact';
-import CustomBuilds from './pages/CustomBuilds';
-import Dashboard from './pages/Dashboard';
 import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
-import DashboardProducts from './pages/DashboardProducts';
-import DashboardProfile from './pages/DashboardProfile';
-import Home from './pages/Home';
-import JoinBuilders from './pages/JoinBuilders';
-import Orders from './pages/Orders';
-import ProductDetail from './pages/ProductDetail';
-import Terms from './pages/Terms';
-import Wishlist from './pages/Wishlist';
 import BuilderOrders from './pages/BuilderOrders';
+import Dashboard from './pages/Dashboard';
+import Wishlist from './pages/Wishlist';
+import Orders from './pages/Orders';
+import Checkout from './pages/Checkout';
+import Account from './pages/Account';
+import Terms from './pages/Terms';
+import ProductDetail from './pages/ProductDetail';
+import AdminReferences from './pages/AdminReferences';
+import DashboardProfile from './pages/DashboardProfile';
+import BuilderProfile from './pages/BuilderProfile';
+import Home from './pages/Home';
+import Contact from './pages/Contact';
+import DashboardProducts from './pages/DashboardProducts';
+import Catalog from './pages/Catalog';
+import JoinBuilders from './pages/JoinBuilders';
+import Builders from './pages/Builders';
+import About from './pages/About';
+import CustomBuilds from './pages/CustomBuilds';
 import Messages from './pages/Messages';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "About": About,
-    "Account": Account,
-    "AdminReferences": AdminReferences,
-    "BuilderProfile": BuilderProfile,
-    "Builders": Builders,
-    "Catalog": Catalog,
-    "Checkout": Checkout,
-    "Contact": Contact,
-    "CustomBuilds": CustomBuilds,
-    "Dashboard": Dashboard,
     "DashboardCustomBuilds": DashboardCustomBuilds,
-    "DashboardProducts": DashboardProducts,
-    "DashboardProfile": DashboardProfile,
-    "Home": Home,
-    "JoinBuilders": JoinBuilders,
-    "Orders": Orders,
-    "ProductDetail": ProductDetail,
-    "Terms": Terms,
-    "Wishlist": Wishlist,
     "BuilderOrders": BuilderOrders,
+    "Dashboard": Dashboard,
+    "Wishlist": Wishlist,
+    "Orders": Orders,
+    "Checkout": Checkout,
+    "Account": Account,
+    "Terms": Terms,
+    "ProductDetail": ProductDetail,
+    "AdminReferences": AdminReferences,
+    "DashboardProfile": DashboardProfile,
+    "BuilderProfile": BuilderProfile,
+    "Home": Home,
+    "Contact": Contact,
+    "DashboardProducts": DashboardProducts,
+    "Catalog": Catalog,
+    "JoinBuilders": JoinBuilders,
+    "Builders": Builders,
+    "About": About,
+    "CustomBuilds": CustomBuilds,
     "Messages": Messages,
 }
 
