@@ -4,14 +4,14 @@ const WARRANTY_EXCLUSION_OPTIONS = ["Normal wear and tear", "Abuse or neglect", 
 const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL"];
 
 function SectionLabel({ children }) {
-  return <p className="text-xs font-bold text-stone-500 uppercase tracking-wider mt-5 mb-3 border-b border-stone-100 pb-1">{children}</p>;
+  return <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-5 mb-3 border-b border-gray-100 pb-1">{children}</p>;
 }
 
 function SelectField({ label, value, onChange, options, placeholder = "Select..." }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
-      <select value={value || ""} onChange={e => onChange(e.target.value)} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white">
+      <label className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
+      <select value={value || ""} onChange={e => onChange(e.target.value)} className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white">
         <option value="">{placeholder}</option>
         {options.map(o => <option key={o.value ?? o} value={o.value ?? o}>{o.label ?? o}</option>)}
       </select>
@@ -26,11 +26,11 @@ function CheckboxGroup({ label, values = [], options, onChange }) {
   }
   return (
     <div>
-      <label className="block text-xs font-medium text-stone-600 mb-2">{label}</label>
+      <label className="block text-xs font-medium text-gray-600 mb-2">{label}</label>
       <div className="flex flex-wrap gap-2">
         {options.map(opt => (
           <button key={opt} type="button" onClick={() => toggle(opt)}
-            className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${values.includes(opt) ? "bg-amber-100 border-amber-400 text-amber-800 font-medium" : "bg-white border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+            className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${values.includes(opt) ? "bg-indigo-100 border-indigo-400 text-indigo-800 font-medium" : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"}`}>
             {opt}
           </button>
         ))}
@@ -46,29 +46,29 @@ export default function PoliciesEditor({ form, setForm }) {
     <div className="space-y-6 mt-4">
 
       {/* ── Pricing & Deposit ── */}
-      <div className="border border-stone-200 rounded-xl p-4 bg-stone-50">
-        <h3 className="text-sm font-bold text-stone-700 mb-1">Pricing & Deposit Policy</h3>
-        <p className="text-xs text-stone-400 mb-4">These terms are included in purchase contracts to set clear financial expectations for buyers.</p>
+      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
+        <h3 className="text-sm font-bold text-gray-700 mb-1">Pricing & Deposit Policy</h3>
+        <p className="text-xs text-gray-400 mb-4">These terms are included in purchase contracts to set clear financial expectations for buyers.</p>
 
         <div className="flex items-start gap-3 mb-4">
-          <input type="checkbox" id="deposit_required" checked={form.deposit_required || false} onChange={e => set("deposit_required", e.target.checked)} className="h-4 w-4 accent-amber-600 rounded mt-0.5" />
+          <input type="checkbox" id="deposit_required" checked={form.deposit_required || false} onChange={e => set("deposit_required", e.target.checked)} className="h-4 w-4 accent-indigo-700 rounded mt-0.5" />
           <div>
-            <label htmlFor="deposit_required" className="text-sm font-semibold text-stone-700 cursor-pointer">Deposit Required</label>
-            <p className="text-xs text-stone-400 mt-0.5">A deposit is required to secure the build or hold an instrument.</p>
+            <label htmlFor="deposit_required" className="text-sm font-semibold text-gray-700 cursor-pointer">Deposit Required</label>
+            <p className="text-xs text-gray-400 mt-0.5">A deposit is required to secure the build or hold an instrument.</p>
           </div>
         </div>
 
         {form.deposit_required && (
           <div className="grid sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Type</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Deposit Type</label>
               <div className="flex gap-3">
                 <button type="button" onClick={() => set("deposit_type", "percent")}
-                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${(!form.deposit_type || form.deposit_type === "percent") ? "bg-amber-100 border-amber-400 text-amber-800 font-medium" : "bg-white border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${(!form.deposit_type || form.deposit_type === "percent") ? "bg-indigo-100 border-indigo-400 text-indigo-800 font-medium" : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"}`}>
                   % of Price
                 </button>
                 <button type="button" onClick={() => set("deposit_type", "fixed")}
-                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${form.deposit_type === "fixed" ? "bg-amber-100 border-amber-400 text-amber-800 font-medium" : "bg-white border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${form.deposit_type === "fixed" ? "bg-indigo-100 border-indigo-400 text-indigo-800 font-medium" : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"}`}>
                   Fixed $ Amount
                 </button>
               </div>
@@ -76,24 +76,24 @@ export default function PoliciesEditor({ form, setForm }) {
             <div>
               {(!form.deposit_type || form.deposit_type === "percent") ? (
                 <>
-                  <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Percentage (%)</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Deposit Percentage (%)</label>
                   <input
                     type="number" min="1" max="100"
                     value={form.deposit_percent || ""}
                     onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
                     placeholder="e.g. 50"
-                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </>
               ) : (
                 <>
-                  <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Amount ($)</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Deposit Amount ($)</label>
                   <input
                     type="number" min="0"
                     value={form.deposit_fixed_amount || ""}
                     onChange={e => set("deposit_fixed_amount", e.target.value ? Number(e.target.value) : "")}
                     placeholder="e.g. 500"
-                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </>
               )}
@@ -137,21 +137,21 @@ export default function PoliciesEditor({ form, setForm }) {
         </div>
 
         <div className="mt-3">
-          <label className="block text-xs font-medium text-stone-600 mb-1">Additional Pricing Notes</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Additional Pricing Notes</label>
           <textarea
             rows={2}
             value={form.pricing_notes || ""}
             onChange={e => set("pricing_notes", e.target.value)}
             placeholder="e.g. Price includes setup and basic case. Upgrades available at additional cost. All prices in USD."
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
           />
         </div>
       </div>
 
       {/* ── Warranty ── */}
-      <div className="border border-stone-200 rounded-xl p-4 bg-stone-50">
-        <h3 className="text-sm font-bold text-stone-700 mb-1">Warranty Policy</h3>
-        <p className="text-xs text-stone-400 mb-3">Clearly defined warranty terms build buyer confidence and are used in purchase contracts.</p>
+      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
+        <h3 className="text-sm font-bold text-gray-700 mb-1">Warranty Policy</h3>
+        <p className="text-xs text-gray-400 mb-3">Clearly defined warranty terms build buyer confidence and are used in purchase contracts.</p>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <SelectField
@@ -180,21 +180,21 @@ export default function PoliciesEditor({ form, setForm }) {
 
         <SectionLabel>Claim Process</SectionLabel>
         <div>
-          <label className="block text-xs font-medium text-stone-600 mb-1">How does a buyer make a warranty claim?</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">How does a buyer make a warranty claim?</label>
           <textarea
             rows={2}
             value={form.warranty_claim_process || ""}
             onChange={e => set("warranty_claim_process", e.target.value)}
             placeholder="e.g. Contact me by email with photos. I'll assess and arrange repair or replacement within 30 days."
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
           />
         </div>
       </div>
 
       {/* ── Returns ── */}
-      <div className="border border-stone-200 rounded-xl p-4 bg-stone-50">
-        <h3 className="text-sm font-bold text-stone-700 mb-1">Return Policy</h3>
-        <p className="text-xs text-stone-400 mb-3">Used in purchase contracts — clear return terms reduce disputes.</p>
+      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
+        <h3 className="text-sm font-bold text-gray-700 mb-1">Return Policy</h3>
+        <p className="text-xs text-gray-400 mb-3">Used in purchase contracts — clear return terms reduce disputes.</p>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <SelectField
@@ -234,13 +234,13 @@ export default function PoliciesEditor({ form, setForm }) {
                 ]}
               />
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Restocking Fee (%)</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Restocking Fee (%)</label>
                 <input
                   type="number" min="0" max="100"
                   value={form.return_restocking_fee_percent || ""}
                   onChange={e => set("return_restocking_fee_percent", e.target.value ? Number(e.target.value) : "")}
                   placeholder="0 = no fee"
-                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
             </>
@@ -249,31 +249,31 @@ export default function PoliciesEditor({ form, setForm }) {
 
         {form.returns_accepted !== "no" && (
           <div className="mt-3">
-            <label className="block text-xs font-medium text-stone-600 mb-1">Required Return Condition</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Required Return Condition</label>
             <textarea
               rows={2}
               value={form.return_condition || ""}
               onChange={e => set("return_condition", e.target.value)}
               placeholder="e.g. Must be in original, unplayed condition with original case and all included accessories."
-              className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+              className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
             />
           </div>
         )}
       </div>
 
       {/* ── Shipping ── */}
-      <div className="border border-stone-200 rounded-xl p-4 bg-stone-50">
-        <h3 className="text-sm font-bold text-stone-700 mb-1">Shipping Policy</h3>
-        <p className="text-xs text-stone-400 mb-3">Shipping terms are included in purchase contracts and set buyer expectations.</p>
+      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
+        <h3 className="text-sm font-bold text-gray-700 mb-1">Shipping Policy</h3>
+        <p className="text-xs text-gray-400 mb-3">Shipping terms are included in purchase contracts and set buyer expectations.</p>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="flex items-center gap-3">
-            <input type="checkbox" id="ships_dom" checked={form.ships_domestically ?? true} onChange={e => set("ships_domestically", e.target.checked)} className="h-4 w-4 accent-amber-600 rounded" />
-            <label htmlFor="ships_dom" className="text-sm text-stone-700 cursor-pointer">Ships Domestically</label>
+            <input type="checkbox" id="ships_dom" checked={form.ships_domestically ?? true} onChange={e => set("ships_domestically", e.target.checked)} className="h-4 w-4 accent-indigo-700 rounded" />
+            <label htmlFor="ships_dom" className="text-sm text-gray-700 cursor-pointer">Ships Domestically</label>
           </div>
           <div className="flex items-center gap-3">
-            <input type="checkbox" id="ships_intl" checked={form.ships_internationally || false} onChange={e => set("ships_internationally", e.target.checked)} className="h-4 w-4 accent-amber-600 rounded" />
-            <label htmlFor="ships_intl" className="text-sm text-stone-700 cursor-pointer">Ships Internationally</label>
+            <input type="checkbox" id="ships_intl" checked={form.ships_internationally || false} onChange={e => set("ships_internationally", e.target.checked)} className="h-4 w-4 accent-indigo-700 rounded" />
+            <label htmlFor="ships_intl" className="text-sm text-gray-700 cursor-pointer">Ships Internationally</label>
           </div>
           <SelectField
             label="Shipping Insurance"
@@ -286,12 +286,12 @@ export default function PoliciesEditor({ form, setForm }) {
             ]}
           />
           <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">Handling / Ship-Out Timeline</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Handling / Ship-Out Timeline</label>
             <input
               value={form.shipping_timeline || ""}
               onChange={e => set("shipping_timeline", e.target.value)}
               placeholder="e.g. Ships within 3 business days of payment"
-              className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
         </div>
@@ -305,13 +305,13 @@ export default function PoliciesEditor({ form, setForm }) {
         />
 
         <div className="mt-3">
-          <label className="block text-xs font-medium text-stone-600 mb-1">Packaging Description</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Packaging Description</label>
           <textarea
             rows={2}
             value={form.shipping_packaging || ""}
             onChange={e => set("shipping_packaging", e.target.value)}
             placeholder="e.g. Instruments are double-boxed with foam padding and suspended in a hard shell case."
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
           />
         </div>
       </div>
