@@ -82,13 +82,13 @@ export default function Layout({ children, currentPageName }) {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-7">
               {navLinks.map(l => (
                 <Link
                   key={l.page}
                   to={createPageUrl(l.page)}
-                  className={`text-sm font-medium transition-colors hover:text-amber-400 ${
-                    currentPageName === l.page ? "text-amber-400" : "text-stone-300"
+                  className={`text-xs font-medium tracking-widest uppercase transition-colors hover:text-[#C09A5B] ${
+                    currentPageName === l.page ? "text-[#C09A5B]" : "text-stone-400"
                   }`}
                 >
                   {l.label}
