@@ -213,6 +213,18 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         </div>
       </div>
 
+      {/* ── Hardware ── */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="Hardware" />
+        <SpecInput label="Tuners" value={specs.tuners} onChange={v => update("tuners", v)} placeholder="e.g. Gotoh 510, Sperzel locking..." />
+        <SpecInput label="Bridge" value={specs.bridge} onChange={v => update("bridge", v)} placeholder="e.g. Hipshot A-Style, TOM..." />
+        <SpecInput label="Tailpiece" value={specs.tailpiece} onChange={v => update("tailpiece", v)} placeholder="e.g. Hipshot, Stop bar..." />
+        <SpecInput label="Knobs" value={specs.knobs} onChange={v => update("knobs", v)} placeholder="e.g. Dome, Speed, Barrel..." />
+        <div className="col-span-full">
+          <SpecInput label="Other Hardware" value={specs.otherHardware} onChange={v => update("otherHardware", v)} placeholder="Describe any other hardware..." />
+        </div>
+      </div>
+
       {/* ── Electronics ── */}
       <div className="grid sm:grid-cols-2 gap-4">
         <SectionHeader title="Electronics" />
