@@ -63,7 +63,6 @@ import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import DashboardProducts from './pages/DashboardProducts';
 import DashboardProfile from './pages/DashboardProfile';
 import DashboardRatings from './pages/DashboardRatings';
-import Home from './pages/Home';
 import JoinBuilders from './pages/JoinBuilders';
 import Messages from './pages/Messages';
 import Orders from './pages/Orders';
@@ -90,7 +89,6 @@ export const PAGES = {
     "DashboardProducts": DashboardProducts,
     "DashboardProfile": DashboardProfile,
     "DashboardRatings": DashboardRatings,
-    "Home": Home,
     "JoinBuilders": JoinBuilders,
     "Messages": Messages,
     "Orders": Orders,
@@ -100,7 +98,7 @@ export const PAGES = {
 }
 
 export const pagesConfig = {
-    mainPage: "Home",
+    mainPage: "About",
     Pages: PAGES,
     Layout: __Layout,
 };
