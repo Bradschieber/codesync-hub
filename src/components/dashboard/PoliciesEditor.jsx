@@ -1,7 +1,7 @@
 const WARRANTY_DURATIONS = ["6 months", "1 year", "2 years", "5 years", "Lifetime", "Other"];
 const WARRANTY_COVERAGE_OPTIONS = ["Structural defects", "Workmanship", "Electronic components", "Hardware", "Finish defects", "Fretwork"];
 const WARRANTY_EXCLUSION_OPTIONS = ["Normal wear and tear", "Abuse or neglect", "Unauthorized modifications", "Accidental damage", "Environmental damage (humidity, heat)", "Strings & consumables"];
-const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL", "Musician's Friend Logistics"];
+const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL"];
 
 function SectionLabel({ children }) {
   return <p className="text-xs font-bold text-stone-500 uppercase tracking-wider mt-5 mb-3 border-b border-stone-100 pb-1">{children}</p>;
