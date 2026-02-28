@@ -1,12 +1,26 @@
+const SECTION_STYLES = {
+  "General":         { accent: "bg-amber-500",   light: "bg-amber-50",   border: "border-amber-200",   text: "text-amber-700"  },
+  "Body":            { accent: "bg-stone-600",    light: "bg-stone-50",   border: "border-stone-200",   text: "text-stone-600"  },
+  "Finish":          { accent: "bg-rose-500",     light: "bg-rose-50",    border: "border-rose-200",    text: "text-rose-700"   },
+  "Neck & Fretboard":{ accent: "bg-teal-600",     light: "bg-teal-50",    border: "border-teal-200",    text: "text-teal-700"   },
+  "Hardware":        { accent: "bg-slate-500",    light: "bg-slate-50",   border: "border-slate-200",   text: "text-slate-700"  },
+  "Electronics":     { accent: "bg-indigo-500",   light: "bg-indigo-50",  border: "border-indigo-200",  text: "text-indigo-700" },
+  "Case":            { accent: "bg-emerald-600",  light: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700"},
+};
+
 function Section({ title, children }) {
-  const hasContent = Array.isArray(children)
-    ? children.some(c => c)
-    : !!children;
+  const hasContent = Array.isArray(children) ? children.some(c => c) : !!children;
   if (!hasContent) return null;
+
+  const style = SECTION_STYLES[title] || SECTION_STYLES["General"];
+
   return (
-    <div>
-      <h3 className="text-xs font-bold text-stone-500 uppercase tracking-wider border-b border-stone-200 pb-1 mb-3">{title}</h3>
-      <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+    <div className={`rounded-xl border ${style.border} overflow-hidden`}>
+      <div className={`flex items-center gap-2 px-4 py-2.5 ${style.light}`}>
+        <div className={`w-1.5 h-4 rounded-full ${style.accent}`} />
+        <h3 className={`text-xs font-bold uppercase tracking-wider ${style.text}`}>{title}</h3>
+      </div>
+      <div className="px-4 py-3 grid sm:grid-cols-2 gap-x-6 gap-y-3 bg-white">
         {children}
       </div>
     </div>
@@ -16,9 +30,9 @@ function Section({ title, children }) {
 function Row({ label, value }) {
   if (!value || value === "N/A") return null;
   return (
-    <div className="flex flex-col">
-      <span className="text-xs text-stone-400 font-medium">{label}</span>
-      <span className="text-sm text-stone-700 font-medium">{String(value)}</span>
+    <div className="flex flex-col gap-0.5">
+      <span className="text-xs text-stone-400 font-medium uppercase tracking-wide">{label}</span>
+      <span className="text-sm text-stone-800 font-semibold">{String(value)}</span>
     </div>
   );
 }
@@ -26,9 +40,9 @@ function Row({ label, value }) {
 function FullRow({ label, value }) {
   if (!value || value === "N/A") return null;
   return (
-    <div className="sm:col-span-2 flex flex-col">
-      <span className="text-xs text-stone-400 font-medium">{label}</span>
-      <span className="text-sm text-stone-700 font-medium">{String(value)}</span>
+    <div className="sm:col-span-2 flex flex-col gap-0.5">
+      <span className="text-xs text-stone-400 font-medium uppercase tracking-wide">{label}</span>
+      <span className="text-sm text-stone-800 font-semibold">{String(value)}</span>
     </div>
   );
 }
@@ -50,19 +64,17 @@ export default function SpecificationsDisplay({ specs = {} }) {
 
   return (
     <div className="bg-white rounded-2xl border border-stone-200 mb-8 overflow-hidden">
-      <div className="px-6 py-4 border-b border-stone-100 bg-stone-50">
-        <h2 className="text-lg font-bold text-stone-800">Specifications</h2>
+      <div className="px-6 py-4 border-b border-stone-100 bg-gradient-to-r from-stone-800 to-stone-700">
+        <h2 className="text-lg font-bold text-white tracking-wide">Specifications</h2>
       </div>
-      <div className="px-6 py-5 space-y-6">
+      <div className="p-5 space-y-3 bg-stone-50">
 
-        {/* General */}
         <Section title="General">
           <Row label="Instrument Type" value={s.instrumentCategory === "Other" ? s.otherInstrumentCategory : s.instrumentCategory} />
           <Row label="Handedness" value={s.handedness} />
           <Row label="Number of Strings" value={s.numberOfStrings === "Other" ? s.otherNumberOfStrings : s.numberOfStrings} />
         </Section>
 
-        {/* Body */}
         {hasBody && (
           <Section title="Body">
             <Row label="Body Construction" value={s.bodyConstruction === "Other" ? s.bodyConstructionDescription : s.bodyConstruction} />
@@ -75,7 +87,6 @@ export default function SpecificationsDisplay({ specs = {} }) {
           </Section>
         )}
 
-        {/* Finish */}
         {hasFinish && (
           <Section title="Finish">
             <Row label="Finish Pattern" value={s.finishPattern === "Other" ? s.otherFinishPattern : s.finishPattern} />
@@ -84,7 +95,6 @@ export default function SpecificationsDisplay({ specs = {} }) {
           </Section>
         )}
 
-        {/* Neck & Fretboard */}
         {hasNeck && (
           <Section title="Neck & Fretboard">
             <Row label='Scale Length' value={s.scaleLength ? `${s.scaleLength}"` : null} />
@@ -97,7 +107,6 @@ export default function SpecificationsDisplay({ specs = {} }) {
           </Section>
         )}
 
-        {/* Hardware */}
         {hasHardware && (
           <Section title="Hardware">
             <Row label="Tuners" value={s.tuners} />
@@ -108,7 +117,6 @@ export default function SpecificationsDisplay({ specs = {} }) {
           </Section>
         )}
 
-        {/* Electronics */}
         {hasElectronics && (
           <Section title="Electronics">
             <Row label="Active/Passive Pickups" value={s.activePassivePickups} />
@@ -117,7 +125,6 @@ export default function SpecificationsDisplay({ specs = {} }) {
           </Section>
         )}
 
-        {/* Case */}
         {hasCase && (
           <Section title="Case">
             <Row label="Case Included" value={s.caseIncludes} />
