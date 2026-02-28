@@ -1,11 +1,9 @@
 const WOOD_OPTIONS = ["Alder", "Ash", "Basswood", "Bubinga", "Koa", "Mahogany", "Maple", "Pine", "Poplar", "Rosewood", "Walnut", "Other"];
 
 function SpecSelect({ label, value, onChange, options, placeholder = "Select...", builderOptions, builderNotes }) {
-  // If builder has defined available options, filter to only those; otherwise show all
   const filteredOptions = builderOptions && builderOptions.length > 0
     ? options.filter(o => builderOptions.includes(o))
     : options;
-
   return (
     <div>
       <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
@@ -14,9 +12,7 @@ function SpecSelect({ label, value, onChange, options, placeholder = "Select..."
         {filteredOptions.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
       {builderNotes && (
-        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">
-          💡 {builderNotes}
-        </p>
+        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {builderNotes}</p>
       )}
     </div>
   );
@@ -27,6 +23,18 @@ function SpecInput({ label, value, onChange, placeholder }) {
     <div>
       <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
       <input value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+    </div>
+  );
+}
+
+function SpecTextarea({ label, value, onChange, placeholder, rows = 2, builderNotes }) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
+      <textarea value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+      {builderNotes && (
+        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {builderNotes}</p>
+      )}
     </div>
   );
 }
@@ -45,21 +53,21 @@ function WoodSelect({ label, value, otherValue, onChange, onOtherChange, bookMat
   );
 }
 
+function SectionHeader({ title }) {
+  return (
+    <div className="col-span-full">
+      <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider border-b border-stone-200 pb-1 mt-2">{title}</h4>
+    </div>
+  );
+}
+
 export default function SpecificationsForm({ specs = {}, onChange, builderSpecOptions = {} }) {
   function update(key, val) {
     onChange({ ...specs, [key]: val });
   }
 
-  // Helper to get builder's available options & notes for a spec key
-  function bo(key) {
-    return builderSpecOptions[key]?.options || [];
-  }
-  function bn(key) {
-    return builderSpecOptions[key]?.notes || "";
-  }
-  function nt(key) {
-    return builderSpecOptions[key]?.notes || "";
-  }
+  function bo(key) { return builderSpecOptions[key]?.options || []; }
+  function bn(key) { return builderSpecOptions[key]?.notes || ""; }
 
   const bc = specs.bodyConstruction;
 
@@ -67,356 +75,180 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
     <div className="space-y-4 border border-stone-200 rounded-xl p-4 bg-stone-50">
       <h3 className="text-sm font-semibold text-stone-700">Specifications</h3>
 
-      {/* Instrument Category */}
+      {/* ── General ── */}
       <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="General" />
         <SpecSelect
           label="Instrument Category"
           value={specs.instrumentCategory}
           onChange={v => update("instrumentCategory", v)}
           options={["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"]}
-          builderOptions={bo("instrumentCategory")}
-          builderNotes={bn("instrumentCategory")}
+          builderOptions={bo("instrumentCategory")} builderNotes={bn("instrumentCategory")}
         />
-        {specs.instrumentCategory === "Other" && (
-          <SpecInput label="Specify Category" value={specs.otherInstrumentCategory} onChange={v => update("otherInstrumentCategory", v)} placeholder="Enter instrument category..." />
-        )}
-      </div>
-
-      {/* Handedness */}
-      <div className="grid sm:grid-cols-2 gap-4">
+        {specs.instrumentCategory === "Other"
+          ? <SpecInput label="Specify Category" value={specs.otherInstrumentCategory} onChange={v => update("otherInstrumentCategory", v)} placeholder="Enter instrument category..." />
+          : <div />
+        }
         <SpecSelect
           label="Handedness"
           value={specs.handedness}
           onChange={v => update("handedness", v)}
           options={["Right-Handed", "Left-Handed"]}
-          builderOptions={bo("handedness")}
-          builderNotes={bn("handedness")}
+          builderOptions={bo("handedness")} builderNotes={bn("handedness")}
         />
-      </div>
-
-      {/* Number of Strings */}
-      <div className="grid sm:grid-cols-2 gap-4">
         <SpecSelect
           label="Number of Strings"
           value={specs.numberOfStrings}
           onChange={v => update("numberOfStrings", v)}
           options={["4 String", "5 String", "6 String", "8 String", "12 String", "Other"]}
-          builderOptions={bo("numberOfStrings")}
-          builderNotes={bn("numberOfStrings")}
+          builderOptions={bo("numberOfStrings")} builderNotes={bn("numberOfStrings")}
         />
         {specs.numberOfStrings === "Other" && (
           <SpecInput label="Specify Number of Strings" value={specs.otherNumberOfStrings} onChange={v => update("otherNumberOfStrings", v)} placeholder="Enter number of strings..." />
         )}
       </div>
 
-      {/* Body Construction */}
+      {/* ── Body ── */}
       <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="Body" />
         <SpecSelect
           label="Body Construction"
           value={specs.bodyConstruction}
-          onChange={v => {
-            onChange({
-              ...specs,
-              bodyConstruction: v,
-              otherBodyConstruction: "",
-              topWood: "", otherTopWood: "",
-              backWood: "", otherBackWood: "",
-              middleWood: "", otherMiddleWood: "",
-              bodyConstructionDescription: ""
-            });
-          }}
+          onChange={v => onChange({ ...specs, bodyConstruction: v, otherBodyConstruction: "", topWood: "", otherTopWood: "", backWood: "", otherBackWood: "", middleWood: "", otherMiddleWood: "", bodyConstructionDescription: "" })}
           options={["One Piece", "Two Piece", "Three Piece", "Other"]}
-          builderOptions={bo("bodyConstruction")}
-          builderNotes={bn("bodyConstruction")}
+          builderOptions={bo("bodyConstruction")} builderNotes={bn("bodyConstruction")}
         />
-      </div>
+        {bc === "Other" && (
+          <SpecInput label="Body Construction Description" value={specs.bodyConstructionDescription} onChange={v => update("bodyConstructionDescription", v)} placeholder="Describe the body construction..." />
+        )}
 
-      {/* One Piece → Top Wood only */}
-      {bc === "One Piece" && (
-        <div className="grid sm:grid-cols-2 gap-4">
+        {bc === "One Piece" && (
           <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
-        </div>
-      )}
-
-      {/* Two Piece → Top Wood + Back Wood */}
-      {bc === "Two Piece" && (
-        <div className="grid sm:grid-cols-2 gap-4">
+        )}
+        {bc === "Two Piece" && (<>
           <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
           <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
-        </div>
-      )}
-
-      {/* Three Piece → Top Wood + Middle Wood + Back Wood */}
-      {bc === "Three Piece" && (
-        <div className="grid sm:grid-cols-2 gap-4">
+        </>)}
+        {bc === "Three Piece" && (<>
           <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
           <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} builderOptions={bo("middleWood")} builderNotes={bn("middleWood")} />
           <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
-        </div>
-      )}
+        </>)}
 
-      {/* Top Grain Details */}
-      <div className="grid sm:grid-cols-2 gap-4">
         <SpecSelect
           label="Top Grain Details"
           value={specs.topGrainDetails}
           onChange={v => update("topGrainDetails", v)}
           options={["Birdseye", "Burled", "Flamed", "Plain", "Quilted", "Spalted", "Other"]}
-          builderOptions={bo("topGrainDetails")}
-          builderNotes={bn("topGrainDetails")}
+          builderOptions={bo("topGrainDetails")} builderNotes={bn("topGrainDetails")}
         />
         {specs.topGrainDetails === "Other" && (
           <SpecInput label="Specify Top Grain Details" value={specs.otherTopGrainDetails} onChange={v => update("otherTopGrainDetails", v)} placeholder="Enter grain details..." />
         )}
       </div>
 
-      {/* Finish Materials and Description */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Finish Materials and Description</label>
-        <textarea
-          value={specs.finishMaterialsDescription || ""}
-          onChange={e => update("finishMaterialsDescription", e.target.value)}
-          placeholder={nt("finishMaterialsDescription") || "Describe finish materials..."}
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-        {nt("finishMaterialsDescription") && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("finishMaterialsDescription")}</p>
-        )}
-      </div>
-
-      {/* Finish Pattern */}
+      {/* ── Finish ── */}
       <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="Finish" />
         <SpecSelect
           label="Finish Pattern"
           value={specs.finishPattern}
           onChange={v => update("finishPattern", v)}
           options={["Solid", "Sunburst", "Fade", "Other"]}
-          builderOptions={bo("finishPattern")}
-          builderNotes={bn("finishPattern")}
+          builderOptions={bo("finishPattern")} builderNotes={bn("finishPattern")}
         />
-        {specs.finishPattern === "Other" && (
-          <SpecInput label="Specify Finish Pattern" value={specs.otherFinishPattern} onChange={v => update("otherFinishPattern", v)} placeholder="Enter finish pattern..." />
-        )}
-      </div>
-
-      {/* Color */}
-      <div className="grid sm:grid-cols-2 gap-4">
         <SpecSelect
           label="Color"
           value={specs.color}
           onChange={v => update("color", v)}
           options={["Natural", "Blue", "Brown", "Black", "Red", "Purple", "Pink", "Gold/Yellow", "Green", "Silver", "Gray", "Other"]}
-          builderOptions={bo("color")}
-          builderNotes={bn("color")}
+          builderOptions={bo("color")} builderNotes={bn("color")}
         />
+        {specs.finishPattern === "Other" && (
+          <SpecInput label="Specify Finish Pattern" value={specs.otherFinishPattern} onChange={v => update("otherFinishPattern", v)} placeholder="Enter finish pattern..." />
+        )}
         {specs.color === "Other" && (
           <SpecInput label="Specify Color" value={specs.otherColor} onChange={v => update("otherColor", v)} placeholder="Enter color..." />
         )}
+        <div className="col-span-full">
+          <SpecTextarea label="Finish Materials & Description" value={specs.finishMaterialsDescription} onChange={v => update("finishMaterialsDescription", v)} placeholder={bn("finishMaterialsDescription") || "Describe finish materials..."} builderNotes={bn("finishMaterialsDescription")} />
+        </div>
       </div>
 
-      {/* Frets */}
+      {/* ── Neck & Fretboard ── */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <SpecSelect
-          label="Frets"
-          value={specs.frets}
-          onChange={v => update("frets", v)}
-          options={["Fretless", "Medium", "Tall", "Jumbo", "Other"]}
-          builderOptions={bo("frets")}
-          builderNotes={bn("frets")}
-        />
-        {specs.frets === "Other" && (
-          <SpecInput label="Specify Frets" value={specs.otherFrets} onChange={v => update("otherFrets", v)} placeholder="Enter fret type..." />
-        )}
-      </div>
-
-      {/* Fret Material */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Fret Material</label>
-        <textarea
-          value={specs.fretMaterial || ""}
-          onChange={e => update("fretMaterial", e.target.value)}
-          placeholder={nt("fretMaterial") || "Describe fret material..."}
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-        {nt("fretMaterial") && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("fretMaterial")}</p>
-        )}
-      </div>
-
-      {/* Fret Details */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Fret Details</label>
-        <textarea
-          value={specs.fretDetails || ""}
-          onChange={e => update("fretDetails", e.target.value)}
-          placeholder="Describe fret details..."
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-      </div>
-
-      {/* Neck Construction */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Neck Construction</label>
-        <textarea
-          value={specs.neckConstruction || ""}
-          onChange={e => update("neckConstruction", e.target.value)}
-          placeholder={nt("neckConstruction") || "Describe neck construction..."}
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-        {nt("neckConstruction") && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("neckConstruction")}</p>
-        )}
-      </div>
-
-      {/* Neck Materials */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Neck Materials</label>
-        <textarea
-          value={specs.neckMaterials || ""}
-          onChange={e => update("neckMaterials", e.target.value)}
-          placeholder={nt("neckMaterials") || "Describe neck materials..."}
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-        {nt("neckMaterials") && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("neckMaterials")}</p>
-        )}
-      </div>
-
-      {/* Scale Length + Nut Width */}
-      <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="Neck & Fretboard" />
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-1">Scale Length (NN.NNN")</label>
-          <input
-            type="number"
-            step="0.001"
-            value={specs.scaleLength || ""}
-            onChange={e => update("scaleLength", e.target.value ? Number(e.target.value) : "")}
-            placeholder='e.g. 25.500'
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-          />
+          <input type="number" step="0.001" value={specs.scaleLength || ""} onChange={e => update("scaleLength", e.target.value ? Number(e.target.value) : "")} placeholder="e.g. 25.500" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
         </div>
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-1">Nut Width (N.NNN")</label>
-          <input
-            type="number"
-            step="0.001"
-            value={specs.nutWidth || ""}
-            onChange={e => update("nutWidth", e.target.value ? Number(e.target.value) : "")}
-            placeholder='e.g. 1.687'
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-          />
+          <input type="number" step="0.001" value={specs.nutWidth || ""} onChange={e => update("nutWidth", e.target.value ? Number(e.target.value) : "")} placeholder="e.g. 1.687" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
         </div>
-      </div>
-
-      {/* Nut Material */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Nut Material</label>
-        <textarea
-          value={specs.nutMaterial || ""}
-          onChange={e => update("nutMaterial", e.target.value)}
-          placeholder={nt("nutMaterial") || "Describe nut material..."}
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-        {nt("nutMaterial") && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("nutMaterial")}</p>
-        )}
-      </div>
-
-      {/* Fretboard Radius */}
-      <div className="grid sm:grid-cols-2 gap-4">
         <SpecSelect
           label="Fretboard Radius"
           value={specs.fretboardRadius}
           onChange={v => update("fretboardRadius", v)}
           options={["N/A", "7.25\"", "9.5\"", "10\"", "12\"", "13.78\"", "14\"", "15\"", "16\"", "17\"", "20\"", "Other"]}
-          builderOptions={bo("fretboardRadius")}
-          builderNotes={bn("fretboardRadius")}
+          builderOptions={bo("fretboardRadius")} builderNotes={bn("fretboardRadius")}
         />
         {specs.fretboardRadius === "Other" && (
-          <SpecInput label="Specify Fretboard Radius" value={specs.otherFretboardRadius} onChange={v => update("otherFretboardRadius", v)} placeholder='Enter radius...' />
+          <SpecInput label="Specify Fretboard Radius" value={specs.otherFretboardRadius} onChange={v => update("otherFretboardRadius", v)} placeholder="Enter radius..." />
         )}
+        <SpecSelect
+          label="Frets"
+          value={specs.frets}
+          onChange={v => update("frets", v)}
+          options={["Fretless", "Medium", "Tall", "Jumbo", "Other"]}
+          builderOptions={bo("frets")} builderNotes={bn("frets")}
+        />
+        {specs.frets === "Other" && (
+          <SpecInput label="Specify Frets" value={specs.otherFrets} onChange={v => update("otherFrets", v)} placeholder="Enter fret type..." />
+        )}
+        <SpecTextarea label="Nut Material" value={specs.nutMaterial} onChange={v => update("nutMaterial", v)} placeholder={bn("nutMaterial") || "Describe nut material..."} builderNotes={bn("nutMaterial")} />
+        <SpecTextarea label="Neck Construction" value={specs.neckConstruction} onChange={v => update("neckConstruction", v)} placeholder={bn("neckConstruction") || "Describe neck construction..."} builderNotes={bn("neckConstruction")} />
+        <div className="col-span-full">
+          <SpecTextarea label="Neck Materials" value={specs.neckMaterials} onChange={v => update("neckMaterials", v)} placeholder={bn("neckMaterials") || "Describe neck materials..."} builderNotes={bn("neckMaterials")} />
+        </div>
       </div>
 
-      {/* Active/Passive Pickups */}
+      {/* ── Electronics ── */}
       <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="Electronics" />
         <SpecSelect
           label="Active/Passive Pickups"
           value={specs.activePassivePickups}
           onChange={v => update("activePassivePickups", v)}
           options={["Active", "Passive"]}
-          builderOptions={bo("activePassivePickups")}
-          builderNotes={bn("activePassivePickups")}
+          builderOptions={bo("activePassivePickups")} builderNotes={bn("activePassivePickups")}
         />
-      </div>
-
-      {/* Pickup Configuration */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Pickup Configuration</label>
-        <textarea
-          value={specs.pickupConfiguration || ""}
-          onChange={e => update("pickupConfiguration", e.target.value)}
-          placeholder={nt("pickupConfiguration") || "Describe pickup configuration..."}
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-        {nt("pickupConfiguration") && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {nt("pickupConfiguration")}</p>
-        )}
-      </div>
-
-      {/* Preamp */}
-      <div className="grid sm:grid-cols-2 gap-4">
         <SpecSelect
           label="Preamp"
           value={specs.preamp}
           onChange={v => update("preamp", v)}
           options={["Yes", "No"]}
-          builderOptions={bo("preamp")}
-          builderNotes={bn("preamp")}
+          builderOptions={bo("preamp")} builderNotes={bn("preamp")}
         />
+        <div className="col-span-full">
+          <SpecTextarea label="Pickup Configuration" value={specs.pickupConfiguration} onChange={v => update("pickupConfiguration", v)} placeholder={bn("pickupConfiguration") || "Describe pickup configuration..."} builderNotes={bn("pickupConfiguration")} />
+        </div>
       </div>
 
-      {/* Case Includes */}
+      {/* ── Case ── */}
       <div className="grid sm:grid-cols-2 gap-4">
+        <SectionHeader title="Case" />
         <SpecSelect
-          label="Case Includes"
+          label="Case Included"
           value={specs.caseIncludes}
           onChange={v => update("caseIncludes", v)}
           options={["Yes", "No"]}
-          builderOptions={bo("caseIncludes")}
-          builderNotes={bn("caseIncludes")}
+          builderOptions={bo("caseIncludes")} builderNotes={bn("caseIncludes")}
         />
+        {specs.caseIncludes === "Yes" && (
+          <SpecTextarea label="Case Description" value={specs.caseDescription} onChange={v => update("caseDescription", v)} placeholder="Describe the case..." />
+        )}
       </div>
-
-      {/* Case Description */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Case Description</label>
-        <textarea
-          value={specs.caseDescription || ""}
-          onChange={e => update("caseDescription", e.target.value)}
-          placeholder="Describe the case..."
-          rows={2}
-          className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
-        />
-      </div>
-
-      {/* Other → Description */}
-      {bc === "Other" && (
-        <div>
-          <SpecInput
-            label="Body Construction Description"
-            value={specs.bodyConstructionDescription}
-            onChange={v => update("bodyConstructionDescription", v)}
-            placeholder="Describe the body construction..."
-          />
-        </div>
-      )}
     </div>
   );
 }
