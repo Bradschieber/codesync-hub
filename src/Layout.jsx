@@ -151,7 +151,7 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <button
                   onClick={() => base44.auth.redirectToLogin()}
-                  className="bg-amber-500 hover:bg-amber-400 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                  className="border border-[#C09A5B] text-[#C09A5B] hover:bg-[#C09A5B] hover:text-white text-xs font-medium tracking-widest uppercase px-5 py-2 rounded transition-colors"
                 >
                   Sign In
                 </button>
