@@ -45,6 +45,81 @@ export default function PoliciesEditor({ form, setForm }) {
   return (
     <div className="space-y-6 mt-4">
 
+      {/* ── Pricing & Deposit ── */}
+      <div className="border border-stone-200 rounded-xl p-4 bg-stone-50">
+        <h3 className="text-sm font-bold text-stone-700 mb-1">Pricing & Deposit Policy</h3>
+        <p className="text-xs text-stone-400 mb-4">These terms are included in purchase contracts to set clear financial expectations for buyers.</p>
+
+        <div className="flex items-start gap-3 mb-4">
+          <input type="checkbox" id="deposit_required" checked={form.deposit_required || false} onChange={e => set("deposit_required", e.target.checked)} className="h-4 w-4 accent-amber-600 rounded mt-0.5" />
+          <div>
+            <label htmlFor="deposit_required" className="text-sm font-semibold text-stone-700 cursor-pointer">Deposit Required</label>
+            <p className="text-xs text-stone-400 mt-0.5">A deposit is required to secure the build or hold an instrument.</p>
+          </div>
+        </div>
+
+        {form.deposit_required && (
+          <div className="grid sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Amount (%)</label>
+              <input
+                type="number" min="1" max="100"
+                value={form.deposit_percent || ""}
+                onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
+                placeholder="e.g. 50"
+                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </div>
+            <SelectField
+              label="Deposit Refundable?"
+              value={form.deposit_refundable}
+              onChange={v => set("deposit_refundable", v)}
+              options={[
+                { value: "yes", label: "Yes — fully refundable" },
+                { value: "partial", label: "Partial refund" },
+                { value: "no", label: "Non-refundable" },
+              ]}
+            />
+          </div>
+        )}
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <SelectField
+            label="Payment Schedule"
+            value={form.payment_schedule}
+            onChange={v => set("payment_schedule", v)}
+            options={[
+              { value: "full_upfront", label: "Full payment upfront" },
+              { value: "deposit_then_completion", label: "Deposit + balance at completion" },
+              { value: "deposit_milestones_completion", label: "Deposit + milestones + balance" },
+              { value: "negotiable", label: "Negotiable" },
+            ]}
+          />
+          <SelectField
+            label="Accepted Payment Methods"
+            value={form.payment_methods}
+            onChange={v => set("payment_methods", v)}
+            options={[
+              { value: "platform_only", label: "Platform only" },
+              { value: "platform_and_check", label: "Platform + check/money order" },
+              { value: "platform_and_wire", label: "Platform + bank wire" },
+              { value: "all", label: "All methods accepted" },
+            ]}
+          />
+        </div>
+
+        <div className="mt-3">
+          <label className="block text-xs font-medium text-stone-600 mb-1">Additional Pricing Notes</label>
+          <textarea
+            rows={2}
+            value={form.pricing_notes || ""}
+            onChange={e => set("pricing_notes", e.target.value)}
+            placeholder="e.g. Price includes setup and basic case. Upgrades available at additional cost. All prices in USD."
+            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+          />
+        </div>
+      </div>
+
       {/* ── Warranty ── */}
       <div className="border border-stone-200 rounded-xl p-4 bg-stone-50">
         <h3 className="text-sm font-bold text-stone-700 mb-1">Warranty Policy</h3>
