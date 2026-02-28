@@ -149,6 +149,15 @@ export default function ProductDetail() {
               <MapPin className="w-4 h-4 text-green-600" /> Local pickup available
             </p>
           )}
+
+          {builder && (
+            <button
+              onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
+              className="w-full flex items-center justify-center gap-2 mt-3 border border-stone-300 hover:border-amber-500 hover:text-amber-600 text-stone-600 font-medium py-3 rounded-xl transition-colors text-sm"
+            >
+              <MessageSquare className="w-4 h-4" /> Contact Builder
+            </button>
+          )}
         </div>
       </div>
 
