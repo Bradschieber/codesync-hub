@@ -152,16 +152,80 @@ export default function ProductDetail() {
       </div>
 
       {/* Specifications */}
-      {product.specifications && Object.keys(product.specifications).length > 0 && (
-        <div className="bg-stone-50 rounded-2xl p-6 mb-8 border border-stone-200">
-          <h2 className="text-xl font-bold text-stone-800 mb-4">Specifications</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {Object.entries(product.specifications).map(([k, v]) => (
-              <div key={k}>
-                <p className="text-xs text-stone-400 uppercase tracking-wide">{k.replace(/_/g, " ")}</p>
-                <p className="text-stone-700 font-medium">{String(v)}</p>
-              </div>
-            ))}
+      {product.specifications && Object.keys(product.specifications).filter(k => {
+        const v = product.specifications[k];
+        return v !== null && v !== undefined && v !== "" && !(typeof v === "string" && v.startsWith("other"));
+      }).length > 0 && (
+        <div className="bg-white rounded-2xl border border-stone-200 mb-8 overflow-hidden">
+          <div className="px-6 py-4 border-b border-stone-100 bg-stone-50">
+            <h2 className="text-lg font-bold text-stone-800">Specifications</h2>
+          </div>
+          <div className="divide-y divide-stone-100">
+            {(() => {
+              const SPEC_LABELS = {
+                instrumentCategory: "Instrument Type",
+                otherInstrumentCategory: "Instrument Type (Other)",
+                handedness: "Handedness",
+                numberOfStrings: "Number of Strings",
+                otherNumberOfStrings: "Number of Strings (Other)",
+                bodyConstruction: "Body Construction",
+                otherBodyConstruction: "Body Construction (Other)",
+                bodyConstructionDescription: "Body Construction Notes",
+                topWood: "Top Wood",
+                otherTopWood: "Top Wood (Other)",
+                topBookMatched: "Top Book-Matched",
+                topGrainDetails: "Top Grain",
+                otherTopGrainDetails: "Top Grain (Other)",
+                backWood: "Back Wood",
+                otherBackWood: "Back Wood (Other)",
+                backBookMatched: "Back Book-Matched",
+                middleWood: "Middle Wood",
+                otherMiddleWood: "Middle Wood (Other)",
+                finishPattern: "Finish Pattern",
+                otherFinishPattern: "Finish Pattern (Other)",
+                finishMaterialsDescription: "Finish Materials",
+                color: "Color",
+                otherColor: "Color (Other)",
+                frets: "Fret Size",
+                otherFrets: "Fret Size (Other)",
+                fretMaterial: "Fret Material",
+                fretDetails: "Fret Details",
+                neckConstruction: "Neck Construction",
+                neckMaterials: "Neck Materials",
+                scaleLength: "Scale Length",
+                nutWidth: "Nut Width",
+                nutMaterial: "Nut Material",
+                fretboardRadius: "Fretboard Radius",
+                otherFretboardRadius: "Fretboard Radius (Other)",
+                activePassivePickups: "Pickups",
+                pickupConfiguration: "Pickup Configuration",
+                preamp: "Preamp",
+                caseIncludes: "Case Included",
+                caseDescription: "Case Details",
+              };
+
+              const entries = Object.entries(product.specifications).filter(([k, v]) =>
+                v !== null && v !== undefined && v !== "" && v !== "N/A"
+              );
+
+              // Group into pairs for two-column rows
+              const pairs = [];
+              for (let i = 0; i < entries.length; i += 2) {
+                pairs.push(entries.slice(i, i + 2));
+              }
+
+              return pairs.map((pair, rowIdx) => (
+                <div key={rowIdx} className="grid grid-cols-2 divide-x divide-stone-100">
+                  {pair.map(([k, v]) => (
+                    <div key={k} className="px-5 py-3 flex items-baseline gap-3">
+                      <span className="text-xs text-stone-400 font-medium w-36 flex-shrink-0">{SPEC_LABELS[k] || k.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase())}</span>
+                      <span className="text-sm text-stone-700 font-medium">{String(v)}</span>
+                    </div>
+                  ))}
+                  {pair.length === 1 && <div />}
+                </div>
+              ));
+            })()}
           </div>
         </div>
       )}
