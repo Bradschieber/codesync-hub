@@ -209,10 +209,7 @@ export default function DashboardProfile() {
               <label className="block text-xs font-medium text-stone-600 mb-1">Typical Build Time</label>
               <input value={form.typical_build_time || ""} onChange={e => setForm({...form, typical_build_time: e.target.value})} placeholder="e.g. 3–6 months" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             </div>
-            <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Deposit % Required</label>
-              <input type="number" min="0" max="100" value={form.deposit_percent || ""} onChange={e => setForm({...form, deposit_percent: Number(e.target.value)})} placeholder="e.g. 50" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            </div>
+
           </div>
           <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-xl">
             <p className="text-sm font-semibold text-stone-700 mb-1">What do you offer? <span className="text-red-500">*</span></p>
