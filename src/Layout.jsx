@@ -201,25 +201,25 @@ export default function Layout({ children, currentPageName }) {
             <p className="text-sm leading-relaxed text-stone-500">A curated marketplace connecting independent luthiers with players who appreciate fine craftsmanship.</p>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-3">Marketplace</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to={createPageUrl("Catalog")} className="hover:text-amber-400 transition-colors">Browse Guitars</Link></li>
-              <li><Link to={createPageUrl("Builders")} className="hover:text-amber-400 transition-colors">Find Builders</Link></li>
-              <li><Link to={createPageUrl("CustomBuilds")} className="hover:text-amber-400 transition-colors">Custom Builds</Link></li>
+            <h4 className="text-stone-300 text-xs font-semibold tracking-widest uppercase mb-4">Marketplace</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li><Link to={createPageUrl("Catalog")} className="hover:text-[#C09A5B] transition-colors">Browse Guitars</Link></li>
+              <li><Link to={createPageUrl("Builders")} className="hover:text-[#C09A5B] transition-colors">Find Builders</Link></li>
+              <li><Link to={createPageUrl("CustomBuilds")} className="hover:text-[#C09A5B] transition-colors">Custom Builds</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-3">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to={createPageUrl("About")} className="hover:text-amber-400 transition-colors">About</Link></li>
-              <li><Link to={createPageUrl("JoinBuilders")} className="hover:text-amber-400 transition-colors">Join as Builder</Link></li>
-              <li><Link to={createPageUrl("Contact")} className="hover:text-amber-400 transition-colors">Contact</Link></li>
+            <h4 className="text-stone-300 text-xs font-semibold tracking-widest uppercase mb-4">Company</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li><Link to={createPageUrl("About")} className="hover:text-[#C09A5B] transition-colors">About</Link></li>
+              <li><Link to={createPageUrl("JoinBuilders")} className="hover:text-[#C09A5B] transition-colors">Join as Builder</Link></li>
+              <li><Link to={createPageUrl("Contact")} className="hover:text-[#C09A5B] transition-colors">Contact</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-3">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to={createPageUrl("Terms")} className="hover:text-amber-400 transition-colors">Terms of Service</Link></li>
+            <h4 className="text-stone-300 text-xs font-semibold tracking-widest uppercase mb-4">Legal</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li><Link to={createPageUrl("Terms")} className="hover:text-[#C09A5B] transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
