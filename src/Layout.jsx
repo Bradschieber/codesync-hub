@@ -74,9 +74,9 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to={createPageUrl("Home")} className="flex items-center gap-2 group">
-              <Guitar className="w-7 h-7 text-amber-400 group-hover:text-amber-300 transition-colors" />
-              <span className="text-xl font-bold tracking-wide text-amber-400 group-hover:text-amber-300 transition-colors">
+            <Link to={createPageUrl("Home")} className="flex items-center gap-3 group">
+              <Guitar className="w-6 h-6 text-[#C09A5B] group-hover:text-[#D4B47A] transition-colors" />
+              <span className="text-lg font-semibold tracking-widest text-[#C09A5B] group-hover:text-[#D4B47A] transition-colors uppercase" style={{fontFamily: "'Playfair Display', Georgia, serif", letterSpacing: "0.12em"}}>
                 Stringed Collective
               </span>
             </Link>
