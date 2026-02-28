@@ -93,7 +93,7 @@ export default function SpecificationsDisplay({ specs = {} }) {
             <Row label="Frets" value={s.frets === "Other" ? s.otherFrets : s.frets} />
             <Row label="Nut Material" value={s.nutMaterial} />
             <Row label="Neck Construction" value={s.neckConstruction} />
-            <FullRow label="Neck Materials" value={s.neckMaterials} />
+            {s.neckMaterials && <Row label="Neck Materials" value={s.neckMaterials} />}
           </Section>
         )}
 
