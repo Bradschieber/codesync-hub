@@ -204,26 +204,26 @@ export default function Home() {
 
 function ProductCard({ product }) {
   return (
-    <Link to={createPageUrl(`ProductDetail?id=${product.id}`)} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-200">
-      <div className="h-52 bg-stone-100 overflow-hidden">
+    <Link to={createPageUrl(`ProductDetail?id=${product.id}`)} className="group bg-white overflow-hidden border border-stone-200 hover:border-stone-300 transition-all hover:shadow-md">
+      <div className="h-56 bg-stone-100 overflow-hidden">
         {product.image_urls?.[0] ? (
-          <img src={product.image_urls[0]} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <img src={product.image_urls[0]} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Guitar className="w-16 h-16 text-stone-300" />
+            <Guitar className="w-14 h-14 text-stone-300" />
           </div>
         )}
       </div>
-      <div className="p-4">
-        <p className="text-xs text-stone-400 mb-1">{product.builder_name}</p>
-        <h3 className="font-semibold text-stone-800 text-sm leading-tight mb-2">{product.name}</h3>
+      <div className="p-5">
+        <p className="text-xs text-stone-400 tracking-wide mb-1 uppercase">{product.builder_name}</p>
+        <h3 className="font-medium text-stone-900 text-sm leading-snug mb-3" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>{product.name}</h3>
         {product.average_rating > 0 && (
           <div className="flex items-center gap-1 mb-2">
-            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-            <span className="text-xs text-stone-500">{product.average_rating?.toFixed(1)} ({product.review_count})</span>
+            <Star className="w-3 h-3 text-[#C09A5B] fill-[#C09A5B]" />
+            <span className="text-xs text-stone-400">{product.average_rating?.toFixed(1)} ({product.review_count})</span>
           </div>
         )}
-        <p className="text-amber-700 font-bold">${product.price?.toLocaleString()}</p>
+        <p className="text-stone-900 font-semibold text-sm">${product.price?.toLocaleString()}</p>
       </div>
     </Link>
   );
@@ -231,27 +231,27 @@ function ProductCard({ product }) {
 
 function BuilderCard({ builder }) {
   return (
-    <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="group bg-stone-800 hover:bg-stone-700 rounded-2xl p-5 transition-colors flex gap-4 items-start">
+    <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="group border border-stone-700 hover:border-[#C09A5B]/50 p-5 transition-all flex gap-4 items-start">
       {builder.avatar_url ? (
-        <img src={builder.avatar_url} className="w-14 h-14 rounded-full object-cover flex-shrink-0" />
+        <img src={builder.avatar_url} className="w-12 h-12 rounded-full object-cover flex-shrink-0 grayscale group-hover:grayscale-0 transition-all" />
       ) : (
-        <div className="w-14 h-14 rounded-full bg-amber-900/40 flex items-center justify-center flex-shrink-0">
-          <span className="text-amber-400 font-bold text-xl">{builder.business_name?.[0] || builder.display_name?.[0] || "B"}</span>
+        <div className="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center flex-shrink-0">
+          <span className="text-[#C09A5B] font-semibold text-lg" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>{builder.business_name?.[0] || builder.display_name?.[0] || "B"}</span>
         </div>
       )}
       <div className="min-w-0">
-        <h3 className="font-semibold text-white truncate">{builder.business_name || builder.display_name}</h3>
-        {builder.location && <p className="text-stone-400 text-xs mb-1">{builder.location}</p>}
+        <h3 className="font-medium text-white truncate text-sm mb-0.5" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>{builder.business_name || builder.display_name}</h3>
+        {builder.location && <p className="text-stone-500 text-xs mb-2">{builder.location}</p>}
         {builder.average_rating > 0 && (
-          <div className="flex items-center gap-1">
-            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-            <span className="text-xs text-stone-400">{builder.average_rating?.toFixed(1)}</span>
+          <div className="flex items-center gap-1 mb-2">
+            <Star className="w-3 h-3 text-[#C09A5B] fill-[#C09A5B]" />
+            <span className="text-xs text-stone-500">{builder.average_rating?.toFixed(1)}</span>
           </div>
         )}
         {builder.specialties?.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="flex flex-wrap gap-1">
             {builder.specialties.slice(0, 2).map(s => (
-              <span key={s} className="bg-stone-700 text-stone-300 text-xs px-2 py-0.5 rounded-full">{s}</span>
+              <span key={s} className="border border-stone-700 text-stone-400 text-xs px-2 py-0.5">{s}</span>
             ))}
           </div>
         )}
