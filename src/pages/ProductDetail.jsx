@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Star, ChevronLeft, ShoppingCart, MapPin, Check, ArrowRight, MessageSquare } from "lucide-react";
+import SpecificationsDisplay from "../components/marketplace/SpecificationsDisplay";
 
 export default function ProductDetail() {
   const [product, setProduct] = useState(null);
