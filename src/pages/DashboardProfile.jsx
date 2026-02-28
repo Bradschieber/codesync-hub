@@ -243,20 +243,7 @@ export default function DashboardProfile() {
               <p className="text-xs text-red-500 mt-2">⚠ Please select at least one offering type.</p>
             )}
           </div>
-          <div className="space-y-4 mt-4">
-            <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Warranty Policy</label>
-              <textarea rows={3} value={form.warranty_policy || ""} onChange={e => setForm({...form, warranty_policy: e.target.value})} placeholder="Describe your warranty coverage and terms..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Return Policy</label>
-              <textarea rows={3} value={form.return_policy || ""} onChange={e => setForm({...form, return_policy: e.target.value})} placeholder="Describe your return or exchange policy..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Shipping Policy</label>
-              <textarea rows={3} value={form.shipping_policy || ""} onChange={e => setForm({...form, shipping_policy: e.target.value})} placeholder="How do you ship? Carriers, packaging, insurance, international?" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
-            </div>
-          </div>
+          <PoliciesEditor form={form} setForm={setForm} />
         </div>
 
         {/* ── Section 4: Addresses ── */}
