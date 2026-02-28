@@ -223,7 +223,7 @@ export default function Layout({ children, currentPageName }) {
             </ul>
           </div>
         </div>
-        <div className="border-t border-stone-800 px-4 py-4 text-center text-xs text-stone-600">
+        <div className="border-t border-stone-800/60 px-4 py-5 text-center text-xs text-stone-700 tracking-wider">
           © 2025 Stringed Collective. All rights reserved.
         </div>
       </footer>
