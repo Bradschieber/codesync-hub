@@ -260,6 +260,10 @@ export default function ProductDetail() {
         )}
       </div>
 
+      {showContact && builder && (
+        <ContactModal builder={builder} user={user} onClose={() => setShowContact(false)} />
+      )}
+
       {/* Builder section */}
       {builder && (
         <div className="bg-stone-900 text-white rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start">
