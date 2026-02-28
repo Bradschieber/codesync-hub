@@ -208,8 +208,28 @@ End with a short sentence about suggested keywords for search (prefix with "Keyw
           </div>
         </div>
         <div>
-          <label className="block text-xs font-medium text-stone-600 mb-1">Description</label>
-          <textarea rows={3} value={form.description} onChange={e => setForm({...form, description: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+          <div className="flex items-center justify-between mb-1">
+            <label className="block text-xs font-medium text-stone-600">Description</label>
+            <button
+              type="button"
+              onClick={generateDescription}
+              disabled={generatingDesc}
+              className="flex items-center gap-1.5 text-xs font-medium text-amber-600 hover:text-amber-700 disabled:opacity-50 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2.5 py-1 rounded-lg transition-colors"
+            >
+              {generatingDesc ? (
+                <><div className="w-3 h-3 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /> Generating...</>
+              ) : (
+                <><Sparkles className="w-3 h-3" /> Generate with AI</>
+              )}
+            </button>
+          </div>
+          <textarea rows={4} value={form.description} onChange={e => setForm({...form, description: e.target.value})} placeholder="Describe this instrument..." className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+          {form._suggestedKeywords && (
+            <div className="mt-2 p-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+              <p className="text-xs font-medium text-amber-700 mb-1">Suggested Keywords</p>
+              <p className="text-xs text-amber-600">{form._suggestedKeywords}</p>
+            </div>
+          )}
         </div>
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-2">Categories</label>
