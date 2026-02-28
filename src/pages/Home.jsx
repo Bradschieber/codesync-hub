@@ -51,80 +51,74 @@ export default function Home() {
   const slide = heroSlides[carouselIdx];
 
   return (
-    <div className="bg-stone-50">
+    <div className="bg-[#FAF8F4]">
       {/* Hero */}
-      <section className={`relative bg-gradient-to-r ${slide.bg} text-white overflow-hidden min-h-[560px] flex items-center`}>
+      <section className="relative bg-[#1C1917] text-white overflow-hidden min-h-[620px] flex items-center">
         <div className="absolute inset-0">
-          <img src={slide.img} className="w-full h-full object-cover opacity-20" alt="" />
+          <img src={slide.img} className="w-full h-full object-cover opacity-25" alt="" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1C1917]/90 via-[#1C1917]/60 to-transparent" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid md:grid-cols-2 gap-12 items-center w-full">
-          <div>
-            <span className="inline-block bg-amber-500/20 text-amber-400 text-sm font-medium px-3 py-1 rounded-full mb-6 border border-amber-500/30">
-              Handcrafted Marketplace
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight whitespace-pre-line mb-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+          <div className="max-w-2xl">
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-[#C09A5B] mb-5">Curated Handcraft Marketplace</p>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.1] whitespace-pre-line mb-6" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>
               {slide.title}
             </h1>
-            <p className="text-lg text-stone-300 mb-8 leading-relaxed">{slide.sub}</p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link to={createPageUrl("Catalog")} className="bg-amber-500 hover:bg-amber-400 text-white font-semibold px-8 py-3 rounded-xl transition-colors text-center">
+            <p className="text-base text-stone-400 mb-10 leading-relaxed max-w-lg">{slide.sub}</p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link to={createPageUrl("Catalog")} className="bg-[#C09A5B] hover:bg-[#A8844A] text-white text-xs font-medium tracking-widest uppercase px-10 py-4 transition-colors text-center">
                 Browse Guitars
               </Link>
-              <Link to={createPageUrl("CustomBuilds")} className="border border-white/30 hover:bg-white/10 text-white font-semibold px-8 py-3 rounded-xl transition-colors text-center">
-                Custom Orders
+              <Link to={createPageUrl("CustomBuilds")} className="border border-stone-500 hover:border-[#C09A5B] hover:text-[#C09A5B] text-stone-400 text-xs font-medium tracking-widest uppercase px-10 py-4 transition-colors text-center">
+                Commission a Build
               </Link>
-            </div>
-          </div>
-          <div className="hidden md:flex justify-center">
-            <div className="w-72 h-72 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
-              <Guitar className="w-32 h-32 text-amber-400 opacity-60" />
             </div>
           </div>
         </div>
-        <div className="absolute bottom-6 right-6 flex gap-2">
-          <button onClick={() => setCarouselIdx(0)} className={`w-2 h-2 rounded-full ${carouselIdx === 0 ? "bg-amber-400" : "bg-white/30"}`} />
-          <button onClick={() => setCarouselIdx(1)} className={`w-2 h-2 rounded-full ${carouselIdx === 1 ? "bg-amber-400" : "bg-white/30"}`} />
+        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex gap-2.5">
+          <button onClick={() => setCarouselIdx(0)} className={`w-1.5 h-1.5 rounded-full transition-colors ${carouselIdx === 0 ? "bg-[#C09A5B]" : "bg-stone-600"}`} />
+          <button onClick={() => setCarouselIdx(1)} className={`w-1.5 h-1.5 rounded-full transition-colors ${carouselIdx === 1 ? "bg-[#C09A5B]" : "bg-stone-600"}`} />
         </div>
       </section>
 
-      {/* Features strip */}
+      {/* Trust strip */}
       <section className="bg-white border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+        <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-stone-100">
           {[
-            { icon: Hammer, title: "Master Craftsmen", text: "Every builder is vetted for quality and skill" },
-            { icon: Package, title: "Safe Shipping", text: "Instruments packed and insured for safe delivery" },
-            { icon: Shield, title: "Buyer Protection", text: "Secure payments and satisfaction guarantee" },
+            { icon: Hammer, title: "Vetted Master Builders", text: "Every luthier is reviewed for quality and craftsmanship" },
+            { icon: Package, title: "Protected Shipping", text: "Instruments packed, insured, and tracked to your door" },
+            { icon: Shield, title: "Buyer Confidence", text: "Secure payments and a clear satisfaction framework" },
           ].map(({ icon: Icon, title, text }) => (
-            <div key={title} className="flex flex-col items-center gap-2 p-4">
-              <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center">
-                <Icon className="w-6 h-6 text-amber-600" />
+            <div key={title} className="flex items-start gap-4 p-6">
+              <Icon className="w-5 h-5 text-[#C09A5B] mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="text-sm font-semibold text-stone-800 mb-0.5">{title}</h3>
+                <p className="text-xs text-stone-500 leading-relaxed">{text}</p>
               </div>
-              <h3 className="font-semibold text-stone-800">{title}</h3>
-              <p className="text-sm text-stone-500">{text}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="flex items-end justify-between mb-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-3xl font-bold text-stone-800">Featured Guitars</h2>
-            <p className="text-stone-500 mt-1">Handpicked instruments from our top builders</p>
+            <p className="text-xs font-medium tracking-[0.18em] uppercase text-[#C09A5B] mb-2">Selected Works</p>
+            <h2 className="text-3xl font-semibold text-stone-900" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>Featured Instruments</h2>
           </div>
-          <Link to={createPageUrl("Catalog")} className="flex items-center gap-1 text-amber-600 hover:text-amber-500 font-medium text-sm">
-            View all <ArrowRight className="w-4 h-4" />
+          <Link to={createPageUrl("Catalog")} className="flex items-center gap-1.5 text-stone-500 hover:text-[#C09A5B] text-xs font-medium tracking-widest uppercase transition-colors">
+            View all <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {Array(4).fill(0).map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden animate-pulse">
-                <div className="h-52 bg-stone-200" />
+              <div key={i} className="bg-white overflow-hidden animate-pulse">
+                <div className="h-56 bg-stone-100" />
                 <div className="p-4 space-y-2">
-                  <div className="h-4 bg-stone-200 rounded w-3/4" />
-                  <div className="h-4 bg-stone-200 rounded w-1/2" />
+                  <div className="h-3 bg-stone-100 rounded w-3/4" />
+                  <div className="h-3 bg-stone-100 rounded w-1/2" />
                 </div>
               </div>
             ))}
@@ -135,9 +129,9 @@ export default function Home() {
               <ProductCard key={product.id} product={product} />
             ))}
             {featured.length === 0 && (
-              <div className="col-span-4 text-center py-12 text-stone-400">
+              <div className="col-span-4 text-center py-16 text-stone-400 text-sm">
                 No featured products yet.
-                <Link to={createPageUrl("Catalog")} className="ml-2 text-amber-600 hover:underline">Browse all</Link>
+                <Link to={createPageUrl("Catalog")} className="ml-2 text-[#C09A5B] hover:underline">Browse all</Link>
               </div>
             )}
           </div>
@@ -145,24 +139,24 @@ export default function Home() {
       </section>
 
       {/* Builders */}
-      <section className="bg-stone-900 text-white py-14">
+      <section className="bg-[#1C1917] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-8">
+          <div className="flex items-end justify-between mb-10">
             <div>
-              <h2 className="text-3xl font-bold">Meet Our Builders</h2>
-              <p className="text-stone-400 mt-1">Independent luthiers with decades of combined experience</p>
+              <p className="text-xs font-medium tracking-[0.18em] uppercase text-[#C09A5B] mb-2">The Makers</p>
+              <h2 className="text-3xl font-semibold" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>Meet Our Builders</h2>
             </div>
-            <Link to={createPageUrl("Builders")} className="flex items-center gap-1 text-amber-400 hover:text-amber-300 font-medium text-sm">
-              All builders <ArrowRight className="w-4 h-4" />
+            <Link to={createPageUrl("Builders")} className="flex items-center gap-1.5 text-stone-500 hover:text-[#C09A5B] text-xs font-medium tracking-widest uppercase transition-colors">
+              All builders <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {builders.map(builder => (
               <BuilderCard key={builder.id} builder={builder} />
             ))}
             {builders.length === 0 && (
-              <div className="col-span-3 text-center py-8 text-stone-500">
-                No featured builders yet. <Link to={createPageUrl("JoinBuilders")} className="text-amber-400 hover:underline">Be the first!</Link>
+              <div className="col-span-3 text-center py-10 text-stone-600 text-sm">
+                No featured builders yet. <Link to={createPageUrl("JoinBuilders")} className="text-[#C09A5B] hover:underline">Be the first!</Link>
               </div>
             )}
           </div>
@@ -170,34 +164,35 @@ export default function Home() {
       </section>
 
       {/* CTA - Custom Builds */}
-      <section className="bg-amber-50 border-y border-amber-200 py-14">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <Guitar className="w-12 h-12 text-amber-600 mx-auto mb-4" />
-          <h2 className="text-3xl font-bold text-stone-800 mb-3">Want Something Truly Unique?</h2>
-          <p className="text-stone-600 mb-6 text-lg">Browse custom build listings from our builders and commission your perfect instrument.</p>
-          <Link to={createPageUrl("CustomBuilds")} className="inline-block bg-amber-600 hover:bg-amber-500 text-white font-semibold px-10 py-4 rounded-xl transition-colors text-lg">
+      <section className="py-20 bg-[#FAF8F4] border-y border-stone-200">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <p className="text-xs font-medium tracking-[0.2em] uppercase text-[#C09A5B] mb-4">Bespoke Commissions</p>
+          <h2 className="text-4xl font-semibold text-stone-900 mb-4" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>Something Truly Yours</h2>
+          <p className="text-stone-500 mb-8 leading-relaxed">Work directly with a master builder to commission an instrument built around your vision, your hands, and your sound.</p>
+          <Link to={createPageUrl("CustomBuilds")} className="inline-block bg-[#1C1917] hover:bg-stone-800 text-white text-xs font-medium tracking-widest uppercase px-12 py-4 transition-colors">
             Explore Custom Builds
           </Link>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section className="max-w-2xl mx-auto px-4 py-14 text-center">
-        <h2 className="text-2xl font-bold text-stone-800 mb-2">Stay in the Loop</h2>
-        <p className="text-stone-500 mb-6">Get notified about new instruments, builder spotlights, and exclusive drops.</p>
+      <section className="max-w-xl mx-auto px-4 py-16 text-center">
+        <p className="text-xs font-medium tracking-[0.18em] uppercase text-[#C09A5B] mb-3">Stay Informed</p>
+        <h2 className="text-2xl font-semibold text-stone-900 mb-2" style={{fontFamily: "'Playfair Display', Georgia, serif"}}>New Instruments & Builder Spotlights</h2>
+        <p className="text-stone-500 text-sm mb-7">Delivered occasionally. No noise.</p>
         {subscribed ? (
-          <p className="text-amber-600 font-medium">Thanks for subscribing! 🎸</p>
+          <p className="text-[#C09A5B] font-medium text-sm">You're on the list. Thank you.</p>
         ) : (
-          <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md mx-auto">
+          <form onSubmit={handleSubscribe} className="flex gap-0 max-w-sm mx-auto border border-stone-300 overflow-hidden">
             <input
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="flex-1 border border-stone-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              className="flex-1 px-4 py-3 text-sm focus:outline-none bg-white"
             />
-            <button type="submit" className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
+            <button type="submit" className="bg-[#1C1917] hover:bg-stone-700 text-white text-xs font-medium tracking-widest uppercase px-6 py-3 transition-colors whitespace-nowrap">
               Subscribe
             </button>
           </form>
