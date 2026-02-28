@@ -61,14 +61,42 @@ export default function PoliciesEditor({ form, setForm }) {
         {form.deposit_required && (
           <div className="grid sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Amount (%)</label>
-              <input
-                type="number" min="1" max="100"
-                value={form.deposit_percent || ""}
-                onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
-                placeholder="e.g. 50"
-                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-              />
+              <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Type</label>
+              <div className="flex gap-3">
+                <button type="button" onClick={() => set("deposit_type", "percent")}
+                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${(!form.deposit_type || form.deposit_type === "percent") ? "bg-amber-100 border-amber-400 text-amber-800 font-medium" : "bg-white border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+                  % of Price
+                </button>
+                <button type="button" onClick={() => set("deposit_type", "fixed")}
+                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${form.deposit_type === "fixed" ? "bg-amber-100 border-amber-400 text-amber-800 font-medium" : "bg-white border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+                  Fixed $ Amount
+                </button>
+              </div>
+            </div>
+            <div>
+              {(!form.deposit_type || form.deposit_type === "percent") ? (
+                <>
+                  <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Percentage (%)</label>
+                  <input
+                    type="number" min="1" max="100"
+                    value={form.deposit_percent || ""}
+                    onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
+                    placeholder="e.g. 50"
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </>
+              ) : (
+                <>
+                  <label className="block text-xs font-medium text-stone-600 mb-1">Deposit Amount ($)</label>
+                  <input
+                    type="number" min="0"
+                    value={form.deposit_fixed_amount || ""}
+                    onChange={e => set("deposit_fixed_amount", e.target.value ? Number(e.target.value) : "")}
+                    placeholder="e.g. 500"
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </>
+              )}
             </div>
             <SelectField
               label="Deposit Refundable?"
