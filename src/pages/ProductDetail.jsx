@@ -287,3 +287,56 @@ export default function ProductDetail() {
     </div>
   );
 }
+
+function ContactModal({ builder, user, onClose }) {
+  const [subject, setSubject] = useState("");
+  const [msg, setMsg] = useState("");
+  const [sent, setSent] = useState(false);
+
+  async function handleSend(e) {
+    e.preventDefault();
+    await base44.entities.Message.create({
+      sender_id: user.id,
+      sender_name: user.full_name,
+      recipient_id: builder.id,
+      recipient_name: builder.business_name || builder.display_name,
+      subject: subject || `Message from ${user.full_name}`,
+      body: msg,
+    });
+    setSent(true);
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+        <h3 className="text-lg font-bold text-stone-800 mb-1">Contact {builder.business_name || builder.display_name}</h3>
+        {sent ? (
+          <div className="text-center py-8">
+            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <MessageSquare className="w-6 h-6 text-green-600" />
+            </div>
+            <p className="text-green-600 font-semibold mb-1">Message sent!</p>
+            <p className="text-stone-400 text-sm mb-4">The builder will get back to you soon.</p>
+            <button onClick={onClose} className="text-stone-500 hover:underline text-sm">Close</button>
+          </div>
+        ) : (
+          <form onSubmit={handleSend} className="space-y-3 mt-4">
+            <div>
+              <label className="block text-xs font-medium text-stone-500 mb-1">Subject</label>
+              <input value={subject} onChange={e => setSubject(e.target.value)} placeholder={`Message from ${user?.full_name}`} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-stone-500 mb-1">Message *</label>
+              <textarea value={msg} onChange={e => setMsg(e.target.value)} rows={5} required placeholder="Write your message..." className="w-full border border-stone-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+            </div>
+            <div className="flex gap-2 pt-1">
+              <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-600 py-2.5 rounded-xl text-sm">Cancel</button>
+              <button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 rounded-xl text-sm">Send Message</button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
