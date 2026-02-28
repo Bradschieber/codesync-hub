@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Star, ChevronLeft, ShoppingCart, Heart, Share2, MapPin, Check, ArrowRight } from "lucide-react";
+import { Guitar, Star, ChevronLeft, ShoppingCart, MapPin, Check, ArrowRight, MessageSquare } from "lucide-react";
 
 export default function ProductDetail() {
   const [product, setProduct] = useState(null);
