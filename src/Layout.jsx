@@ -53,15 +53,19 @@ export default function Layout({ children, currentPageName }) {
   ];
 
   return (
-    <div className="min-h-screen bg-stone-50 font-sans">
+    <div className="min-h-screen bg-[#FAF8F4] font-sans">
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         :root {
-          --color-primary: #8B4513;
-          --color-primary-dark: #6B3410;
-          --color-accent: #D4A847;
-          --color-wood: #C4956A;
+          --color-primary: #7C5C3E;
+          --color-primary-dark: #5C3F26;
+          --color-accent: #C09A5B;
+          --color-wood: #B8895A;
+          --color-cream: #FAF8F4;
+          --color-charcoal: #1C1917;
         }
-        body { font-family: 'Georgia', serif; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #FAF8F4; }
+        .font-display { font-family: 'Playfair Display', Georgia, serif; }
         .font-sans { font-family: 'Inter', system-ui, sans-serif; }
       `}</style>
 
