@@ -12,6 +12,7 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [activeImg, setActiveImg] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [showContact, setShowContact] = useState(false);
 
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
