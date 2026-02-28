@@ -126,6 +126,36 @@ function ProductForm({ product, profile, onSave, onClose }) {
   });
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [generatingDesc, setGeneratingDesc] = useState(false);
+
+  async function generateDescription() {
+    if (!form.name && Object.keys(form.specifications || {}).length === 0) return;
+    setGeneratingDesc(true);
+    const specs = form.specifications || {};
+    const specLines = Object.entries(specs)
+      .filter(([k, v]) => v && !k.startsWith("other"))
+      .map(([k, v]) => `${k}: ${v}`)
+      .join(", ");
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt: `You are an expert guitar luthier and copywriter for a premium custom guitar marketplace called Stringed Collective. 
+Write a compelling, detailed product description for this handcrafted instrument listing.
+
+Product Name: ${form.name || "Custom Instrument"}
+Price: ${form.price ? "$" + form.price : "not specified"}
+Specifications: ${specLines || "not specified"}
+
+Write 2-3 engaging paragraphs that highlight the craftsmanship, tonewoods, playability, and unique character of this instrument. 
+Use evocative language that appeals to discerning players. Do not use bullet points. Do not include a title.
+End with a short sentence about suggested keywords for search (prefix with "Keywords:").`,
+    });
+
+    // Split description and keywords
+    const parts = result.split(/Keywords:/i);
+    const description = parts[0].trim();
+    const keywords = parts[1] ? parts[1].trim() : "";
+    setForm(f => ({ ...f, description, _suggestedKeywords: keywords }));
+    setGeneratingDesc(false);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
