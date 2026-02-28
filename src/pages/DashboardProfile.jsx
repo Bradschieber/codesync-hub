@@ -62,10 +62,10 @@ export default function DashboardProfile() {
 
   const sections = [
     { id: "basics", label: "The Basics" },
-    { id: "business", label: "Your Business" },
     { id: "story", label: "Brand Story" },
     { id: "storefront", label: "Storefront Style" },
     { id: "photos", label: "Photos & Video" },
+    { id: "business", label: "Your Business" },
     { id: "addresses", label: "Addresses" },
     { id: "notifications", label: "Notifications" },
     { id: "references", label: "References" },
