@@ -60,9 +60,9 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <Link to={createPageUrl("Home")} className="flex flex-col leading-none group">
-              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 500, fontSize: "0.9rem", color: "#2A3550", letterSpacing: "0.01em" }} className="group-hover:opacity-80 transition-opacity">Stringed</span>
-              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: "0.9rem", color: "#2A3550", letterSpacing: "0.06em" }} className="group-hover:opacity-80 transition-opacity">Collective</span>
+            <Link to={createPageUrl("Home")} className="flex flex-col group" style={{ gap: "1px", lineHeight: 1.15 }}>
+              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 500, fontSize: "1rem", color: "#24324A", letterSpacing: "0.01em" }}>Stringed</span>
+              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 400, fontSize: "1rem", color: "#24324A", letterSpacing: "0.08em" }}>Collective</span>
             </Link>
 
             {/* Desktop Nav */}
