@@ -73,7 +73,7 @@ export default function BuilderProfile() {
   const avgRating = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
   const tabs = [
     { id: "products", label: `Inventory (${products.length})` },
-    { id: "custom", label: `Custom Builds (${customBuilds.length})` },
+    ...(builder?.offers_custom_builds ? [{ id: "custom", label: "Custom Work" }] : []),
     { id: "reviews", label: `Reviews (${reviews.length})` },
   ];
 
