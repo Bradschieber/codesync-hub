@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { ShoppingCart, Menu, X, Guitar, User, Heart, LogOut, LayoutDashboard, ChevronDown } from "lucide-react";
+import { ShoppingCart, Menu, X, User, Heart, LogOut, LayoutDashboard, ChevronDown } from "lucide-react";
 import CartModal from "./components/marketplace/CartModal";
 
 export default function Layout({ children, currentPageName }) {
