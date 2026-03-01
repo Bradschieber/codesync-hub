@@ -11,7 +11,7 @@ export default function About() {
       {/* Hero */}
       <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-20 pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1A1A1A" }}>
+          <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1B2B4B", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
             About Stringed Collective.
           </h1>
           <p className="text-lg leading-relaxed" style={{ color: "#3D3D3D" }}>
