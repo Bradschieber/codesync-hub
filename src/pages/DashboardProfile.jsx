@@ -243,64 +243,64 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Section 4: Addresses ── */}
-        <div id="addresses" className="bg-white rounded-2xl border border-stone-200 p-6">
-          <h2 className="font-bold text-stone-800 mb-5">Addresses</h2>
+        <div id="addresses" className="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 className="font-bold text-gray-900 mb-5">Addresses</h2>
 
           {/* Business Address */}
-          <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">Business Address</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Business Address</p>
           <div className="grid sm:grid-cols-2 gap-4 mb-6">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-stone-600 mb-1">Address 1</label>
-              <input value={form.business_address_1 || ""} onChange={e => setForm({...form, business_address_1: e.target.value})} placeholder="Street address" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Address 1</label>
+              <input value={form.business_address_1 || ""} onChange={e => setForm({...form, business_address_1: e.target.value})} placeholder="Street address" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-stone-600 mb-1">Address 2</label>
-              <input value={form.business_address_2 || ""} onChange={e => setForm({...form, business_address_2: e.target.value})} placeholder="Suite, unit, building (optional)" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Address 2</label>
+              <input value={form.business_address_2 || ""} onChange={e => setForm({...form, business_address_2: e.target.value})} placeholder="Suite, unit, building (optional)" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">City</label>
-              <input value={form.business_city || ""} onChange={e => setForm({...form, business_city: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">City</label>
+              <input value={form.business_city || ""} onChange={e => setForm({...form, business_city: e.target.value})} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">State / Province</label>
-              <input value={form.business_state || ""} onChange={e => setForm({...form, business_state: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">State / Province</label>
+              <input value={form.business_state || ""} onChange={e => setForm({...form, business_state: e.target.value})} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Postal Code</label>
-              <input value={form.business_postal_code || ""} onChange={e => setForm({...form, business_postal_code: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Postal Code</label>
+              <input value={form.business_postal_code || ""} onChange={e => setForm({...form, business_postal_code: e.target.value})} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Country</label>
-              <input value={form.business_country || ""} onChange={e => setForm({...form, business_country: e.target.value})} placeholder="e.g. United States" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Country</label>
+              <input value={form.business_country || ""} onChange={e => setForm({...form, business_country: e.target.value})} placeholder="e.g. United States" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
           </div>
 
           {/* Shipping Address */}
-          <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">Shipping Address</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Shipping Address</p>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-stone-600 mb-1">Address 1</label>
-              <input value={form.shipping_address_1 || ""} onChange={e => setForm({...form, shipping_address_1: e.target.value})} placeholder="Street address" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Address 1</label>
+              <input value={form.shipping_address_1 || ""} onChange={e => setForm({...form, shipping_address_1: e.target.value})} placeholder="Street address" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-stone-600 mb-1">Address 2</label>
-              <input value={form.shipping_address_2 || ""} onChange={e => setForm({...form, shipping_address_2: e.target.value})} placeholder="Suite, unit, building (optional)" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Address 2</label>
+              <input value={form.shipping_address_2 || ""} onChange={e => setForm({...form, shipping_address_2: e.target.value})} placeholder="Suite, unit, building (optional)" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">City</label>
-              <input value={form.shipping_city || ""} onChange={e => setForm({...form, shipping_city: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">City</label>
+              <input value={form.shipping_city || ""} onChange={e => setForm({...form, shipping_city: e.target.value})} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">State / Province</label>
-              <input value={form.shipping_state || ""} onChange={e => setForm({...form, shipping_state: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">State / Province</label>
+              <input value={form.shipping_state || ""} onChange={e => setForm({...form, shipping_state: e.target.value})} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Postal Code</label>
-              <input value={form.shipping_postal_code || ""} onChange={e => setForm({...form, shipping_postal_code: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Postal Code</label>
+              <input value={form.shipping_postal_code || ""} onChange={e => setForm({...form, shipping_postal_code: e.target.value})} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Country</label>
-              <input value={form.shipping_country || ""} onChange={e => setForm({...form, shipping_country: e.target.value})} placeholder="e.g. United States" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium text-gray-600 mb-1">Country</label>
+              <input value={form.shipping_country || ""} onChange={e => setForm({...form, shipping_country: e.target.value})} placeholder="e.g. United States" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
             </div>
           </div>
         </div>
