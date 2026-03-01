@@ -177,20 +177,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Are you a builder?</h2>
-              <p className="text-base leading-relaxed" style={{ color: "#A8B8D0" }}>
-                List your instruments. Reach buyers who care about how things are made.
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Sell with confidence.</h2>
+              <p className="text-base leading-relaxed" style={{ color: "#C8D4E4" }}>
+                We protect every transaction so you can focus on building. Get paid reliably. Reach serious players.
               </p>
             </div>
             <div className="sm:text-right">
               <Link
                 to={createPageUrl("JoinBuilders")}
-                className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors border"
-                style={{ color: NAVY, backgroundColor: "#FFFFFF", borderColor: "#FFFFFF" }}
+                className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors"
+                style={{ color: NAVY, backgroundColor: "#FFFFFF" }}
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#EEF1F7"; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
               >
-                Join Us
+                Apply as a Founding Builder
               </Link>
             </div>
           </div>
