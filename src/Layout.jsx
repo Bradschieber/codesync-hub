@@ -48,9 +48,10 @@ export default function Layout({ children, currentPageName }) {
   return (
     <div className="min-h-screen bg-white font-sans">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', system-ui, sans-serif; background: #ffffff; color: #111827; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; background: #FDFBF8; color: #1e2a3a; }
         .font-sans { font-family: 'Inter', system-ui, sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Playfair Display', Georgia, serif; }
       `}</style>
 
       {/* Header */}
