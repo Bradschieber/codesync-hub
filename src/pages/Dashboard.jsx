@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { LayoutDashboard, Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus } from "lucide-react";
+import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight } from "lucide-react";
+
+const NAVY = "#1B2B4B";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -47,17 +49,21 @@ export default function Dashboard() {
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin w-8 h-8 border-4 border-indigo-700 border-t-transparent rounded-full" />
+      <div className="animate-spin w-7 h-7 border-2 border-t-transparent rounded-full" style={{ borderColor: NAVY, borderTopColor: "transparent" }} />
     </div>
   );
 
   if (!profile?.is_seller && profile?.account !== "seller" && profile?.account !== "admin") {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <Hammer className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-700 mb-3">Builder Access Required</h2>
-        <p className="text-gray-500 mb-6">You need a builder account to access the dashboard.</p>
-        <Link to={createPageUrl("JoinBuilders")} className="bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-8 py-3 rounded-xl">
+      <div className="max-w-2xl mx-auto px-4 py-24 text-center">
+        <Hammer className="w-12 h-12 mx-auto mb-5" style={{ color: "#CCCCCC" }} strokeWidth={1.5} />
+        <h2 className="text-2xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Builder Access Required</h2>
+        <p className="text-base mb-8" style={{ color: "#5A5A5A" }}>You need a builder account to access the dashboard.</p>
+        <Link
+          to={createPageUrl("JoinBuilders")}
+          className="inline-block font-semibold px-8 py-4 text-sm text-white transition-colors"
+          style={{ backgroundColor: NAVY }}
+        >
           Apply to Join as Builder
         </Link>
       </div>
@@ -69,141 +75,168 @@ export default function Dashboard() {
   const unreadMessages = messages.filter(m => !m.is_read).length;
 
   const stats = [
-    { label: "Active Listings", value: products.filter(p => p.status === "available").length, icon: Package, color: "bg-blue-50 text-blue-600", page: "DashboardActiveListings" },
-    { label: "Pending Requests", value: pendingRequests, icon: Hammer, color: "bg-indigo-50 text-indigo-600", page: "DashboardCustomBuilds" },
-    { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "—", icon: Star, color: "bg-yellow-50 text-yellow-600", page: "DashboardRatings" },
-    { label: "Unread Messages", value: unreadMessages, icon: MessageSquare, color: "bg-green-50 text-green-600", page: "Messages" },
+    { label: "Active Listings", value: products.filter(p => p.status === "available").length, icon: Package, page: "DashboardActiveListings" },
+    { label: "Pending Requests", value: pendingRequests, icon: Hammer, page: "DashboardCustomBuilds" },
+    { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "—", icon: Star, page: "DashboardRatings" },
+    { label: "Unread Messages", value: unreadMessages, icon: MessageSquare, page: "Messages" },
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Builder Dashboard</h1>
-          <p className="text-gray-500">Welcome back, {profile?.business_name || user?.full_name}</p>
-        </div>
-        <Link to={createPageUrl("DashboardProducts")} className="flex items-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-medium px-4 py-2.5 rounded-xl text-sm transition-colors">
-          <Plus className="w-4 h-4" /> Add Product
-        </Link>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stats.map(({ label, value, icon: Icon, color, page }) => (
-          <Link key={label} to={createPageUrl(page || "Dashboard")} className="bg-white rounded-2xl p-5 border border-gray-200 hover:border-indigo-200 hover:shadow-sm transition-all block">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${color}`}>
-              <Icon className="w-5 h-5" />
+    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
+      {/* Page Header */}
+      <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between">
+            <div>
+              <h1 className="text-4xl font-bold tracking-tight mb-1" style={{ color: "#1A1A1A" }}>Builder Dashboard</h1>
+              <p className="text-base" style={{ color: "#5A5A5A" }}>Welcome back, {profile?.business_name || user?.full_name}</p>
             </div>
-            <p className="text-2xl font-bold text-gray-900">{value}</p>
-            <p className="text-sm text-gray-400">{label}</p>
-          </Link>
-        ))}
+            <Link
+              to={createPageUrl("DashboardProducts")}
+              className="hidden sm:flex items-center gap-2 font-semibold px-5 py-3 text-sm text-white transition-colors"
+              style={{ backgroundColor: NAVY }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+            >
+              <Plus className="w-4 h-4" /> Add Product
+            </Link>
+          </div>
+        </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Quick Links */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5">
-          <h2 className="font-bold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="space-y-1">
-            {[
-              { label: "Incoming Orders", sub: `${recentOrders.length} recent orders`, icon: ShoppingBag, page: "BuilderOrders" },
-              { label: "Manage Products", sub: `${products.length} listings`, icon: Package, page: "DashboardProducts" },
-              { label: "Custom Build Listings", sub: "Manage your offerings", icon: Hammer, page: "DashboardCustomBuilds" },
-              { label: "Messages", sub: `${unreadMessages} unread`, icon: MessageSquare, page: "Messages" },
-              { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
-              ...(profile?.account === "admin" ? [{ label: "Manage References", sub: "Verify buyer references", icon: Star, page: "AdminReferences" }] : []),
-            ].map(({ label, sub, icon: Icon, page }) => (
-              <Link key={page} to={createPageUrl(page)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
-                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
-                  <Icon className="w-5 h-5 text-gray-500 group-hover:text-indigo-700 transition-colors" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-700 text-sm">{label}</p>
-                  <p className="text-xs text-gray-400">{sub}</p>
-                </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {stats.map(({ label, value, icon: Icon, page }) => (
+            <Link
+              key={label}
+              to={createPageUrl(page || "Dashboard")}
+              className="block p-5 border transition-all group"
+              style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = NAVY}
+              onMouseLeave={e => e.currentTarget.style.borderColor = "#E0DDD8"}
+            >
+              <div className="mb-3" style={{ color: NAVY }}>
+                <Icon className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <p className="text-3xl font-bold mb-1" style={{ color: "#1A1A1A" }}>{value}</p>
+              <p className="text-xs font-medium uppercase tracking-wide" style={{ color: "#7A7A7A" }}>{label}</p>
+            </Link>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* Quick Actions */}
+          <div className="border p-5" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+            <h2 className="font-bold text-sm uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Quick Actions</h2>
+            <div className="space-y-1">
+              {[
+                { label: "Incoming Orders", sub: `${recentOrders.length} recent orders`, icon: ShoppingBag, page: "BuilderOrders" },
+                { label: "Manage Products", sub: `${products.length} listings`, icon: Package, page: "DashboardProducts" },
+                { label: "Custom Build Listings", sub: "Manage your offerings", icon: Hammer, page: "DashboardCustomBuilds" },
+                { label: "Messages", sub: `${unreadMessages} unread`, icon: MessageSquare, page: "Messages" },
+                { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
+                ...(profile?.account === "admin" ? [{ label: "Manage References", sub: "Verify buyer references", icon: Star, page: "AdminReferences" }] : []),
+              ].map(({ label, sub, icon: Icon, page }) => (
+                <Link
+                  key={page}
+                  to={createPageUrl(page)}
+                  className="flex items-center gap-3 p-3 transition-colors group"
+                  style={{ color: "#3D3D3D" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F5F3F0"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "transparent"}
+                >
+                  <div className="w-9 h-9 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7" }}>
+                    <Icon className="w-4 h-4" style={{ color: NAVY }} strokeWidth={1.5} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>{label}</p>
+                    <p className="text-xs" style={{ color: "#9A9A9A" }}>{sub}</p>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: NAVY }} />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Build Requests */}
+          <div className="border p-5" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-bold text-sm uppercase tracking-widest" style={{ color: "#6B6B6B" }}>Recent Build Requests</h2>
+              <Link to={createPageUrl("DashboardCustomBuilds")} className="text-xs font-semibold flex items-center gap-0.5 hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
+                View all <ArrowRight className="w-3 h-3" />
               </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Recent Requests */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-gray-900">Recent Build Requests</h2>
-            <Link to={createPageUrl("DashboardCustomBuilds")} className="text-xs text-indigo-700 hover:underline">View all</Link>
-          </div>
-          {requests.length === 0 ? (
-            <p className="text-gray-400 text-sm text-center py-6">No requests yet.</p>
-          ) : (
-            <div className="space-y-3">
-              {requests.slice(0, 5).map(r => (
-                <div key={r.id} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50">
-                  <div className={`mt-0.5 w-2 h-2 rounded-full flex-shrink-0 ${r.status === "pending" ? "bg-indigo-500" : r.status === "accepted" ? "bg-green-500" : "bg-gray-400"}`} />
-                  <div>
-                    <p className="font-medium text-gray-700 text-sm">{r.customer_name}</p>
-                    <p className="text-xs text-gray-400 line-clamp-1">{r.description}</p>
-                    <span className={`text-xs px-2 py-0.5 rounded-full mt-1 inline-block ${
-                      r.status === "pending" ? "bg-indigo-100 text-indigo-700" :
-                      r.status === "accepted" ? "bg-green-100 text-green-700" :
-                      "bg-gray-100 text-gray-600"
-                    }`}>{r.status}</span>
-                  </div>
-                </div>
-              ))}
             </div>
-          )}
-        </div>
-
-        {/* Recent Orders */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 lg:col-span-2">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-gray-900">Recent Incoming Orders</h2>
-            <Link to={createPageUrl("BuilderOrders")} className="text-xs text-indigo-700 hover:underline">View all</Link>
-          </div>
-          {recentOrders.length === 0 ? (
-            <p className="text-gray-400 text-sm text-center py-4">No orders yet.</p>
-          ) : (
-            <div className="space-y-3">
-              {recentOrders.map(order => {
-                const builderName = profile?.business_name || profile?.display_name;
-                const myItems = order.items?.filter(i => i.builder_name === builderName) || [];
-                const myTotal = myItems.reduce((sum, i) => sum + (i.product_price || 0) * (i.quantity || 1), 0);
-                return (
-                  <div key={order.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50">
-                    <div>
-                      <p className="font-medium text-gray-700 text-sm">Order #{order.id.slice(-8).toUpperCase()}</p>
-                      <p className="text-xs text-gray-400">{order.buyer_email} · {myItems.length} item{myItems.length !== 1 ? "s" : ""}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${order.status === "paid" ? "bg-blue-100 text-blue-700" : order.status === "pending" ? "bg-indigo-100 text-indigo-700" : order.status === "shipped" ? "bg-purple-100 text-purple-700" : "bg-gray-100 text-gray-600"}`}>{order.status}</span>
-                      <p className="font-bold text-indigo-700 text-sm mt-0.5">${myTotal.toLocaleString()}</p>
+            {requests.length === 0 ? (
+              <p className="text-sm text-center py-8" style={{ color: "#9A9A9A" }}>No requests yet.</p>
+            ) : (
+              <div className="space-y-2">
+                {requests.slice(0, 5).map(r => (
+                  <div key={r.id} className="flex items-start gap-3 p-3" style={{ backgroundColor: "#F5F3F0" }}>
+                    <div className={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0`} style={{ backgroundColor: r.status === "pending" ? NAVY : r.status === "accepted" ? "#27AE60" : "#AAAAAA" }} />
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>{r.customer_name}</p>
+                      <p className="text-xs truncate" style={{ color: "#7A7A7A" }}>{r.description}</p>
+                      <span className="text-xs font-semibold mt-1 inline-block uppercase tracking-wide" style={{ color: r.status === "pending" ? NAVY : r.status === "accepted" ? "#27AE60" : "#888888" }}>{r.status}</span>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </div>
 
-        {/* Recent Reviews */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 lg:col-span-2">
-          <h2 className="font-bold text-gray-900 mb-4">Recent Reviews</h2>
-          {reviews.length === 0 ? (
-            <p className="text-gray-400 text-sm text-center py-4">No reviews yet.</p>
-          ) : (
-            <div className="grid sm:grid-cols-2 gap-3">
-              {reviews.slice(0, 4).map(r => (
-                <div key={r.id} className="p-4 bg-gray-50 rounded-xl">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-medium text-gray-700 text-sm">{r.reviewer_name}</span>
-                    <div className="flex">{[1,2,3,4,5].map(n => <Star key={n} className={`w-3.5 h-3.5 ${n <= r.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />)}</div>
-                  </div>
-                  <p className="text-gray-500 text-xs line-clamp-2">{r.review_text}</p>
-                </div>
-              ))}
+          {/* Recent Orders */}
+          <div className="border p-5 lg:col-span-2" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-bold text-sm uppercase tracking-widest" style={{ color: "#6B6B6B" }}>Recent Incoming Orders</h2>
+              <Link to={createPageUrl("BuilderOrders")} className="text-xs font-semibold flex items-center gap-0.5 hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
             </div>
-          )}
+            {recentOrders.length === 0 ? (
+              <p className="text-sm text-center py-6" style={{ color: "#9A9A9A" }}>No orders yet.</p>
+            ) : (
+              <div className="space-y-2">
+                {recentOrders.map(order => {
+                  const builderName = profile?.business_name || profile?.display_name;
+                  const myItems = order.items?.filter(i => i.builder_name === builderName) || [];
+                  const myTotal = myItems.reduce((sum, i) => sum + (i.product_price || 0) * (i.quantity || 1), 0);
+                  return (
+                    <div key={order.id} className="flex items-center justify-between p-3" style={{ backgroundColor: "#F5F3F0" }}>
+                      <div>
+                        <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>Order #{order.id.slice(-8).toUpperCase()}</p>
+                        <p className="text-xs" style={{ color: "#7A7A7A" }}>{order.buyer_email} · {myItems.length} item{myItems.length !== 1 ? "s" : ""}</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: order.status === "paid" ? "#27AE60" : order.status === "pending" ? NAVY : "#888888" }}>{order.status}</span>
+                        <p className="font-bold text-sm" style={{ color: NAVY }}>${myTotal.toLocaleString()}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Recent Reviews */}
+          <div className="border p-5 lg:col-span-2" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+            <h2 className="font-bold text-sm uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Recent Reviews</h2>
+            {reviews.length === 0 ? (
+              <p className="text-sm text-center py-6" style={{ color: "#9A9A9A" }}>No reviews yet.</p>
+            ) : (
+              <div className="grid sm:grid-cols-2 gap-3">
+                {reviews.slice(0, 4).map(r => (
+                  <div key={r.id} className="p-4" style={{ backgroundColor: "#F5F3F0" }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold text-sm" style={{ color: "#1A1A1A" }}>{r.reviewer_name}</span>
+                      <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className={`w-3.5 h-3.5`} style={{ color: n <= r.rating ? "#D4AC0D" : "#DDDDDD", fill: n <= r.rating ? "#D4AC0D" : "none" }} />)}</div>
+                    </div>
+                    <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#5A5A5A" }}>{r.review_text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
