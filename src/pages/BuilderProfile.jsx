@@ -132,9 +132,9 @@ export default function BuilderProfile() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         {/* Bio */}
         {builder.bio && (
-          <div className="p-6 border mb-6" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-            <h2 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#6B6B6B" }}>About</h2>
-            <p className="text-sm leading-relaxed" style={{ color: "#3D3D3D" }}>{builder.bio}</p>
+          <div className="p-6 border border-gray-200 rounded-xl mb-6 bg-white">
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">About</h2>
+            <p className="text-sm leading-relaxed text-gray-600">{builder.bio}</p>
           </div>
         )}
 
@@ -142,26 +142,23 @@ export default function BuilderProfile() {
         {builder.specialties?.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6">
             {builder.specialties.map(s => (
-              <span key={s} className="text-xs font-medium px-3 py-1.5 border" style={{ borderColor: "#DEDBD6", color: "#3D3D3D", backgroundColor: "#FFFFFF" }}>{s}</span>
+              <span key={s} className="text-xs font-medium px-3 py-1.5 border border-gray-200 rounded-full text-gray-600 bg-white">{s}</span>
             ))}
           </div>
         )}
 
         {/* Custom Builds CTA */}
         {builder.offers_custom_builds && (
-          <div className="p-6 border mb-6 flex items-start gap-4" style={{ borderColor: "#E0DDD8", backgroundColor: "#EEF1F7" }}>
-            <Hammer className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: NAVY }} strokeWidth={1.5} />
+          <div className="p-6 border border-indigo-100 rounded-xl mb-6 flex items-start gap-4 bg-indigo-50">
+            <Hammer className="w-5 h-5 flex-shrink-0 mt-0.5 text-indigo-700" strokeWidth={1.5} />
             <div className="flex-1">
-              <h3 className="font-bold text-sm mb-2" style={{ color: "#1A1A1A" }}>Custom Builds Available</h3>
-              <p className="text-sm mb-4 leading-relaxed" style={{ color: "#4A4A4A" }}>
+              <h3 className="font-bold text-sm mb-2 text-gray-900">Custom Builds Available</h3>
+              <p className="text-sm mb-4 leading-relaxed text-gray-600">
                 {builder.custom_build_description || "This builder accepts custom build requests. Reach out to discuss your dream instrument."}
               </p>
               <button
                 onClick={() => setShowQuoteModal(true)}
-                className="font-semibold px-5 py-2.5 text-sm text-white transition-colors"
-                style={{ backgroundColor: NAVY }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+                className="font-semibold px-5 py-2.5 text-sm text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg transition-colors"
               >
                 Request a Quote
               </button>
@@ -171,14 +168,14 @@ export default function BuilderProfile() {
 
         {/* Verified References */}
         {builder.is_verified && references.length > 0 && (
-          <div className="p-6 border mb-6" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-            <h2 className="text-xs font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Verified Buyer References</h2>
+          <div className="p-6 border border-gray-200 rounded-xl mb-6 bg-white">
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-5 text-gray-400">Verified Buyer References</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {references.map(ref => (
-                <div key={ref.id} className="p-4" style={{ backgroundColor: "#F5F3F0" }}>
-                  <Quote className="w-4 h-4 mb-2" style={{ color: "#CCCCCC" }} />
-                  <p className="text-sm italic leading-relaxed mb-3" style={{ color: "#4A4A4A" }}>"{ref.quote}"</p>
-                  <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>— {ref.buyer_name}</p>
+                <div key={ref.id} className="p-4 bg-gray-50 rounded-lg">
+                  <Quote className="w-4 h-4 mb-2 text-gray-300" />
+                  <p className="text-sm italic leading-relaxed mb-3 text-gray-600">"{ref.quote}"</p>
+                  <p className="text-sm font-semibold text-gray-800">— {ref.buyer_name}</p>
                 </div>
               ))}
             </div>
@@ -186,16 +183,12 @@ export default function BuilderProfile() {
         )}
 
         {/* Tabs */}
-        <div className="flex border-b mb-6" style={{ borderColor: "#E0DDD8" }}>
+        <div className="flex border-b border-gray-200 mb-6">
           {tabs.map(t => (
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className="px-5 py-3 text-sm font-medium border-b-2 transition-colors"
-              style={{
-                borderBottomColor: activeTab === t.id ? NAVY : "transparent",
-                color: activeTab === t.id ? NAVY : "#7A7A7A"
-              }}
+              className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === t.id ? "border-indigo-700 text-indigo-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
             >
               {t.label}
             </button>
