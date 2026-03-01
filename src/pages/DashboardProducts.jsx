@@ -287,7 +287,7 @@ End with a short sentence about suggested keywords for search (prefix with "Keyw
         </div>
         <div className="flex gap-3 pt-2">
           <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-600 py-2.5 rounded-xl text-sm">Cancel</button>
-          <button type="submit" disabled={saving} className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 rounded-xl text-sm disabled:opacity-50">
+          <button type="submit" disabled={saving} className="flex-1 text-white font-medium py-2.5 rounded-xl text-sm disabled:opacity-50" style={{ backgroundColor: "#1B2B4B" }} onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"} onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}>
             {saving ? "Saving..." : product ? "Update" : "Create Listing"}
           </button>
         </div>
