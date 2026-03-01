@@ -40,7 +40,7 @@ export default function About() {
               { value: "50+", label: "States Reached" },
             ].map(({ value, label }) => (
               <div key={label} className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-                <p className="text-3xl font-bold mb-1" style={{ color: NAVY }}>{value}</p>
+                <p className="text-3xl font-bold mb-1" style={{ color: NAVY, fontFamily: "'DM Sans', system-ui, sans-serif" }}>{value}</p>
                 <p className="text-sm" style={{ color: "#6B6B6B" }}>{label}</p>
               </div>
             ))}
