@@ -5,8 +5,6 @@ import { base44 } from "@/api/base44Client";
 import { Guitar, Star, ChevronLeft, Quote, Hammer, Heart, MapPin, MessageSquare, ArrowRight, User, X, Check } from "lucide-react";
 import RequestQuoteModal from "../components/builder/RequestQuoteModal";
 
-const NAVY = "#1B2B4B";
-
 export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
   const [products, setProducts] = useState([]);
