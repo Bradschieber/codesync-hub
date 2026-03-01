@@ -178,9 +178,9 @@ export default function Layout({ children, currentPageName }) {
       <footer className="bg-gray-900 text-gray-400 mt-20 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Guitar className="w-5 h-5 text-indigo-400" />
-              <span className="text-white font-bold text-sm tracking-tight uppercase" style={{ letterSpacing: "0.08em" }}>Stringed Collective</span>
+            <div className="flex flex-col leading-none mb-4">
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 500, fontSize: "0.85rem", color: "#A8B8D0", letterSpacing: "0.01em" }}>Stringed</span>
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: "0.85rem", color: "#A8B8D0", letterSpacing: "0.06em" }}>Collective</span>
             </div>
             <p className="text-sm leading-relaxed text-gray-500">A curated marketplace connecting independent luthiers with players who appreciate fine craftsmanship.</p>
           </div>
