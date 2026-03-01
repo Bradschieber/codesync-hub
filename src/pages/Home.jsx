@@ -27,7 +27,7 @@ export default function Home() {
     <div style={{ backgroundColor: "#FAF9F7", color: "#1A1A1A" }} className="min-h-screen">
 
       {/* ── 1. HERO ── */}
-      <section style={{ backgroundColor: "#FAF9F7" }} className="pt-20 pb-10">
+      <section style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-20 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Headline */}
