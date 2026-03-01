@@ -63,13 +63,13 @@ import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import DashboardProducts from './pages/DashboardProducts';
 import DashboardProfile from './pages/DashboardProfile';
 import DashboardRatings from './pages/DashboardRatings';
+import Home from './pages/Home';
 import JoinBuilders from './pages/JoinBuilders';
 import Messages from './pages/Messages';
 import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
@@ -90,13 +90,13 @@ export const PAGES = {
     "DashboardProducts": DashboardProducts,
     "DashboardProfile": DashboardProfile,
     "DashboardRatings": DashboardRatings,
+    "Home": Home,
     "JoinBuilders": JoinBuilders,
     "Messages": Messages,
     "Orders": Orders,
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "Home": Home,
 }
 
 export const pagesConfig = {
