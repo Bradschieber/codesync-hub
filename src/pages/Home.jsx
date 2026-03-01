@@ -160,8 +160,8 @@ export default function Home() {
                 className="group block p-7 border transition-all"
                 style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = NAVY;
-                  e.currentTarget.style.backgroundColor = "#F4F6FB";
+                  e.currentTarget.style.borderColor = BRONZE;
+                  e.currentTarget.style.backgroundColor = "#FDF8F3";
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.borderColor = "#DEDBD6";
@@ -170,7 +170,7 @@ export default function Home() {
               >
                 <h3 className="text-xl font-bold mb-2 tracking-tight" style={{ color: "#1A1A1A" }}>{cat.label}</h3>
                 <p className="text-sm" style={{ color: "#6B6B6B" }}>{cat.desc}</p>
-                <div className="mt-5 flex items-center gap-1 text-xs font-semibold transition-opacity opacity-0 group-hover:opacity-100" style={{ color: NAVY }}>
+                <div className="mt-5 flex items-center gap-1 text-xs font-semibold transition-opacity opacity-0 group-hover:opacity-100" style={{ color: BRONZE }}>
                   Browse <ArrowRight className="w-3 h-3" />
                 </div>
               </Link>
