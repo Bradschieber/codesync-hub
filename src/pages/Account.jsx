@@ -91,7 +91,7 @@ export default function Account() {
           <div className="space-y-2">
             {[
               { label: isSeller ? "Incoming Orders" : "Orders", icon: ShoppingBag, page: isSeller ? "BuilderOrders" : "Orders" },
-              { label: "Wishlist", icon: Heart, page: "Wishlist" },
+              ...(!isSeller ? [{ label: "Wishlist", icon: Heart, page: "Wishlist" }] : []),
             ].map(({ label, icon: Icon, page }) => (
               <Link
                 key={page}
