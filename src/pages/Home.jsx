@@ -275,7 +275,7 @@ function ProductCard({ product }) {
         <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "#8A8A8A" }}>{product.builder_name}</p>
         <h3 className="font-bold text-sm mb-1 leading-snug" style={{ color: "#1A1A1A" }}>{product.name}</h3>
         {specLine && <p className="text-xs mb-2" style={{ color: "#7A7A7A" }}>{specLine}</p>}
-        <p className="font-bold text-sm" style={{ color: NAVY }}>${product.price && product.price.toLocaleString()}</p>
+        <p className="font-bold text-sm" style={{ color: BRONZE }}>${product.price && product.price.toLocaleString()}</p>
       </div>
     </Link>
   );
