@@ -175,7 +175,8 @@ export default function Layout({ children, currentPageName }) {
                   key={l.page}
                   to={createPageUrl(l.page)}
                   onClick={() => setMenuOpen(false)}
-                  className="block py-2.5 px-3 rounded-lg text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition-colors"
+                  className="block py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors"
+                    style={{ color: "#1B2B4B", backgroundColor: "#EEF1F7" }}
                 >
                   {l.label}
                 </Link>
