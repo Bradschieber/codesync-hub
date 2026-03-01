@@ -5,6 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { ArrowRight, Guitar, Lock, CreditCard, CheckCircle, MapPin, User } from "lucide-react";
 
 const NAVY = "#1B2B4B";
+const BRONZE = "#A0692A";
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);
