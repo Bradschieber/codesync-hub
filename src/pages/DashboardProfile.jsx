@@ -228,9 +228,12 @@ export default function DashboardProfile() {
                   <label htmlFor="offers_custom_builds" className="text-sm font-semibold text-gray-700 cursor-pointer">Custom Builds</label>
                   <p className="text-xs text-gray-400 mt-0.5">Buyers submit a quote request with their desired specs — you build it to order.</p>
                   {form.offers_custom_builds && (
-                    <div className="mt-2">
-                      <label className="block text-xs font-medium text-gray-600 mb-1">Custom Build Description</label>
-                      <textarea rows={3} value={form.custom_build_description || ""} onChange={e => setForm({ ...form, custom_build_description: e.target.value })} placeholder="Describe what you offer — instrument types, options, process, lead times, starting prices, etc." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-none" />
+                    <div className="mt-2 space-y-3">
+                      <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Custom Build Description</label>
+                        <textarea rows={3} value={form.custom_build_description || ""} onChange={e => setForm({ ...form, custom_build_description: e.target.value })} placeholder="Describe what you offer — instrument types, options, process, lead times, starting prices, etc." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-none" />
+                      </div>
+                      <CustomBuildExamples form={form} setForm={setForm} />
                     </div>
                   )}
                 </div>
