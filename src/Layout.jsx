@@ -100,7 +100,7 @@ export default function Layout({ children, currentPageName }) {
                   <div className="relative">
                     <button
                       onClick={() => setUserMenuOpen(!userMenuOpen)}
-                      className="flex items-center gap-1 text-gray-500 hover:text-indigo-700 transition-colors p-2"
+                      className="flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors p-2"
                     >
                       {profile?.avatar_url ? (
                         <img src={profile.avatar_url} className="w-7 h-7 rounded-full object-cover border border-gray-200" />
