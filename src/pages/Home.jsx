@@ -271,11 +271,11 @@ function ProductCard({ product }) {
         )}
       </div>
       {/* Info */}
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "#8A8A8A" }}>{product.builder_name}</p>
-        <h3 className="font-bold text-sm mb-1 leading-snug" style={{ color: "#1A1A1A" }}>{product.name}</h3>
-        {specLine && <p className="text-xs mb-2" style={{ color: "#7A7A7A" }}>{specLine}</p>}
-        <p className="font-bold text-sm" style={{ color: BRONZE }}>${product.price && product.price.toLocaleString()}</p>
+      <div className="pt-1">
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.72rem", fontWeight: 400, color: "#7A7A7A", marginBottom: "3px" }}>{product.builder_name}</p>
+        <h3 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.925rem", fontWeight: 600, color: "#1e2a3a", lineHeight: 1.35, marginBottom: "4px" }}>{product.name}</h3>
+        {specLine && <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 400, color: "#9A9A9A", marginBottom: "6px" }}>{specLine}</p>}
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.925rem", fontWeight: 600, color: "#2C3E55" }}>${product.price && product.price.toLocaleString()}</p>
       </div>
     </Link>
   );
