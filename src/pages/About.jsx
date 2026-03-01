@@ -1,77 +1,105 @@
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Guitar, Heart, Users, Star, ArrowRight } from "lucide-react";
+import { ArrowRight, Lock, Users, CheckCircle } from "lucide-react";
+
+const NAVY = "#1B2B4B";
 
 export default function About() {
   return (
-    <div className="bg-stone-50">
+    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
+
       {/* Hero */}
-      <div className="bg-stone-900 text-white py-20 px-4 text-center">
-        <Guitar className="w-14 h-14 text-amber-400 mx-auto mb-5" />
-        <h1 className="text-4xl sm:text-5xl font-bold mb-4">About Stringed Collective</h1>
-        <p className="text-stone-300 text-xl max-w-2xl mx-auto">
-          We exist to connect the most passionate guitar builders in the world with the players who will cherish their work for generations.
-        </p>
+      <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-20 pb-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1A1A1A" }}>
+            About Stringed Collective.
+          </h1>
+          <p className="text-lg leading-relaxed" style={{ color: "#3D3D3D" }}>
+            We exist to connect serious instrument builders with the players who will cherish their work for generations.
+          </p>
+        </div>
       </div>
 
       {/* Story */}
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-2 gap-16 items-start mb-20">
           <div>
-            <h2 className="text-3xl font-bold text-stone-800 mb-4">Our Story</h2>
-            <p className="text-stone-600 leading-relaxed mb-4">
-              Stringed Collective was born from a simple frustration: remarkable guitar builders were hidden from the players who would love their work most. Mass-market retailers dominated the market, while independent luthiers struggled to reach their audience.
+            <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
+            <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
+              Stringed Collective was built to solve a real problem: remarkable guitar builders were invisible to the players who would love their work most. Mass-market retailers dominated, while independent luthiers struggled to reach a serious audience.
             </p>
-            <p className="text-stone-600 leading-relaxed">
-              We built this platform to change that — a curated marketplace where craftsmanship is celebrated, where every guitar has a story, and where the relationship between builder and player can flourish.
+            <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
+              We built this platform to change that — a protected, structured marketplace where craft is respected, transactions are secure, and the relationship between builder and player can be direct and honest.
             </p>
           </div>
-          <div className="bg-amber-50 rounded-2xl p-8 border border-amber-100">
-            <div className="grid grid-cols-2 gap-6 text-center">
-              {[
-                { value: "150+", label: "Master Builders" },
-                { value: "2,000+", label: "Instruments Sold" },
-                { value: "4.9★", label: "Average Rating" },
-                { value: "50+", label: "States Reached" },
-              ].map(({ value, label }) => (
-                <div key={label}>
-                  <p className="text-3xl font-bold text-amber-700">{value}</p>
-                  <p className="text-stone-500 text-sm mt-1">{label}</p>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 gap-5">
+            {[
+              { value: "150+", label: "Verified Builders" },
+              { value: "2,000+", label: "Instruments Sold" },
+              { value: "4.9", label: "Average Rating" },
+              { value: "50+", label: "States Reached" },
+            ].map(({ value, label }) => (
+              <div key={label} className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+                <p className="text-3xl font-bold mb-1" style={{ color: NAVY }}>{value}</p>
+                <p className="text-sm" style={{ color: "#6B6B6B" }}>{label}</p>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Values */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-stone-800 mb-6 text-center">What We Stand For</h2>
+        <div className="mb-20">
+          <h2 className="text-sm font-bold uppercase tracking-widest mb-10" style={{ color: "#6B6B6B" }}>What We Stand For</h2>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: Heart, title: "Craftsmanship First", text: "Every builder on our platform is vetted for skill, quality, and integrity. We only feature makers who take exceptional pride in their work." },
-              { icon: Users, title: "Community Driven", text: "We're more than a marketplace — we're a community of builders, players, and enthusiasts who share a deep love for handcrafted instruments." },
-              { icon: Star, title: "Exceptional Value", text: "Buying direct from the builder means better instruments for less. No middlemen inflating costs, just pure value from maker to player." },
+              {
+                icon: CheckCircle,
+                title: "Builder-First Standards",
+                text: "Every builder is reviewed before listing. We only feature makers who take exceptional care in their craft and their customer relationships."
+              },
+              {
+                icon: Users,
+                title: "Direct Relationships",
+                text: "We facilitate the connection between builder and player — not replace it. Buyers and makers communicate clearly throughout every transaction."
+              },
+              {
+                icon: Lock,
+                title: "Protected Transactions",
+                text: "Payments are held securely and released only after successful delivery. No one carries the risk alone — that's our commitment to both sides."
+              },
             ].map(({ icon: Icon, title, text }) => (
-              <div key={title} className="bg-white rounded-2xl p-6 border border-stone-200">
-                <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center mb-3">
-                  <Icon className="w-5 h-5 text-amber-600" />
+              <div key={title} className="p-7 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+                <div className="mb-4" style={{ color: NAVY }}>
+                  <Icon className="w-6 h-6" strokeWidth={1.5} />
                 </div>
-                <h3 className="font-bold text-stone-800 mb-2">{title}</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">{text}</p>
+                <h3 className="font-bold text-base mb-3" style={{ color: "#1A1A1A" }}>{title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{text}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* CTA */}
-        <div className="bg-stone-900 text-white rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold mb-3">Ready to Find Your Guitar?</h2>
-          <p className="text-stone-400 mb-6">Browse hundreds of handcrafted instruments from independent makers.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to={createPageUrl("Catalog")} className="bg-amber-500 hover:bg-amber-400 text-white font-semibold px-8 py-3 rounded-xl flex items-center justify-center gap-2">
-              Browse Guitars <ArrowRight className="w-4 h-4" />
+        <div className="py-16 px-10 text-center" style={{ backgroundColor: NAVY }}>
+          <h2 className="text-2xl font-bold text-white mb-3 tracking-tight">Ready to find your instrument?</h2>
+          <p className="mb-8 text-base" style={{ color: "#A8B8D0" }}>Browse instruments from independent builders — directly.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to={createPageUrl("Catalog")}
+              className="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 text-sm transition-colors"
+              style={{ backgroundColor: "#FFFFFF", color: NAVY }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#EEF1F7"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}
+            >
+              Browse Instruments <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link to={createPageUrl("JoinBuilders")} className="border border-white/30 hover:bg-white/10 text-white font-semibold px-8 py-3 rounded-xl">
+            <Link
+              to={createPageUrl("JoinBuilders")}
+              className="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 text-sm border transition-colors text-white"
+              style={{ borderColor: "rgba(255,255,255,0.3)" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "transparent"}
+            >
               Join as Builder
             </Link>
           </div>
