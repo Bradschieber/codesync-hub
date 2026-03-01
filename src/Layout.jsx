@@ -40,8 +40,9 @@ export default function Layout({ children, currentPageName }) {
   const navLinks = [
     { label: "Home", page: "Home" },
     { label: "Catalog", page: "Catalog" },
-    { label: "Builders", page: "Builders" },
+    { label: "Our Builders", page: "Builders" },
     { label: "About", page: "About" },
+    { label: "Join As A Builder", page: "JoinBuilders", pill: true },
   ];
 
   return (
