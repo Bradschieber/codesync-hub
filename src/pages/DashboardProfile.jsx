@@ -75,15 +75,15 @@ export default function DashboardProfile() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
       <div className="flex items-center gap-3 mb-2">
-        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
-        <h1 className="text-2xl font-bold text-stone-800">Builder Profile</h1>
+        <Link to={createPageUrl("Dashboard")} className="text-gray-400 hover:text-indigo-700"><ChevronLeft className="w-5 h-5" /></Link>
+        <h1 className="text-2xl font-bold text-gray-900">Builder Profile</h1>
       </div>
-      <p className="text-stone-400 text-sm mb-4 ml-8">Build your storefront — tell your story, show your craft, earn trust.</p>
+      <p className="text-gray-400 text-sm mb-4 ml-8">Build your storefront — tell your story, show your craft, earn trust.</p>
 
       {/* Section Nav */}
-      <div className="sticky top-16 z-30 bg-stone-50 border border-stone-200 rounded-2xl px-4 py-2.5 mb-8 flex flex-wrap gap-x-4 gap-y-1">
+      <div className="sticky top-16 z-30 bg-white border border-gray-200 rounded-xl px-4 py-2.5 mb-8 flex flex-wrap gap-x-4 gap-y-1 shadow-sm">
         {sections.map(s => (
-          <a key={s.id} href={`#${s.id}`} className="text-xs text-stone-500 hover:text-amber-600 font-medium transition-colors whitespace-nowrap">
+          <a key={s.id} href={`#${s.id}`} className="text-xs text-gray-500 hover:text-indigo-700 font-medium transition-colors whitespace-nowrap">
             {s.label}
           </a>
         ))}
