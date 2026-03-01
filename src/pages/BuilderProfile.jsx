@@ -294,16 +294,16 @@ function ContactModal({ builder, user, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white w-full max-w-md shadow-2xl p-6" style={{ backgroundColor: "#FFFFFF" }}>
+      <div className="relative bg-white w-full max-w-md shadow-2xl rounded-xl p-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Contact {builder.business_name || builder.display_name}</h3>
-          <button onClick={onClose} className="hover:opacity-60 transition-opacity"><X className="w-5 h-5" style={{ color: "#6B6B6B" }} /></button>
+          <h3 className="text-base font-bold text-gray-900">Contact {builder.business_name || builder.display_name}</h3>
+          <button onClick={onClose} className="hover:opacity-60 transition-opacity"><X className="w-5 h-5 text-gray-500" /></button>
         </div>
         {sent ? (
           <div className="text-center py-8">
-            <Check className="w-10 h-10 mx-auto mb-3" style={{ color: "#27AE60" }} />
-            <p className="font-medium text-sm mb-5" style={{ color: "#1A1A1A" }}>Message sent successfully.</p>
-            <button onClick={onClose} className="text-sm font-semibold hover:opacity-70 transition-opacity" style={{ color: NAVY }}>Close</button>
+            <Check className="w-10 h-10 mx-auto mb-3 text-green-500" />
+            <p className="font-medium text-sm mb-5 text-gray-900">Message sent successfully.</p>
+            <button onClick={onClose} className="text-sm font-semibold text-indigo-700 hover:text-indigo-800 transition-colors">Close</button>
           </div>
         ) : (
           <form onSubmit={handleSend} className="space-y-4">
@@ -313,15 +313,11 @@ function ContactModal({ builder, user, onClose }) {
               rows={5}
               required
               placeholder="Write your message..."
-              className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
-              style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-none text-gray-900"
             />
             <div className="flex gap-3">
-              <button type="button" onClick={onClose} className="flex-1 border py-2.5 text-sm font-medium transition-colors" style={{ borderColor: "#DEDBD6", color: "#5A5A5A" }}>Cancel</button>
-              <button type="submit" className="flex-1 py-2.5 text-sm font-semibold text-white transition-colors" style={{ backgroundColor: NAVY }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
-              >Send Message</button>
+              <button type="button" onClick={onClose} className="flex-1 border border-gray-200 rounded-lg py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Cancel</button>
+              <button type="submit" className="flex-1 py-2.5 text-sm font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg transition-colors">Send Message</button>
             </div>
           </form>
         )}
