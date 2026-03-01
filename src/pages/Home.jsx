@@ -99,7 +99,7 @@ export default function Home() {
       <section className="py-20 mt-10" style={{ backgroundColor: "#EEF1F7" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-5 tracking-tight" style={{ color: "#1A1A1A" }}>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-5 tracking-tight" style={{ color: NAVY, fontFamily: "'DM Sans', 'Inter', sans-serif" }}>
               Buy and build with confidence.
             </h2>
             <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
