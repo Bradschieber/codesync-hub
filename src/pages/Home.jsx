@@ -43,9 +43,9 @@ export default function Home() {
               <Link
                 to={createPageUrl("Catalog")}
                 className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors text-white"
-                style={{ backgroundColor: NAVY }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+                style={{ backgroundColor: BRONZE }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#8A5820"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = BRONZE}
               >
                 Browse Instruments
               </Link>
