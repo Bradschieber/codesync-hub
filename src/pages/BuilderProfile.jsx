@@ -78,53 +78,49 @@ export default function BuilderProfile() {
   ];
 
   return (
-    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
+    <div className="bg-gray-50 min-h-screen">
       {/* Header Band */}
-      <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-10 pb-10">
+      <div className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-700 pt-10 pb-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <Link to={createPageUrl("Builders")} className="inline-flex items-center gap-1 text-sm font-medium mb-8 hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
+          <Link to={createPageUrl("Builders")} className="inline-flex items-center gap-1 text-sm font-medium mb-8 text-indigo-200 hover:text-white transition-colors">
             <ChevronLeft className="w-4 h-4" /> Back to Builders
           </Link>
 
           {/* Builder Identity */}
           <div className="flex flex-col sm:flex-row items-start gap-6">
             {builder.avatar_url ? (
-              <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-20 h-20 object-cover flex-shrink-0" style={{ borderRadius: 2 }} />
+              <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-20 h-20 object-cover flex-shrink-0 rounded-xl border-2 border-white/20" />
             ) : (
-              <div className="w-20 h-20 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#D6DCE8", borderRadius: 2 }}>
-                <User className="w-9 h-9" style={{ color: NAVY }} strokeWidth={1.5} />
+              <div className="w-20 h-20 flex items-center justify-center flex-shrink-0 rounded-xl bg-indigo-600/50 border-2 border-white/20">
+                <User className="w-9 h-9 text-white/70" strokeWidth={1.5} />
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="text-3xl font-bold tracking-tight mb-1" style={{ color: "#1A1A1A" }}>{builder.business_name || builder.display_name}</h1>
-              <div className="flex flex-wrap items-center gap-4 text-sm mb-4" style={{ color: "#6B6B6B" }}>
+              <h1 className="text-3xl font-bold tracking-tight mb-1 text-white">{builder.business_name || builder.display_name}</h1>
+              <div className="flex flex-wrap items-center gap-4 text-sm mb-4 text-indigo-200">
                 {builder.location && (
                   <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{builder.location}</span>
                 )}
                 {builder.years_experience > 0 && <span>{builder.years_experience} years experience</span>}
                 {avgRating > 0 && (
                   <span className="flex items-center gap-1">
-                    <Star className="w-3.5 h-3.5 fill-current" style={{ color: "#D4AC0D" }} />
-                    {avgRating.toFixed(1)} ({reviews.length} reviews)
+                    <Star className="w-3.5 h-3.5 fill-current text-yellow-400" />
+                    <span className="text-white">{avgRating.toFixed(1)}</span> ({reviews.length} reviews)
                   </span>
                 )}
               </div>
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => setShowContactForm(true)}
-                  className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 text-white transition-colors"
-                  style={{ backgroundColor: NAVY }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+                  className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 bg-white text-indigo-800 hover:bg-indigo-50 rounded-lg transition-colors"
                 >
                   <MessageSquare className="w-4 h-4" /> Contact Builder
                 </button>
                 <button
                   onClick={toggleSave}
-                  className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 border transition-colors"
-                  style={{ borderColor: saved ? NAVY : "#DEDBD6", color: saved ? NAVY : "#5A5A5A", backgroundColor: "#FFFFFF" }}
+                  className={`flex items-center gap-2 font-semibold text-sm px-5 py-2.5 border rounded-lg transition-colors ${saved ? "bg-white/20 border-white/40 text-white" : "border-white/30 text-indigo-200 hover:bg-white/10"}`}
                 >
-                  <Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} />
+                  <Heart className={`w-4 h-4 ${saved ? "fill-current text-white" : ""}`} />
                   {saved ? "Saved" : "Save Builder"}
                 </button>
               </div>
