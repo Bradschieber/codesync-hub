@@ -69,16 +69,26 @@ export default function Layout({ children, currentPageName }) {
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map(l => (
-                <Link
-                  key={l.page}
-                  to={createPageUrl(l.page)}
-                  className={`text-sm font-medium transition-colors ${
-                    currentPageName === l.page ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
-                  }`}
-                  style={currentPageName === l.page ? { color: "#24324A" } : {}}
-                >
-                  {l.label}
-                </Link>
+                l.pill ? (
+                  <Link
+                    key={l.page}
+                    to={createPageUrl(l.page)}
+                    className="text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors px-4 py-1.5 rounded-full"
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <Link
+                    key={l.page}
+                    to={createPageUrl(l.page)}
+                    className={`text-sm font-medium transition-colors ${
+                      currentPageName === l.page ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
+                    }`}
+                    style={currentPageName === l.page ? { color: "#24324A" } : {}}
+                  >
+                    {l.label}
+                  </Link>
+                )
               ))}
             </nav>
 
