@@ -54,19 +54,19 @@ export default function BuilderProfile() {
   }
 
   if (loading) return (
-    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }} className="animate-pulse">
+    <div className="bg-gray-50 min-h-screen animate-pulse">
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <div className="h-6 rounded w-32 mb-8" style={{ backgroundColor: "#EBEBEB" }} />
-        <div className="h-40 rounded mb-6" style={{ backgroundColor: "#EBEBEB" }} />
-        <div className="h-24 rounded" style={{ backgroundColor: "#F5F5F5" }} />
+        <div className="h-6 rounded w-32 mb-8 bg-gray-200" />
+        <div className="h-40 rounded mb-6 bg-gray-200" />
+        <div className="h-24 rounded bg-gray-100" />
       </div>
     </div>
   );
 
   if (!builder) return (
     <div className="max-w-5xl mx-auto px-4 py-20 text-center">
-      <p style={{ color: "#7A7A7A" }}>Builder not found.</p>
-      <Link to={createPageUrl("Builders")} className="font-semibold underline mt-2 block text-sm" style={{ color: NAVY }}>Back to Builders</Link>
+      <p className="text-gray-500">Builder not found.</p>
+      <Link to={createPageUrl("Builders")} className="font-semibold underline mt-2 block text-sm text-indigo-700">Back to Builders</Link>
     </div>
   );
 
