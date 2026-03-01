@@ -59,11 +59,9 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <Link to={createPageUrl("Home")} className="flex items-center gap-2.5 group">
-              <Guitar className="w-5 h-5 text-indigo-700 group-hover:text-indigo-600 transition-colors" />
-              <span className="text-base font-bold tracking-tight text-gray-900 group-hover:text-indigo-700 transition-colors uppercase" style={{ letterSpacing: "0.08em" }}>
-                Stringed Collective
-              </span>
+            <Link to={createPageUrl("Home")} className="flex flex-col leading-none group">
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 500, fontSize: "0.9rem", color: "#2A3550", letterSpacing: "0.01em" }} className="group-hover:opacity-80 transition-opacity">Stringed</span>
+              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 400, fontSize: "0.9rem", color: "#2A3550", letterSpacing: "0.06em" }} className="group-hover:opacity-80 transition-opacity">Collective</span>
             </Link>
 
             {/* Desktop Nav */}
