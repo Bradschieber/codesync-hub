@@ -72,7 +72,7 @@ export default function About() {
                 <div className="mb-4" style={{ color: NAVY }}>
                   <Icon className="w-6 h-6" strokeWidth={1.5} />
                 </div>
-                <h3 className="font-bold text-base mb-3" style={{ color: "#1A1A1A" }}>{title}</h3>
+                <h3 className="text-base mb-3" style={{ color: "#1B2B4B", fontWeight: 600, fontFamily: "'DM Sans', system-ui, sans-serif" }}>{title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{text}</p>
               </div>
             ))}
