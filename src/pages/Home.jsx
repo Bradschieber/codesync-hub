@@ -132,7 +132,7 @@ export default function Home() {
                   <Icon className="w-6 h-6" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base mb-2" style={{ color: "#1A1A1A" }}>{title}</h3>
+                  <h3 className="text-base mb-2" style={{ color: NAVY, fontFamily: "'DM Sans', 'Inter', sans-serif", fontWeight: 600 }}>{title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{text}</p>
                 </div>
               </div>
