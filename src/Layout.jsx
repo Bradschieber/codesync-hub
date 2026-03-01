@@ -61,7 +61,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex flex-col group" style={{ gap: "0px", lineHeight: 1.05 }}>
-              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 600, fontSize: "1.15rem", color: "#2C3E55", letterSpacing: "0.02em" }}>Stringed</span>
+              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 700, fontSize: "1.15rem", color: "#2C3E55", letterSpacing: "0.02em" }}>Stringed</span>
               <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 400, fontSize: "1.15rem", color: "#2C3E55", letterSpacing: "0.13em" }}>Collective</span>
             </Link>
 
