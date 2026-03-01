@@ -192,17 +192,17 @@ function ProductCard({ product }) {
           </div>
         )}
       </div>
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "#8A8A8A" }}>{product.builder_name}</p>
-        <h3 className="font-bold text-sm mb-1 leading-snug" style={{ color: "#1A1A1A" }}>{product.name}</h3>
-        {specLine && <p className="text-xs mb-2" style={{ color: "#7A7A7A" }}>{specLine}</p>}
+      <div className="pt-1">
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8A7F75", marginBottom: "3px" }}>{product.builder_name}</p>
+        <h3 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.925rem", fontWeight: 500, color: "#1e2a3a", lineHeight: 1.35, marginBottom: "4px" }}>{product.name}</h3>
+        {specLine && <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 400, color: "#8A8A8A", marginBottom: "6px" }}>{specLine}</p>}
         {product.average_rating > 0 && (
           <div className="flex items-center gap-1 mb-1">
             <Star className="w-3 h-3 fill-current" style={{ color: "#D4AC0D" }} />
-            <span className="text-xs" style={{ color: "#7A7A7A" }}>{product.average_rating.toFixed(1)}</span>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#7A7A7A" }}>{product.average_rating.toFixed(1)}</span>
           </div>
         )}
-        <p className="font-bold text-sm mt-1" style={{ color: NAVY }}>${product.price?.toLocaleString()}</p>
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#2C3E55", marginTop: "6px" }}>${product.price?.toLocaleString()}</p>
       </div>
     </Link>
   );
