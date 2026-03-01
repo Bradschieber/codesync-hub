@@ -62,7 +62,7 @@ export default function Home() {
           {/* Featured Instrument Grid */}
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7A7A7A" }}>
+              <h2 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.13em", textTransform: "uppercase", color: "#5A5A5A" }}>
                 Available Now
               </h2>
               <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
