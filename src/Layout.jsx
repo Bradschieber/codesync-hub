@@ -154,7 +154,7 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Mobile Nav */}
         {menuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 px-4 py-3 space-y-1">
+        <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#FAF9F7", borderColor: "#E0DDD8" }}>
             {navLinks.map(l => (
               <Link
                 key={l.page}
