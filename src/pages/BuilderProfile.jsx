@@ -199,26 +199,23 @@ export default function BuilderProfile() {
         {activeTab === "products" && (
           products.length === 0 ? (
             <div className="text-center py-16">
-              <Guitar className="w-10 h-10 mx-auto mb-3" style={{ color: "#CCCCCC" }} />
-              <p className="text-sm" style={{ color: "#9A9A9A" }}>No products listed yet.</p>
+              <Guitar className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+              <p className="text-sm text-gray-400">No products listed yet.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {products.map(p => (
-                <Link key={p.id} to={createPageUrl("ProductDetail?id=" + p.id)} className="group block" style={{ backgroundColor: "#FFFFFF" }}>
-                  <div className="overflow-hidden mb-3" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+                <Link key={p.id} to={createPageUrl("ProductDetail?id=" + p.id)} className="group block bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="overflow-hidden bg-gray-100" style={{ aspectRatio: "4/3" }}>
                     {p.image_urls?.[0] ? (
-                      <img src={p.image_urls[0]} className="w-full h-full object-cover" style={{ transition: "transform 0.4s ease" }}
-                        onMouseEnter={e => e.currentTarget.style.transform = "scale(1.04)"}
-                        onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-                      />
+                      <img src={p.image_urls[0]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center"><Guitar className="w-10 h-10" style={{ color: "#CCCCCC" }} /></div>
+                      <div className="w-full h-full flex items-center justify-center"><Guitar className="w-10 h-10 text-gray-300" /></div>
                     )}
                   </div>
-                  <div className="p-3">
-                    <h3 className="font-bold text-sm mb-1" style={{ color: "#1A1A1A" }}>{p.name}</h3>
-                    <p className="font-bold text-sm" style={{ color: NAVY }}>${p.price?.toLocaleString()}</p>
+                  <div className="p-4">
+                    <h3 className="font-bold text-sm mb-1 text-gray-900">{p.name}</h3>
+                    <p className="font-bold text-sm text-indigo-700">${p.price?.toLocaleString()}</p>
                   </div>
                 </Link>
               ))}
@@ -229,19 +226,19 @@ export default function BuilderProfile() {
         {/* Custom Builds Tab */}
         {activeTab === "custom" && (
           customBuilds.length === 0 ? (
-            <div className="text-center py-16 text-sm" style={{ color: "#9A9A9A" }}>No custom build listings yet.</div>
+            <div className="text-center py-16 text-sm text-gray-400">No custom build listings yet.</div>
           ) : (
             <div className="grid sm:grid-cols-2 gap-5">
               {customBuilds.map(cb => (
-                <div key={cb.id} className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-                  <h3 className="font-bold text-sm mb-2" style={{ color: "#1A1A1A" }}>{cb.listing_title}</h3>
-                  <p className="text-sm mb-4 leading-relaxed" style={{ color: "#5A5A5A" }}>{cb.short_description}</p>
-                  <div className="flex flex-wrap gap-4 text-xs mb-4" style={{ color: "#7A7A7A" }}>
-                    {cb.instrument_type && <span>Type: <strong>{cb.instrument_type}</strong></span>}
-                    {cb.starting_price && <span>From: <strong style={{ color: NAVY }}>${cb.starting_price?.toLocaleString()}</strong></span>}
-                    {cb.estimated_build_time && <span>Build time: <strong>{cb.estimated_build_time}</strong></span>}
+                <div key={cb.id} className="p-6 border border-gray-200 rounded-xl bg-white">
+                  <h3 className="font-bold text-sm mb-2 text-gray-900">{cb.listing_title}</h3>
+                  <p className="text-sm mb-4 leading-relaxed text-gray-500">{cb.short_description}</p>
+                  <div className="flex flex-wrap gap-4 text-xs mb-4 text-gray-500">
+                    {cb.instrument_type && <span>Type: <strong className="text-gray-700">{cb.instrument_type}</strong></span>}
+                    {cb.starting_price && <span>From: <strong className="text-indigo-700">${cb.starting_price?.toLocaleString()}</strong></span>}
+                    {cb.estimated_build_time && <span>Build time: <strong className="text-gray-700">{cb.estimated_build_time}</strong></span>}
                   </div>
-                  <Link to={createPageUrl("CustomBuilds")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
+                  <Link to={createPageUrl("CustomBuilds")} className="text-sm font-semibold flex items-center gap-1 text-indigo-700 hover:text-indigo-800 transition-colors">
                     Request This Build <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -253,16 +250,16 @@ export default function BuilderProfile() {
         {/* Reviews Tab */}
         {activeTab === "reviews" && (
           reviews.length === 0 ? (
-            <div className="text-center py-16 text-sm" style={{ color: "#9A9A9A" }}>No reviews yet.</div>
+            <div className="text-center py-16 text-sm text-gray-400">No reviews yet.</div>
           ) : (
             <div className="space-y-4">
               {reviews.map(r => (
-                <div key={r.id} className="p-5 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+                <div key={r.id} className="p-5 border border-gray-200 rounded-xl bg-white">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold text-sm" style={{ color: "#1A1A1A" }}>{r.reviewer_name}</span>
+                    <span className="font-semibold text-sm text-gray-900">{r.reviewer_name}</span>
                     <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className="w-4 h-4" style={{ color: n <= r.rating ? "#D4AC0D" : "#DDDDDD", fill: n <= r.rating ? "#D4AC0D" : "none" }} />)}</div>
                   </div>
-                  <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{r.review_text}</p>
+                  <p className="text-sm leading-relaxed text-gray-600">{r.review_text}</p>
                 </div>
               ))}
             </div>
