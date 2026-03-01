@@ -223,28 +223,37 @@ export default function BuilderProfile() {
           )
         )}
 
-        {/* Custom Builds Tab */}
+        {/* Custom Work Tab */}
         {activeTab === "custom" && (
-          customBuilds.length === 0 ? (
-            <div className="text-center py-16 text-sm text-gray-400">No custom build listings yet.</div>
-          ) : (
-            <div className="grid sm:grid-cols-2 gap-5">
-              {customBuilds.map(cb => (
-                <div key={cb.id} className="p-6 border border-gray-200 rounded-xl bg-white">
-                  <h3 className="font-bold text-sm mb-2 text-gray-900">{cb.listing_title}</h3>
-                  <p className="text-sm mb-4 leading-relaxed text-gray-500">{cb.short_description}</p>
-                  <div className="flex flex-wrap gap-4 text-xs mb-4 text-gray-500">
-                    {cb.instrument_type && <span>Type: <strong className="text-gray-700">{cb.instrument_type}</strong></span>}
-                    {cb.starting_price && <span>From: <strong className="text-indigo-700">${cb.starting_price?.toLocaleString()}</strong></span>}
-                    {cb.estimated_build_time && <span>Build time: <strong className="text-gray-700">{cb.estimated_build_time}</strong></span>}
+          <div>
+            {builder.custom_build_description && (
+              <div className="p-5 bg-indigo-50 border border-indigo-100 rounded-xl mb-6 text-sm leading-relaxed text-gray-700">
+                {builder.custom_build_description}
+              </div>
+            )}
+            {(builder.custom_build_examples || []).length === 0 ? (
+              <div className="text-center py-16 text-sm text-gray-400">No examples posted yet.</div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {(builder.custom_build_examples || []).map((ex, i) => (
+                  <div key={i} className="group">
+                    <div className="overflow-hidden rounded-lg border border-gray-200 aspect-square">
+                      <img src={ex.image_url} alt={ex.caption || "Custom build"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    {ex.caption && <p className="text-xs text-gray-500 mt-1.5 px-0.5">{ex.caption}</p>}
                   </div>
-                  <Link to={createPageUrl("CustomBuilds")} className="text-sm font-semibold flex items-center gap-1 text-indigo-700 hover:text-indigo-800 transition-colors">
-                    Request This Build <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              ))}
+                ))}
+              </div>
+            )}
+            <div className="mt-8 text-center">
+              <button
+                onClick={() => setShowContactForm(true)}
+                className="font-semibold px-6 py-3 text-sm text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg transition-colors"
+              >
+                Inquire About a Custom Build
+              </button>
             </div>
-          )
+          </div>
         )}
 
         {/* Reviews Tab */}
