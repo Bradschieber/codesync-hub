@@ -111,17 +111,17 @@ export default function Layout({ children, currentPageName }) {
                     </button>
                     {userMenuOpen && (
                       <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-50">
-                        <Link to={createPageUrl("Account")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-700">
+                        <Link to={createPageUrl("Account")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <User className="w-4 h-4" /> My Account
                         </Link>
-                        <Link to={createPageUrl("Orders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-700">
+                        <Link to={createPageUrl("Orders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <ShoppingCart className="w-4 h-4" /> Orders
                         </Link>
-                        <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-700">
+                        <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <Heart className="w-4 h-4" /> Wishlist
                         </Link>
                         {(profile?.account === 'seller' || profile?.account === 'admin') && (
-                          <Link to={createPageUrl("Dashboard")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-700">
+                          <Link to={createPageUrl("Dashboard")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                             <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
                           </Link>
                         )}
