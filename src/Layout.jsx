@@ -161,7 +161,7 @@ export default function Layout({ children, currentPageName }) {
                 to={createPageUrl(l.page)}
                 onClick={() => setMenuOpen(false)}
                 className={`block py-2.5 px-3 rounded-lg text-sm font-medium transition-colors ${
-                  currentPageName === l.page ? "bg-indigo-50 text-indigo-700" : "text-gray-700 hover:bg-gray-50 hover:text-indigo-700"
+                  currentPageName === l.page ? "bg-stone-100 text-gray-900" : "text-gray-700 hover:bg-stone-50 hover:text-gray-900"
                 }`}
               >
                 {l.label}
