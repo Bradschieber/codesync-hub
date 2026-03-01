@@ -105,7 +105,7 @@ export default function Layout({ children, currentPageName }) {
                   >
                     <ShoppingCart className="w-5 h-5" />
                     {cartCount > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-indigo-700 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
+                      <span className="absolute -top-1 -right-1 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium" style={{ backgroundColor: "#1B2B4B" }}>
                         {cartCount}
                       </span>
                     )}
