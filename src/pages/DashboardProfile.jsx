@@ -172,14 +172,14 @@ export default function DashboardProfile() {
         <div id="storefront"><StorefrontCustomizer form={form} setForm={setForm} /></div>
 
         {/* ── Section 3: Photos & Video ── */}
-        <div id="photos" className="bg-white rounded-2xl border border-stone-200 p-6">
+        <div id="photos" className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="flex items-start gap-3 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-stone-100 flex items-center justify-center flex-shrink-0">
-              <Camera className="w-4 h-4 text-stone-500" />
+            <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
+              <Camera className="w-4 h-4 text-gray-500" />
             </div>
             <div>
-              <h2 className="font-bold text-stone-800">Photos & Video</h2>
-              <p className="text-stone-400 text-xs mt-0.5">Show buyers who you are and where your instruments come to life. Include a photo of yourself, your shop, your tools, and your builds in progress.</p>
+              <h2 className="font-bold text-gray-900">Photos & Video</h2>
+              <p className="text-gray-400 text-xs mt-0.5">Show buyers who you are and where your instruments come to life. Include a photo of yourself, your shop, your tools, and your builds in progress.</p>
             </div>
           </div>
           <MediaUploader
