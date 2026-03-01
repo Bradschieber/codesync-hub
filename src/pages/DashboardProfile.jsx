@@ -133,39 +133,39 @@ export default function DashboardProfile() {
         </div>
 
         {/* ── Section 3: Your Brand Story ── */}
-        <div id="story" className="bg-white rounded-2xl border border-amber-100 p-6">
+        <div id="story" className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="flex items-start gap-3 mb-2">
-            <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Sparkles className="w-4 h-4 text-amber-600" />
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Sparkles className="w-4 h-4 text-indigo-600" />
             </div>
             <div>
-              <h2 className="font-bold text-stone-800">Tell Your Story</h2>
-              <p className="text-stone-400 text-xs mt-0.5">This is your stage. Buyers aren't just buying a guitar — they're buying into you. Make it personal, make it real.</p>
+              <h2 className="font-bold text-gray-900">Tell Your Story</h2>
+              <p className="text-gray-400 text-xs mt-0.5">This is your stage. Buyers aren't just buying a guitar — they're buying into you. Make it personal, make it real.</p>
             </div>
           </div>
 
           {/* Prompt Cards */}
           <div className="mt-5 mb-5 grid sm:grid-cols-2 gap-3">
             {STORY_PROMPTS.map(({ icon: Icon, label, hint }) => (
-              <div key={label} className="flex items-start gap-2.5 bg-amber-50 border border-amber-100 rounded-xl p-3">
-                <Icon className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+              <div key={label} className="flex items-start gap-2.5 bg-indigo-50 border border-indigo-100 rounded-lg p-3">
+                <Icon className="w-4 h-4 text-indigo-500 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs font-semibold text-stone-700">{label}</p>
-                  <p className="text-xs text-stone-400 mt-0.5 leading-relaxed">{hint}</p>
+                  <p className="text-xs font-semibold text-gray-700">{label}</p>
+                  <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{hint}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <label className="block text-xs font-medium text-stone-600 mb-2">Your Brand Story</label>
+          <label className="block text-xs font-medium text-gray-600 mb-2">Your Brand Story</label>
           <textarea
             rows={14}
             value={form.brand_story || ""}
             onChange={e => setForm({...form, brand_story: e.target.value})}
             placeholder={`Use the prompts above as a guide — but write in your own voice. There's no right or wrong format. Just be genuine.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
-            className="w-full border border-stone-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none leading-relaxed"
+            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-none leading-relaxed"
           />
-          <p className="text-xs text-stone-400 mt-2">Tip: Longer, more personal stories build significantly more trust with buyers. Don't be shy.</p>
+          <p className="text-xs text-gray-400 mt-2">Tip: Longer, more personal stories build significantly more trust with buyers. Don't be shy.</p>
         </div>
 
         {/* ── Storefront Style ── */}
