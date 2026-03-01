@@ -150,7 +150,10 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <button
                   onClick={() => base44.auth.redirectToLogin()}
-                  className="bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
+                  className="text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
+                  style={{ backgroundColor: "#1B2B4B" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
                 >
                   Sign In
                 </button>
