@@ -33,7 +33,7 @@ export default function Home() {
 
           {/* Headline */}
           <div className="max-w-3xl mb-14">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight mb-6" style={{ color: "#1A1A1A" }}>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight mb-6" style={{ color: "#1A1A1A", fontFamily: "'DM Sans', 'Inter', sans-serif" }}>
               Play Something<br />Different.
             </h1>
             <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
