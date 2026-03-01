@@ -141,44 +141,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3. SHOP BY CATEGORY ── */}
-      <section className="py-20" style={{ backgroundColor: "#FAF9F7" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-bold uppercase tracking-widest mb-8" style={{ color: "#6B6B6B" }}>
-            Shop by Category
-          </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { label: "Electric", page: "Catalog", desc: "Solid body, semi-hollow & more" },
-              { label: "Acoustic", page: "Catalog", desc: "Steel string, fingerstyle & classical" },
-              { label: "Bass", page: "Catalog", desc: "4, 5, and 6 string instruments" },
-              { label: "Custom Builds", page: "Builders", desc: "Commission a one-of-a-kind build" },
-            ].map(cat => (
-              <Link
-                key={cat.label}
-                to={createPageUrl(cat.page)}
-                className="group block p-7 border transition-all"
-                style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = BRONZE;
-                  e.currentTarget.style.backgroundColor = "#FDF8F3";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = "#DEDBD6";
-                  e.currentTarget.style.backgroundColor = "#FFFFFF";
-                }}
-              >
-                <h3 className="text-xl font-bold mb-2 tracking-tight" style={{ color: "#1A1A1A" }}>{cat.label}</h3>
-                <p className="text-sm" style={{ color: "#6B6B6B" }}>{cat.desc}</p>
-                <div className="mt-5 flex items-center gap-1 text-xs font-semibold transition-opacity opacity-0 group-hover:opacity-100" style={{ color: BRONZE }}>
-                  Browse <ArrowRight className="w-3 h-3" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── 4. FEATURED BUILDERS ── */}
       <section className="py-20 border-t" style={{ backgroundColor: "#FAF9F7", borderColor: "#E0DDD8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
