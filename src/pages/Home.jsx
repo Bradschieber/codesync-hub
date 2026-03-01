@@ -190,7 +190,7 @@ export default function Home() {
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#EEF1F7"; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
               >
-                Apply to Sell
+                Join Us
               </Link>
             </div>
           </div>
