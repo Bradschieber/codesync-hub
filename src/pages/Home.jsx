@@ -152,7 +152,7 @@ export default function Home() {
               { label: "Electric", page: "Catalog", desc: "Solid body, semi-hollow & more" },
               { label: "Acoustic", page: "Catalog", desc: "Steel string, fingerstyle & classical" },
               { label: "Bass", page: "Catalog", desc: "4, 5, and 6 string instruments" },
-              { label: "Custom Builds", page: "CustomBuilds", desc: "Commission a one-of-a-kind build" },
+              { label: "Custom Builds", page: "Builders", desc: "Commission a one-of-a-kind build" },
             ].map(cat => (
               <Link
                 key={cat.label}

@@ -191,7 +191,7 @@ export default function Layout({ children, currentPageName }) {
             <ul className="space-y-2.5 text-sm">
               <li><Link to={createPageUrl("Catalog")} className="hover:text-indigo-400 transition-colors">Browse Guitars</Link></li>
               <li><Link to={createPageUrl("Builders")} className="hover:text-indigo-400 transition-colors">Find Builders</Link></li>
-              <li><Link to={createPageUrl("CustomBuilds")} className="hover:text-indigo-400 transition-colors">Custom Builds</Link></li>
+              <li><Link to={createPageUrl("Builders")} className="hover:text-indigo-400 transition-colors">Find a Custom Builder</Link></li>
             </ul>
           </div>
           <div>
