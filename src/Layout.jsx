@@ -87,7 +87,7 @@ export default function Layout({ children, currentPageName }) {
                 <>
                   <button
                     onClick={() => setCartOpen(true)}
-                    className="relative p-2 text-gray-500 hover:text-indigo-700 transition-colors"
+                    className="relative p-2 text-gray-500 hover:text-gray-800 transition-colors"
                   >
                     <ShoppingCart className="w-5 h-5" />
                     {cartCount > 0 && (
