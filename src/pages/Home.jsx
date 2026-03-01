@@ -272,9 +272,9 @@ function ProductCard({ product }) {
       </div>
       {/* Info */}
       <div className="pt-2">
-        <h3 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#1B2B4B", lineHeight: 1.3, marginBottom: "3px" }}>{product.name}</h3>
-        {specLine && <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.73rem", fontWeight: 400, color: "#6A7A8A", lineHeight: 1.4, marginBottom: "6px" }}>{specLine}</p>}
-        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.88rem", fontWeight: 600, color: "#1B2B4B", marginBottom: "5px" }}>${product.price && product.price.toLocaleString()}</p>
+        <h3 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#1B2B4B", lineHeight: 1.3, marginBottom: "2px" }}>{product.name}</h3>
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.88rem", fontWeight: 600, color: "#1B2B4B", marginBottom: "7px" }}>${product.price && product.price.toLocaleString()}</p>
+        {specLine && <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.73rem", fontWeight: 400, color: "#6A7A8A", lineHeight: 1.4, marginBottom: "2px" }}>{specLine}</p>}
         <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 500, color: "#4A5566" }}>{product.builder_name}</p>
       </div>
     </Link>
