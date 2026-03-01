@@ -73,10 +73,10 @@ export default function Layout({ children, currentPageName }) {
                   <Link
                     key={l.page}
                     to={createPageUrl(l.page)}
-                    className="text-sm font-semibold text-white transition-colors px-4 py-1.5 rounded-full"
-                    style={{ backgroundColor: "#1B2B4B" }}
-                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                    onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
+                    className="text-sm font-medium transition-colors px-4 py-1.5 rounded-md border"
+                    style={{ color: "#1B2B4B", borderColor: "#1B2B4B", backgroundColor: "transparent" }}
+                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#1B2B4B"; e.currentTarget.style.color = "#fff"; }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2B4B"; }}
                   >
                     {l.label}
                   </Link>
