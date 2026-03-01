@@ -146,8 +146,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: "#6B6B6B" }}>The Builders</h2>
-              <h3 className="text-3xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Independent makers.<br />Verified craft.</h3>
+              <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: "#6B6B6B", fontFamily: "'DM Sans', 'Inter', sans-serif" }}>The Builders</h2>
+              <h3 className="text-3xl font-bold tracking-tight" style={{ color: NAVY, fontFamily: "'DM Sans', 'Inter', sans-serif" }}>Independent makers.<br />Verified craft.</h3>
             </div>
             <Link to={createPageUrl("Builders")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity hidden sm:flex" style={{ color: NAVY }}>
               All builders <ArrowRight className="w-4 h-4" />
