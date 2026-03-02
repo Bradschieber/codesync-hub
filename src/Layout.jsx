@@ -213,7 +213,7 @@ export default function Layout({ children, currentPageName }) {
               <span className="logo-wordmark" style={{ fontWeight: 500, fontSize: "0.9rem", color: "#7A90AA", letterSpacing: "0.01em" }}>Stringed</span>
               <span className="logo-wordmark" style={{ fontWeight: 400, fontSize: "0.9rem", color: "#7A90AA", letterSpacing: "0.08em" }}>Collective</span>
             </div>
-            <p className="text-sm leading-relaxed text-gray-500">Connecting independent luthiers with players around the world who appreciate the craft behind every instrument.</p>
+            <p className="text-sm leading-relaxed text-gray-500">Connecting independent luthiers with players around the world who appreciate the craft and story behind every instrument.</p>
           </div>
           <div>
             <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Marketplace</h4>
