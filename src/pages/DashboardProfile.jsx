@@ -187,6 +187,34 @@ export default function DashboardProfile() {
             mediaUrls={form.media_urls || []}
             onChange={urls => setForm({ ...form, media_urls: urls })}
           />
+
+          {/* Introduction Video */}
+          <div className="mt-6 pt-6 border-t border-gray-100">
+            <h3 className="text-sm font-semibold text-gray-800 mb-1">Introduction Video</h3>
+            <p className="text-xs text-gray-400 mb-4">
+              Share a short video introducing yourself and your craft — a shop tour, a build in progress, or just a hello. This will be featured on the Builders page. Paste a YouTube or Vimeo link.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Video URL</label>
+                <input
+                  value={form.introduction_video_url || ""}
+                  onChange={e => setForm({...form, introduction_video_url: e.target.value})}
+                  placeholder="https://youtube.com/watch?v=..."
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Video Title / Caption (optional)</label>
+                <input
+                  value={form.introduction_video_title || ""}
+                  onChange={e => setForm({...form, introduction_video_title: e.target.value})}
+                  placeholder='e.g. "A day in my shop"'
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* ── Your Business ── */}
