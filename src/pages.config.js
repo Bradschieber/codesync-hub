@@ -50,8 +50,10 @@
 import About from './pages/About';
 import Account from './pages/Account';
 import AdminReferences from './pages/AdminReferences';
+import BuilderCustomers from './pages/BuilderCustomers';
 import BuilderOrders from './pages/BuilderOrders';
 import BuilderProfile from './pages/BuilderProfile';
+import BuilderReturnsWarranty from './pages/BuilderReturnsWarranty';
 import Builders from './pages/Builders';
 import Catalog from './pages/Catalog';
 import Checkout from './pages/Checkout';
@@ -70,8 +72,6 @@ import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import BuilderReturnsWarranty from './pages/BuilderReturnsWarranty';
-import BuilderCustomers from './pages/BuilderCustomers';
 import __Layout from './Layout.jsx';
 
 
@@ -79,8 +79,10 @@ export const PAGES = {
     "About": About,
     "Account": Account,
     "AdminReferences": AdminReferences,
+    "BuilderCustomers": BuilderCustomers,
     "BuilderOrders": BuilderOrders,
     "BuilderProfile": BuilderProfile,
+    "BuilderReturnsWarranty": BuilderReturnsWarranty,
     "Builders": Builders,
     "Catalog": Catalog,
     "Checkout": Checkout,
@@ -99,8 +101,6 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "BuilderReturnsWarranty": BuilderReturnsWarranty,
-    "BuilderCustomers": BuilderCustomers,
 }
 
 export const pagesConfig = {

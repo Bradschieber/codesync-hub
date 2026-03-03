@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ShoppingBag, Heart, LayoutDashboard, Save, Hammer, Bell, Mail, MessageCircle } from "lucide-react";
+import { ShoppingBag, Heart, LayoutDashboard, Save, Hammer, Bell, Mail, MessageCircle, User } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
