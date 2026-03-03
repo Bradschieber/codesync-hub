@@ -67,8 +67,6 @@ export default function DashboardProfile() {
     { id: "storefront", label: "Storefront Style" },
     { id: "photos", label: "Photos & Video" },
     { id: "business", label: "Your Business" },
-    { id: "addresses", label: "Addresses" },
-    { id: "notifications", label: "Notifications" },
     { id: "references", label: "References" },
   ];
 
