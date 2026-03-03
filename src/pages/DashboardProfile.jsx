@@ -5,7 +5,6 @@ import { createPageUrl } from "@/utils";
 import { ChevronLeft, Save, Sparkles, User, Hammer, Music, Clock, Store, Camera, Shield, Heart } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
-import NotificationPreferences from "../components/dashboard/NotificationPreferences";
 import StorefrontCustomizer from "../components/dashboard/StorefrontCustomizer";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
