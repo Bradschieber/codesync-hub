@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ShoppingBag, Heart, LayoutDashboard, Save, Hammer, ExternalLink } from "lucide-react";
+import { ShoppingBag, Heart, LayoutDashboard, Save, Hammer, Bell, Mail, MessageCircle } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -13,6 +13,7 @@ export default function Account() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState("personal");
 
   useEffect(() => { loadData(); }, []);
 
@@ -23,9 +24,9 @@ export default function Account() {
       const profiles = await base44.entities.UserProfile.filter({ user_id: u.id });
       if (profiles.length > 0) {
         setProfile(profiles[0]);
-        setForm({ first_name: profiles[0].first_name || "", last_name: profiles[0].last_name || "", display_name: profiles[0].display_name || u.full_name, location: profiles[0].location || "" });
+        setForm(profiles[0]);
       } else {
-        setForm({ first_name: "", last_name: "", display_name: u.full_name || "", location: "" });
+        setForm({ first_name: "", last_name: "", display_name: u.full_name || "", location: "", phone: "" });
       }
     } catch { base44.auth.redirectToLogin(); }
     setLoading(false);
@@ -52,18 +53,24 @@ export default function Account() {
   );
 
   const isSeller = profile?.account === "seller" || profile?.account === "admin";
+  const inputCls = "w-full border px-3 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-300";
   const inputStyle = { borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" };
+
+  const tabs = [
+    { id: "personal", label: "Personal Details" },
+    { id: "addresses", label: "Addresses" },
+    { id: "notifications", label: "Notifications" },
+  ];
 
   return (
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
-      {/* Page Header */}
       <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>My Account</h1>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Builder Banner */}
         {isSeller && (
           <div className="mb-8 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" style={{ backgroundColor: NAVY }}>
@@ -76,121 +83,264 @@ export default function Account() {
             </div>
             <Link
               to={createPageUrl("Dashboard")}
-              className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 transition-colors whitespace-nowrap"
+              className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 whitespace-nowrap"
               style={{ backgroundColor: "#FFFFFF", color: NAVY }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#EEF1F7"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}
             >
               <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
             </Link>
           </div>
         )}
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           {/* Sidebar */}
-          <div className="space-y-2">
-            {[
-              { label: isSeller ? "Incoming Orders" : "Orders", icon: ShoppingBag, page: isSeller ? "BuilderOrders" : "Orders" },
-              ...(!isSeller ? [{ label: "Wishlist", icon: Heart, page: "Wishlist" }] : []),
-            ].map(({ label, icon: Icon, page }) => (
-              <Link
-                key={page}
-                to={createPageUrl(page)}
-                className="flex items-center gap-3 p-4 border text-sm font-medium transition-colors"
-                style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF", color: "#3D3D3D" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = NAVY; e.currentTarget.style.color = NAVY; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "#E0DDD8"; e.currentTarget.style.color = "#3D3D3D"; }}
+          <div className="space-y-1">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveSection(tab.id)}
+                className="w-full text-left px-4 py-3 text-sm font-medium border transition-colors"
+                style={{
+                  borderColor: activeSection === tab.id ? NAVY : "#E0DDD8",
+                  backgroundColor: activeSection === tab.id ? "#EEF1F7" : "#FFFFFF",
+                  color: activeSection === tab.id ? NAVY : "#3D3D3D",
+                  fontWeight: activeSection === tab.id ? 600 : 400,
+                }}
               >
-                <Icon className="w-4 h-4" style={{ color: "#9A9A9A" }} />
-                {label}
-              </Link>
+                {tab.label}
+              </button>
             ))}
+
+            <div className="pt-4 space-y-1">
+              {[
+                { label: isSeller ? "Incoming Orders" : "My Orders", icon: ShoppingBag, page: isSeller ? "BuilderOrders" : "Orders" },
+                ...(!isSeller ? [{ label: "Wishlist", icon: Heart, page: "Wishlist" }] : []),
+              ].map(({ label, icon: Icon, page }) => (
+                <Link
+                  key={page}
+                  to={createPageUrl(page)}
+                  className="flex items-center gap-3 px-4 py-3 border text-sm font-medium transition-colors"
+                  style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF", color: "#3D3D3D" }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = NAVY; e.currentTarget.style.color = NAVY; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = "#E0DDD8"; e.currentTarget.style.color = "#3D3D3D"; }}
+                >
+                  <Icon className="w-4 h-4" style={{ color: "#9A9A9A" }} />
+                  {label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Main Content */}
-          <div className="md:col-span-2 space-y-5">
+          <div className="md:col-span-3">
+            <form onSubmit={handleSave}>
 
-            {/* Builder Profile Card */}
-            {isSeller && (
-              <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-                <div className="flex items-start justify-between mb-5">
-                  <div>
-                    <h2 className="font-bold text-base mb-1" style={{ color: "#1A1A1A" }}>Builder Profile</h2>
-                    <p className="text-sm" style={{ color: "#7A7A7A" }}>Keep your profile up to date — it's your storefront to buyers.</p>
+              {/* ── Personal Details ── */}
+              {activeSection === "personal" && (
+                <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+                  <div className="flex items-center gap-4 mb-6 pb-5" style={{ borderBottom: "1px solid #F0EDE8" }}>
+                    <div className="w-14 h-14 flex items-center justify-center text-white font-bold text-xl" style={{ backgroundColor: NAVY }}>
+                      {(user?.full_name || "U")[0]}
+                    </div>
+                    <div>
+                      <h2 className="font-bold" style={{ color: "#1A1A1A" }}>{user?.full_name}</h2>
+                      <p className="text-sm" style={{ color: "#7A7A7A" }}>{user?.email}</p>
+                    </div>
                   </div>
-                  <Link
-                    to={createPageUrl("DashboardProfile")}
-                    className="flex items-center gap-1.5 font-semibold text-sm px-4 py-2.5 text-white transition-colors"
-                    style={{ backgroundColor: NAVY }}
-                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                    onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+
+                  <h3 className="font-semibold text-sm mb-4 uppercase tracking-wide" style={{ color: "#6B6B6B" }}>Personal Details</h3>
+                  <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                    {[
+                      { label: "First Name", key: "first_name" },
+                      { label: "Last Name", key: "last_name" },
+                      { label: "Display Name", key: "display_name" },
+                      { label: "Location", key: "location", placeholder: "City, State" },
+                      { label: "Phone", key: "phone", placeholder: "+15551234567", note: "🔒 Private — not shown publicly." },
+                    ].map(({ label, key, placeholder, note }) => (
+                      <div key={key}>
+                        <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>{label}</label>
+                        <input
+                          value={form[key] || ""}
+                          onChange={e => setForm({ ...form, [key]: e.target.value })}
+                          placeholder={placeholder}
+                          className={inputCls}
+                          style={inputStyle}
+                        />
+                        {note && <p className="text-xs mt-1" style={{ color: "#9A9A9A" }}>{note}</p>}
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="flex items-center justify-center gap-2 font-semibold px-8 py-3 text-sm text-white transition-colors"
+                    style={{ backgroundColor: saved ? "#27AE60" : NAVY }}
                   >
-                    Edit Profile <ExternalLink className="w-3.5 h-3.5" />
-                  </Link>
+                    <Save className="w-4 h-4" />
+                    {saving ? "Saving..." : saved ? "Saved" : "Save Changes"}
+                  </button>
                 </div>
-                <div className="grid sm:grid-cols-3 gap-3">
-                  {[
-                    { label: "Business Name", value: profile?.business_name || "—" },
-                    { label: "Location", value: profile?.location || "—" },
-                    { label: "Years Experience", value: profile?.years_experience ? `${profile.years_experience} yrs` : "—" },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="p-3" style={{ backgroundColor: "#EEF1F7" }}>
-                      <p className="text-xs mb-1 font-medium uppercase tracking-wide" style={{ color: "#7A7A7A" }}>{label}</p>
-                      <p className="font-bold text-sm truncate" style={{ color: "#1A1A1A" }}>{value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+              )}
 
-            {/* Account Details */}
-            <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-              <div className="flex items-center gap-4 mb-6 pb-5" style={{ borderBottom: "1px solid #F0EDE8" }}>
-                <div className="w-14 h-14 flex items-center justify-center text-white font-bold text-xl" style={{ backgroundColor: NAVY }}>
-                  {(user?.full_name || "U")[0]}
-                </div>
-                <div>
-                  <h2 className="font-bold" style={{ color: "#1A1A1A" }}>{user?.full_name}</h2>
-                  <p className="text-sm" style={{ color: "#7A7A7A" }}>{user?.email}</p>
-                </div>
-              </div>
-              <form onSubmit={handleSave} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    { label: "First Name", key: "first_name" },
-                    { label: "Last Name", key: "last_name" },
-                    { label: "Display Name", key: "display_name" },
-                    { label: "Location", key: "location", placeholder: "City, State" },
-                  ].map(({ label, key, placeholder }) => (
-                    <div key={key}>
-                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>{label}</label>
-                      <input
-                        value={form[key] || ""}
-                        onChange={e => setForm({ ...form, [key]: e.target.value })}
-                        placeholder={placeholder}
-                        className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-                        style={inputStyle}
-                      />
-                    </div>
-                  ))}
-                </div>
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="flex items-center justify-center gap-2 font-semibold px-8 py-3 text-sm text-white transition-colors"
-                  style={{ backgroundColor: saved ? "#27AE60" : NAVY }}
-                  onMouseEnter={e => { if (!saved) e.currentTarget.style.backgroundColor = "#152038"; }}
-                  onMouseLeave={e => { if (!saved) e.currentTarget.style.backgroundColor = NAVY; }}
-                >
-                  <Save className="w-4 h-4" />
-                  {saving ? "Saving..." : saved ? "Saved" : "Save Changes"}
-                </button>
-              </form>
-            </div>
+              {/* ── Addresses ── */}
+              {activeSection === "addresses" && (
+                <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+                  <h2 className="font-bold mb-1" style={{ color: "#1A1A1A" }}>Addresses</h2>
+                  <p className="text-sm mb-6" style={{ color: "#7A7A7A" }}>Your business and shipping addresses. Private — not shown publicly.</p>
 
+                  <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#9A9A9A" }}>Business Address</p>
+                  <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Address 1</label>
+                      <input value={form.business_address_1 || ""} onChange={e => setForm({...form, business_address_1: e.target.value})} placeholder="Street address" className={inputCls} style={inputStyle} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Address 2</label>
+                      <input value={form.business_address_2 || ""} onChange={e => setForm({...form, business_address_2: e.target.value})} placeholder="Suite, unit (optional)" className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>City</label>
+                      <input value={form.business_city || ""} onChange={e => setForm({...form, business_city: e.target.value})} className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>State / Province</label>
+                      <input value={form.business_state || ""} onChange={e => setForm({...form, business_state: e.target.value})} className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Postal Code</label>
+                      <input value={form.business_postal_code || ""} onChange={e => setForm({...form, business_postal_code: e.target.value})} className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Country</label>
+                      <input value={form.business_country || ""} onChange={e => setForm({...form, business_country: e.target.value})} placeholder="e.g. United States" className={inputCls} style={inputStyle} />
+                    </div>
+                  </div>
+
+                  <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#9A9A9A" }}>Shipping Address</p>
+                  <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Address 1</label>
+                      <input value={form.shipping_address_1 || ""} onChange={e => setForm({...form, shipping_address_1: e.target.value})} placeholder="Street address" className={inputCls} style={inputStyle} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Address 2</label>
+                      <input value={form.shipping_address_2 || ""} onChange={e => setForm({...form, shipping_address_2: e.target.value})} placeholder="Suite, unit (optional)" className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>City</label>
+                      <input value={form.shipping_city || ""} onChange={e => setForm({...form, shipping_city: e.target.value})} className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>State / Province</label>
+                      <input value={form.shipping_state || ""} onChange={e => setForm({...form, shipping_state: e.target.value})} className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Postal Code</label>
+                      <input value={form.shipping_postal_code || ""} onChange={e => setForm({...form, shipping_postal_code: e.target.value})} className={inputCls} style={inputStyle} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Country</label>
+                      <input value={form.shipping_country || ""} onChange={e => setForm({...form, shipping_country: e.target.value})} placeholder="e.g. United States" className={inputCls} style={inputStyle} />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="flex items-center justify-center gap-2 font-semibold px-8 py-3 text-sm text-white"
+                    style={{ backgroundColor: saved ? "#27AE60" : NAVY }}
+                  >
+                    <Save className="w-4 h-4" />
+                    {saving ? "Saving..." : saved ? "Saved" : "Save Addresses"}
+                  </button>
+                </div>
+              )}
+
+              {/* ── Notifications ── */}
+              {activeSection === "notifications" && (
+                <NotificationsSection form={form} setForm={setForm} saving={saving} saved={saved} />
+              )}
+            </form>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function NotificationsSection({ form, setForm, saving, saved }) {
+  const NAVY = "#1B2B4B";
+
+  return (
+    <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+      <div className="flex items-center gap-2 mb-2">
+        <Bell className="w-5 h-5" style={{ color: "#B07B30" }} />
+        <h2 className="font-bold" style={{ color: "#1A1A1A" }}>Notification Preferences</h2>
+      </div>
+      <p className="text-sm mb-6" style={{ color: "#7A7A7A" }}>Choose how you'd like to be notified about messages and activity.</p>
+
+      <div className="space-y-3 mb-6">
+        {/* Email toggle */}
+        <div className="flex items-center justify-between p-4 border" style={{ borderColor: "#E0DDD8" }}>
+          <div className="flex items-center gap-3">
+            <Mail className="w-5 h-5" style={{ color: "#9A9A9A" }} />
+            <div>
+              <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>Email Notifications</p>
+              <p className="text-xs" style={{ color: "#9A9A9A" }}>Sent to your account email address</p>
+            </div>
+          </div>
+          <div
+            onClick={() => setForm({ ...form, notify_email: !form.notify_email })}
+            className="w-11 h-6 rounded-full transition-colors cursor-pointer flex-shrink-0"
+            style={{ backgroundColor: form.notify_email !== false ? NAVY : "#DEDBD6" }}
+          >
+            <div className={`w-5 h-5 bg-white rounded-full shadow mt-0.5 transition-transform ${form.notify_email !== false ? 'translate-x-5' : 'translate-x-0.5'}`} />
+          </div>
+        </div>
+
+        {/* SMS toggle */}
+        <div className="flex items-center justify-between p-4 border" style={{ borderColor: "#E0DDD8" }}>
+          <div className="flex items-center gap-3">
+            <MessageCircle className="w-5 h-5" style={{ color: "#9A9A9A" }} />
+            <div>
+              <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>SMS Text Notifications</p>
+              <p className="text-xs" style={{ color: "#9A9A9A" }}>Receive a text on your phone</p>
+            </div>
+          </div>
+          <div
+            onClick={() => setForm({ ...form, notify_sms: !form.notify_sms })}
+            className="w-11 h-6 rounded-full transition-colors cursor-pointer flex-shrink-0"
+            style={{ backgroundColor: form.notify_sms ? NAVY : "#DEDBD6" }}
+          >
+            <div className={`w-5 h-5 bg-white rounded-full shadow mt-0.5 transition-transform ${form.notify_sms ? 'translate-x-5' : 'translate-x-0.5'}`} />
+          </div>
+        </div>
+
+        {form.notify_sms && (
+          <div>
+            <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Phone Number for SMS</label>
+            <input
+              type="tel"
+              value={form.notification_phone || ""}
+              onChange={e => setForm({ ...form, notification_phone: e.target.value })}
+              placeholder="+15551234567"
+              className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+              style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
+            />
+            <p className="text-xs mt-1" style={{ color: "#9A9A9A" }}>Enter in E.164 format, e.g. +15551234567</p>
+          </div>
+        )}
+      </div>
+
+      <button
+        type="submit"
+        disabled={saving}
+        className="flex items-center justify-center gap-2 font-semibold px-8 py-3 text-sm text-white"
+        style={{ backgroundColor: saved ? "#27AE60" : NAVY }}
+      >
+        <Bell className="w-4 h-4" />
+        {saving ? "Saving..." : saved ? "Saved" : "Save Preferences"}
+      </button>
     </div>
   );
 }
