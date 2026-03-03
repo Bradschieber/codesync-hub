@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ShoppingBag, Package, ChevronLeft, ExternalLink } from "lucide-react";
+import { ShoppingBag, Package, ChevronLeft, Calendar } from "lucide-react";
 import { format } from "date-fns";
+import FulfillmentStatusBadge from "../components/orders/FulfillmentStatusBadge";
+import OrderProgressTracker from "../components/orders/OrderProgressTracker";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState({});
 
   useEffect(() => { loadOrders(); }, []);
 
@@ -20,19 +23,15 @@ export default function Orders() {
     setLoading(false);
   }
 
-  const statusColors = {
-    pending: "bg-amber-100 text-amber-700",
-    paid: "bg-blue-100 text-blue-700",
-    shipped: "bg-purple-100 text-purple-700",
-    delivered: "bg-green-100 text-green-700",
-    cancelled: "bg-red-100 text-red-700",
-  };
+  function toggleExpand(id) {
+    setExpanded(e => ({ ...e, [id]: !e[id] }));
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center gap-3 mb-6">
-        <Link to={createPageUrl("Account")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
-        <h1 className="text-2xl font-bold text-stone-800">Order History</h1>
+        <Link to={createPageUrl("Account")} className="text-stone-400 hover:text-indigo-600"><ChevronLeft className="w-5 h-5" /></Link>
+        <h1 className="text-2xl font-bold" style={{ color: "#1B2B4B" }}>My Orders</h1>
       </div>
 
       {loading ? (
@@ -43,41 +42,81 @@ export default function Orders() {
         <div className="text-center py-20">
           <ShoppingBag className="w-16 h-16 text-stone-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-stone-600 mb-2">No orders yet</h3>
-          <Link to={createPageUrl("Catalog")} className="text-amber-600 hover:underline">Browse guitars →</Link>
+          <Link to={createPageUrl("Catalog")} className="text-indigo-600 hover:underline">Browse guitars →</Link>
         </div>
       ) : (
         <div className="space-y-4">
           {orders.map(order => (
-            <div key={order.id} className="bg-white rounded-2xl border border-stone-200 p-5">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <p className="text-xs text-stone-400 mb-1">Order #{order.id.slice(-8).toUpperCase()}</p>
-                  <p className="text-sm text-stone-500">{order.created_date ? format(new Date(order.created_date), "MMM d, yyyy") : ""}</p>
-                </div>
-                <div className="text-right">
-                  <span className={`text-xs font-medium px-3 py-1 rounded-full ${statusColors[order.status] || "bg-stone-100 text-stone-600"}`}>
-                    {order.status}
-                  </span>
-                  <p className="font-bold text-amber-700 mt-1">${order.total_amount?.toLocaleString()}</p>
-                </div>
-              </div>
+            <div key={order.id} className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
 
-              {order.items?.length > 0 && (
-                <div className="space-y-2">
-                  {order.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm">
-                      {item.product_image && <img src={item.product_image} className="w-10 h-10 rounded-lg object-cover" />}
-                      <span className="text-stone-700">{item.product_name}</span>
-                      <span className="text-stone-400 ml-auto">${item.product_price?.toLocaleString()}</span>
+              {/* Summary Row */}
+              <button
+                className="w-full text-left p-5 hover:bg-stone-50 transition-colors"
+                onClick={() => toggleExpand(order.id)}
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-xs text-stone-400 mb-0.5">Order #{order.id.slice(-8).toUpperCase()}</p>
+                    <p className="text-sm text-stone-500">{order.created_date ? format(new Date(order.created_date), "MMM d, yyyy") : ""}</p>
+                    {order.order_type === "custom" && (
+                      <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-medium">Custom Build</span>
+                    )}
+                    {order.builder_name && <p className="text-xs text-stone-400 mt-0.5">Builder: {order.builder_name}</p>}
+                  </div>
+                  <div className="text-right">
+                    <FulfillmentStatusBadge status={order.fulfillment_status || "order_received"} />
+                    <p className="font-bold mt-1" style={{ color: "#A0692A" }}>${order.total_amount?.toLocaleString()}</p>
+                  </div>
+                </div>
+              </button>
+
+              {/* Expanded Detail */}
+              {expanded[order.id] && (
+                <div className="border-t border-stone-100 px-5 pb-5 pt-4 space-y-4">
+
+                  {/* Progress Tracker */}
+                  <OrderProgressTracker order={order} />
+
+                  {/* Items */}
+                  {order.items?.length > 0 && (
+                    <div className="space-y-2 mt-2">
+                      {order.items.map((item, i) => (
+                        <div key={i} className="flex items-center gap-3 text-sm">
+                          {item.product_image && <img src={item.product_image} className="w-10 h-10 rounded-lg object-cover flex-shrink-0" />}
+                          <span className="text-stone-700 flex-1">{item.product_name}</span>
+                          <span className="text-stone-400">${item.product_price?.toLocaleString()}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
+                  )}
 
-              {order.tracking_number && (
-                <p className="text-xs text-stone-400 mt-3 flex items-center gap-1">
-                  <Package className="w-3 h-3" /> Tracking: {order.tracking_number}
-                </p>
+                  {/* Custom Build Dates */}
+                  {order.order_type === "custom" && (order.build_start_date || order.estimated_build_completion_date) && (
+                    <div className="flex flex-wrap gap-4 text-sm text-stone-600">
+                      {order.build_start_date && (
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4 text-indigo-400" />
+                          <span>Build starts: <strong>{format(new Date(order.build_start_date), "MMM d, yyyy")}</strong></span>
+                        </div>
+                      )}
+                      {order.estimated_build_completion_date && (
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4 text-green-500" />
+                          <span>Est. completion: <strong>{format(new Date(order.estimated_build_completion_date), "MMM d, yyyy")}</strong></span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Tracking */}
+                  {order.tracking_number && (
+                    <p className="text-xs text-stone-400 flex items-center gap-1">
+                      <Package className="w-3 h-3" />
+                      {order.tracking_carrier && <span>{order.tracking_carrier}:</span>}
+                      <span>{order.tracking_number}</span>
+                    </p>
+                  )}
+                </div>
               )}
             </div>
           ))}
