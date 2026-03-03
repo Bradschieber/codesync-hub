@@ -81,13 +81,22 @@ export default function Account() {
                 <p className="text-sm" style={{ color: "#A8B8D0" }}>{profile?.business_name || "Your builder storefront is active"}</p>
               </div>
             </div>
-            <Link
-              to={createPageUrl("Dashboard")}
-              className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 whitespace-nowrap"
-              style={{ backgroundColor: "#FFFFFF", color: NAVY }}
-            >
-              <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Link
+                to={createPageUrl("DashboardProfile")}
+                className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 whitespace-nowrap"
+                style={{ backgroundColor: "rgba(255,255,255,0.15)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.3)" }}
+              >
+                <User className="w-4 h-4" /> Edit Builder Profile
+              </Link>
+              <Link
+                to={createPageUrl("Dashboard")}
+                className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 whitespace-nowrap"
+                style={{ backgroundColor: "#FFFFFF", color: NAVY }}
+              >
+                <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
+              </Link>
+            </div>
           </div>
         )}
 
