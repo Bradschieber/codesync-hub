@@ -13,6 +13,7 @@ export default function Layout({ children, currentPageName }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [builderModalOpen, setBuilderModalOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => { loadUser(); }, []);
