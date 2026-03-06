@@ -51,7 +51,7 @@ export default function BuilderLanding() {
         </h2>
         <div className="text-gray-500 text-base leading-relaxed space-y-4">
           <p>
-            Most musicians buying a new instrument head straight to Guitar Center or browse the big online retailers. Not because boutique builders aren't better — but because they don't know where to find them, or they assume the process is too complicated or too risky.
+            Most musicians buying a new instrument head straight to the big box stores or major online retailers. Not because boutique builders aren't better — but because they don't know where to find them, or they assume the process is too complicated or too risky.
           </p>
           <p>
             That's the real problem. There are exceptional independent builders doing incredible work, and there are buyers willing to spend serious money on the right instrument — but the two rarely find each other.
