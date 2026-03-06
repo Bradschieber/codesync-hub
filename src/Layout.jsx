@@ -175,29 +175,24 @@ export default function Layout({ children, currentPageName }) {
         {menuOpen && (
         <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#FAF9F7", borderColor: "#E0DDD8" }}>
             {navLinks.map(l => (
-              l.pill ? (
-                <Link
-                  key={l.page}
-                  to={createPageUrl(l.page)}
-                  onClick={() => setMenuOpen(false)}
-                  className="block py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors"
-                    style={{ color: "#1B2B4B", backgroundColor: "#EEF1F7" }}
-                >
-                  {l.label}
-                </Link>
-              ) : (
-                <Link
-                  key={l.page}
-                  to={createPageUrl(l.page)}
-                  onClick={() => setMenuOpen(false)}
-                  className={`block py-2.5 px-3 rounded-lg text-sm font-medium transition-colors ${
-                    currentPageName === l.page ? "bg-stone-100 text-gray-900" : "text-gray-700 hover:bg-stone-50 hover:text-gray-900"
-                  }`}
-                >
-                  {l.label}
-                </Link>
-              )
+              <Link
+                key={l.page}
+                to={createPageUrl(l.page)}
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2.5 px-3 rounded-lg text-sm font-medium transition-colors ${
+                  currentPageName === l.page ? "bg-stone-100 text-gray-900" : "text-gray-700 hover:bg-stone-50 hover:text-gray-900"
+                }`}
+              >
+                {l.label}
+              </Link>
             ))}
+            <button
+              onClick={() => { setMenuOpen(false); setBuilderModalOpen(true); }}
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors"
+              style={{ color: "#1B2B4B", backgroundColor: "#EEF1F7" }}
+            >
+              Join As A Builder
+            </button>
           </div>
         )}
       </header>
