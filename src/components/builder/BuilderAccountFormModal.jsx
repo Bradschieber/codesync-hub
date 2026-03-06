@@ -165,37 +165,6 @@ export default function BuilderAccountFormModal({ onClose }) {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-medium mb-2" style={{ color: "#4A5566" }}>Specialties</label>
-                  <div className="flex flex-wrap gap-2">
-                    {SPECIALTIES.map(s => (
-                      <button
-                        type="button"
-                        key={s}
-                        onClick={() => toggleSpec(s)}
-                        className="px-3 py-1.5 text-xs border transition-colors"
-                        style={form.specialties.includes(s)
-                          ? { backgroundColor: NAVY, color: "#fff", borderColor: NAVY }
-                          : { backgroundColor: "#fff", color: "#4A5566", borderColor: "#D1D5DB" }}
-                      >
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: "#4A5566" }}>About You & Your Craft *</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={form.bio}
-                    onChange={e => setForm({ ...form, bio: e.target.value })}
-                    placeholder="Tell us about your building experience, style, and what makes your instruments unique..."
-                    className="w-full border px-3 py-2 text-sm focus:outline-none focus:ring-1 resize-none"
-                    style={{ borderColor: "#D1D5DB" }}
-                  />
-                </div>
 
                 <button
                   type="submit"
