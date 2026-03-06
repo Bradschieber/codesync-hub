@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
-import { ArrowRight, Shield, Store, Users, Fingerprint, CheckCircle } from "lucide-react";
+import { ArrowRight, Shield, Store, Users, Fingerprint, CheckCircle, CreditCard } from "lucide-react";
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
 
 const NAVY = "#1B2B4B";
