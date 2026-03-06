@@ -223,16 +223,6 @@ End with a short sentence about suggested keywords for search (prefix with "Keyw
           )}
         </div>
         <div>
-          <label className="block text-xs font-medium text-stone-600 mb-2">Categories</label>
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map(cat => (
-              <button type="button" key={cat} onClick={() => toggleCat(cat)} className={`px-3 py-1 rounded-lg text-xs border transition-colors ${form.categories?.includes(cat) ? "bg-amber-600 text-white border-amber-600" : "border-stone-300 text-stone-600 hover:border-amber-400"}`}>
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div>
           <label className="block text-xs font-medium text-stone-600 mb-2">Photos & Videos</label>
           <label className={`flex items-center justify-center gap-2 w-full border-2 border-dashed rounded-xl px-4 py-5 cursor-pointer transition-colors ${uploading ? "border-amber-300 bg-amber-50" : "border-stone-300 hover:border-amber-400 hover:bg-amber-50"}`}>
             <input type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileUpload} disabled={uploading} />
