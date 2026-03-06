@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ArrowRight, Guitar, Lock, CreditCard, CheckCircle, MapPin, User } from "lucide-react";
+import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
 
 const NAVY = "#1B2B4B";
 const BRONZE = "#A0692A";
