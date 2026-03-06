@@ -70,6 +70,9 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
   function bn(key) { return builderSpecOptions[key]?.notes || ""; }
 
   const bc = specs.bodyConstruction;
+  const cat = specs.instrumentCategory;
+  const isElectric = cat === "Electric Guitars" || cat === "Electric Bass Guitar";
+  const isAcoustic = cat === "Acoustic Guitar" || cat === "Acoustic Bass Guitar";
 
   return (
     <div className="space-y-4 border border-stone-200 rounded-xl p-4 bg-stone-50">
@@ -111,6 +114,37 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
       {/* ── Body ── */}
       <div className="grid sm:grid-cols-2 gap-4">
         <SectionHeader title="Body" />
+
+        {/* Body Type — Electric only */}
+        {isElectric && (
+          <>
+            <SpecSelect
+              label="Body Type"
+              value={specs.bodyType}
+              onChange={v => update("bodyType", v)}
+              options={["Solid", "Semi-Hollow", "Hollow", "Archtop", "Other"]}
+            />
+            {specs.bodyType === "Other" && (
+              <SpecInput label="Specify Body Type" value={specs.otherBodyType} onChange={v => update("otherBodyType", v)} placeholder="Enter body type..." />
+            )}
+          </>
+        )}
+
+        {/* Body Shape — Acoustic only */}
+        {isAcoustic && (
+          <>
+            <SpecSelect
+              label="Body Shape"
+              value={specs.bodyShape}
+              onChange={v => update("bodyShape", v)}
+              options={["Dreadnought", "Parlor", "Concert", "Auditorium", "Jumbo", "Classical", "Other"]}
+            />
+            {specs.bodyShape === "Other" && (
+              <SpecInput label="Specify Body Shape" value={specs.otherBodyShape} onChange={v => update("otherBodyShape", v)} placeholder="Enter body shape..." />
+            )}
+          </>
+        )}
+
         <SpecSelect
           label="Body Construction"
           value={specs.bodyConstruction}
@@ -135,6 +169,16 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </>)}
 
+        {/* Side Wood & Bracing — Acoustic only */}
+        {isAcoustic && (
+          <>
+            <WoodSelect label="Side Wood" value={specs.sideWood} otherValue={specs.otherSideWood} onChange={v => update("sideWood", v)} onOtherChange={v => update("otherSideWood", v)} />
+            <div className="col-span-full">
+              <SpecTextarea label="Bracing Description" value={specs.bracingDescription} onChange={v => update("bracingDescription", v)} placeholder="Describe the bracing pattern and materials..." />
+            </div>
+          </>
+        )}
+
         <SpecSelect
           label="Top Grain Details"
           value={specs.topGrainDetails}
@@ -145,6 +189,11 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         {specs.topGrainDetails === "Other" && (
           <SpecInput label="Specify Top Grain Details" value={specs.otherTopGrainDetails} onChange={v => update("otherTopGrainDetails", v)} placeholder="Enter grain details..." />
         )}
+
+        {/* Body Description — always shown */}
+        <div className="col-span-full">
+          <SpecTextarea label="Body Description" value={specs.bodyDescription} onChange={v => update("bodyDescription", v)} placeholder="Any unique or noteworthy details about the body..." />
+        </div>
       </div>
 
       {/* ── Finish ── */}
