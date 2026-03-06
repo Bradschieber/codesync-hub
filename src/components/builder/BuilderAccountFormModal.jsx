@@ -131,7 +131,7 @@ export default function BuilderAccountFormModal({ onClose }) {
           {/* Form */}
           {user && !submitted && (
             <>
-              <p className="text-sm mb-5" style={{ color: "#6B6B6B" }}>Fill out the form below. Your storefront will be reviewed before going live.</p>
+              <p className="text-sm mb-5" style={{ color: "#6B6B6B" }}>Fill out the form below to create your builder profile. You'll be able to complete your storefront from there before it goes live.</p>
               {error && <div className="mb-4 p-3 text-sm rounded" style={{ backgroundColor: "#FEF2F2", color: "#DC2626", border: "1px solid #FECACA" }}>{error}</div>}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
