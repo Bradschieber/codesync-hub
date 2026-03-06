@@ -90,6 +90,11 @@ export default function BuilderLanding() {
                 icon: Fingerprint,
                 title: "Keep your identity",
                 body: "Your storefront is yours. We give you the tools and the structure, but your brand, your voice, and your builds stay front and center."
+              },
+              {
+                icon: CreditCard,
+                title: "A buying experience buyers trust",
+                body: "We give buyers a seamless, trustworthy checkout experience — as polished as any major music retailer. We support credit card payments and financing options, so price is less of a barrier to a sale."
               }
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4">
