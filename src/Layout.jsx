@@ -136,6 +136,11 @@ export default function Layout({ children, currentPageName }) {
                             <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
                           </Link>
                         )}
+                        {profile?.account === 'user' && (
+                          <button onClick={() => { setUserMenuOpen(false); setBuilderModalOpen(true); }} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-full text-left">
+                            <Hammer className="w-4 h-4" /> Become a Builder
+                          </button>
+                        )}
                         <hr className="my-1 border-gray-100" />
                         <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-gray-50 w-full">
                           <LogOut className="w-4 h-4" /> Sign Out
