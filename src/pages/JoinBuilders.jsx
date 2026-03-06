@@ -6,13 +6,32 @@ import { Hammer, CheckCircle, Users, DollarSign, Globe, LogIn } from "lucide-rea
 
 export default function JoinBuilders() {
   const [user, setUser] = useState(undefined); // undefined = loading, null = not logged in
+  const [existingProfile, setExistingProfile] = useState(null);
   const [form, setForm] = useState({ business_name: "", first_name: "", last_name: "", email: "", location: "", bio: "", years_experience: "", specialties: [], website_url: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    base44.auth.me().then(u => setUser(u)).catch(() => setUser(null));
+    base44.auth.me().then(async u => {
+      setUser(u);
+      const profiles = await base44.entities.UserProfile.filter({ user_id: u.id });
+      if (profiles.length > 0) {
+        setExistingProfile(profiles[0]);
+        const p = profiles[0];
+        setForm(f => ({
+          ...f,
+          first_name: p.first_name || "",
+          last_name: p.last_name || "",
+          email: p.email || u.email || "",
+          location: p.location || "",
+          bio: p.bio || "",
+          years_experience: p.years_experience || "",
+          website_url: p.website_url || "",
+          specialties: p.specialties || [],
+        }));
+      }
+    }).catch(() => setUser(null));
   }, []);
 
   const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical", "Archtop", "Custom Finishes", "Repairs"];
