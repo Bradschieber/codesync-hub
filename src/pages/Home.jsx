@@ -161,7 +161,7 @@ export default function Home() {
             {builders.length === 0 && (
               <div className="col-span-3 py-10 text-center text-sm" style={{ color: "#9A9A9A" }}>
                 No featured builders yet.{" "}
-                <Link to={createPageUrl("JoinBuilders")} className="font-semibold underline" style={{ color: NAVY }}>Be the first</Link>
+                <button onClick={() => setBuilderModalOpen(true)} className="font-semibold underline" style={{ color: NAVY }}>Be the first</button>
               </div>
             )}
           </div>
