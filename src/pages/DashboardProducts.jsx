@@ -5,8 +5,6 @@ import { createPageUrl } from "@/utils";
 import { Plus, Pencil, Trash2, Guitar, Eye, EyeOff, ChevronLeft, X, Upload, Sparkles } from "lucide-react";
 import SpecificationsForm from "../components/dashboard/SpecificationsForm";
 
-const CATEGORIES = ["Electric", "Acoustic", "Bass", "Classical", "Semi-Hollow", "12-String", "Archtop", "Other"];
-
 export default function DashboardProducts() {
   const [products, setProducts] = useState([]);
   const [profile, setProfile] = useState(null);
