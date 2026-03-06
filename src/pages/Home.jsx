@@ -185,15 +185,15 @@ export default function Home() {
               </p>
             </div>
             <div className="sm:text-right">
-              <Link
-                to={createPageUrl("JoinBuilders")}
+              <button
+                onClick={() => setBuilderModalOpen(true)}
                 className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors"
                 style={{ color: NAVY, backgroundColor: "#FFFFFF" }}
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#EEF1F7"; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
               >
                 Apply as a Founding Builder
-              </Link>
+              </button>
             </div>
           </div>
         </div>
