@@ -50,16 +50,19 @@ export default function JoinBuilders() {
         base44.auth.redirectToLogin(window.location.href);
         return;
       }
-      await base44.entities.UserProfile.create({
+      const profileData = {
         ...form,
         display_name: `${form.first_name} ${form.last_name}`.trim(),
         user_id: u.id,
         years_experience: Number(form.years_experience),
         is_seller: true,
         account: "seller",
-        is_featured: false,
-        is_published: false,
-      });
+      };
+      if (existingProfile) {
+        await base44.entities.UserProfile.update(existingProfile.id, profileData);
+      } else {
+        await base44.entities.UserProfile.create({ ...profileData, is_featured: false });
+      }
       setSubmitted(true);
     } catch (err) {
       setError("Something went wrong. Please try again.");
