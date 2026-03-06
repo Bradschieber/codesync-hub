@@ -70,30 +70,26 @@ export default function Layout({ children, currentPageName }) {
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map(l => (
-                l.pill ? (
-                  <Link
-                    key={l.page}
-                    to={createPageUrl(l.page)}
-                    className="text-sm font-medium transition-colors px-4 py-1.5 rounded-md border"
-                    style={{ color: "#1B2B4B", borderColor: "#1B2B4B", backgroundColor: "transparent" }}
-                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#1B2B4B"; e.currentTarget.style.color = "#fff"; }}
-                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2B4B"; }}
-                  >
-                    {l.label}
-                  </Link>
-                ) : (
-                  <Link
-                    key={l.page}
-                    to={createPageUrl(l.page)}
-                    className={`text-sm font-medium transition-colors ${
-                      currentPageName === l.page ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
-                    }`}
-                    style={currentPageName === l.page ? { color: "#24324A" } : {}}
-                  >
-                    {l.label}
-                  </Link>
-                )
+                <Link
+                  key={l.page}
+                  to={createPageUrl(l.page)}
+                  className={`text-sm font-medium transition-colors ${
+                    currentPageName === l.page ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
+                  }`}
+                  style={currentPageName === l.page ? { color: "#24324A" } : {}}
+                >
+                  {l.label}
+                </Link>
               ))}
+              <button
+                onClick={() => setBuilderModalOpen(true)}
+                className="text-sm font-medium transition-colors px-4 py-1.5 border"
+                style={{ color: "#1B2B4B", borderColor: "#1B2B4B", backgroundColor: "transparent" }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#1B2B4B"; e.currentTarget.style.color = "#fff"; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2B4B"; }}
+              >
+                Join As A Builder
+              </button>
             </nav>
 
             {/* Actions */}
