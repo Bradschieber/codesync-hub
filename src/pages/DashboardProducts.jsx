@@ -181,13 +181,6 @@ End with a short sentence about suggested keywords for search (prefix with "Keyw
     e.target.value = "";
   }
 
-  function toggleCat(cat) {
-    setForm(f => ({
-      ...f,
-      categories: f.categories?.includes(cat) ? f.categories.filter(c => c !== cat) : [...(f.categories || []), cat]
-    }));
-  }
-
   return (
     <div className="bg-white rounded-2xl border border-amber-200 p-6 mb-6">
       <div className="flex items-center justify-between mb-5">
