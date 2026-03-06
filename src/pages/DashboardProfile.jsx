@@ -41,7 +41,10 @@ export default function DashboardProfile() {
       } else {
         setForm({ user_id: u.id, email: u.email, display_name: u.full_name, is_seller: true, account: "seller" });
       }
-    } catch { base44.auth.redirectToLogin(); }
+    } catch (err) {
+      console.error("DashboardProfile loadProfile error:", err);
+      base44.auth.redirectToLogin(window.location.href);
+    }
     setLoading(false);
   }
 
