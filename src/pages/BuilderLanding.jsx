@@ -83,8 +83,8 @@ export default function BuilderLanding() {
               },
               {
                 icon: Users,
-                title: "Reach serious buyers",
-                body: "Get in front of musicians who are actively looking for boutique and custom instruments. Not casual browsers — people ready to invest in something real."
+                title: "We bring the buyers to you",
+                body: "We run the advertising and promotion so you don't have to. Our team markets the platform to serious buyers actively looking for boutique and custom instruments — you focus on building."
               },
               {
                 icon: Fingerprint,
