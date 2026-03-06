@@ -12,6 +12,7 @@ export default function Home() {
   const [featured, setFeatured] = useState([]);
   const [builders, setBuilders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [builderModalOpen, setBuilderModalOpen] = useState(false);
 
   useEffect(() => { loadData(); }, []);
 
