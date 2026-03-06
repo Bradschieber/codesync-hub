@@ -119,7 +119,7 @@ export default function DashboardProducts() {
 
 function ProductForm({ product, profile, onSave, onClose }) {
   const [form, setForm] = useState(product || {
-    name: "", description: "", price: "", categories: [], status: "available", is_available: true,
+    name: "", description: "", price: "", status: "available", is_available: true,
     image_urls: [], offers_local_pickup: false, is_featured: false, specifications: {}
   });
   const [saving, setSaving] = useState(false);
