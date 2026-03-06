@@ -73,8 +73,8 @@ export default function BuilderLanding() {
             {[
               {
                 icon: Shield,
-                title: "Protected transactions",
-                body: "We protect both sides of the sale so builders and buyers do not carry the risk alone. Deposits, custom builds, and stock sales are all handled through a structured process."
+                title: "Every transaction is guaranteed",
+                body: "We guarantee every sale so buyers and builders are never left holding the bag. Deposits, custom builds, and stock sales are all handled through a structured process that keeps both sides covered."
               },
               {
                 icon: Store,
