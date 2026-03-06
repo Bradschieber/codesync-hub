@@ -199,6 +199,7 @@ export default function Home() {
         </div>
       </section>
 
+      {builderModalOpen && <BuilderAccountFormModal onClose={() => setBuilderModalOpen(false)} />}
     </div>
   );
 }
