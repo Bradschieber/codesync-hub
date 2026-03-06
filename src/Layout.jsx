@@ -224,7 +224,7 @@ export default function Layout({ children, currentPageName }) {
             <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Company</h4>
             <ul className="space-y-2.5 text-sm">
               <li><Link to={createPageUrl("About")} className="hover:text-indigo-400 transition-colors">About</Link></li>
-              <li><Link to={createPageUrl("JoinBuilders")} className="hover:text-indigo-400 transition-colors">Join as Builder</Link></li>
+              <li><button onClick={() => setBuilderModalOpen(true)} className="hover:text-indigo-400 transition-colors">Join as Builder</button></li>
               <li><Link to={createPageUrl("Contact")} className="hover:text-indigo-400 transition-colors">Contact</Link></li>
             </ul>
           </div>
