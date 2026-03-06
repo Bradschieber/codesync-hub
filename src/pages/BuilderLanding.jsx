@@ -51,13 +51,13 @@ export default function BuilderLanding() {
         </h2>
         <div className="text-gray-500 text-base leading-relaxed space-y-4">
           <p>
-            Independent builders often rely on personal websites, social media, email, or direct messages to sell their work. That makes it harder to build buyer trust, harder to manage transactions, and harder to present instruments in a professional retail environment.
+            Most musicians buying a new instrument head straight to Guitar Center or browse the big online retailers. Not because boutique builders aren't better — but because they don't know where to find them, or they assume the process is too complicated or too risky.
           </p>
           <p>
-            Buyers who are willing to spend real money on a handmade instrument want to feel like they are dealing with someone who takes their craft seriously — and the platform should reflect that.
+            That's the real problem. There are exceptional independent builders doing incredible work, and there are buyers willing to spend serious money on the right instrument — but the two rarely find each other.
           </p>
           <p>
-            Stringed Collective is built to solve that problem. A single place where independent builders can present their work professionally, connect with the right buyers, and handle transactions safely.
+            Stringed Collective is changing that. We're actively marketing to buyers who haven't considered boutique before, showing them that buying from an independent builder can be just as seamless, safe, and trustworthy as buying from a major retailer — and far more rewarding.
           </p>
         </div>
       </section>
