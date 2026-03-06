@@ -77,7 +77,7 @@ export default function BuilderAccountFormModal({ onClose }) {
           <div className="flex items-center gap-2">
             <Hammer className="w-5 h-5" style={{ color: NAVY }} strokeWidth={1.5} />
             <h2 className="font-bold text-base" style={{ color: "#1A1A1A" }}>
-              {submitted ? "Application Received" : "Create Your Builder Storefront"}
+              {submitted ? "Builder Profile Created" : "Create Your Builder Profile"}
             </h2>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded transition-colors">
