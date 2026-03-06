@@ -111,16 +111,19 @@ export default function BuilderAccountFormModal({ onClose }) {
           {user && submitted && (
             <div className="text-center py-8">
               <CheckCircle className="w-14 h-14 mx-auto mb-4" style={{ color: "#27AE60" }} />
-              <h3 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Storefront Created!</h3>
+              <h3 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Builder Profile Created!</h3>
+              <p className="text-sm mb-3" style={{ color: "#5A5A5A" }}>
+                Your builder profile has been set up. Head to your Builder Profile page to continue completing your profile and building your storefront.
+              </p>
               <p className="text-sm mb-6" style={{ color: "#5A5A5A" }}>
-                Your builder storefront has been set up. It will go live once our team reviews and approves it — usually within 1–2 business days.
+                Once you've finished, our team will review your storefront — usually within 1–2 business days.
               </p>
               <button
-                onClick={() => { window.location.href = createPageUrl("Dashboard"); }}
+                onClick={() => { window.location.href = createPageUrl("DashboardProfile"); }}
                 className="font-semibold px-6 py-3 text-sm text-white transition-colors"
                 style={{ backgroundColor: NAVY }}
               >
-                Go to Dashboard
+                Go to Builder Profile
               </button>
             </div>
           )}
