@@ -203,7 +203,7 @@ export default function BuilderAccountFormModal({ onClose }) {
                   className="w-full font-semibold py-3 text-sm text-white transition-colors disabled:opacity-50"
                   style={{ backgroundColor: NAVY }}
                 >
-                  {loading ? "Creating Storefront..." : "Create My Storefront"}
+                  {loading ? "Creating Profile..." : "Create My Builder Profile"}
                 </button>
               </form>
             </>
