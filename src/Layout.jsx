@@ -44,7 +44,6 @@ export default function Layout({ children, currentPageName }) {
     { label: "Catalog", page: "Catalog" },
     { label: "Our Builders", page: "Builders" },
     { label: "About", page: "About" },
-    { label: "Join As A Builder", page: "JoinBuilders", pill: true },
   ];
 
   return (
