@@ -246,6 +246,9 @@ export default function Layout({ children, currentPageName }) {
           onClose={() => { setCartOpen(false); loadCartCount(); }}
         />
       )}
+      {builderModalOpen && (
+        <BuilderAccountFormModal onClose={() => setBuilderModalOpen(false)} />
+      )}
     </div>
   );
 }
