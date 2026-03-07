@@ -59,14 +59,20 @@ export default function BuilderLanding() {
       <section className="max-w-3xl mx-auto px-6 py-20">
         <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Need a Better Way to Sell</p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: NAVY }}>
-          Why builders need a better way to sell
+          Why selling custom instruments is harder than it should be
         </h2>
         <div className="text-gray-500 text-base leading-relaxed space-y-4">
           <p>
-            Independent builders often rely on personal websites, social media, and word of mouth to sell their work. While that can work, it can also make it difficult for buyers to discover new builders and difficult for transactions to feel secure and straightforward.
+            Independent builders often rely on personal websites, social media, and word of mouth to sell their work. While that can work, it can also make it difficult for new players to discover your instruments.
           </p>
           <p>
-            Stringed Collective creates a professional marketplace where independent builders can present their instruments clearly and connect with players who are actively searching for something different.
+            Even when someone is ready to buy, the transaction itself can feel uncertain. Sending thousands of dollars to someone you've never met — or committing weeks of work to a build without secure payment — creates risk on both sides.
+          </p>
+          <p>
+            Stringed Collective was created to remove that friction.
+          </p>
+          <p>
+            By acting as a trusted marketplace between builder and buyer, Stringed Collective provides a professional storefront where players can discover your work — while the platform guarantees the transaction so neither side carries the risk alone.
           </p>
         </div>
       </section>
