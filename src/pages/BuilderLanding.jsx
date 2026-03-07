@@ -153,6 +153,7 @@ export default function BuilderLanding() {
           <p className="text-blue-100 text-base leading-relaxed mb-10">
             We're personally inviting a small group of independent builders whose work we respect to help launch Stringed Collective. Our goal is to bring together the first 10 founding builders before opening the marketplace more broadly.
           </p>
+          <p className="text-blue-200 text-sm mb-6">As a founding builder, you'll get:</p>
           <div className="grid sm:grid-cols-2 gap-4 text-left mb-10 max-w-xl mx-auto">
             {[
               "Free early access to the platform",
