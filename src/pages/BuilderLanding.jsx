@@ -129,9 +129,9 @@ export default function BuilderLanding() {
         </h2>
         <div className="grid sm:grid-cols-3 gap-8 mb-8">
           {[
-            { step: "01", title: "Create your builder profile", body: "Tell us about your craft, your experience, and what you build." },
-            { step: "02", title: "Build your storefront and add instruments", body: "List your instruments with photos and specs, or set up custom build offerings." },
-            { step: "03", title: "Start connecting with players", body: "Buyers searching for handmade instruments will find your work through the platform." },
+            { step: "01", title: "Create your builder profile", body: "Tell us about your craft, your experience, and the instruments you build." },
+            { step: "02", title: "Build your storefront and add instruments", body: "List instruments with photos and specs, or offer custom builds through your storefront." },
+            { step: "03", title: "Start connecting with players", body: "Players discover your work through the platform, and Stringed Collective handles the transaction so the sale is secure." },
           ].map(({ step, title, body }) => (
             <div key={step} className="border-t-2 border-[#1B2B4B] pt-5">
               <p className="text-xs font-bold tracking-widest text-gray-300 mb-3">{step}</p>
