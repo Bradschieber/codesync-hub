@@ -124,8 +124,8 @@ export default function About() {
 
         {/* CTA */}
         <div className="py-16 px-10 text-center" style={{ backgroundColor: NAVY }}>
-          <h2 className="text-2xl font-bold text-white mb-3 tracking-tight" style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>Ready to find your instrument?</h2>
-          <p className="mb-8 text-base" style={{ color: "#A8B8D0" }}>Browse instruments from independent builders — directly.</p>
+          <h2 className="text-2xl font-bold text-white mb-3 tracking-tight" style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>Ready to find your next instrument?</h2>
+          <p className="mb-8 text-base" style={{ color: "#A8B8D0" }}>Explore instruments from independent builders around the world.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to={createPageUrl("Catalog")}
