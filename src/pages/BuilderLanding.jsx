@@ -167,7 +167,7 @@ export default function BuilderLanding() {
             ))}
           </div>
           <p className="text-blue-300 text-sm mb-8">
-            This isn't an exclusive club — it's an early group. If you build instruments seriously, you belong here.
+            This isn't an exclusive club — it's an early group.<br />If you build instruments seriously, you belong here.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
