@@ -14,8 +14,11 @@ export default function About() {
           <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1B2B4B", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
             About Stringed Collective.
           </h1>
+          <p className="text-lg leading-relaxed mb-4" style={{ color: "#3D3D3D" }}>
+            Stringed Collective connects independent instrument builders with players around the world who value craftsmanship and individuality.
+          </p>
           <p className="text-lg leading-relaxed" style={{ color: "#3D3D3D" }}>
-            We exist to connect serious instrument builders with the players who will cherish their work for generations.
+            Our marketplace makes it easier to discover exceptional instruments and purchase them through a secure, structured platform that protects both buyer and builder.
           </p>
         </div>
       </div>
