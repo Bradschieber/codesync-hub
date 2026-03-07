@@ -88,7 +88,7 @@ export default function Layout({ children, currentPageName }) {
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#1B2B4B"; e.currentTarget.style.color = "#fff"; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2B4B"; }}
               >
-                Join As A Builder
+                Create Your Builder Profile
               </button>
             </nav>
 
