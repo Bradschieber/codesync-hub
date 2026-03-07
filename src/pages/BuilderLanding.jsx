@@ -89,7 +89,7 @@ export default function BuilderLanding() {
               {
                 icon: Shield,
                 title: "Guaranteed transactions",
-                body: "Stringed Collective stands between the builder and buyer to guarantee every transaction. Payments are handled through the platform so both sides know the deal is secure."
+                body: "Stringed Collective stands between the builder and buyer to guarantee every transaction. Payments are handled through the platform so both sides know the deal is secure. If either party fails to follow through, Stringed Collective makes the other whole."
               },
               {
                 icon: Store,
