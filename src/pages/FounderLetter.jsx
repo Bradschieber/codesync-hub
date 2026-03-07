@@ -1,0 +1,221 @@
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { ArrowLeft } from "lucide-react";
+import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
+import { useState } from "react";
+
+const NAVY = "#1B2B4B";
+
+const sections = [
+  {
+    body: `Music has always been about people.
+
+At a time when technology is accelerating faster than ever, a lot of people worry about where that leads. But I believe something different is happening.
+
+I think the future is going to create more opportunities for humans to be deeply human.
+
+We're going to see a renaissance of people doing human things — making things with their hands, creating art, building communities, and coming together around music.
+
+And few things represent that better than an instrument — something built by one human being so another human being can make music with it.
+
+That idea is the North Star behind Stringed Collective.`,
+  },
+  {
+    heading: "My Story",
+    body: `I've loved instruments for as long as I can remember.
+
+When I was a kid I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me — the shape, the wood, the way it felt in your hands.
+
+Eventually I learned how to play.
+
+For more than 30 years I've played in working bands, and many of the best experiences of my life — and many of my closest friendships — have happened because of music.
+
+A few years ago I started building guitars myself.
+
+I've been building seriously for about five years now. I'm not at the level of many of the incredible builders out there yet, but I'm working on it every day. Like every builder, I'm chasing that next improvement — the next better instrument.
+
+And being part of that community has been inspiring.`,
+  },
+  {
+    heading: "The Builder Community",
+    body: `If you spend time in the online builder communities, you see something remarkable.
+
+There is an incredible amount of creativity and craftsmanship happening all over the world. Builders are experimenting, learning, helping each other, and pushing the craft forward.
+
+The work being produced is extraordinary.
+
+But I kept hearing the same question over and over again:
+
+"How do I sell these?"
+
+For some builders, it's about funding the next build.
+
+For others, it's about turning a passion into a business.
+
+And for more established builders, it's about something even simpler:
+
+How do I reach more players who would love these instruments?
+
+Most builders today rely on personal websites, social media, or word of mouth. Those tools can work, but they make discovery difficult and transactions uncertain.
+
+Meanwhile, many players go straight to the large online retailers because those platforms feel easy, familiar, and safe.
+
+That means many musicians never even realize that a handmade instrument from an independent builder is an option.`,
+  },
+  {
+    heading: "Changing the Way Musicians Discover Instruments",
+    body: `Part of the mission of Stringed Collective is to change that.
+
+We want more musicians to see boutique instruments as a real option when they're searching for their next instrument.
+
+Right now, large retailers offer something independent builders often don't have access to: a professional platform that makes discovery easy and transactions feel safe.
+
+Stringed Collective is designed to give boutique builders that same level of platform.
+
+A place where builders can present their work professionally, tell the story behind their instruments, and reach players who are actively searching for something different.
+
+When musicians discover what independent builders are creating, it opens up an entirely new world of instruments.`,
+  },
+  {
+    heading: "Why Stringed Collective Exists",
+    body: `Stringed Collective is a marketplace designed specifically for independent instrument builders.
+
+It provides the structure and trust that both builders and buyers need.
+
+Builders can showcase their work through professional storefronts.
+
+Players can explore instruments and collaborate on custom builds.
+
+And transactions happen through a secure platform that protects both sides.
+
+Payments are handled through the platform, terms are documented clearly, and the process is structured so neither side carries the risk alone.
+
+Builders should be able to focus on building great instruments.
+
+Players should be able to focus on making music.`,
+  },
+  {
+    heading: "The Beginning",
+    body: `Right now, Stringed Collective is just getting started.
+
+We're inviting a small group of founding builders to help shape the platform and launch the marketplace.
+
+If you're one of the builders reading this, I'm incredibly grateful for the work you're doing and the craft you're pushing forward.
+
+My goal with Stringed Collective is simple:
+
+Help more players discover your work.
+
+Because the world needs more instruments built by humans.
+
+And more music made by humans.`,
+  },
+  {
+    heading: "A Personal Invitation",
+    body: `If you're a builder who cares deeply about the craft, I'd love for you to be part of what we're building.
+
+Stringed Collective exists to support this community and help bring your instruments to a wider audience.
+
+We're just getting started, and the builders who join early will help shape what this platform becomes.`,
+  },
+];
+
+export default function FounderLetter() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  return (
+    <div style={{ backgroundColor: "#FDFBF8", minHeight: "100vh" }}>
+
+      {/* Page Header */}
+      <div className="border-b" style={{ borderColor: "#E8E5E0" }}>
+        <div className="max-w-2xl mx-auto px-6 py-14">
+          <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: "#8A9BB0" }}>
+            Founder Letter
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight" style={{ color: NAVY }}>
+            Why I Built Stringed Collective
+          </h1>
+          <p className="text-base text-gray-500 leading-relaxed">
+            A personal note about music, builders, and why this platform exists.
+          </p>
+        </div>
+      </div>
+
+      {/* Summary Block */}
+      <div className="max-w-2xl mx-auto px-6 py-12 border-b" style={{ borderColor: "#E8E5E0" }}>
+        <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "#8A9BB0" }}>
+          A Quick Summary
+        </p>
+        <div className="space-y-3">
+          <p className="text-sm leading-relaxed" style={{ color: "#4A5566" }}>
+            Stringed Collective was created to help independent instrument builders reach a wider audience and make boutique instruments easier for players to discover and purchase.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "#4A5566" }}>
+            We're building a marketplace that gives independent builders the same kind of professional platform large retailers have — while preserving the direct relationship between builder and player.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "#4A5566" }}>
+            The platform handles transactions securely so both sides can move forward with confidence.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "#4A5566" }}>
+            We're currently inviting a small group of founding builders to help launch the marketplace and shape how it evolves.
+          </p>
+        </div>
+      </div>
+
+      {/* Letter Body */}
+      <div className="max-w-2xl mx-auto px-6 py-14 space-y-14">
+        {sections.map((section, i) => (
+          <div key={i}>
+            {section.heading && (
+              <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "#8A9BB0" }}>
+                {section.heading}
+              </p>
+            )}
+            <div className="space-y-4">
+              {section.body.split("\n\n").map((para, j) => (
+                <p
+                  key={j}
+                  className="text-base leading-relaxed"
+                  style={{ color: para.startsWith('"') || para.startsWith("Help more") || para.startsWith("How do I") || para.startsWith("Builders should") || para.startsWith("Players should") || para.startsWith("Because") || para.startsWith("And more") ? NAVY : "#3D3D3D", fontWeight: para.startsWith("Help more") || para.startsWith("Because") || para.startsWith("And more") ? 500 : 400 }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div className="border-t" style={{ borderColor: "#E8E5E0" }}>
+        <div className="max-w-2xl mx-auto px-6 py-16 text-center">
+          <h2 className="text-xl font-bold mb-3" style={{ color: NAVY }}>
+            Join the first group of founding builders
+          </h2>
+          <p className="text-sm text-gray-500 leading-relaxed mb-8 max-w-md mx-auto">
+            Create your builder profile and help shape the early future of Stringed Collective.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="px-8 py-3.5 text-sm font-semibold text-white transition-colors"
+              style={{ backgroundColor: NAVY }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+            >
+              Create Your Builder Profile
+            </button>
+            <Link
+              to={createPageUrl("BuilderLanding")}
+              className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" /> Back to Builder Landing Page
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {modalOpen && <BuilderAccountFormModal onClose={() => setModalOpen(false)} />}
+    </div>
+  );
+}
