@@ -98,17 +98,17 @@ export default function About() {
               {
                 icon: CheckCircle,
                 title: "Builder-First Standards",
-                text: "Every builder is reviewed before listing. We only feature makers who take exceptional care in their craft and their customer relationships."
+                text: "Every builder is reviewed before listing. We focus on independent makers who take exceptional care in their craft and in their relationships with players."
               },
               {
                 icon: Users,
                 title: "Direct Relationships",
-                text: "We facilitate the connection between builder and player — not replace it. Buyers and makers communicate clearly throughout every transaction."
+                text: "Stringed Collective facilitates the connection between builder and player without replacing it. Buyers and builders communicate directly throughout the process."
               },
               {
                 icon: Lock,
-                title: "Protected Transactions",
-                text: "Payments are held securely and released only after successful delivery. No one carries the risk alone — that's our commitment to both sides."
+                title: "Guaranteed Transactions",
+                text: "Stringed Collective stands between buyer and builder to guarantee the transaction. Payments are held securely and released according to the agreed terms so neither side carries the risk alone."
               },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="p-7 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
