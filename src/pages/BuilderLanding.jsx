@@ -89,22 +89,22 @@ export default function BuilderLanding() {
               {
                 icon: Shield,
                 title: "Guaranteed transactions",
-                body: "Every sale is protected by the platform so builders and buyers never carry the risk alone."
+                body: "Stringed Collective stands between the builder and buyer to guarantee every transaction. Payments are handled through the platform so both sides know the deal is secure."
               },
               {
                 icon: Store,
                 title: "Professional storefronts",
-                body: "Showcase your instruments in a clear, trusted retail environment where your brand and story are front and center."
+                body: "Showcase your instruments in a clean, trusted retail environment where players can explore your builds and learn your story."
               },
               {
                 icon: Globe,
                 title: "Reach players everywhere",
-                body: "Your instruments become discoverable to players beyond your local network — buyers who are actively looking for something handmade."
+                body: "Stringed Collective brings your instruments to players beyond your local network. We handle the marketing — from search visibility to advertising and promotion — so the right players can discover your work."
               },
               {
                 icon: Fingerprint,
                 title: "Your brand stays yours",
-                body: "Your storefront highlights your work, your builds, and your story. We give you the structure — you keep your identity."
+                body: "Your storefront highlights your work, your builds, and your voice. Stringed Collective provides the platform — you keep your identity."
               },
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4">
