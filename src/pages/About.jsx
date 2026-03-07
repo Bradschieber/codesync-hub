@@ -59,6 +59,37 @@ export default function About() {
           </div>
         </div>
 
+        {/* How It Works */}
+        <div className="mb-20">
+          <h2 className="text-sm font-bold uppercase tracking-widest mb-10" style={{ color: "#6B6B6B" }}>How It Works</h2>
+          <h3 className="text-xl font-bold mb-8" style={{ color: NAVY }}>Buying an instrument through Stringed Collective</h3>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                step: "01",
+                title: "Discover Independent Builders",
+                text: "Browse instruments from independent builders around the world. Each builder has their own storefront where you can explore available instruments, learn about their craft, and request custom builds.",
+              },
+              {
+                step: "02",
+                title: "Purchase Through the Platform",
+                text: "When you're ready to buy, the transaction happens through Stringed Collective. Payments are handled securely and the purchase agreement clearly documents the instrument, pricing, and terms.",
+              },
+              {
+                step: "03",
+                title: "Receive Your Instrument",
+                text: "Builders ship instruments directly to buyers. Stringed Collective verifies the shipment and releases payment according to the agreed terms so both parties are protected.",
+              },
+            ].map(({ step, title, text }) => (
+              <div key={step} className="p-7 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
+                <p className="text-xs font-bold tracking-widest mb-4" style={{ color: "#8A9BB0" }}>{step}</p>
+                <h4 className="text-base mb-3" style={{ color: NAVY, fontWeight: 600 }}>{title}</h4>
+                <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Values */}
         <div className="mb-20">
           <h2 className="text-sm font-bold uppercase tracking-widest mb-10" style={{ color: "#6B6B6B" }}>What We Stand For</h2>
