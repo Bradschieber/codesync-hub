@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
-import { ArrowRight, Shield, Store, Users, Fingerprint, CheckCircle, CreditCard } from "lucide-react";
+import { ArrowRight, Shield, Store, Globe, Fingerprint, CheckCircle } from "lucide-react";
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
 
 const NAVY = "#1B2B4B";
@@ -13,15 +13,17 @@ export default function BuilderLanding() {
     <div className="bg-[#FDFBF8] text-[#1B2B4B] font-sans">
 
       {/* ── Hero ── */}
-      <section className="max-w-4xl mx-auto px-6 pt-20 pb-24 text-center">
-        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-6">For Independent Builders</p>
+      <section className="max-w-3xl mx-auto px-6 pt-20 pb-20 text-center">
+        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-6">
+          Built for Independent Instrument Builders
+        </p>
         <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
-          Sell your instruments<br />with confidence.
+          Connect your instruments with players around the world.
         </h1>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">
-          Stringed Collective helps independent builders reach serious buyers through a professional storefront and protected transactions.
+          Stringed Collective gives independent builders a professional storefront where players can discover their instruments — with guaranteed transactions that make buying easier and safer for everyone.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <button
             onClick={() => setModalOpen(true)}
             className="px-8 py-3.5 text-sm font-semibold text-white transition-colors"
@@ -38,6 +40,16 @@ export default function BuilderLanding() {
             Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
+
+        {/* Trust indicators */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
+          {["Guaranteed transactions", "Professional storefronts", "Built for independent builders"].map(item => (
+            <span key={item} className="flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" strokeWidth={2} />
+              {item}
+            </span>
+          ))}
+        </div>
       </section>
 
       {/* ── Divider ── */}
@@ -45,19 +57,16 @@ export default function BuilderLanding() {
 
       {/* ── Why Builders Need a Better Platform ── */}
       <section className="max-w-3xl mx-auto px-6 py-20">
-        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">The Problem</p>
+        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Need a Better Way to Sell</p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: NAVY }}>
-          Why builders need a better platform
+          Why builders need a better way to sell
         </h2>
         <div className="text-gray-500 text-base leading-relaxed space-y-4">
           <p>
-            Most musicians buying a new instrument head straight to the big box stores or major online retailers. Not because boutique builders aren't better — but because they don't know where to find them, or they assume the process is too complicated or too risky.
+            Independent builders often rely on personal websites, social media, and word of mouth to sell their work. While that can work, it can also make it difficult for buyers to discover new builders and difficult for transactions to feel secure and straightforward.
           </p>
           <p>
-            That's the real problem. There are exceptional independent builders doing incredible work, and there are buyers willing to spend serious money on the right instrument — but the two rarely find each other.
-          </p>
-          <p>
-            Stringed Collective is changing that. We're actively marketing to buyers who haven't considered boutique before, showing them that buying from an independent builder can be just as seamless, safe, and trustworthy as buying from a major retailer — and far more rewarding.
+            Stringed Collective creates a professional marketplace where independent builders can present their instruments clearly and connect with players who are actively searching for something different.
           </p>
         </div>
       </section>
@@ -65,37 +74,32 @@ export default function BuilderLanding() {
       {/* ── Why Builders Win ── */}
       <section className="bg-[#F5F3EF] border-y border-[#E8E4DE]">
         <div className="max-w-5xl mx-auto px-6 py-20">
-          <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">What You Get</p>
+          <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Win With Stringed Collective</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: NAVY }}>
-            Built around how builders actually work
+            What you get as a builder
           </h2>
           <div className="grid sm:grid-cols-2 gap-8">
             {[
               {
                 icon: Shield,
-                title: "Every transaction is guaranteed",
-                body: "We guarantee every sale so buyers and builders are never left holding the bag. Deposits, custom builds, and stock sales are all handled through a structured process that keeps both sides covered."
+                title: "Guaranteed transactions",
+                body: "Every sale is protected by the platform so builders and buyers never carry the risk alone."
               },
               {
                 icon: Store,
                 title: "Professional storefronts",
-                body: "Your work is presented in a clean, trustworthy retail environment. Your brand, your story, your builds — all in one place that looks the part."
+                body: "Showcase your instruments in a clear, trusted retail environment where your brand and story are front and center."
               },
               {
-                icon: Users,
-                title: "We bring the buyers to you",
-                body: "We run the advertising and promotion so you don't have to. Our team markets the platform to serious buyers actively looking for boutique and custom instruments — you focus on building."
+                icon: Globe,
+                title: "Reach players everywhere",
+                body: "Your instruments become discoverable to players beyond your local network — buyers who are actively looking for something handmade."
               },
               {
                 icon: Fingerprint,
-                title: "Keep your identity",
-                body: "Your storefront is yours. We give you the tools and the structure, but your brand, your voice, and your builds stay front and center."
+                title: "Your brand stays yours",
+                body: "Your storefront highlights your work, your builds, and your story. We give you the structure — you keep your identity."
               },
-              {
-                icon: CreditCard,
-                title: "A buying experience buyers trust",
-                body: "We give buyers a seamless, trustworthy checkout experience — as polished as any major music retailer. We support credit card payments and financing options, so price is less of a barrier to a sale."
-              }
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4">
                 <div className="flex-shrink-0 w-10 h-10 border border-[#D8D4CE] bg-white flex items-center justify-center">
@@ -113,15 +117,15 @@ export default function BuilderLanding() {
 
       {/* ── How It Works ── */}
       <section className="max-w-4xl mx-auto px-6 py-20">
-        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">The Process</p>
+        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">How It Works</p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: NAVY }}>
-          How it works
+          Three steps to get started
         </h2>
-        <div className="grid sm:grid-cols-3 gap-8 mb-10">
+        <div className="grid sm:grid-cols-3 gap-8 mb-8">
           {[
-            { step: "01", title: "Create your builder profile", body: "Tell us about your craft, your experience, and what you build. This becomes the foundation of your storefront." },
-            { step: "02", title: "Build your storefront and add instruments", body: "List your stock builds with photos and specs, or set up custom build offerings. You stay in control of everything." },
-            { step: "03", title: "Start connecting with buyers", body: "Buyers browsing for handmade instruments will find your work. You handle inquiries, quotes, and orders through the platform." },
+            { step: "01", title: "Create your builder profile", body: "Tell us about your craft, your experience, and what you build." },
+            { step: "02", title: "Build your storefront and add instruments", body: "List your instruments with photos and specs, or set up custom build offerings." },
+            { step: "03", title: "Start connecting with players", body: "Buyers searching for handmade instruments will find your work through the platform." },
           ].map(({ step, title, body }) => (
             <div key={step} className="border-t-2 border-[#1B2B4B] pt-5">
               <p className="text-xs font-bold tracking-widest text-gray-300 mb-3">{step}</p>
@@ -130,33 +134,25 @@ export default function BuilderLanding() {
             </div>
           ))}
         </div>
-
-        <div className="bg-[#F5F3EF] border border-[#E8E4DE] rounded-sm p-6">
-          <p className="text-sm text-gray-600 leading-relaxed mb-2">
-            <span className="font-semibold" style={{ color: NAVY }}>Your storefront can be set up quickly</span>, and you stay in control of your brand and your builds.
-          </p>
-          <p className="text-sm text-gray-500 leading-relaxed">
-            Stringed Collective sits in the middle as the trusted platform — handling the transaction structure, buyer communication tools, and payment protection. Builders keep their identity and their relationship with their work. Buyers get the confidence to purchase from someone they don't already know.
-          </p>
-        </div>
+        <p className="text-sm text-gray-400 text-center">Setting up your storefront takes just a few minutes.</p>
       </section>
 
       {/* ── Founding Builders ── */}
       <section className="bg-[#1B2B4B]">
         <div className="max-w-3xl mx-auto px-6 py-20 text-center">
-          <p className="text-xs font-semibold tracking-widest uppercase text-blue-300 mb-4">Limited Early Group</p>
+          <p className="text-xs font-semibold tracking-widest uppercase text-blue-300 mb-4">Founding Builders</p>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
             Founding builders wanted
           </h2>
           <p className="text-blue-100 text-base leading-relaxed mb-10">
-            We are personally inviting our first group of builders to help launch Stringed Collective. This is a small group — we are looking to bring on our first 10 builders before we open more broadly.
+            We are personally inviting our first group of independent builders to help launch Stringed Collective. We are looking to bring on our first 10 founding builders before opening more broadly.
           </p>
           <div className="grid sm:grid-cols-2 gap-4 text-left mb-10 max-w-xl mx-auto">
             {[
               "Free early access to the platform",
               "Featured placement at launch",
-              "Direct input as the platform develops",
-              "Early visibility with buyers as the marketplace grows",
+              "Direct input on platform features",
+              "Early visibility as the marketplace grows",
             ].map(item => (
               <div key={item} className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
@@ -190,7 +186,7 @@ export default function BuilderLanding() {
           Start your storefront today
         </h2>
         <p className="text-gray-500 text-base mb-10 leading-relaxed">
-          Join Stringed Collective and get your work in front of musicians looking for something different.
+          Join Stringed Collective and get your instruments in front of players looking for something different.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
