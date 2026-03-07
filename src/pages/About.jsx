@@ -29,10 +29,19 @@ export default function About() {
           <div>
             <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
             <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
-              Stringed Collective was built to solve a real problem: remarkable guitar builders were invisible to the players who would love their work most. Mass-market retailers dominated, while independent luthiers struggled to reach a serious audience.
+              Stringed Collective was created to solve a real problem.
+            </p>
+            <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
+              Remarkable instrument builders exist all over the world, but many struggle to reach the players who would value their work most. Independent builders often rely on personal websites, social media, or word of mouth — which makes discovery difficult and transactions uncertain.
+            </p>
+            <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
+              At the same time, players who want something truly unique often hesitate to purchase directly from someone they've never met.
+            </p>
+            <p className="text-base leading-relaxed mb-5 font-medium" style={{ color: NAVY }}>
+              Stringed Collective bridges that gap.
             </p>
             <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
-              We built this platform to change that — a protected, structured marketplace where craft is respected, transactions are secure, and the relationship between builder and player can be direct and honest.
+              We provide a professional marketplace where builders can showcase their work and where transactions are structured and protected so both sides can move forward with confidence.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-5">
