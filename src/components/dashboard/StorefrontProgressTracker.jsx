@@ -66,9 +66,9 @@ export default function StorefrontProgressTracker({ form, profile, productCount 
 
       {/* Action buttons */}
       <div className="flex flex-wrap gap-2 mb-4">
-        {slug && (
+        {profileId && (
           <a
-            href={createPageUrl(`BuilderProfile`) + `?id=${slug}&preview=true`}
+            href={createPageUrl(`BuilderProfile`) + `?id=${profileId}&preview=true`}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
