@@ -17,7 +17,12 @@ export default function Layout({ children, currentPageName }) {
   const location = useLocation();
 
   useEffect(() => { loadUser(); }, []);
-  useEffect(() => { if (user) loadCartCount(); }, [user]);
+  useEffect(() => {
+    if (!user) return;
+    loadCartCount();
+    const unsub = base44.entities.CartItem.subscribe(() => loadCartCount());
+    return unsub;
+  }, [user]);
 
   async function loadUser() {
     try {
