@@ -130,7 +130,7 @@ export default function Home() {
               },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="flex flex-col gap-4">
-                <div className="w-8 h-8 flex items-center justify-center" style={{ color: BRONZE }}>
+                <div className="w-8 h-8 flex items-center justify-center" style={{ color: NAVY }}>
                   <Icon className="w-6 h-6" strokeWidth={1.5} />
                 </div>
                 <div>
@@ -238,7 +238,7 @@ function ProductCard({ product }) {
       {/* Info */}
       <div className="pt-2">
         <h3 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#1B2B4B", lineHeight: 1.3, marginBottom: "2px" }}>{product.name}</h3>
-        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.88rem", fontWeight: 600, color: "#1B2B4B", marginBottom: "7px" }}>${product.price && product.price.toLocaleString()}</p>
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.88rem", fontWeight: 600, color: "#C57A1F", marginBottom: "7px" }}>${product.price && product.price.toLocaleString()}</p>
         {specLine && <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.73rem", fontWeight: 400, color: "#6A7A8A", lineHeight: 1.4, marginBottom: "2px" }}>{specLine}</p>}
         <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 500, color: "#4A5566" }}>{product.builder_name}</p>
       </div>
@@ -263,7 +263,7 @@ function BuilderCard({ builder }) {
           style={{ borderRadius: 2 }}
         />
       ) : (
-        <div className="w-16 h-16 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7", borderRadius: 2 }}>
+        <div className="w-16 h-16 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F2F0EA", borderRadius: 2 }}>
           <User className="w-7 h-7" style={{ color: NAVY }} strokeWidth={1.5} />
         </div>
       )}
