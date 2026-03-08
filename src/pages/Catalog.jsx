@@ -4,7 +4,8 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Search, SlidersHorizontal, Star, X } from "lucide-react";
 
-const NAVY = "#1B2B4B";
+const NAVY = "#2F3E55";
+const AMBER = "#C57A1F";
 const CATEGORIES = ["Electric", "Acoustic", "Bass", "Classical", "Semi-Hollow", "12-String", "Archtop", "Other"];
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest First" },

@@ -5,8 +5,8 @@ import { base44 } from "@/api/base44Client";
 import { Search, Star, MapPin, Guitar, ArrowRight, User, Play } from "lucide-react";
 import BuildersMap from "../components/builders/BuildersMap";
 
-const NAVY = "#1B2B4B";
-const BRONZE = "#A0692A";
+const NAVY = "#2F3E55";
+const AMBER = "#C57A1F";
 
 export default function Builders() {
   const [builders, setBuilders] = useState([]);
