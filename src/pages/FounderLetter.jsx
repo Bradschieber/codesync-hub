@@ -14,15 +14,15 @@ const sections = [
     id: "opening",
     body: `Music has always been about people.
 
-At a time when technology is accelerating faster than ever, a lot of people worry about where that leads. But I believe something different is happening.
+At a time when technology is accelerating faster than ever, a lot of people worry about where that leads. But I believe something amazing can happen if we choose it.
 
-I think the future is going to create more opportunities for humans to be deeply human.
+I think the future can create more opportunities for humans to be deeply human. In fact, I think we more people will actively seek these opportunities out.
 
 We're going to see a renaissance of people doing human things — making things with their hands, creating art, building communities, and coming together around music.
 
 And few things represent that better than an instrument — something built by one human being so another human being can make music with it.
 
-That idea is the North Star behind Stringed Collective.`,
+That idea is the North Star for Stringed Collective.`,
   },
   {
     id: "my-story",
