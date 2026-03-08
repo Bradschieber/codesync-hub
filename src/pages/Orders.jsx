@@ -369,7 +369,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
               onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
             >
-              <MessageSquare className="w-4 h-4" /> Message Builder
+              <MessageSquare className="w-4 h-4" /> Message The Builder
             </button>
 
             {order.purchase_agreement_signed && (
