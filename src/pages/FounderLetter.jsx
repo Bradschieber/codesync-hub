@@ -62,7 +62,7 @@ And for more established builders, it's about something even simpler:
 
 How do I reach more players who would love these instruments?
 
-Most builders today rely on personal websites, social media, or word of mouth. Those tools can work, but they make discovery difficult and transactions uncertain.
+Most builders today rely on personal websites, social media, word of mouth or even music gear listing sites. Those tools can work, but they make discovery difficult and transactions uncertain. And let's be honest, none of those tools are actively promoting your work.  If anyone is finding you, it's because you made it happen.
 
 Meanwhile, many players go straight to the large online retailers because those platforms feel easy, familiar, and safe.
 
