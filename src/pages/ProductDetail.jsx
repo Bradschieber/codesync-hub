@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Star, ChevronLeft, ShoppingCart, MapPin, Check, ArrowRight, MessageSquare } from "lucide-react";
+import {
+  Guitar, Star, ChevronLeft, ShoppingCart, MapPin, Check,
+  ArrowRight, MessageSquare, Shield, Lock, Truck, ChevronDown, ChevronUp, User
+} from "lucide-react";
 import SpecificationsDisplay from "../components/marketplace/SpecificationsDisplay";
+
+const AMBER = "#C57A1F";
+const SLATE = "#2F3E55";
+const WALNUT = "#3B2F2A";
 
 export default function ProductDetail() {
   const [product, setProduct] = useState(null);
@@ -54,11 +61,12 @@ export default function ProductDetail() {
 
   if (loading) return (
     <div className="max-w-6xl mx-auto px-4 py-10 animate-pulse">
-      <div className="grid md:grid-cols-2 gap-10">
-        <div className="h-96 bg-stone-200 rounded-2xl" />
-        <div className="space-y-4">
-          <div className="h-6 bg-stone-200 rounded w-3/4" />
-          <div className="h-10 bg-stone-200 rounded w-1/2" />
+      <div className="grid md:grid-cols-2 gap-12">
+        <div className="aspect-square bg-stone-200 rounded-2xl" />
+        <div className="space-y-4 pt-4">
+          <div className="h-4 bg-stone-200 rounded w-1/3" />
+          <div className="h-8 bg-stone-200 rounded w-3/4" />
+          <div className="h-10 bg-stone-200 rounded w-1/3" />
           <div className="h-24 bg-stone-100 rounded" />
         </div>
       </div>
@@ -69,155 +77,249 @@ export default function ProductDetail() {
     <div className="max-w-6xl mx-auto px-4 py-20 text-center">
       <Guitar className="w-16 h-16 text-stone-300 mx-auto mb-4" />
       <h2 className="text-xl font-semibold text-stone-600">Product not found</h2>
-      <Link to={createPageUrl("Catalog")} className="mt-4 inline-block text-amber-600 hover:underline">Back to Catalog</Link>
+      <Link to={createPageUrl("Catalog")} className="mt-4 inline-block hover:underline" style={{ color: AMBER }}>Back to Catalog</Link>
     </div>
   );
 
   const images = product.image_urls || [];
+  const storyContent = product.about_this_build || product.description;
+  const specs = product.specifications || {};
+  const hasSpecs = Object.keys(specs).length > 0;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-      <Link to={createPageUrl("Catalog")} className="inline-flex items-center gap-1 text-sm mb-6" style={{ color: "#6A6A6A" }}
-        onMouseEnter={e => e.currentTarget.style.color = "#2F3E55"}
-        onMouseLeave={e => e.currentTarget.style.color = "#6A6A6A"}>
-        <ChevronLeft className="w-4 h-4" /> Back to Catalog
-      </Link>
+    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        {/* Back link */}
+        <Link to={createPageUrl("Catalog")} className="inline-flex items-center gap-1 text-sm mb-8 transition-colors" style={{ color: "#6A6A6A" }}
+          onMouseEnter={e => e.currentTarget.style.color = SLATE}
+          onMouseLeave={e => e.currentTarget.style.color = "#6A6A6A"}>
+          <ChevronLeft className="w-4 h-4" /> Back to Catalog
+        </Link>
 
-      <div className="grid md:grid-cols-2 gap-10 mb-12">
-        {/* Images */}
-        <div>
-          <div className="aspect-square bg-stone-100 rounded-2xl overflow-hidden mb-3">
-            {images[activeImg] ? (
-              <img src={images[activeImg]} alt={product.name} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center"><Guitar className="w-24 h-24 text-stone-300" /></div>
+        {/* HERO — Two column */}
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
+
+          {/* Left — Image gallery */}
+          <div>
+            <div className="rounded-2xl overflow-hidden bg-stone-100 mb-3" style={{ aspectRatio: "1/1" }}>
+              {images[activeImg] ? (
+                <img src={images[activeImg]} alt={product.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <Guitar className="w-24 h-24 text-stone-300" />
+                </div>
+              )}
+            </div>
+            {images.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {images.map((img, i) => (
+                  <button key={i} onClick={() => setActiveImg(i)}
+                    className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all"
+                    style={{ borderColor: activeImg === i ? AMBER : "transparent" }}>
+                    <img src={img} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
             )}
           </div>
-          {images.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto pb-1">
-              {images.map((img, i) => (
-                <button key={i} onClick={() => setActiveImg(i)} className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2`} style={{ borderColor: activeImg === i ? "#C57A1F" : "transparent" }}>
-                  <img src={img} className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
 
-        {/* Info */}
-        <div>
-          {builder && (
-            <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="text-sm font-medium mb-2 block hover:underline" style={{ color: "#2F3E55" }}>
-              {builder.business_name || builder.display_name}
-            </Link>
-          )}
-          <h1 className="text-3xl font-bold text-stone-800 mb-3">{product.name}</h1>
+          {/* Right — Info */}
+          <div className="flex flex-col">
 
-          {product.average_rating > 0 && (
-            <div className="flex items-center gap-2 mb-4">
-              {[1,2,3,4,5].map(n => (
-                <Star key={n} className={`w-4 h-4 ${n <= Math.round(product.average_rating) ? "text-amber-400 fill-amber-400" : "text-stone-300"}`} />
-              ))}
-              <span className="text-sm text-stone-500">{product.average_rating?.toFixed(1)} ({product.review_count} reviews)</span>
-            </div>
-          )}
-
-          <p className="text-4xl font-bold mb-6" style={{ color: "#C57A1F" }}>${product.price?.toLocaleString()}</p>
-
-          {product.description && (
-            <p className="text-stone-600 leading-relaxed mb-6">{product.description}</p>
-          )}
-
-          {product.categories?.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {product.categories.map(c => (
-                <span key={c} className="bg-stone-100 text-stone-600 text-sm px-3 py-1 rounded-full">{c}</span>
-              ))}
-            </div>
-          )}
-
-          {product.status === "available" ? (
-            <button
-              onClick={addToCart}
-              className={`w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl transition-colors text-lg ${addedToCart ? "text-white" : "text-white"}`}
-            style={{ backgroundColor: addedToCart ? "#3B7A57" : "#C57A1F" }}
-            onMouseEnter={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#a8661a"; }}
-            onMouseLeave={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#C57A1F"; }}
-            >
-              {addedToCart ? <><Check className="w-5 h-5" /> Added to Cart!</> : <><ShoppingCart className="w-5 h-5" /> Add to Cart</>}
-            </button>
-          ) : (
-            <div className="w-full text-center py-4 bg-stone-200 text-stone-500 rounded-xl font-medium">Sold</div>
-          )}
-
-          {product.offers_local_pickup && (
-            <p className="text-sm text-stone-500 mt-3 flex items-center gap-1">
-              <MapPin className="w-4 h-4 text-green-600" /> Local pickup available
-            </p>
-          )}
-
-          {builder && (
-            <button
-              onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
-              className="w-full flex items-center justify-center gap-2 mt-3 border font-medium py-3 rounded-xl transition-colors text-sm"
-              style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#F2F0EA"; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
-            >
-              <MessageSquare className="w-4 h-4" /> Contact Builder
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Specifications */}
-      <SpecificationsDisplay specs={product.specifications} />
-
-      {/* Reviews */}
-      <div className="mb-10">
-        <h2 className="text-xl font-bold text-stone-800 mb-5">Reviews ({reviews.length})</h2>
-        {reviews.length === 0 ? (
-          <p className="text-stone-400 italic">No reviews yet.</p>
-        ) : (
-          <div className="space-y-4">
-            {reviews.map(r => (
-              <div key={r.id} className="bg-white border border-stone-200 rounded-xl p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium text-stone-800">{r.reviewer_name}</span>
-                  <div className="flex">{[1,2,3,4,5].map(n => <Star key={n} className={`w-4 h-4 ${n <= r.rating ? "text-amber-400 fill-amber-400" : "text-stone-300"}`} />)}</div>
-                </div>
-                <p className="text-stone-600 text-sm">{r.review_text}</p>
+            {/* Builder identity */}
+            {builder && (
+              <div className="mb-4">
+                <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)}
+                  className="text-sm font-semibold tracking-wide uppercase hover:underline"
+                  style={{ color: SLATE }}>
+                  {builder.business_name || builder.display_name}
+                </Link>
+                {builder.location && (
+                  <p className="flex items-center gap-1 text-xs mt-0.5" style={{ color: "#7A7A7A" }}>
+                    <MapPin className="w-3 h-3" /> {builder.location}
+                  </p>
+                )}
               </div>
+            )}
+
+            {/* Title */}
+            <h1 className="text-3xl font-bold mb-3 leading-tight" style={{ color: "#1A1A1A" }}>{product.name}</h1>
+
+            {/* Rating */}
+            {product.average_rating > 0 && (
+              <div className="flex items-center gap-2 mb-4">
+                {[1,2,3,4,5].map(n => (
+                  <Star key={n} className={`w-4 h-4 ${n <= Math.round(product.average_rating) ? "fill-current" : ""}`}
+                    style={{ color: n <= Math.round(product.average_rating) ? "#D4AC0D" : "#D8D3CC" }} />
+                ))}
+                <span className="text-sm" style={{ color: "#7A7A7A" }}>{product.average_rating?.toFixed(1)} ({product.review_count} reviews)</span>
+              </div>
+            )}
+
+            {/* Price */}
+            <p className="text-4xl font-bold mb-5" style={{ color: AMBER }}>${product.price?.toLocaleString()}</p>
+
+            {/* Trust signals */}
+            <div className="rounded-xl border p-4 mb-5 space-y-2.5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
+              {[
+                { icon: Shield, text: "Protected transaction through Stringed Collective" },
+                { icon: MessageSquare, text: "Direct communication with the builder" },
+                { icon: Truck, text: "Shipment verified before funds are released" },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-center gap-2.5">
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#E8F0E8" }}>
+                    <Check className="w-3 h-3" style={{ color: "#3B7A57" }} />
+                  </div>
+                  <span className="text-xs leading-snug" style={{ color: "#4A4A4A" }}>{text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Short description */}
+            {product.description && (
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "#5A5A5A" }}>{product.description}</p>
+            )}
+
+            {/* Local pickup */}
+            {product.offers_local_pickup && (
+              <p className="text-xs flex items-center gap-1 mb-4" style={{ color: "#3B7A57" }}>
+                <MapPin className="w-3.5 h-3.5" /> Local pickup available
+              </p>
+            )}
+
+            {/* CTAs */}
+            <div className="space-y-3 mt-auto">
+              {product.status === "available" ? (
+                <button onClick={addToCart}
+                  className="w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl text-white text-base transition-colors"
+                  style={{ backgroundColor: addedToCart ? "#3B7A57" : AMBER }}
+                  onMouseEnter={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#a8661a"; }}
+                  onMouseLeave={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = AMBER; }}>
+                  {addedToCart ? <><Check className="w-5 h-5" /> Added to Cart!</> : <><ShoppingCart className="w-5 h-5" /> Add to Cart</>}
+                </button>
+              ) : (
+                <div className="w-full text-center py-4 rounded-xl font-medium" style={{ backgroundColor: "#E8E4DE", color: "#888" }}>Sold</div>
+              )}
+
+              {builder && (
+                <button onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
+                  className="w-full flex items-center justify-center gap-2 border font-medium py-3.5 rounded-xl text-sm transition-colors"
+                  style={{ borderColor: SLATE, color: SLATE, backgroundColor: "#FFFFFF" }}
+                  onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#F2F0EA"; }}
+                  onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}>
+                  <MessageSquare className="w-4 h-4" /> Contact Builder
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* ABOUT THIS BUILD */}
+        {storyContent && (
+          <section className="rounded-2xl p-8 mb-10" style={{ backgroundColor: "#F2F0EA" }}>
+            <h2 className="text-xl font-bold mb-4" style={{ color: SLATE }}>About This Build</h2>
+            <p className="text-base leading-8 max-w-2xl" style={{ color: "#3A3A3A" }}>{storyContent}</p>
+          </section>
+        )}
+
+        {/* SPECIFICATIONS — Accordion */}
+        {hasSpecs && (
+          <div className="mb-10">
+            <h2 className="text-xl font-bold mb-4" style={{ color: SLATE }}>Specifications</h2>
+            <SpecificationsDisplay specs={specs} />
+          </div>
+        )}
+
+        {/* PROTECTED PURCHASE */}
+        <section className="rounded-2xl p-8 mb-10 border" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8" }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: SLATE }}>
+              <Lock className="w-4 h-4 text-white" />
+            </div>
+            <h2 className="text-xl font-bold" style={{ color: SLATE }}>Protected Purchase</h2>
+          </div>
+          <p className="text-sm leading-relaxed mb-5 max-w-2xl" style={{ color: "#4A4A4A" }}>
+            Every instrument purchased on Stringed Collective is backed by a structured transaction process designed to protect both buyer and builder.
+          </p>
+          <ul className="space-y-3">
+            {[
+              "Secure payment processing through Stringed Collective",
+              "Builders ship instruments directly to buyers",
+              "Shipment is verified before builder payout is released",
+              "Stringed Collective provides support if any issues arise",
+            ].map(item => (
+              <li key={item} className="flex items-center gap-3 text-sm" style={{ color: "#3A3A3A" }}>
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#E8F0E8" }}>
+                  <Check className="w-3 h-3" style={{ color: "#3B7A57" }} />
+                </div>
+                {item}
+              </li>
             ))}
+          </ul>
+        </section>
+
+        {/* REVIEWS */}
+        {reviews.length > 0 && (
+          <div className="mb-10">
+            <h2 className="text-xl font-bold mb-5" style={{ color: SLATE }}>Reviews ({reviews.length})</h2>
+            <div className="space-y-4">
+              {reviews.map(r => (
+                <div key={r.id} className="bg-white border rounded-xl p-5" style={{ borderColor: "#E3E0D8" }}>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium" style={{ color: "#1A1A1A" }}>{r.reviewer_name}</span>
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4,5].map(n => (
+                        <Star key={n} className={`w-4 h-4 ${n <= r.rating ? "fill-current" : ""}`}
+                          style={{ color: n <= r.rating ? "#D4AC0D" : "#D8D3CC" }} />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-sm leading-relaxed" style={{ color: "#5A5A5A" }}>{r.review_text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* BUILDER CARD */}
+        {builder && (
+          <div className="rounded-2xl p-7 flex flex-col sm:flex-row gap-6 items-start" style={{ backgroundColor: WALNUT, color: "#FFFFFF" }}>
+            {builder.avatar_url ? (
+              <img src={builder.avatar_url} className="w-20 h-20 rounded-full object-cover flex-shrink-0 border-2 border-white/20" />
+            ) : (
+              <div className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-white/20" style={{ backgroundColor: "rgba(255,255,255,0.12)" }}>
+                <span className="font-bold text-3xl text-white">{(builder.business_name || "B")[0]}</span>
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>The Builder</p>
+              <h3 className="text-xl font-bold mb-1 text-white">{builder.business_name || builder.display_name}</h3>
+              {builder.location && (
+                <p className="flex items-center gap-1 text-sm mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <MapPin className="w-3.5 h-3.5" /> {builder.location}
+                </p>
+              )}
+              {builder.bio && <p className="text-sm leading-relaxed line-clamp-3" style={{ color: "rgba(255,255,255,0.75)" }}>{builder.bio}</p>}
+            </div>
+            <div className="flex flex-col gap-2 flex-shrink-0">
+              <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)}
+                className="flex items-center gap-1.5 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
+                style={{ backgroundColor: AMBER }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}>
+                View Profile <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
+                className="flex items-center justify-center gap-1.5 font-medium px-5 py-2.5 rounded-xl text-sm border border-white/30 text-white transition-colors hover:bg-white/10">
+                <MessageSquare className="w-4 h-4" /> Contact
+              </button>
+            </div>
           </div>
         )}
       </div>
 
       {showContact && builder && (
         <ContactModal builder={builder} user={user} onClose={() => setShowContact(false)} />
-      )}
-
-      {/* Builder section */}
-      {builder && (
-        <div className="rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start" style={{ backgroundColor: "#3B2F2A", color: "#FFFFFF" }}>
-          {builder.avatar_url ? (
-            <img src={builder.avatar_url} className="w-16 h-16 rounded-full object-cover flex-shrink-0" />
-          ) : (
-            <div className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
-              <span className="font-bold text-2xl text-white">{(builder.business_name || "B")[0]}</span>
-            </div>
-          )}
-          <div className="flex-1">
-            <h3 className="text-xl font-bold mb-1">{builder.business_name || builder.display_name}</h3>
-            {builder.location && <p className="text-stone-400 text-sm mb-2 flex items-center gap-1"><MapPin className="w-3 h-3" /> {builder.location}</p>}
-            {builder.bio && <p className="text-stone-300 text-sm line-clamp-3">{builder.bio}</p>}
-          </div>
-          <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="flex items-center gap-1 text-white px-5 py-2.5 rounded-xl text-sm font-medium flex-shrink-0" style={{ backgroundColor: "#C57A1F" }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>
-            View Profile <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
       )}
     </div>
   );
@@ -245,31 +347,44 @@ function ContactModal({ builder, user, onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-        <h3 className="text-lg font-bold text-stone-800 mb-1">Contact {builder.business_name || builder.display_name}</h3>
+        <h3 className="text-lg font-bold mb-1" style={{ color: "#1A1A1A" }}>Contact {builder.business_name || builder.display_name}</h3>
         {sent ? (
           <div className="text-center py-8">
             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <MessageSquare className="w-6 h-6 text-green-600" />
+              <Check className="w-6 h-6 text-green-600" />
             </div>
-            <p className="text-green-600 font-semibold mb-1">Message sent!</p>
-            <p className="text-stone-400 text-sm mb-4">The builder will get back to you soon.</p>
-            <button onClick={onClose} className="text-stone-500 hover:underline text-sm">Close</button>
+            <p className="font-semibold text-green-700 mb-1">Message sent!</p>
+            <p className="text-sm mb-4" style={{ color: "#7A7A7A" }}>The builder will get back to you soon.</p>
+            <button onClick={onClose} className="text-sm hover:underline" style={{ color: "#6A6A6A" }}>Close</button>
           </div>
         ) : (
           <form onSubmit={handleSend} className="space-y-3 mt-4">
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1">Subject</label>
-              <input value={subject} onChange={e => setSubject(e.target.value)} placeholder={`Message from ${user?.full_name}`} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              <label className="block text-xs font-medium mb-1" style={{ color: "#7A7A7A" }}>Subject</label>
+              <input value={subject} onChange={e => setSubject(e.target.value)}
+                placeholder={`Message from ${user?.full_name}`}
+                className="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2"
+                style={{ borderColor: "#E3E0D8", outlineColor: AMBER }} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1">Message *</label>
-              <textarea value={msg} onChange={e => setMsg(e.target.value)} rows={5} required placeholder="Write your message..." className="w-full border border-stone-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+              <label className="block text-xs font-medium mb-1" style={{ color: "#7A7A7A" }}>Message *</label>
+              <textarea value={msg} onChange={e => setMsg(e.target.value)} rows={5} required
+                placeholder="Write your message..."
+                className="w-full border rounded-xl p-3 text-sm focus:outline-none resize-none"
+                style={{ borderColor: "#E3E0D8" }} />
             </div>
             <div className="flex gap-2 pt-1">
-              <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-600 py-2.5 rounded-xl text-sm">Cancel</button>
-              <button type="submit" className="flex-1 text-white font-medium py-2.5 rounded-xl text-sm" style={{ backgroundColor: "#C57A1F" }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>Send Message</button>
+              <button type="button" onClick={onClose}
+                className="flex-1 border py-2.5 rounded-xl text-sm" style={{ borderColor: "#E3E0D8", color: "#5A5A5A" }}>
+                Cancel
+              </button>
+              <button type="submit"
+                className="flex-1 text-white font-medium py-2.5 rounded-xl text-sm transition-colors"
+                style={{ backgroundColor: AMBER }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}>
+                Send Message
+              </button>
             </div>
           </form>
         )}

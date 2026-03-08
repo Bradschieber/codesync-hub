@@ -169,15 +169,18 @@ export default function Catalog() {
 
 function ProductCard({ product }) {
   const specs = product.specifications || {};
-  const specLine = [specs.topWood, specs.scaleLength ? `${specs.scaleLength}"` : null].filter(Boolean).join(" · ");
+  const specLine = [
+    specs.instrumentCategory !== "Other" ? specs.instrumentCategory : specs.otherInstrumentCategory,
+    specs.topWood !== "Other" ? specs.topWood : specs.otherTopWood,
+    specs.scaleLength ? `${specs.scaleLength}"` : null,
+  ].filter(Boolean).join(" · ");
 
   return (
     <Link
       to={createPageUrl("ProductDetail?id=" + product.id)}
-      className="group block"
-      style={{ backgroundColor: "#FFFFFF" }}
+      className="group block bg-white"
     >
-      <div className="overflow-hidden mb-3" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+      <div className="overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
         {product.image_urls?.[0] ? (
           <img
             src={product.image_urls[0]}
@@ -193,17 +196,24 @@ function ProductCard({ product }) {
           </div>
         )}
       </div>
-      <div className="pt-1">
-        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8A7F75", marginBottom: "3px" }}>{product.builder_name}</p>
-        <h3 style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.925rem", fontWeight: 500, color: "#1e2a3a", lineHeight: 1.35, marginBottom: "4px" }}>{product.name}</h3>
-        {specLine && <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.78rem", fontWeight: 400, color: "#8A8A8A", marginBottom: "6px" }}>{specLine}</p>}
+      <div className="pt-3 pb-1">
+        {/* Builder name — above title */}
+        {product.builder_name && (
+          <p style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.09em", textTransform: "uppercase", color: "#2F3E55", marginBottom: "4px" }}>
+            {product.builder_name}
+          </p>
+        )}
+        <h3 style={{ fontSize: "0.925rem", fontWeight: 500, color: "#1A1A1A", lineHeight: 1.35, marginBottom: "4px" }}>{product.name}</h3>
+        {specLine && (
+          <p style={{ fontSize: "0.75rem", color: "#8A8A8A", marginBottom: "6px" }}>{specLine}</p>
+        )}
         {product.average_rating > 0 && (
           <div className="flex items-center gap-1 mb-1">
             <Star className="w-3 h-3 fill-current" style={{ color: "#D4AC0D" }} />
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#7A7A7A" }}>{product.average_rating.toFixed(1)}</span>
+            <span style={{ fontSize: "0.75rem", color: "#7A7A7A" }}>{product.average_rating.toFixed(1)}</span>
           </div>
         )}
-        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#C57A1F", marginTop: "6px" }}>${product.price?.toLocaleString()}</p>
+        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#C57A1F", marginTop: "6px" }}>${product.price?.toLocaleString()}</p>
       </div>
     </Link>
   );

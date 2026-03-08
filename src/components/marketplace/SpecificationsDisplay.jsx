@@ -1,128 +1,98 @@
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
 const SLATE = "#2F3E55";
 
-function Section({ title, children }) {
-  const hasContent = Array.isArray(children) ? children.some(c => c) : !!children;
-  if (!hasContent) return null;
-
+function SpecRow({ label, value }) {
+  if (!value || value === "N/A") return null;
   return (
-    <div className="rounded-xl overflow-hidden border" style={{ borderColor: "#E3E0D8" }}>
-      <div className="flex items-center gap-2 px-4 py-2.5" style={{ backgroundColor: "#F2F0EA" }}>
-        <div className="w-1.5 h-4 rounded-full" style={{ backgroundColor: SLATE }} />
-        <h3 className="text-xs font-bold uppercase tracking-wider" style={{ color: SLATE }}>{title}</h3>
-      </div>
-      <div className="px-4 py-3 grid sm:grid-cols-2 gap-x-6 gap-y-3 bg-white">
-        {children}
-      </div>
+    <div className="flex flex-col gap-0.5 py-2 border-b last:border-b-0" style={{ borderColor: "#F0EDE8" }}>
+      <span className="text-xs uppercase tracking-wide font-medium" style={{ color: "#8A8A8A" }}>{label}</span>
+      <span className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>{String(value)}</span>
     </div>
   );
 }
 
-function Row({ label, value }) {
-  if (!value || value === "N/A") return null;
-  return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6A6A6A" }}>{label}</span>
-      <span className="text-sm font-semibold" style={{ color: "#1F1F1F" }}>{String(value)}</span>
-    </div>
-  );
-}
+function AccordionSection({ title, children, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
 
-function FullRow({ label, value }) {
-  if (!value || value === "N/A") return null;
+  const rows = Array.isArray(children) ? children.flat().filter(c => c) : [children].filter(c => c);
+  if (rows.length === 0) return null;
+
   return (
-    <div className="sm:col-span-2 flex flex-col gap-0.5">
-      <span className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6A6A6A" }}>{label}</span>
-      <span className="text-sm font-semibold" style={{ color: "#1F1F1F" }}>{String(value)}</span>
+    <div className="border rounded-xl overflow-hidden" style={{ borderColor: "#E3E0D8" }}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center justify-between px-5 py-3.5 text-left transition-colors"
+        style={{ backgroundColor: open ? "#F2F0EA" : "#FFFFFF" }}
+      >
+        <span className="text-sm font-bold uppercase tracking-wider" style={{ color: SLATE }}>{title}</span>
+        {open
+          ? <ChevronUp className="w-4 h-4 flex-shrink-0" style={{ color: SLATE }} />
+          : <ChevronDown className="w-4 h-4 flex-shrink-0" style={{ color: "#9A9A9A" }} />}
+      </button>
+      {open && (
+        <div className="px-5 pb-2 bg-white grid sm:grid-cols-2 gap-x-8">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
 
 export default function SpecificationsDisplay({ specs = {} }) {
   if (!specs || Object.keys(specs).length === 0) return null;
-
   const s = specs;
 
-  const hasBody = s.bodyConstruction || s.topWood || s.backWood || s.middleWood || s.topGrainDetails || s.bodyConstructionDescription;
-  const hasFinish = s.finishPattern || s.color || s.finishMaterialsDescription;
-  const hasNeck = s.scaleLength || s.nutWidth || s.fretboardRadius || s.frets || s.nutMaterial || s.neckConstruction || s.neckMaterials;
-  const hasHardware = s.tuners || s.bridge || s.tailpiece || s.knobs || s.otherHardware;
-  const hasElectronics = s.activePassivePickups || s.preamp || s.pickupConfiguration;
-  const hasCase = s.caseIncludes;
-
-  const anyContent = s.instrumentCategory || s.handedness || s.numberOfStrings || hasBody || hasFinish || hasNeck || hasHardware || hasElectronics || hasCase;
-  if (!anyContent) return null;
-
   return (
-    <div className="rounded-2xl overflow-hidden border mb-8" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
-      <div className="px-6 py-4 border-b" style={{ borderColor: "#E3E0D8", backgroundColor: "#2F3E55" }}>
-        <h2 className="text-lg font-bold text-white tracking-wide">Specifications</h2>
-      </div>
-      <div className="p-5 space-y-3" style={{ backgroundColor: "#F7F6F3" }}>
+    <div className="space-y-2">
 
-        <Section title="General">
-          <Row label="Instrument Type" value={s.instrumentCategory === "Other" ? s.otherInstrumentCategory : s.instrumentCategory} />
-          <Row label="Handedness" value={s.handedness} />
-          <Row label="Number of Strings" value={s.numberOfStrings === "Other" ? s.otherNumberOfStrings : s.numberOfStrings} />
-        </Section>
+      <AccordionSection title="General" defaultOpen={true}>
+        <SpecRow label="Instrument Type" value={s.instrumentCategory === "Other" ? s.otherInstrumentCategory : s.instrumentCategory} />
+        <SpecRow label="Handedness" value={s.handedness} />
+        <SpecRow label="Number of Strings" value={s.numberOfStrings === "Other" ? s.otherNumberOfStrings : s.numberOfStrings} />
+      </AccordionSection>
 
-        {hasBody && (
-          <Section title="Body">
-            <Row label="Body Construction" value={s.bodyConstruction === "Other" ? s.bodyConstructionDescription : s.bodyConstruction} />
-            <Row label="Top Wood" value={s.topWood === "Other" ? s.otherTopWood : s.topWood} />
-            <Row label="Top Book-Matched" value={s.topBookMatched} />
-            <Row label="Top Grain" value={s.topGrainDetails === "Other" ? s.otherTopGrainDetails : s.topGrainDetails} />
-            <Row label="Middle Wood" value={s.middleWood === "Other" ? s.otherMiddleWood : s.middleWood} />
-            <Row label="Back Wood" value={s.backWood === "Other" ? s.otherBackWood : s.backWood} />
-            <Row label="Back Book-Matched" value={s.backBookMatched} />
-          </Section>
-        )}
+      <AccordionSection title="Body">
+        <SpecRow label="Body Construction" value={s.bodyConstruction === "Other" ? s.bodyConstructionDescription : s.bodyConstruction} />
+        <SpecRow label="Top Wood" value={s.topWood === "Other" ? s.otherTopWood : s.topWood} />
+        <SpecRow label="Top Book-Matched" value={s.topBookMatched} />
+        <SpecRow label="Top Grain" value={s.topGrainDetails === "Other" ? s.otherTopGrainDetails : s.topGrainDetails} />
+        <SpecRow label="Middle Wood" value={s.middleWood === "Other" ? s.otherMiddleWood : s.middleWood} />
+        <SpecRow label="Back Wood" value={s.backWood === "Other" ? s.otherBackWood : s.backWood} />
+        <SpecRow label="Back Book-Matched" value={s.backBookMatched} />
+        <SpecRow label="Body Description" value={s.bodyDescription} />
+        <SpecRow label="Bracing" value={s.bracingDescription} />
+      </AccordionSection>
 
-        {hasFinish && (
-          <Section title="Finish">
-            <Row label="Finish Pattern" value={s.finishPattern === "Other" ? s.otherFinishPattern : s.finishPattern} />
-            <Row label="Color" value={s.color === "Other" ? s.otherColor : s.color} />
-            <FullRow label="Finish Materials & Description" value={s.finishMaterialsDescription} />
-          </Section>
-        )}
+      <AccordionSection title="Finish">
+        <SpecRow label="Finish Pattern" value={s.finishPattern === "Other" ? s.otherFinishPattern : s.finishPattern} />
+        <SpecRow label="Color" value={s.color === "Other" ? s.otherColor : s.color} />
+        <SpecRow label="Finish Materials" value={s.finishMaterialsDescription} />
+      </AccordionSection>
 
-        {hasNeck && (
-          <Section title="Neck & Fretboard">
-            <Row label='Scale Length' value={s.scaleLength ? `${s.scaleLength}"` : null} />
-            <Row label='Nut Width' value={s.nutWidth ? `${s.nutWidth}"` : null} />
-            <Row label="Fretboard Radius" value={s.fretboardRadius === "Other" ? s.otherFretboardRadius : s.fretboardRadius} />
-            <Row label="Frets" value={s.frets === "Other" ? s.otherFrets : s.frets} />
-            <Row label="Nut Material" value={s.nutMaterial} />
-            <Row label="Neck Construction" value={s.neckConstruction} />
-            {s.neckMaterials && <Row label="Neck Materials" value={s.neckMaterials} />}
-          </Section>
-        )}
+      <AccordionSection title="Neck & Fretboard">
+        <SpecRow label="Scale Length" value={s.scaleLength ? `${s.scaleLength}"` : null} />
+        <SpecRow label="Nut Width" value={s.nutWidth ? `${s.nutWidth}"` : null} />
+        <SpecRow label="Fretboard Radius" value={s.fretboardRadius === "Other" ? s.otherFretboardRadius : s.fretboardRadius} />
+        <SpecRow label="Frets" value={s.frets === "Other" ? s.otherFrets : s.frets} />
+        <SpecRow label="Nut Material" value={s.nutMaterial} />
+        <SpecRow label="Neck Construction" value={s.neckConstruction} />
+        <SpecRow label="Neck Materials" value={s.neckMaterials} />
+      </AccordionSection>
 
-        {hasHardware && (
-          <Section title="Hardware">
-            <Row label="Tuners" value={s.tuners} />
-            <Row label="Bridge" value={s.bridge} />
-            <Row label="Tailpiece" value={s.tailpiece} />
-            <Row label="Knobs" value={s.knobs} />
-            <FullRow label="Other Hardware" value={s.otherHardware} />
-          </Section>
-        )}
+      <AccordionSection title="Electronics">
+        <SpecRow label="Active / Passive" value={s.activePassivePickups} />
+        <SpecRow label="Preamp" value={s.preamp} />
+        <SpecRow label="Pickup Configuration" value={s.pickupConfiguration} />
+      </AccordionSection>
 
-        {hasElectronics && (
-          <Section title="Electronics">
-            <Row label="Active/Passive Pickups" value={s.activePassivePickups} />
-            <Row label="Preamp" value={s.preamp} />
-            <FullRow label="Pickup Configuration" value={s.pickupConfiguration} />
-          </Section>
-        )}
+      <AccordionSection title="Case">
+        <SpecRow label="Case Included" value={s.caseIncludes} />
+        <SpecRow label="Case Description" value={s.caseDescription} />
+      </AccordionSection>
 
-        {hasCase && (
-          <Section title="Case">
-            <Row label="Case Included" value={s.caseIncludes} />
-            <FullRow label="Case Description" value={s.caseDescription} />
-          </Section>
-        )}
-
-      </div>
     </div>
   );
 }
