@@ -96,7 +96,7 @@ export default function ProductDetail() {
           {images.length > 1 && (
             <div className="flex gap-2 overflow-x-auto pb-1">
               {images.map((img, i) => (
-                <button key={i} onClick={() => setActiveImg(i)} className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${activeImg === i ? "border-amber-500" : "border-transparent"}`}>
+                <button key={i} onClick={() => setActiveImg(i)} className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2`} style={{ borderColor: activeImg === i ? "#C57A1F" : "transparent" }}>
                   <img src={img} className="w-full h-full object-cover" />
                 </button>
               ))}
