@@ -77,7 +77,9 @@ export default function ProductDetail() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-      <Link to={createPageUrl("Catalog")} className="inline-flex items-center gap-1 text-stone-500 hover:text-amber-600 text-sm mb-6">
+      <Link to={createPageUrl("Catalog")} className="inline-flex items-center gap-1 text-sm mb-6" style={{ color: "#6A6A6A" }}
+        onMouseEnter={e => e.currentTarget.style.color = "#2F3E55"}
+        onMouseLeave={e => e.currentTarget.style.color = "#6A6A6A"}>
         <ChevronLeft className="w-4 h-4" /> Back to Catalog
       </Link>
 
@@ -105,7 +107,7 @@ export default function ProductDetail() {
         {/* Info */}
         <div>
           {builder && (
-            <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="text-amber-600 hover:underline text-sm font-medium mb-2 block">
+            <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="text-sm font-medium mb-2 block hover:underline" style={{ color: "#2F3E55" }}>
               {builder.business_name || builder.display_name}
             </Link>
           )}
@@ -120,7 +122,7 @@ export default function ProductDetail() {
             </div>
           )}
 
-          <p className="text-4xl font-bold text-amber-700 mb-6">${product.price?.toLocaleString()}</p>
+          <p className="text-4xl font-bold mb-6" style={{ color: "#C57A1F" }}>${product.price?.toLocaleString()}</p>
 
           {product.description && (
             <p className="text-stone-600 leading-relaxed mb-6">{product.description}</p>
@@ -137,7 +139,10 @@ export default function ProductDetail() {
           {product.status === "available" ? (
             <button
               onClick={addToCart}
-              className={`w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl transition-colors text-lg ${addedToCart ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"}`}
+              className={`w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl transition-colors text-lg ${addedToCart ? "text-white" : "text-white"}`}
+            style={{ backgroundColor: addedToCart ? "#3B7A57" : "#C57A1F" }}
+            onMouseEnter={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#a8661a"; }}
+            onMouseLeave={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#C57A1F"; }}
             >
               {addedToCart ? <><Check className="w-5 h-5" /> Added to Cart!</> : <><ShoppingCart className="w-5 h-5" /> Add to Cart</>}
             </button>
@@ -154,7 +159,10 @@ export default function ProductDetail() {
           {builder && (
             <button
               onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
-              className="w-full flex items-center justify-center gap-2 mt-3 border border-stone-300 hover:border-amber-500 hover:text-amber-600 text-stone-600 font-medium py-3 rounded-xl transition-colors text-sm"
+              className="w-full flex items-center justify-center gap-2 mt-3 border font-medium py-3 rounded-xl transition-colors text-sm"
+              style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#F2F0EA"; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
             >
               <MessageSquare className="w-4 h-4" /> Contact Builder
             </button>
@@ -191,12 +199,12 @@ export default function ProductDetail() {
 
       {/* Builder section */}
       {builder && (
-        <div className="bg-stone-900 text-white rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start">
+        <div className="rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start" style={{ backgroundColor: "#3B2F2A", color: "#FFFFFF" }}>
           {builder.avatar_url ? (
             <img src={builder.avatar_url} className="w-16 h-16 rounded-full object-cover flex-shrink-0" />
           ) : (
-            <div className="w-16 h-16 rounded-full bg-amber-900/40 flex items-center justify-center flex-shrink-0">
-              <span className="text-amber-400 font-bold text-2xl">{(builder.business_name || "B")[0]}</span>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+              <span className="font-bold text-2xl text-white">{(builder.business_name || "B")[0]}</span>
             </div>
           )}
           <div className="flex-1">
@@ -204,7 +212,9 @@ export default function ProductDetail() {
             {builder.location && <p className="text-stone-400 text-sm mb-2 flex items-center gap-1"><MapPin className="w-3 h-3" /> {builder.location}</p>}
             {builder.bio && <p className="text-stone-300 text-sm line-clamp-3">{builder.bio}</p>}
           </div>
-          <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="flex items-center gap-1 bg-amber-600 hover:bg-amber-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium flex-shrink-0">
+          <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} className="flex items-center gap-1 text-white px-5 py-2.5 rounded-xl text-sm font-medium flex-shrink-0" style={{ backgroundColor: "#C57A1F" }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>
             View Profile <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -257,7 +267,9 @@ function ContactModal({ builder, user, onClose }) {
             </div>
             <div className="flex gap-2 pt-1">
               <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-600 py-2.5 rounded-xl text-sm">Cancel</button>
-              <button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 rounded-xl text-sm">Send Message</button>
+              <button type="submit" className="flex-1 text-white font-medium py-2.5 rounded-xl text-sm" style={{ backgroundColor: "#C57A1F" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>Send Message</button>
             </div>
           </form>
         )}
