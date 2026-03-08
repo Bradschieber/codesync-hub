@@ -8,6 +8,7 @@ import ReferencesSection from "../components/dashboard/ReferencesSection";
 import StorefrontCustomizer from "../components/dashboard/StorefrontCustomizer";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
+import StorefrontProgressTracker from "../components/dashboard/StorefrontProgressTracker";
 
 const STORY_PROMPTS = [
   { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?" },
