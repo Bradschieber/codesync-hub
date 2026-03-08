@@ -3,61 +3,55 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShoppingBag, ChevronLeft, Package, MessageSquare,
-  FileText, Truck, CreditCard, ChevronDown, ChevronUp,
-  Calendar, CheckCircle, AlertCircle, Clock, MapPin
+  ShoppingBag, ChevronLeft, Package, MessageSquare, FileText,
+  Truck, CreditCard, ChevronDown, ChevronUp, Calendar,
+  CheckCircle, AlertCircle, Clock, MapPin, ExternalLink
 } from "lucide-react";
 import { format } from "date-fns";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
+import FulfillmentStatusBadge from "../components/orders/FulfillmentStatusBadge";
 
-// Buyer-friendly labels for fulfillment status
-const FULFILLMENT_LABELS = {
-  order_received:       { label: "Order Received",          color: "#2F3E55", bg: "#EEF1F7" },
-  order_confirmed:      { label: "Order Confirmed",         color: "#2F3E55", bg: "#EEF1F7" },
-  deposit_paid:         { label: "Deposit Paid",            color: "#27AE60", bg: "#E8F6ED" },
-  build_scheduled:      { label: "Build Scheduled",         color: "#7B5EA7", bg: "#F0EBF8" },
-  build_in_progress:    { label: "Being Built",             color: "#C57A1F", bg: "#FDF3E3" },
-  build_complete:       { label: "Build Complete",          color: "#27AE60", bg: "#E8F6ED" },
-  preparing_to_ship:    { label: "Preparing to Ship",       color: "#C57A1F", bg: "#FDF3E3" },
-  shipped:              { label: "Shipped",                 color: "#1A8FD1", bg: "#E8F4FB" },
-  received_by_buyer:    { label: "Delivered",              color: "#27AE60", bg: "#E8F6ED" },
-  cancelled:            { label: "Cancelled",               color: "#CC3A3A", bg: "#FDEAEA" },
+const NAVY = "#1B2B4B";
+const AMBER = "#C57A1F";
+
+// Dynamic status messages per stage
+const STATUS_MESSAGES = {
+  order_received:        { text: "Your order has been received. The builder will confirm it shortly.", type: "info" },
+  order_confirmed:       { text: "Your builder has confirmed the order and will begin preparing the instrument.", type: "info" },
+  deposit_paid:          { text: "Deposit received. Your builder will schedule your build and begin work soon.", type: "info" },
+  build_scheduled:       { text: "Your build has been scheduled. The builder will begin work soon.", type: "info" },
+  build_in_progress:     { text: "Your instrument is currently being built by hand.", type: "info" },
+  build_complete:        { text: "Your instrument is complete and awaiting final payment before shipment.", type: "payment" },
+  awaiting_final_payment:{ text: "Your instrument is complete and awaiting final payment before shipment.", type: "payment" },
+  preparing_to_ship:     { text: "The builder is preparing your instrument for shipment.", type: "info" },
+  shipped:               { text: "Your instrument has shipped and is on the way.", type: "shipped" },
+  received_by_buyer:     { text: "Your instrument has been delivered. Enjoy!", type: "complete" },
+  cancelled:             { text: "This order has been cancelled.", type: "cancelled" },
 };
 
-const PAYMENT_LABELS = {
-  awaiting_deposit:        { label: "Awaiting Deposit",        color: "#C57A1F", bg: "#FDF3E3" },
-  deposit_paid:            { label: "Deposit Paid",            color: "#27AE60", bg: "#E8F6ED" },
-  awaiting_final_payment:  { label: "Final Payment Due",       color: "#CC3A3A", bg: "#FDEAEA" },
-  final_payment_received:  { label: "Final Payment Received",  color: "#27AE60", bg: "#E8F6ED" },
-  fully_paid:              { label: "Paid in Full",            color: "#27AE60", bg: "#E8F6ED" },
-};
-
-function getNextAction(order) {
-  if (order.status === "cancelled") return null;
-  if (order.order_type === "custom") {
-    if (order.payment_stage === "awaiting_deposit") return { type: "deposit", label: "Deposit payment required to begin your build." };
-    if (order.payment_stage === "awaiting_final_payment") return { type: "final_payment", label: "Your instrument is complete! Final balance payment required to authorize shipment." };
-    if (order.payment_stage === "final_payment_received" && order.fulfillment_status === "build_complete") return { type: "info", label: "Payment received. Your builder is preparing to ship your instrument." };
+function getEffectiveStatus(order) {
+  if (
+    order.order_type === "custom" &&
+    order.fulfillment_status === "build_complete" &&
+    order.payment_stage === "awaiting_final_payment"
+  ) {
+    return "awaiting_final_payment";
   }
-  if (order.fulfillment_status === "shipped" && !order.delivery_confirmed) return { type: "tracking", label: "Your instrument is on its way. Track your shipment below." };
-  if (order.fulfillment_status === "received_by_buyer") return { type: "complete", label: "Order complete. Enjoy your instrument!" };
-  if (order.fulfillment_status === "order_received" || order.fulfillment_status === "order_confirmed") return { type: "info", label: "Your order has been received and is being confirmed with the builder." };
-  if (order.fulfillment_status === "build_in_progress") return { type: "info", label: "Your instrument is being handcrafted. You'll be notified when the build is complete." };
-  if (order.fulfillment_status === "preparing_to_ship") return { type: "info", label: "Your instrument is packed and ready. Tracking info will be added soon." };
-  return null;
+  return order.fulfillment_status;
 }
 
-function StatusPill({ label, color, bg }) {
-  return (
-    <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold" style={{ color, backgroundColor: bg }}>
-      {label}
-    </span>
-  );
+function getTrackingUrl(carrier, trackingNumber) {
+  if (!carrier || !trackingNumber) return "#";
+  const c = carrier.toLowerCase();
+  if (c.includes("ups"))   return `https://www.ups.com/track?tracknum=${trackingNumber}`;
+  if (c.includes("fedex")) return `https://www.fedex.com/fedextrack/?trknbr=${trackingNumber}`;
+  if (c.includes("usps"))  return `https://tools.usps.com/go/TrackConfirmAction?tLabels=${trackingNumber}`;
+  return `https://www.google.com/search?q=${encodeURIComponent((carrier || "") + " tracking " + trackingNumber)}`;
 }
 
 export default function Orders() {
-  const [orders, setOrders] = useState([]);
-  const [user, setUser] = useState(null);
+  const [orders, setOrders]   = useState([]);
+  const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState({});
   const [contactOrder, setContactOrder] = useState(null);
@@ -70,7 +64,6 @@ export default function Orders() {
       setUser(u);
       const data = await base44.entities.Order.filter({ user_id: u.id }, "-created_date", 50);
       setOrders(data);
-      // Auto-expand first active order
       const active = data.find(o => o.status !== "cancelled" && o.fulfillment_status !== "received_by_buyer");
       if (active) setExpanded({ [active.id]: true });
     } catch {
@@ -84,7 +77,7 @@ export default function Orders() {
   }
 
   const activeOrders = orders.filter(o => o.fulfillment_status !== "received_by_buyer" && o.status !== "cancelled");
-  const pastOrders = orders.filter(o => o.fulfillment_status === "received_by_buyer" || o.status === "cancelled");
+  const pastOrders   = orders.filter(o => o.fulfillment_status === "received_by_buyer" || o.status === "cancelled");
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10" style={{ minHeight: "100vh", backgroundColor: "#FAF9F7" }}>
@@ -93,60 +86,48 @@ export default function Orders() {
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: "#1B2B4B" }}>My Orders</h1>
+          <h1 className="text-2xl font-bold" style={{ color: NAVY }}>My Orders</h1>
           <p className="text-sm text-stone-500">Track your instruments and manage payments</p>
         </div>
       </div>
 
       {loading ? (
         <div className="space-y-4">
-          {Array(2).fill(0).map((_, i) => <div key={i} className="h-32 bg-stone-200 rounded-2xl animate-pulse" />)}
+          {[0,1].map(i => <div key={i} className="h-32 bg-stone-200 rounded-2xl animate-pulse" />)}
         </div>
       ) : orders.length === 0 ? (
         <div className="text-center py-24">
           <ShoppingBag className="w-16 h-16 text-stone-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-stone-600 mb-2">No orders yet</h3>
           <p className="text-sm text-stone-400 mb-6">When you purchase an instrument, it will appear here.</p>
-          <Link to={createPageUrl("Catalog")} className="inline-block font-semibold px-5 py-2.5 text-sm text-white rounded-lg" style={{ backgroundColor: "#2F3E55" }}>
+          <Link to={createPageUrl("Catalog")} className="inline-block font-semibold px-5 py-2.5 text-sm text-white rounded-lg" style={{ backgroundColor: NAVY }}>
             Browse Guitars
           </Link>
         </div>
       ) : (
         <div className="space-y-8">
-
-          {/* Active Orders */}
           {activeOrders.length > 0 && (
             <section>
               <h2 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">Active Orders</h2>
               <div className="space-y-4">
                 {activeOrders.map(order => (
-                  <OrderCard
-                    key={order.id}
-                    order={order}
-                    user={user}
+                  <OrderCard key={order.id} order={order} user={user}
                     expanded={!!expanded[order.id]}
                     onToggle={() => toggleExpand(order.id)}
-                    onContact={() => setContactOrder(order)}
-                  />
+                    onContact={() => setContactOrder(order)} />
                 ))}
               </div>
             </section>
           )}
-
-          {/* Past Orders */}
           {pastOrders.length > 0 && (
             <section>
               <h2 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">Past Orders</h2>
               <div className="space-y-4">
                 {pastOrders.map(order => (
-                  <OrderCard
-                    key={order.id}
-                    order={order}
-                    user={user}
+                  <OrderCard key={order.id} order={order} user={user}
                     expanded={!!expanded[order.id]}
                     onToggle={() => toggleExpand(order.id)}
-                    onContact={() => setContactOrder(order)}
-                  />
+                    onContact={() => setContactOrder(order)} />
                 ))}
               </div>
             </section>
@@ -155,27 +136,25 @@ export default function Orders() {
       )}
 
       {contactOrder && (
-        <MessageBuilderModal
-          order={contactOrder}
-          user={user}
-          onClose={() => setContactOrder(null)}
-        />
+        <MessageBuilderModal order={contactOrder} user={user} onClose={() => setContactOrder(null)} />
       )}
     </div>
   );
 }
 
 function OrderCard({ order, user, expanded, onToggle, onContact }) {
-  const fulfillment = FULFILLMENT_LABELS[order.fulfillment_status] || { label: order.fulfillment_status, color: "#555", bg: "#eee" };
-  const payment = order.payment_stage ? PAYMENT_LABELS[order.payment_stage] : null;
-  const nextAction = getNextAction(order);
-  const instruments = order.items || [];
-  const primaryItem = instruments[0];
+  const instruments  = order.items || [];
+  const primaryItem  = instruments[0];
+  const effectiveStatus = getEffectiveStatus(order);
+  const statusMsg    = STATUS_MESSAGES[effectiveStatus];
+  const isFinalPaymentDue = effectiveStatus === "awaiting_final_payment";
+  const isShipped    = order.fulfillment_status === "shipped";
+  const remainingBalance = (order.total_amount || 0) - (order.deposit_amount || 0);
 
   return (
     <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
 
-      {/* Header Row */}
+      {/* ── Card Header ── */}
       <button className="w-full text-left p-5 hover:bg-stone-50 transition-colors" onClick={onToggle}>
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-4 flex-1 min-w-0">
@@ -195,55 +174,109 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
                 by <span className="font-medium">{order.builder_name}</span>
               </p>
               <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-                <span className="inline-block text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: order.order_type === "custom" ? "#F0EBF8" : "#EEF1F7", color: order.order_type === "custom" ? "#7B5EA7" : "#2F3E55" }}>
+                <span className="inline-block text-xs px-2 py-0.5 rounded-full font-medium"
+                  style={{ backgroundColor: order.order_type === "custom" ? "#F0EBF8" : "#EEF1F7", color: order.order_type === "custom" ? "#7B5EA7" : NAVY }}>
                   {order.order_type === "custom" ? "Custom Build" : "Stock"}
                 </span>
-                <StatusPill {...fulfillment} />
+                <FulfillmentStatusBadge status={effectiveStatus} />
               </div>
             </div>
           </div>
           <div className="flex flex-col items-end gap-1 flex-shrink-0">
-            <p className="font-bold text-sm" style={{ color: "#A0692A" }}>${order.total_amount?.toLocaleString()}</p>
+            <p className="font-bold text-sm" style={{ color: AMBER }}>${order.total_amount?.toLocaleString()}</p>
             <p className="text-xs text-stone-400">{order.created_date ? format(new Date(order.created_date), "MMM d, yyyy") : ""}</p>
             {expanded ? <ChevronUp className="w-4 h-4 text-stone-400 mt-1" /> : <ChevronDown className="w-4 h-4 text-stone-400 mt-1" />}
           </div>
         </div>
       </button>
 
-      {/* Expanded Detail */}
+      {/* ── Expanded Detail ── */}
       {expanded && (
         <div className="border-t border-stone-100 px-5 pb-6 pt-4 space-y-5">
 
-          {/* Next Action Banner */}
-          {nextAction && (
-            <div className={`flex items-start gap-3 rounded-xl p-4 ${nextAction.type === "final_payment" ? "bg-amber-50 border-2 border-amber-300" : nextAction.type === "complete" ? "bg-green-50 border border-green-200" : "bg-blue-50 border border-blue-100"}`}>
-              {nextAction.type === "final_payment" && <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />}
-              {nextAction.type === "complete" && <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />}
-              {(nextAction.type === "info" || nextAction.type === "tracking") && <Clock className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />}
-              <p className={`text-sm font-medium leading-snug ${nextAction.type === "final_payment" ? "text-amber-900" : nextAction.type === "complete" ? "text-green-800" : "text-blue-800"}`}>
-                {nextAction.label}
-              </p>
+          {/* PART 2: Final Payment Banner */}
+          {isFinalPaymentDue && (
+            <div className="rounded-xl border-2 p-5" style={{ borderColor: AMBER, backgroundColor: "#FDF8F0" }}>
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: AMBER }} />
+                <div className="flex-1">
+                  <p className="font-bold text-sm mb-1" style={{ color: "#7A4A10" }}>Final Payment Required</p>
+                  <p className="text-sm mb-3 leading-relaxed" style={{ color: "#8C5E20" }}>
+                    Your instrument is complete. Final payment is required before the builder can ship your order.
+                  </p>
+                  {order.deposit_amount > 0 && (
+                    <p className="text-sm font-semibold mb-3" style={{ color: "#7A4A10" }}>
+                      Remaining balance: <span style={{ color: AMBER }}>${remainingBalance.toLocaleString()}</span>
+                    </p>
+                  )}
+                  <button
+                    onClick={() => alert("Please contact Stringed Collective to complete your final balance payment.")}
+                    className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white rounded-lg transition-colors"
+                    style={{ backgroundColor: AMBER }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
+                  >
+                    <CreditCard className="w-4 h-4" /> Pay Final Balance
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Progress Tracker */}
+          {/* PART 4: Dynamic Status Message (non-payment stages) */}
+          {statusMsg && !isFinalPaymentDue && (
+            <div className={`flex items-start gap-3 rounded-xl p-4 ${
+              statusMsg.type === "complete"  ? "bg-green-50 border border-green-200" :
+              statusMsg.type === "shipped"   ? "bg-blue-50 border border-blue-100" :
+              statusMsg.type === "cancelled" ? "bg-red-50 border border-red-200" :
+              "bg-stone-50 border border-stone-200"
+            }`}>
+              {statusMsg.type === "complete"  && <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />}
+              {statusMsg.type === "shipped"   && <Truck className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />}
+              {statusMsg.type === "cancelled" && <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />}
+              {(statusMsg.type === "info" || statusMsg.type === "payment") && <Clock className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />}
+              <p className={`text-sm leading-snug ${
+                statusMsg.type === "complete"  ? "text-green-800" :
+                statusMsg.type === "shipped"   ? "text-blue-800" :
+                statusMsg.type === "cancelled" ? "text-red-700" :
+                "text-stone-600"
+              }`}>{statusMsg.text}</p>
+            </div>
+          )}
+
+          {/* PART 1 & 6: Progress Tracker */}
           <OrderProgressTracker order={order} />
 
-          {/* Status Details Row */}
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            <div className="rounded-xl bg-stone-50 p-3">
-              <p className="text-xs text-stone-400 font-medium mb-1">Order Status</p>
-              <StatusPill {...fulfillment} />
-            </div>
-            {payment && (
-              <div className="rounded-xl bg-stone-50 p-3">
-                <p className="text-xs text-stone-400 font-medium mb-1">Payment Status</p>
-                <StatusPill {...payment} />
+          {/* PART 3: Payment Summary */}
+          {order.order_type === "custom" && order.total_amount > 0 && (
+            <div className="rounded-xl border border-stone-200 overflow-hidden">
+              <div className="px-4 py-3 border-b border-stone-100 bg-stone-50">
+                <p className="text-xs font-bold uppercase tracking-widest text-stone-400">Payment Summary</p>
               </div>
-            )}
-          </div>
+              <div className="divide-y divide-stone-100">
+                <div className="flex justify-between px-4 py-3 text-sm">
+                  <span className="text-stone-500">Total Price</span>
+                  <span className="font-semibold text-stone-800">${order.total_amount.toLocaleString()}</span>
+                </div>
+                {order.deposit_amount > 0 && (
+                  <div className="flex justify-between px-4 py-3 text-sm">
+                    <span className="text-stone-500">Deposit Paid</span>
+                    <span className="font-semibold text-green-600">−${order.deposit_amount.toLocaleString()}</span>
+                  </div>
+                )}
+                {order.deposit_amount > 0 && (
+                  <div className="flex justify-between px-4 py-3 text-sm bg-stone-50">
+                    <span className="font-semibold text-stone-700">Remaining Balance</span>
+                    <span className="font-bold" style={{ color: order.final_payment_paid ? "#27AE60" : AMBER }}>
+                      {order.final_payment_paid ? "Paid ✓" : `$${remainingBalance.toLocaleString()}`}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
-          {/* Items List */}
+          {/* Items */}
           {instruments.length > 0 && (
             <div className="space-y-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-stone-400">Items</p>
@@ -260,7 +293,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </div>
           )}
 
-          {/* Custom Build Dates */}
+          {/* Build Dates */}
           {order.order_type === "custom" && (order.build_start_date || order.estimated_build_completion_date) && (
             <div className="flex flex-wrap gap-4 text-xs text-stone-600">
               {order.build_start_date && (
@@ -278,6 +311,39 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </div>
           )}
 
+          {/* PART 5: Shipping Tracking */}
+          {isShipped && order.tracking_number && (
+            <div className="rounded-xl border border-stone-200 overflow-hidden">
+              <div className="px-4 py-3 border-b border-stone-100 bg-stone-50 flex items-center gap-2">
+                <Truck className="w-4 h-4 text-blue-500" />
+                <p className="text-xs font-bold uppercase tracking-widest text-stone-400">Shipment Tracking</p>
+              </div>
+              <div className="px-4 py-3 space-y-2">
+                {order.tracking_carrier && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-stone-500">Carrier</span>
+                    <span className="font-medium text-stone-800">{order.tracking_carrier}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-sm">
+                  <span className="text-stone-500">Tracking #</span>
+                  <span className="font-mono text-stone-700">{order.tracking_number}</span>
+                </div>
+                <a
+                  href={getTrackingUrl(order.tracking_carrier, order.tracking_number)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full mt-2 py-2 rounded-lg text-sm font-semibold border transition-colors"
+                  style={{ borderColor: "#1A8FD1", color: "#1A8FD1", backgroundColor: "#fff" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#E8F4FB"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
+                >
+                  <ExternalLink className="w-4 h-4" /> Track Shipment
+                </a>
+              </div>
+            </div>
+          )}
+
           {/* Builder Notes */}
           {order.builder_notes && (
             <div className="rounded-xl bg-stone-50 p-4 border border-stone-100">
@@ -288,65 +354,29 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
 
           {/* Shipping Address */}
           {order.shipping_address && (
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-1.5">Shipping To</p>
-              <p className="text-xs text-stone-500 flex items-start gap-1.5">
-                <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                <span>
-                  {[order.shipping_address.line1, order.shipping_address.city, order.shipping_address.state, order.shipping_address.postal_code].filter(Boolean).join(", ")}
-                </span>
-              </p>
-            </div>
+            <p className="text-xs text-stone-400 flex items-start gap-1.5">
+              <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+              <span>{[order.shipping_address.line1, order.shipping_address.city, order.shipping_address.state, order.shipping_address.postal_code].filter(Boolean).join(", ")}</span>
+            </p>
           )}
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-2 pt-1">
-            {/* Pay Final Balance */}
-            {order.payment_stage === "awaiting_final_payment" && (
-              <button
-                onClick={() => alert("Please contact Stringed Collective to complete your final balance payment.")}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold text-white transition-colors"
-                style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-              >
-                <CreditCard className="w-4 h-4" /> Pay Final Balance
-              </button>
-            )}
-
-            {/* Message Builder */}
             <button
               onClick={onContact}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
-              style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#fff" }}
+              style={{ borderColor: NAVY, color: NAVY, backgroundColor: "#fff" }}
               onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
             >
               <MessageSquare className="w-4 h-4" /> Message Builder
             </button>
 
-            {/* Track Shipment */}
-            {order.tracking_number && (
-              <a
-                href={getTrackingUrl(order.tracking_carrier, order.tracking_number)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
-                style={{ borderColor: "#1A8FD1", color: "#1A8FD1", backgroundColor: "#fff" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#E8F4FB"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
-              >
-                <Truck className="w-4 h-4" /> Track Shipment
-                {order.tracking_number && <span className="text-xs opacity-60 ml-1">{order.tracking_number}</span>}
-              </a>
-            )}
-
-            {/* View Purchase Agreement */}
             {order.purchase_agreement_signed && (
               <button
                 onClick={() => alert("Purchase agreement details are on file. Contact Stringed Collective for a copy.")}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
-                style={{ borderColor: "#888", color: "#555", backgroundColor: "#fff" }}
+                style={{ borderColor: "#C0BBB4", color: "#555", backgroundColor: "#fff" }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F5F3F0"}
                 onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
               >
@@ -360,15 +390,6 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
       )}
     </div>
   );
-}
-
-function getTrackingUrl(carrier, trackingNumber) {
-  if (!carrier || !trackingNumber) return "#";
-  const c = carrier.toLowerCase();
-  if (c.includes("ups")) return `https://www.ups.com/track?tracknum=${trackingNumber}`;
-  if (c.includes("fedex")) return `https://www.fedex.com/fedextrack/?trknbr=${trackingNumber}`;
-  if (c.includes("usps")) return `https://tools.usps.com/go/TrackConfirmAction?tLabels=${trackingNumber}`;
-  return `https://www.google.com/search?q=${carrier}+tracking+${trackingNumber}`;
 }
 
 function MessageBuilderModal({ order, user, onClose }) {
@@ -422,7 +443,7 @@ function MessageBuilderModal({ order, user, onClose }) {
               </button>
               <button type="submit"
                 className="flex-1 text-white font-medium py-2.5 rounded-xl text-sm"
-                style={{ backgroundColor: "#2F3E55" }}>
+                style={{ backgroundColor: NAVY }}>
                 Send Message
               </button>
             </div>
