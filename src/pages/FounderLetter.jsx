@@ -100,7 +100,7 @@ Players should be able to focus on making music.`,
 
 We're inviting a small group of founding builders to help shape the platform and launch the marketplace.
 
-If you're one of the builders reading this, I'm incredibly grateful for the work you're doing and the craft you're pushing forward.
+If you're one of the builders reading this, thank you for reading this far and thank you for the work you're doing and the craft you're pushing forward.
 
 My goal with Stringed Collective is simple:
 

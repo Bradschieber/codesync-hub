@@ -67,13 +67,13 @@ import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
 import DashboardProducts from './pages/DashboardProducts';
 import DashboardProfile from './pages/DashboardProfile';
 import DashboardRatings from './pages/DashboardRatings';
+import FounderLetter from './pages/FounderLetter';
 import Home from './pages/Home';
 import Messages from './pages/Messages';
 import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import FounderLetter from './pages/FounderLetter';
 import __Layout from './Layout.jsx';
 
 
@@ -98,13 +98,13 @@ export const PAGES = {
     "DashboardProducts": DashboardProducts,
     "DashboardProfile": DashboardProfile,
     "DashboardRatings": DashboardRatings,
+    "FounderLetter": FounderLetter,
     "Home": Home,
     "Messages": Messages,
     "Orders": Orders,
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "FounderLetter": FounderLetter,
 }
 
 export const pagesConfig = {
