@@ -116,7 +116,7 @@ My goal with Stringed Collective is simple:
 
 Help more players discover your work.
 
-Because the world needs more instruments built by humans.
+Because the world needs more human connection.
 
 And more music made by humans.`,
   },
