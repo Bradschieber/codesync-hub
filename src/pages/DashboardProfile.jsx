@@ -70,12 +70,13 @@ export default function DashboardProfile() {
   if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full" /></div>;
 
   const sections = [
-    { id: "basics", label: "The Basics" },
-    { id: "story", label: "Brand Story" },
-    { id: "storefront", label: "Storefront Style" },
-    { id: "photos", label: "Photos & Video" },
-    { id: "business", label: "Your Business" },
+    { id: "basics",     label: "The Basics" },
+    { id: "story",      label: "Tell Your Story" },
+    { id: "photos",     label: "Photos & Video" },
+    { id: "business",   label: "Your Business" },
+    { id: "policies",   label: "Shop Policies" },
     { id: "references", label: "References" },
+    { id: "storefront", label: "Storefront Style" },
   ];
 
   return (
