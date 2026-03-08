@@ -127,7 +127,7 @@ And more music made by humans.`,
 
 Stringed Collective exists to support this community and help bring your instruments to a wider audience.
 
-We're just getting started, and the builders who join early will help shape what this platform becomes.`,
+But I believe something incredible can happen if we choose it.`,
   },
 ];
 
