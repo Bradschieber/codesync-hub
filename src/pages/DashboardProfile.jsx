@@ -28,6 +28,7 @@ export default function DashboardProfile() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [productCount, setProductCount] = useState(0);
 
   useEffect(() => { loadProfile(); }, []);
 
@@ -37,8 +38,11 @@ export default function DashboardProfile() {
       setUser(u);
       const profiles = await base44.entities.UserProfile.filter({ user_id: u.id });
       if (profiles.length > 0) {
-        setProfile(profiles[0]);
-        setForm(profiles[0]);
+        const p = profiles[0];
+        setProfile(p);
+        setForm(p);
+        const prods = await base44.entities.Product.filter({ builder_id: p.id });
+        setProductCount(prods.length);
       } else {
         setForm({ user_id: u.id, email: u.email, display_name: u.full_name, is_seller: true, account: "seller" });
       }
