@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight
+  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle
 } from "lucide-react";
 
 const NAVY = "#2F3E55";
@@ -30,7 +30,7 @@ export default function AdminDashboard() {
         totalBuilders: builders.length,
         verifiedBuilders: builders.filter(b => b.is_verified).length,
         foundingBuilders: builders.filter(b => b.founding_builder).length,
-        customShopBuilders: builders.filter(b => b.offers_custom_builds).length,
+        pendingBuilders: builders.filter(b => !b.is_approved).length,
         pendingRefs: refs.filter(r => r.status === "pending").length,
         verifiedRefs: refs.filter(r => r.status === "verified").length,
       });
@@ -55,13 +55,21 @@ export default function AdminDashboard() {
   );
 
   const statCards = [
-    { label: "Total Builders", value: stats?.totalBuilders ?? "—", icon: Users, color: NAVY },
-    { label: "Verified Builders", value: stats?.verifiedBuilders ?? "—", icon: ShieldCheck, color: "#27AE60" },
-    { label: "Founding Builders", value: stats?.foundingBuilders ?? "—", icon: Award, color: "#6B4C2A" },
-    { label: "Pending References", value: stats?.pendingRefs ?? "—", icon: Clock, color: "#C57A1F", urgent: stats?.pendingRefs > 0 },
+    { label: "Total Builders", value: stats?.totalBuilders ?? "—", icon: Users, color: NAVY, page: "AdminAllBuilders" },
+    { label: "Verified Builders", value: stats?.verifiedBuilders ?? "—", icon: ShieldCheck, color: "#27AE60", page: "AdminVerifiedBuilders" },
+    { label: "Founding Builders", value: stats?.foundingBuilders ?? "—", icon: Award, color: "#6B4C2A", page: "AdminFoundingBuilders" },
+    { label: "Pending References", value: stats?.pendingRefs ?? "—", icon: Clock, color: "#C57A1F", urgent: stats?.pendingRefs > 0, page: "AdminReferences" },
   ];
 
   const adminTools = [
+    {
+      title: "Pending Builder Approvals",
+      description: "Review new builder storefronts and approve them before they go live on the site.",
+      icon: AlertCircle,
+      page: "AdminPendingBuilders",
+      badge: stats?.pendingBuilders > 0 ? `${stats.pendingBuilders} pending` : null,
+      urgent: stats?.pendingBuilders > 0,
+    },
     {
       title: "Builder Badges",
       description: "Grant or revoke Verified Builder and Founding Builder badges for any seller on the platform.",
@@ -93,35 +101,42 @@ export default function AdminDashboard() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* Stats */}
+        {/* Stats — now all clickable */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          {statCards.map(({ label, value, icon: Icon, color, urgent }) => (
-            <div key={label} className="p-5 border bg-white" style={{ borderColor: urgent ? "#C57A1F" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}>
+          {statCards.map(({ label, value, icon: Icon, color, urgent, page }) => (
+            <Link
+              key={label}
+              to={createPageUrl(page)}
+              className="block p-5 border bg-white transition-all hover:shadow-md group"
+              style={{ borderColor: urgent ? "#C57A1F" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = urgent ? "#C57A1F" : NAVY}
+              onMouseLeave={e => e.currentTarget.style.borderColor = urgent ? "#C57A1F" : "#E0DDD8"}
+            >
               <div className="mb-3">
                 <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color }} />
               </div>
               <p className="text-3xl font-bold mb-1" style={{ color: "#1A1A1A" }}>{value}</p>
               <p className="text-xs font-medium uppercase tracking-wide" style={{ color: "#7A7A7A" }}>{label}</p>
               {urgent && <p className="text-xs font-semibold mt-1" style={{ color: "#C57A1F" }}>Needs attention</p>}
-            </div>
+            </Link>
           ))}
         </div>
 
         {/* Admin Tools */}
         <h2 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "#6B6B6B" }}>Admin Tools</h2>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {adminTools.map(({ title, description, icon: Icon, page, badge }) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {adminTools.map(({ title, description, icon: Icon, page, badge, urgent }) => (
             <Link
               key={page}
               to={createPageUrl(page)}
               className="group block bg-white border p-6 transition-all hover:shadow-md"
-              style={{ borderColor: "#E0DDD8" }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = NAVY}
-              onMouseLeave={e => e.currentTarget.style.borderColor = "#E0DDD8"}
+              style={{ borderColor: urgent ? "#C57A1F" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = urgent ? "#C57A1F" : NAVY}
+              onMouseLeave={e => e.currentTarget.style.borderColor = urgent ? "#C57A1F" : "#E0DDD8"}
             >
               <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7" }}>
-                  <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color: NAVY }} />
+                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: urgent ? "#FEF3E2" : "#EEF1F7" }}>
+                  <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color: urgent ? "#C57A1F" : NAVY }} />
                 </div>
                 <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity mt-1 flex-shrink-0" style={{ color: NAVY }} />
               </div>

@@ -16,7 +16,7 @@ export default function Builders() {
   useEffect(() => { loadBuilders(); }, []);
 
   async function loadBuilders() {
-    const data = await base44.entities.UserProfile.filter({ is_seller: true }, "-created_date", 100);
+    const data = await base44.entities.UserProfile.filter({ is_seller: true, is_approved: true }, "-created_date", 100);
     setBuilders(data);
     setLoading(false);
   }
