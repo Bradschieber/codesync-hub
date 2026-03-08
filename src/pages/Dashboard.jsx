@@ -138,7 +138,7 @@ export default function Dashboard() {
                 { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
                 { label: "My Customers", sub: "Customer roster & history", icon: Users, page: "BuilderCustomers" },
                 { label: "Returns & Warranty", sub: "Manage claims", icon: RotateCcw, page: "BuilderReturnsWarranty" },
-                ...(profile?.account === "admin" ? [{ label: "Manage References", sub: "Verify buyer references", icon: Star, page: "AdminReferences" }] : []),
+                ...(profile?.account === "admin" ? [{ label: "Admin Dashboard", sub: "Badges, references & platform tools", icon: ShieldCheck, page: "AdminDashboard" }] : []),
               ].map(({ label, sub, icon: Icon, page }) => (
                 <Link
                   key={page}
