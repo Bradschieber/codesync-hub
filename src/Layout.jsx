@@ -57,7 +57,7 @@ export default function Layout({ children, currentPageName }) {
       `}</style>
 
       {/* Header */}
-      <header className="border-b sticky top-0 z-50" style={{ backgroundColor: "#FAF9F7", borderColor: "#E0DDD8" }}>
+      <header className="border-b sticky top-0 z-50" style={{ backgroundColor: "#F7F6F3", borderColor: "#E3E0D8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
 
@@ -84,9 +84,9 @@ export default function Layout({ children, currentPageName }) {
               <button
                 onClick={() => setBuilderModalOpen(true)}
                 className="text-sm font-medium transition-colors px-4 py-1.5 border"
-                style={{ color: "#1B2B4B", borderColor: "#1B2B4B", backgroundColor: "transparent" }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#1B2B4B"; e.currentTarget.style.color = "#fff"; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2B4B"; }}
+                style={{ color: "#2F3E55", borderColor: "#2F3E55", backgroundColor: "transparent" }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#2F3E55"; e.currentTarget.style.color = "#fff"; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#2F3E55"; }}
               >
                 Create Your Builder Profile
               </button>
@@ -153,9 +153,9 @@ export default function Layout({ children, currentPageName }) {
                 <button
                   onClick={() => base44.auth.redirectToLogin()}
                   className="text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
-                  style={{ backgroundColor: "#1B2B4B" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
+                  style={{ backgroundColor: "#2F3E55" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#243349"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#2F3E55"}
                 >
                   Sign In
                 </button>
@@ -173,7 +173,7 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Mobile Nav */}
         {menuOpen && (
-        <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#FAF9F7", borderColor: "#E0DDD8" }}>
+        <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#F7F6F3", borderColor: "#E3E0D8" }}>
             {navLinks.map(l => (
               <Link
                 key={l.page}
@@ -189,7 +189,7 @@ export default function Layout({ children, currentPageName }) {
             <button
               onClick={() => { setMenuOpen(false); setBuilderModalOpen(true); }}
               className="block w-full text-left py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors"
-              style={{ color: "#1B2B4B", backgroundColor: "#EEF1F7" }}
+              style={{ color: "#2F3E55", backgroundColor: "#F2F0EA" }}
             >
               Join As A Builder
             </button>
