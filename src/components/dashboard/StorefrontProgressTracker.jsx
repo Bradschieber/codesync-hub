@@ -112,7 +112,7 @@ export default function StorefrontProgressTracker({ form, profile, productCount,
       {activePrompts.length > 0 && (
         <div className="mt-4 space-y-2">
           {activePrompts.map((p, i) => (
-            <a key={i} href={p.anchor} className="flex items-start gap-2 text-xs text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2 hover:bg-indigo-100 transition-colors">
+            <a key={i} href={p.anchor} className="flex items-start gap-2 text-xs text-gray-600 bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 hover:bg-stone-100 transition-colors">
               <AlertCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
               {p.text}
             </a>
