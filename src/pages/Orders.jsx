@@ -108,6 +108,30 @@ export default function Orders() {
                     </div>
                   )}
 
+                  {/* Final Payment CTA */}
+                  {order.order_type === "custom" && order.payment_stage === "awaiting_final_payment" && (
+                    <div className="rounded-xl border-2 border-amber-300 bg-amber-50 p-4">
+                      <p className="font-bold text-sm text-amber-900 mb-1">🎸 Your instrument is complete!</p>
+                      <p className="text-xs text-amber-800 mb-3 leading-relaxed">
+                        Your custom instrument is finished and ready to ship. Please complete your final balance payment to authorize shipment.
+                      </p>
+                      <a
+                        href="#"
+                        onClick={e => { e.preventDefault(); alert("Final payment checkout coming soon. Please contact Stringed Collective to complete your payment."); }}
+                        className="inline-block text-sm font-bold px-4 py-2 rounded-lg text-white transition-colors"
+                        style={{ backgroundColor: "#2F3E55" }}
+                      >
+                        Pay Final Balance
+                      </a>
+                    </div>
+                  )}
+                  {order.order_type === "custom" && order.final_payment_paid && order.payment_stage === "final_payment_received" && (
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200">
+                      <span className="text-green-600 text-sm">✓</span>
+                      <p className="text-xs font-semibold text-green-800">Final payment received. Your builder is preparing your instrument for shipment.</p>
+                    </div>
+                  )}
+
                   {/* Tracking */}
                   {order.tracking_number && (
                     <p className="text-xs text-stone-400 flex items-center gap-1">
