@@ -20,7 +20,7 @@ const PROMPTS = [
 export default function StorefrontProgressTracker({ form, profile, productCount }) {
   const completedCount = STEPS.filter(s => s.check(form, productCount)).length;
   const pct = Math.round((completedCount / STEPS.length) * 100);
-  const slug = profile?.slug || profile?.id;
+  const profileId = profile?.slug || profile?.id || form?.id;
 
   const activePrompts = PROMPTS.filter(p => p.check(form));
 
