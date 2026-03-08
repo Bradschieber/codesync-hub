@@ -75,6 +75,7 @@ import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
 import AdminBuilderBadges from './pages/AdminBuilderBadges';
+import AdminDashboard from './pages/AdminDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -107,6 +108,7 @@ export const PAGES = {
     "Terms": Terms,
     "Wishlist": Wishlist,
     "AdminBuilderBadges": AdminBuilderBadges,
+    "AdminDashboard": AdminDashboard,
 }
 
 export const pagesConfig = {
