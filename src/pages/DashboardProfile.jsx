@@ -269,12 +269,21 @@ export default function DashboardProfile() {
               <p className="text-xs text-red-500 mt-2">⚠ Please select at least one offering type.</p>
             )}
           </div>
+        </div>
+
+        {/* ── Shop Policies ── */}
+        <div id="policies" className="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 className="font-bold text-gray-900 mb-1">Shop Policies</h2>
+          <p className="text-gray-400 text-xs mb-5">Clear policies build buyer confidence. Define your pricing, warranty, returns, and shipping terms.</p>
           <PoliciesEditor form={form} setForm={setForm} />
         </div>
 
         {/* ── Section 6: Buyer References ── */}
         <div id="references" />
         <ReferencesSection profile={profile} />
+
+        {/* ── Storefront Style ── */}
+        <div id="storefront"><StorefrontCustomizer form={form} setForm={setForm} /></div>
 
         <button type="submit" disabled={saving} className={`w-full flex items-center justify-center gap-2 font-semibold py-3.5 rounded-xl transition-colors ${saved ? "bg-green-600 text-white" : "bg-indigo-700 hover:bg-indigo-800 text-white"} disabled:opacity-50`}>
           <Save className="w-4 h-4" />
