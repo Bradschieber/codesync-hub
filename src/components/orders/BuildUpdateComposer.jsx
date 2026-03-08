@@ -16,6 +16,7 @@ export default function BuildUpdateComposer({ order, profile, onUpdatePosted }) 
   const [tag, setTag] = useState("");
   const [photoUrls, setPhotoUrls] = useState([]);
   const [videoUrl, setVideoUrl] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -46,6 +47,9 @@ export default function BuildUpdateComposer({ order, profile, onUpdatePosted }) 
       order_id: order.id,
       builder_id: profile.id,
       builder_name: profile.business_name || profile.display_name,
+      builder_location: profile.location || null,
+      builder_avatar_url: profile.avatar_url || null,
+      builder_slug: profile.slug || null,
       buyer_id: order.user_id,
       buyer_email: order.buyer_email,
       title: title.trim(),
@@ -53,6 +57,7 @@ export default function BuildUpdateComposer({ order, profile, onUpdatePosted }) 
       tag: tag || null,
       photo_urls: photoUrls,
       video_url: videoUrl || null,
+      is_public: isPublic,
     });
     // Notify buyer
     await base44.functions.invoke("notifyBuildUpdate", { updateId: update.id, orderId: order.id });
@@ -61,7 +66,7 @@ export default function BuildUpdateComposer({ order, profile, onUpdatePosted }) 
     setTimeout(() => {
       setSuccess(false);
       setOpen(false);
-      setTitle(""); setDescription(""); setTag(""); setPhotoUrls([]); setVideoUrl("");
+      setTitle(""); setDescription(""); setTag(""); setPhotoUrls([]); setVideoUrl(""); setIsPublic(false);
       onUpdatePosted?.();
     }, 1800);
   }
@@ -175,6 +180,22 @@ export default function BuildUpdateComposer({ order, profile, onUpdatePosted }) 
                     <input type="file" accept="video/*" className="hidden" onChange={handleVideoUpload} />
                   </label>
                 )}
+              </div>
+
+              {/* Visibility toggle */}
+              <div className="rounded-xl border border-stone-200 p-3 bg-stone-50">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isPublic}
+                    onChange={e => setIsPublic(e.target.checked)}
+                    className="mt-0.5 flex-shrink-0 accent-[#1B2B4B]"
+                  />
+                  <div>
+                    <p className="text-xs font-semibold text-stone-700">Share on From The Bench</p>
+                    <p className="text-xs text-stone-400 mt-0.5">This update will appear publicly on the From The Bench page, helping others discover your work.</p>
+                  </div>
+                </label>
               </div>
 
               {uploading && (
