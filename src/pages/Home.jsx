@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ArrowRight, Guitar, Lock, CreditCard, CheckCircle, MapPin, User } from "lucide-react";
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
+import FromTheBenchPreview from "../components/home/FromTheBenchPreview";
 
 const NAVY = "#2F3E55";
 const AMBER = "#C57A1F";
@@ -173,6 +174,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── FROM THE BENCH ── */}
+      <FromTheBenchPreview />
 
       {/* ── 5. BUILDER CTA BAND ── */}
       <section className="py-16" style={{ backgroundColor: "#2F3E55" }}>

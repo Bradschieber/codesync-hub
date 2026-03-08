@@ -49,6 +49,7 @@ export default function Layout({ children, currentPageName }) {
     { label: "Catalog", page: "Catalog" },
     { label: "Our Builders", page: "Builders" },
     { label: "About", page: "About" },
+    { label: "From The Bench", page: "FromTheBench" },
   ];
 
   return (
