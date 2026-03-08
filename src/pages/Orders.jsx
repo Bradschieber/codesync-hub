@@ -345,6 +345,14 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </div>
           )}
 
+          {/* Build Updates — custom builds only */}
+          {order.order_type === "custom" && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-3">Build Updates</p>
+              <BuildUpdatesFeed orderId={order.id} />
+            </div>
+          )}
+
           {/* Builder Notes */}
           {order.builder_notes && (
             <div className="rounded-xl bg-stone-50 p-4 border border-stone-100">

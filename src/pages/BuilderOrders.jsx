@@ -197,6 +197,17 @@ export default function BuilderOrders() {
                     {/* Builder Notes */}
                     <BuilderNotesEditor order={order} onSave={(notes) => saveOrderDates(order, { builder_notes: notes })} saving={updating[order.id]} />
 
+                    {/* Build Updates — custom builds only */}
+                    {order.order_type === "custom" && (
+                      <div>
+                        <label className="text-xs font-semibold uppercase tracking-wider text-stone-400 block mb-3">Build Updates</label>
+                        <div className="space-y-4">
+                          <BuildUpdateComposer order={order} profile={profile} onUpdatePosted={() => {}} />
+                          <BuildUpdatesFeed orderId={order.id} />
+                        </div>
+                      </div>
+                    )}
+
                     {/* Shipping Address */}
                     {order.shipping_address && (
                       <div>
