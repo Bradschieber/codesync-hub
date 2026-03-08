@@ -7,6 +7,7 @@ import {
   ArrowRight, MessageSquare, Shield, Lock, Truck, ChevronDown, ChevronUp, User
 } from "lucide-react";
 import SpecificationsDisplay from "../components/marketplace/SpecificationsDisplay";
+import BuilderBadges from "../components/builder/BuilderBadges";
 
 const AMBER = "#C57A1F";
 const SLATE = "#2F3E55";
@@ -134,11 +135,14 @@ export default function ProductDetail() {
                   style={{ color: SLATE }}>
                   {builder.business_name || builder.display_name}
                 </Link>
-                {builder.location && (
-                  <p className="flex items-center gap-1 text-xs mt-0.5" style={{ color: "#7A7A7A" }}>
-                    <MapPin className="w-3 h-3" /> {builder.location}
-                  </p>
-                )}
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
+                  <BuilderBadges builder={builder} size="sm" />
+                  {builder.location && (
+                    <p className="flex items-center gap-1 text-xs" style={{ color: "#7A7A7A" }}>
+                      <MapPin className="w-3 h-3" /> {builder.location}
+                    </p>
+                  )}
+                </div>
               </div>
             )}
 

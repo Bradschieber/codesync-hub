@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Search, SlidersHorizontal, Star, X, MessageSquare } from "lucide-react";
+import BuilderBadges from "../components/builder/BuilderBadges";
 
 const NAVY = "#2F3E55";
 const AMBER = "#C57A1F";
@@ -200,6 +201,11 @@ function ProductCard({ product }) {
           <p style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.09em", textTransform: "uppercase", color: "#2F3E55", marginBottom: "4px" }}>
             {product.builder_name}
           </p>
+        )}
+        {(product.builder_is_verified || product.builder_founding || product.offers_custom_builds_builder) && (
+          <div className="mb-1">
+            <BuilderBadges builder={{ is_verified: product.builder_is_verified, founding_builder: product.builder_founding, offers_custom_builds: product.builder_offers_custom }} size="sm" />
+          </div>
         )}
         <h3 style={{ fontSize: "0.925rem", fontWeight: 500, color: "#1A1A1A", lineHeight: 1.35, marginBottom: "4px" }}>{product.name}</h3>
         {specLine && (

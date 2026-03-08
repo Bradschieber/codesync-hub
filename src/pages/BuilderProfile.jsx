@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Star, ChevronLeft, Quote, Hammer, Heart, MapPin, MessageSquare, ArrowRight, User, X, Check } from "lucide-react";
 import RequestQuoteModal from "../components/builder/RequestQuoteModal";
+import BuilderBadges from "../components/builder/BuilderBadges";
 
 export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
@@ -97,6 +98,11 @@ export default function BuilderProfile() {
             )}
             <div className="flex-1 min-w-0">
               <h1 className="text-3xl font-bold tracking-tight mb-1 text-white">{builder.business_name || builder.display_name}</h1>
+              {(builder.is_verified || builder.founding_builder || builder.offers_custom_builds) && (
+                <div className="mb-2">
+                  <BuilderBadges builder={builder} size="md" />
+                </div>
+              )}
               <div className="flex flex-wrap items-center gap-4 text-sm mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>
                 {builder.location && (
                   <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{builder.location}</span>
