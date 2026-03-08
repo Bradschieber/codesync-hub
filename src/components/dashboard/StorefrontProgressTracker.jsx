@@ -45,7 +45,7 @@ export default function StorefrontProgressTracker({ form, profile, productCount,
         {STEPS.map(step => {
           const done = step.check(form, productCount);
           const content = (
-            <span className={`flex items-center gap-2 text-xs font-medium transition-colors ${done ? "text-gray-400 line-through" : "text-gray-700 hover:text-indigo-600"}`}>
+            <span className={`flex items-center gap-2 text-xs font-medium transition-colors ${done ? "text-gray-400 line-through" : "text-gray-700 hover:text-gray-900"}`}>
               {done
                 ? <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
                 : <Circle className="w-4 h-4 text-gray-300 flex-shrink-0" />
@@ -53,6 +53,10 @@ export default function StorefrontProgressTracker({ form, profile, productCount,
               {step.label}
             </span>
           );
+          if (step.anchor && onSectionClick) {
+            const sectionId = step.anchor.replace("#", "");
+            return <button type="button" key={step.id} onClick={() => onSectionClick(sectionId)} className="text-left">{content}</button>;
+          }
           if (step.anchor) {
             return <a key={step.id} href={step.anchor}>{content}</a>;
           }
