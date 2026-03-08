@@ -76,6 +76,10 @@ import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
 import AdminBuilderBadges from './pages/AdminBuilderBadges';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminAllBuilders from './pages/AdminAllBuilders';
+import AdminPendingBuilders from './pages/AdminPendingBuilders';
+import AdminVerifiedBuilders from './pages/AdminVerifiedBuilders';
+import AdminFoundingBuilders from './pages/AdminFoundingBuilders';
 import __Layout from './Layout.jsx';
 
 
@@ -109,6 +113,10 @@ export const PAGES = {
     "Wishlist": Wishlist,
     "AdminBuilderBadges": AdminBuilderBadges,
     "AdminDashboard": AdminDashboard,
+    "AdminAllBuilders": AdminAllBuilders,
+    "AdminPendingBuilders": AdminPendingBuilders,
+    "AdminVerifiedBuilders": AdminVerifiedBuilders,
+    "AdminFoundingBuilders": AdminFoundingBuilders,
 }
 
 export const pagesConfig = {
