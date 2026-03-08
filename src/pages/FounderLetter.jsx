@@ -251,6 +251,34 @@ export default function FounderLetter() {
         </div>
       </div>
 
+      {/* Founding Builder Benefits */}
+      <div className="border-t" style={{ borderColor: "#E8E5E0" }}>
+        <div className={`${COL} py-14`}>
+          <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: "#8A9BB0" }}>
+            Founding Builder Benefits
+          </p>
+          <h2 className="text-xl font-bold mb-4" style={{ color: NAVY }}>
+            What founding builders receive
+          </h2>
+          <p className="text-sm leading-relaxed mb-8" style={{ color: "#4A5566" }}>
+            Builders who join early will help shape the platform and receive early advantages as Stringed Collective launches.
+          </p>
+          <ul className="space-y-3">
+            {[
+              "0% platform fees on your first three instruments sold within your first six months",
+              "Featured placement as the marketplace launches",
+              "Direct input on platform improvements and builder tools",
+              "Early visibility as we grow the audience for independent builders",
+            ].map((item, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: NAVY }} />
+                <p className="text-sm leading-relaxed" style={{ color: "#3D3D3D" }}>{item}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       {/* CTA */}
       <div className="border-t" style={{ borderColor: "#E8E5E0" }}>
         <div className={`${COL} py-16 text-center`}>
