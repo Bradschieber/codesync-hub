@@ -53,6 +53,7 @@ import AdminAllBuilders from './pages/AdminAllBuilders';
 import AdminBuilderBadges from './pages/AdminBuilderBadges';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminFoundingBuilders from './pages/AdminFoundingBuilders';
+import AdminPayouts from './pages/AdminPayouts';
 import AdminPendingBuilders from './pages/AdminPendingBuilders';
 import AdminReferences from './pages/AdminReferences';
 import AdminVerifiedBuilders from './pages/AdminVerifiedBuilders';
@@ -80,7 +81,7 @@ import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import AdminPayouts from './pages/AdminPayouts';
+import FromTheBench from './pages/FromTheBench';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +92,7 @@ export const PAGES = {
     "AdminBuilderBadges": AdminBuilderBadges,
     "AdminDashboard": AdminDashboard,
     "AdminFoundingBuilders": AdminFoundingBuilders,
+    "AdminPayouts": AdminPayouts,
     "AdminPendingBuilders": AdminPendingBuilders,
     "AdminReferences": AdminReferences,
     "AdminVerifiedBuilders": AdminVerifiedBuilders,
@@ -118,7 +120,7 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "AdminPayouts": AdminPayouts,
+    "FromTheBench": FromTheBench,
 }
 
 export const pagesConfig = {
