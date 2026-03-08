@@ -87,6 +87,9 @@ export default function DashboardProfile() {
       </div>
       <p className="text-gray-400 text-sm mb-4 ml-8">Build your storefront — tell your story, show your craft, earn trust.</p>
 
+      {/* Progress Tracker */}
+      <StorefrontProgressTracker form={form} profile={profile} productCount={productCount} />
+
       {/* Section Nav */}
       <div className="sticky top-16 z-30 bg-white border border-gray-200 rounded-xl px-4 py-2.5 mb-8 flex flex-wrap gap-x-4 gap-y-1 shadow-sm">
         {sections.map(s => (
