@@ -17,7 +17,7 @@ const PROMPTS = [
   { check: f => !(f.warranty_policy || f.return_policy || f.shipping_policy), text: "Clear policies build buyer confidence. Complete your shop policies.", anchor: "#policies" },
 ];
 
-export default function StorefrontProgressTracker({ form, profile, productCount }) {
+export default function StorefrontProgressTracker({ form, profile, productCount, onSectionClick }) {
   const completedCount = STEPS.filter(s => s.check(form, productCount)).length;
   const pct = Math.round((completedCount / STEPS.length) * 100);
   const profileId = profile?.slug || profile?.id || form?.id;
