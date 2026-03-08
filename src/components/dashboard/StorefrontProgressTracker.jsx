@@ -67,17 +67,15 @@ export default function StorefrontProgressTracker({ form, profile, productCount 
       {/* Action buttons */}
       <div className="flex flex-wrap gap-2 mb-4">
         {profileId && (
-          <a
-            href={createPageUrl(`BuilderProfile`) + `?id=${profileId}&preview=true`}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to={createPageUrl("BuilderProfile") + `?id=${profileId}&preview=true`}
             className="flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
             style={{ backgroundColor: "#1B2B4B" }}
             onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
           >
             <ExternalLink className="w-3.5 h-3.5" /> Preview My Storefront
-          </a>
+          </Link>
         )}
         <Link
           to={createPageUrl("DashboardProducts")}
