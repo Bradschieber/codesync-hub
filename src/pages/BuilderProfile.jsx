@@ -117,7 +117,7 @@ export default function BuilderProfile() {
                   onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
                   onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}
                 >
-                  <MessageSquare className="w-4 h-4" /> Contact Builder
+                  <MessageSquare className="w-4 h-4" /> Message Builder
                 </button>
                 <button
                   onClick={toggleSave}
@@ -140,6 +140,24 @@ export default function BuilderProfile() {
             <p className="text-sm leading-relaxed text-gray-600">{builder.bio}</p>
           </div>
         )}
+
+        {/* Conversation Trigger */}
+        <div className="rounded-xl border px-6 py-5 mb-6 flex flex-col sm:flex-row sm:items-center gap-4" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+          <div className="flex-1">
+            <h3 className="text-sm font-bold mb-1" style={{ color: "#2F3E55" }}>Thinking about a custom instrument?</h3>
+            <p className="text-sm leading-relaxed" style={{ color: "#5A5A5A" }}>
+              Start a conversation with the builder to discuss your ideas, specifications, or upcoming builds.
+            </p>
+          </div>
+          <button
+            onClick={() => setShowContactForm(true)}
+            className="flex items-center gap-2 border font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors whitespace-nowrap flex-shrink-0"
+            style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
+            <MessageSquare className="w-4 h-4" /> Message Builder
+          </button>
+        </div>
 
         {/* Specialties */}
         {builder.specialties?.length > 0 && (

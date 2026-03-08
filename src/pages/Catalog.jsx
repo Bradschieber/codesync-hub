@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Search, SlidersHorizontal, Star, X } from "lucide-react";
+import { Guitar, Search, SlidersHorizontal, Star, X, MessageSquare } from "lucide-react";
 
 const NAVY = "#2F3E55";
 const AMBER = "#C57A1F";
@@ -176,10 +176,8 @@ function ProductCard({ product }) {
   ].filter(Boolean).join(" · ");
 
   return (
-    <Link
-      to={createPageUrl("ProductDetail?id=" + product.id)}
-      className="group block bg-white"
-    >
+    <div className="group relative bg-white">
+      <Link to={createPageUrl("ProductDetail?id=" + product.id)} className="block">
       <div className="overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
         {product.image_urls?.[0] ? (
           <img
@@ -215,6 +213,18 @@ function ProductCard({ product }) {
         )}
         <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#C57A1F", marginTop: "6px" }}>${product.price?.toLocaleString()}</p>
       </div>
-    </Link>
+      </Link>
+      {/* Hover: Message Builder */}
+      <div className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-3 pb-3 pointer-events-none group-hover:pointer-events-auto">
+        <Link
+          to={createPageUrl("BuilderProfile?id=" + product.builder_id)}
+          onClick={e => e.stopPropagation()}
+          className="flex items-center justify-center gap-1.5 w-full py-1.5 text-xs font-medium border rounded-lg transition-colors"
+          style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "rgba(255,255,255,0.95)" }}
+        >
+          <MessageSquare className="w-3 h-3" /> Message Builder
+        </Link>
+      </div>
+    </div>
   );
 }
