@@ -243,7 +243,7 @@ export default function FounderLetter() {
           {/* Signature */}
           <div className="pt-6">
             <div className="space-y-1">
-              <p className="text-base font-semibold" style={{ color: NAVY }}>Mark</p>
+              <p className="text-base font-semibold" style={{ color: NAVY }}>Brad</p>
               <p className="text-sm" style={{ color: "#6B7A8D" }}>Founder, Stringed Collective</p>
               <p className="text-sm" style={{ color: "#9AABBF" }}>Guitar builder and lifelong musician</p>
             </div>
