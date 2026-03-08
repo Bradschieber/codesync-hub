@@ -1,24 +1,14 @@
-const SECTION_STYLES = {
-  "General":         { accent: "bg-amber-500",   light: "bg-amber-50",   border: "border-amber-200",   text: "text-amber-700"  },
-  "Body":            { accent: "bg-stone-600",    light: "bg-stone-50",   border: "border-stone-200",   text: "text-stone-600"  },
-  "Finish":          { accent: "bg-rose-500",     light: "bg-rose-50",    border: "border-rose-200",    text: "text-rose-700"   },
-  "Neck & Fretboard":{ accent: "bg-teal-600",     light: "bg-teal-50",    border: "border-teal-200",    text: "text-teal-700"   },
-  "Hardware":        { accent: "bg-slate-500",    light: "bg-slate-50",   border: "border-slate-200",   text: "text-slate-700"  },
-  "Electronics":     { accent: "bg-indigo-500",   light: "bg-indigo-50",  border: "border-indigo-200",  text: "text-indigo-700" },
-  "Case":            { accent: "bg-emerald-600",  light: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700"},
-};
+const SLATE = "#2F3E55";
 
 function Section({ title, children }) {
   const hasContent = Array.isArray(children) ? children.some(c => c) : !!children;
   if (!hasContent) return null;
 
-  const style = SECTION_STYLES[title] || SECTION_STYLES["General"];
-
   return (
-    <div className={`rounded-xl border ${style.border} overflow-hidden`}>
-      <div className={`flex items-center gap-2 px-4 py-2.5 ${style.light}`}>
-        <div className={`w-1.5 h-4 rounded-full ${style.accent}`} />
-        <h3 className={`text-xs font-bold uppercase tracking-wider ${style.text}`}>{title}</h3>
+    <div className="rounded-xl overflow-hidden border" style={{ borderColor: "#E3E0D8" }}>
+      <div className="flex items-center gap-2 px-4 py-2.5" style={{ backgroundColor: "#F2F0EA" }}>
+        <div className="w-1.5 h-4 rounded-full" style={{ backgroundColor: SLATE }} />
+        <h3 className="text-xs font-bold uppercase tracking-wider" style={{ color: SLATE }}>{title}</h3>
       </div>
       <div className="px-4 py-3 grid sm:grid-cols-2 gap-x-6 gap-y-3 bg-white">
         {children}
@@ -31,8 +21,8 @@ function Row({ label, value }) {
   if (!value || value === "N/A") return null;
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="text-xs text-stone-400 font-medium uppercase tracking-wide">{label}</span>
-      <span className="text-sm text-stone-800 font-semibold">{String(value)}</span>
+      <span className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6A6A6A" }}>{label}</span>
+      <span className="text-sm font-semibold" style={{ color: "#1F1F1F" }}>{String(value)}</span>
     </div>
   );
 }
@@ -41,8 +31,8 @@ function FullRow({ label, value }) {
   if (!value || value === "N/A") return null;
   return (
     <div className="sm:col-span-2 flex flex-col gap-0.5">
-      <span className="text-xs text-stone-400 font-medium uppercase tracking-wide">{label}</span>
-      <span className="text-sm text-stone-800 font-semibold">{String(value)}</span>
+      <span className="text-xs font-medium uppercase tracking-wide" style={{ color: "#6A6A6A" }}>{label}</span>
+      <span className="text-sm font-semibold" style={{ color: "#1F1F1F" }}>{String(value)}</span>
     </div>
   );
 }
@@ -63,11 +53,11 @@ export default function SpecificationsDisplay({ specs = {} }) {
   if (!anyContent) return null;
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 mb-8 overflow-hidden">
-      <div className="px-6 py-4 border-b border-stone-100 bg-gradient-to-r from-stone-800 to-stone-700">
+    <div className="rounded-2xl overflow-hidden border mb-8" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+      <div className="px-6 py-4 border-b" style={{ borderColor: "#E3E0D8", backgroundColor: "#2F3E55" }}>
         <h2 className="text-lg font-bold text-white tracking-wide">Specifications</h2>
       </div>
-      <div className="p-5 space-y-3 bg-stone-50">
+      <div className="p-5 space-y-3" style={{ backgroundColor: "#F7F6F3" }}>
 
         <Section title="General">
           <Row label="Instrument Type" value={s.instrumentCategory === "Other" ? s.otherInstrumentCategory : s.instrumentCategory} />

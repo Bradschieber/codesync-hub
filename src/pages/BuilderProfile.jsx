@@ -66,7 +66,7 @@ export default function BuilderProfile() {
   if (!builder) return (
     <div className="max-w-5xl mx-auto px-4 py-20 text-center">
       <p className="text-gray-500">Builder not found.</p>
-      <Link to={createPageUrl("Builders")} className="font-semibold underline mt-2 block text-sm text-indigo-700">Back to Builders</Link>
+      <Link to={createPageUrl("Builders")} className="font-semibold underline mt-2 block text-sm" style={{ color: "#2F3E55" }}>Back to Builders</Link>
     </div>
   );
 
@@ -80,9 +80,9 @@ export default function BuilderProfile() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header Band */}
-      <div className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-700 pt-10 pb-10">
+      <div className="pt-10 pb-10" style={{ backgroundColor: "#2F3E55" }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <Link to={createPageUrl("Builders")} className="inline-flex items-center gap-1 text-sm font-medium mb-8 text-indigo-200 hover:text-white transition-colors">
+          <Link to={createPageUrl("Builders")} className="inline-flex items-center gap-1 text-sm font-medium mb-8 transition-colors" style={{ color: "rgba(255,255,255,0.7)" }}>
             <ChevronLeft className="w-4 h-4" /> Back to Builders
           </Link>
 
@@ -91,13 +91,13 @@ export default function BuilderProfile() {
             {builder.avatar_url ? (
               <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-20 h-20 object-cover flex-shrink-0 rounded-xl border-2 border-white/20" />
             ) : (
-              <div className="w-20 h-20 flex items-center justify-center flex-shrink-0 rounded-xl bg-indigo-600/50 border-2 border-white/20">
+              <div className="w-20 h-20 flex items-center justify-center flex-shrink-0 rounded-xl border-2 border-white/20" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
                 <User className="w-9 h-9 text-white/70" strokeWidth={1.5} />
               </div>
             )}
             <div className="flex-1 min-w-0">
               <h1 className="text-3xl font-bold tracking-tight mb-1 text-white">{builder.business_name || builder.display_name}</h1>
-              <div className="flex flex-wrap items-center gap-4 text-sm mb-4 text-indigo-200">
+              <div className="flex flex-wrap items-center gap-4 text-sm mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>
                 {builder.location && (
                   <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{builder.location}</span>
                 )}
@@ -112,7 +112,10 @@ export default function BuilderProfile() {
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => setShowContactForm(true)}
-                  className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 bg-white text-indigo-800 hover:bg-indigo-50 rounded-lg transition-colors"
+                  className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
+                  style={{ backgroundColor: "#FFFFFF", color: "#2F3E55" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}
                 >
                   <MessageSquare className="w-4 h-4" /> Contact Builder
                 </button>
@@ -149,8 +152,8 @@ export default function BuilderProfile() {
 
         {/* Custom Builds CTA */}
         {builder.offers_custom_builds && (
-          <div className="p-6 border border-indigo-100 rounded-xl mb-6 flex items-start gap-4 bg-indigo-50">
-            <Hammer className="w-5 h-5 flex-shrink-0 mt-0.5 text-indigo-700" strokeWidth={1.5} />
+          <div className="p-6 rounded-xl mb-6 flex items-start gap-4 border" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8" }}>
+            <Hammer className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#2F3E55" }} strokeWidth={1.5} />
             <div className="flex-1">
               <h3 className="font-bold text-sm mb-2 text-gray-900">Custom Builds Available</h3>
               <p className="text-sm mb-4 leading-relaxed text-gray-600">
@@ -158,7 +161,10 @@ export default function BuilderProfile() {
               </p>
               <button
                 onClick={() => setShowQuoteModal(true)}
-                className="font-semibold px-5 py-2.5 text-sm text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg transition-colors"
+                className="font-semibold px-5 py-2.5 text-sm text-white rounded-lg transition-colors"
+                style={{ backgroundColor: "#C57A1F" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
               >
                 Request a Quote
               </button>
@@ -188,7 +194,8 @@ export default function BuilderProfile() {
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === t.id ? "border-indigo-700 text-indigo-700" : "border-transparent text-gray-500 hover:text-gray-700"}`}
+              className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors`}
+              style={{ borderBottomColor: activeTab === t.id ? "#2F3E55" : "transparent", color: activeTab === t.id ? "#2F3E55" : "#6A6A6A" }}
             >
               {t.label}
             </button>
@@ -215,7 +222,7 @@ export default function BuilderProfile() {
                   </div>
                   <div className="p-4">
                     <h3 className="font-bold text-sm mb-1 text-gray-900">{p.name}</h3>
-                    <p className="font-bold text-sm text-indigo-700">${p.price?.toLocaleString()}</p>
+                    <p className="font-bold text-sm" style={{ color: "#C57A1F" }}>${p.price?.toLocaleString()}</p>
                   </div>
                 </Link>
               ))}
@@ -227,7 +234,7 @@ export default function BuilderProfile() {
         {activeTab === "custom" && (
           <div>
             {builder.custom_build_description && (
-              <div className="p-5 bg-indigo-50 border border-indigo-100 rounded-xl mb-6 text-sm leading-relaxed text-gray-700">
+              <div className="p-5 rounded-xl mb-6 text-sm leading-relaxed border" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8", color: "#1F1F1F" }}>
                 {builder.custom_build_description}
               </div>
             )}
@@ -248,7 +255,10 @@ export default function BuilderProfile() {
             <div className="mt-8 text-center">
               <button
                 onClick={() => setShowContactForm(true)}
-                className="font-semibold px-6 py-3 text-sm text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg transition-colors"
+                className="font-semibold px-6 py-3 text-sm text-white rounded-lg transition-colors"
+                style={{ backgroundColor: "#C57A1F" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
               >
                 Inquire About a Custom Build
               </button>
@@ -312,7 +322,7 @@ function ContactModal({ builder, user, onClose }) {
           <div className="text-center py-8">
             <Check className="w-10 h-10 mx-auto mb-3 text-green-500" />
             <p className="font-medium text-sm mb-5 text-gray-900">Message sent successfully.</p>
-            <button onClick={onClose} className="text-sm font-semibold text-indigo-700 hover:text-indigo-800 transition-colors">Close</button>
+            <button onClick={onClose} className="text-sm font-semibold transition-colors" style={{ color: "#2F3E55" }}>Close</button>
           </div>
         ) : (
           <form onSubmit={handleSend} className="space-y-4">
@@ -326,7 +336,9 @@ function ContactModal({ builder, user, onClose }) {
             />
             <div className="flex gap-3">
               <button type="button" onClick={onClose} className="flex-1 border border-gray-200 rounded-lg py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Cancel</button>
-              <button type="submit" className="flex-1 py-2.5 text-sm font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg transition-colors">Send Message</button>
+              <button type="submit" className="flex-1 py-2.5 text-sm font-semibold text-white rounded-lg transition-colors" style={{ backgroundColor: "#C57A1F" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>Send Message</button>
             </div>
           </form>
         )}
