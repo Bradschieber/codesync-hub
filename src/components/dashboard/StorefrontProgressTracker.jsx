@@ -35,7 +35,8 @@ export default function StorefrontProgressTracker({ form, profile, productCount,
       {/* Progress bar */}
       <div className="w-full bg-gray-100 rounded-full h-1.5 mb-5">
         <div
-          className="bg-indigo-600 h-1.5 rounded-full transition-all duration-500"
+          className="h-1.5 rounded-full transition-all duration-500"
+          style={{ backgroundColor: "#1B2B4B" }}
           style={{ width: `${pct}%` }}
         />
       </div>
