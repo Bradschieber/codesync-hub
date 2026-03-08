@@ -50,9 +50,9 @@ export default function Catalog() {
   }
 
   return (
-    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
       {/* Page Header */}
-      <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-14 pb-10 px-4">
+      <div style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-14 pb-10 px-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold mb-2 tracking-tight" style={{ color: "#1A1A1A" }}>Instruments</h1>
           <p className="text-base" style={{ color: "#5A5A5A" }}>{products.length} instruments available from independent builders</p>
@@ -107,7 +107,7 @@ export default function Catalog() {
                       onClick={() => toggleCat(cat)}
                       className="px-3 py-1.5 text-sm border transition-colors"
                       style={{
-                        borderColor: selectedCats.includes(cat) ? NAVY : "#DEDBD6",
+                        borderColor: selectedCats.includes(cat) ? NAVY : "#E3E0D8",
                         backgroundColor: selectedCats.includes(cat) ? NAVY : "#FFFFFF",
                         color: selectedCats.includes(cat) ? "#FFFFFF" : "#3D3D3D"
                       }}
@@ -133,7 +133,7 @@ export default function Catalog() {
               <button
                 onClick={() => { setSelectedCats([]); setMaxPrice(""); }}
                 className="mt-5 text-xs flex items-center gap-1 font-semibold"
-                style={{ color: "#C0392B" }}
+                style={{ color: "#6A6A6A" }}
               >
                 <X className="w-3 h-3" /> Clear filters
               </button>
@@ -203,7 +203,7 @@ function ProductCard({ product }) {
             <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#7A7A7A" }}>{product.average_rating.toFixed(1)}</span>
           </div>
         )}
-        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#2C3E55", marginTop: "6px" }}>${product.price?.toLocaleString()}</p>
+        <p style={{ fontFamily: "'DM Sans', 'Inter', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#C57A1F", marginTop: "6px" }}>${product.price?.toLocaleString()}</p>
       </div>
     </Link>
   );
