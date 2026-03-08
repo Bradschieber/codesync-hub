@@ -29,7 +29,7 @@ That idea is the North Star for Stringed Collective.`,
     heading: "My Story",
     body: `I've loved instruments for as long as I can remember.
 
-When I was a kid I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me — the shape, the wood, the way it felt in your hands.
+When I was a kid I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me — the shape, the smell of the wood, the way it felt in your hands.
 
 Eventually I learned how to play.
 
