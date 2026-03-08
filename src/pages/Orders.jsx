@@ -10,6 +10,7 @@ import {
 import { format } from "date-fns";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
 import FulfillmentStatusBadge from "../components/orders/FulfillmentStatusBadge";
+import BuildUpdatesFeed from "../components/orders/BuildUpdatesFeed";
 
 const NAVY = "#1B2B4B";
 const AMBER = "#C57A1F";

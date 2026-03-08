@@ -6,6 +6,8 @@ import { ShoppingBag, ChevronLeft, Package, ChevronDown, ChevronUp, Calendar, Sa
 import { format } from "date-fns";
 import FulfillmentStatusBadge, { STOCK_STATUSES, CUSTOM_STATUSES, STATUS_COLORS } from "../components/orders/FulfillmentStatusBadge";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
+import BuildUpdateComposer from "../components/orders/BuildUpdateComposer";
+import BuildUpdatesFeed from "../components/orders/BuildUpdatesFeed";
 
 export default function BuilderOrders() {
   const [orders, setOrders] = useState([]);
