@@ -49,7 +49,13 @@
  */
 import About from './pages/About';
 import Account from './pages/Account';
+import AdminAllBuilders from './pages/AdminAllBuilders';
+import AdminBuilderBadges from './pages/AdminBuilderBadges';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminFoundingBuilders from './pages/AdminFoundingBuilders';
+import AdminPendingBuilders from './pages/AdminPendingBuilders';
 import AdminReferences from './pages/AdminReferences';
+import AdminVerifiedBuilders from './pages/AdminVerifiedBuilders';
 import BuilderCustomers from './pages/BuilderCustomers';
 import BuilderFAQ from './pages/BuilderFAQ';
 import BuilderLanding from './pages/BuilderLanding';
@@ -74,19 +80,20 @@ import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import Terms from './pages/Terms';
 import Wishlist from './pages/Wishlist';
-import AdminBuilderBadges from './pages/AdminBuilderBadges';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminAllBuilders from './pages/AdminAllBuilders';
-import AdminPendingBuilders from './pages/AdminPendingBuilders';
-import AdminVerifiedBuilders from './pages/AdminVerifiedBuilders';
-import AdminFoundingBuilders from './pages/AdminFoundingBuilders';
+import AdminPayouts from './pages/AdminPayouts';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "About": About,
     "Account": Account,
+    "AdminAllBuilders": AdminAllBuilders,
+    "AdminBuilderBadges": AdminBuilderBadges,
+    "AdminDashboard": AdminDashboard,
+    "AdminFoundingBuilders": AdminFoundingBuilders,
+    "AdminPendingBuilders": AdminPendingBuilders,
     "AdminReferences": AdminReferences,
+    "AdminVerifiedBuilders": AdminVerifiedBuilders,
     "BuilderCustomers": BuilderCustomers,
     "BuilderFAQ": BuilderFAQ,
     "BuilderLanding": BuilderLanding,
@@ -111,12 +118,7 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Terms": Terms,
     "Wishlist": Wishlist,
-    "AdminBuilderBadges": AdminBuilderBadges,
-    "AdminDashboard": AdminDashboard,
-    "AdminAllBuilders": AdminAllBuilders,
-    "AdminPendingBuilders": AdminPendingBuilders,
-    "AdminVerifiedBuilders": AdminVerifiedBuilders,
-    "AdminFoundingBuilders": AdminFoundingBuilders,
+    "AdminPayouts": AdminPayouts,
 }
 
 export const pagesConfig = {
