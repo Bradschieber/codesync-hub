@@ -32,10 +32,10 @@ export default function Builders() {
   const videoBuilders = builders.filter(b => b.introduction_video_url).slice(0, 3);
 
   return (
-    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
 
       {/* ── PAGE HEADER ── */}
-      <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-14 pb-12">
+      <div style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-14 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl font-bold mb-3 tracking-tight" style={{ color: "#1A1A1A" }}>Meet our Builders</h1>
           <p className="text-base" style={{ color: "#5A5A5A" }}>Independent makers. Verified craft. Real stories.</p>
@@ -102,7 +102,7 @@ export default function Builders() {
         )}
 
         {/* ── BUYER CTA ── */}
-        <section className="mt-20 py-14 px-8 sm:px-14 text-center" style={{ backgroundColor: "#EEF1F7" }}>
+        <section className="mt-20 py-14 px-8 sm:px-14 text-center" style={{ backgroundColor: "#F2F0EA" }}>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#7A7A7A" }}>Looking for something specific?</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight" style={{ color: NAVY }}>
             Commission your dream instrument.
@@ -114,9 +114,9 @@ export default function Builders() {
             <Link
               to={createPageUrl("CustomBuilds")}
               className="inline-block font-semibold px-8 py-4 text-sm tracking-wide text-white transition-colors"
-              style={{ backgroundColor: NAVY }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+              style={{ backgroundColor: AMBER }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
             >
               Explore Custom Builds
             </Link>
@@ -240,8 +240,8 @@ function BuilderCard({ builder }) {
               style={{ borderRadius: 2 }}
             />
           ) : (
-            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7", borderRadius: 2 }}>
-              <User className="w-6 h-6" style={{ color: NAVY }} strokeWidth={1.5} />
+            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F2F0EA", borderRadius: 2 }}>
+            <User className="w-6 h-6" style={{ color: NAVY }} strokeWidth={1.5} />
             </div>
           )}
           <div className="min-w-0 flex-1 pt-0.5">
@@ -271,8 +271,8 @@ function BuilderCard({ builder }) {
 
         {builder.introduction_video_url && (
           <div className="flex items-center gap-1.5 mb-3">
-            <Play className="w-3 h-3" style={{ color: BRONZE }} fill={BRONZE} />
-            <span className="text-xs font-medium" style={{ color: BRONZE }}>Watch intro video</span>
+            <Play className="w-3 h-3" style={{ color: AMBER }} fill={AMBER} />
+            <span className="text-xs font-medium" style={{ color: AMBER }}>Watch intro video</span>
           </div>
         )}
 
