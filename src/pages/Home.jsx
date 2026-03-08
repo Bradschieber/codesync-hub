@@ -27,10 +27,10 @@ export default function Home() {
   }
 
   return (
-    <div style={{ backgroundColor: "#FAF9F7", color: "#1A1A1A" }} className="min-h-screen">
+    <div style={{ backgroundColor: "#F7F6F3", color: "#1F1F1F" }} className="min-h-screen">
 
       {/* ── 1. HERO ── */}
-      <section style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-20 pb-10">
+      <section style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-20 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Headline */}
@@ -98,7 +98,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. PROTECTION & TRUST ── */}
-      <section className="py-20 mt-10" style={{ backgroundColor: "#EEF1F7" }}>
+      <section className="py-20 mt-10" style={{ backgroundColor: "#F2F0EA" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-5 tracking-tight" style={{ color: NAVY, fontFamily: "'DM Sans', 'Inter', sans-serif" }}>
@@ -144,7 +144,7 @@ export default function Home() {
       </section>
 
       {/* ── 4. FEATURED BUILDERS ── */}
-      <section className="py-20 border-t" style={{ backgroundColor: "#FAF9F7", borderColor: "#E0DDD8" }}>
+      <section className="py-20 border-t" style={{ backgroundColor: "#FFFFFF", borderColor: "#E3E0D8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -175,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* ── 5. BUILDER CTA BAND ── */}
-      <section className="py-16" style={{ backgroundColor: NAVY }}>
+      <section className="py-16" style={{ backgroundColor: "#2F3E55" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div>
