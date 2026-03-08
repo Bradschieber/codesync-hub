@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ShoppingBag, ChevronLeft, Package, ChevronDown, ChevronUp, Calendar, Save } from "lucide-react";
+import { ShoppingBag, ChevronLeft, Package, ChevronDown, ChevronUp, Calendar, Save, AlertCircle, CheckCircle2 } from "lucide-react";
 import { format } from "date-fns";
 import FulfillmentStatusBadge, { STOCK_STATUSES, CUSTOM_STATUSES, STATUS_COLORS } from "../components/orders/FulfillmentStatusBadge";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
@@ -39,8 +39,17 @@ export default function BuilderOrders() {
   }
 
   async function updateOrderStatus(order, field, value) {
+    // Gate: prevent shipping statuses until final payment received on custom builds
+    if (
+      order.order_type === "custom" &&
+      ["preparing_to_ship", "shipped"].includes(value) &&
+      !order.final_payment_paid
+    ) {
+      alert("Final payment has not been received yet. You cannot move this order to shipping until the buyer completes their final payment.");
+      return;
+    }
     setUpdating(u => ({ ...u, [order.id]: true }));
-    const updated = await base44.entities.Order.update(order.id, { [field]: value });
+    await base44.entities.Order.update(order.id, { [field]: value });
     setOrders(prev => prev.map(o => o.id === order.id ? { ...o, [field]: value } : o));
     setUpdating(u => ({ ...u, [order.id]: false }));
   }
@@ -128,24 +137,50 @@ export default function BuilderOrders() {
                       ))}
                     </div>
 
+                    {/* Final payment pending banner */}
+                    {order.order_type === "custom" && order.payment_stage === "awaiting_final_payment" && (
+                      <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200">
+                        <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-xs font-semibold text-amber-800">Awaiting final payment from buyer</p>
+                          <p className="text-xs text-amber-700 mt-0.5">You will be notified when payment is received. Shipping statuses are locked until then.</p>
+                        </div>
+                      </div>
+                    )}
+                    {order.order_type === "custom" && order.final_payment_paid && (
+                      <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200">
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <p className="text-xs font-semibold text-green-800">Final payment received — you may now prepare for shipment.</p>
+                      </div>
+                    )}
+
                     {/* Update Status */}
                     <div>
                       <label className="text-xs font-semibold uppercase tracking-wider text-stone-400 block mb-2">Update Fulfillment Status</label>
                       <div className="flex flex-wrap gap-2">
-                        {statusList.map(s => (
-                          <button
-                            key={s.key}
-                            disabled={updating[order.id]}
-                            onClick={() => updateOrderStatus(order, "fulfillment_status", s.key)}
-                            className={`text-xs px-3 py-1.5 rounded-full border transition-all font-medium ${
-                              order.fulfillment_status === s.key
-                                ? `${STATUS_COLORS[s.key]} border-transparent`
-                                : "bg-white border-stone-200 text-stone-500 hover:border-indigo-300"
-                            }`}
-                          >
-                            {s.label}
-                          </button>
-                        ))}
+                        {statusList.map(s => {
+                          const isShippingLocked =
+                            order.order_type === "custom" &&
+                            ["preparing_to_ship", "shipped"].includes(s.key) &&
+                            !order.final_payment_paid;
+                          return (
+                            <button
+                              key={s.key}
+                              disabled={updating[order.id] || isShippingLocked}
+                              onClick={() => updateOrderStatus(order, "fulfillment_status", s.key)}
+                              title={isShippingLocked ? "Locked until final payment received" : ""}
+                              className={`text-xs px-3 py-1.5 rounded-full border transition-all font-medium ${
+                                isShippingLocked
+                                  ? "bg-gray-100 border-gray-200 text-gray-300 cursor-not-allowed"
+                                  : order.fulfillment_status === s.key
+                                  ? `${STATUS_COLORS[s.key]} border-transparent`
+                                  : "bg-white border-stone-200 text-stone-500 hover:border-indigo-300"
+                              }`}
+                            >
+                              {s.label}{isShippingLocked ? " 🔒" : ""}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 

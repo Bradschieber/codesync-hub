@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle
+  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign
 } from "lucide-react";
 
 const NAVY = "#2F3E55";
@@ -62,6 +62,14 @@ export default function AdminDashboard() {
   ];
 
   const adminTools = [
+    {
+      title: "Payout Management",
+      description: "Review deposit and final payout readiness for all orders. Release payouts when all requirements are met.",
+      icon: DollarSign,
+      page: "AdminPayouts",
+      badge: null,
+      urgent: false,
+    },
     {
       title: "Pending Builder Approvals",
       description: "Review new builder storefronts and approve them before they go live on the site.",
