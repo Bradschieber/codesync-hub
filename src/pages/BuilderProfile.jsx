@@ -160,7 +160,7 @@ export default function BuilderProfile() {
 
           {/* Custom Builds */}
           {builder.offers_custom_builds && (
-            <AccordionItem value="custom-builds" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+            <AccordionItem id="custom-builds-section" value="custom-builds" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
               <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
                 <span className="flex items-center gap-2"><Hammer className="w-4 h-4" style={{ color: "#2F3E55" }} /> Custom Builds</span>
               </AccordionTrigger>
@@ -224,7 +224,7 @@ export default function BuilderProfile() {
         </Accordion>
 
         {/* ── LISTINGS / CUSTOM WORK / REVIEWS TABS ── */}
-        <div className="flex border-b border-stone-200 mb-6">
+        <div id="instruments-section" className="flex border-b border-stone-200 mb-6">
           {tabs.map(t => (
             <button
               key={t.id}
