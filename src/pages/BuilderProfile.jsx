@@ -2,16 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Star, ChevronLeft, Quote, Hammer, MessageSquare, X, Check, PlayCircle } from "lucide-react";
+import {
+  Guitar, Star, ChevronLeft, Quote, Hammer, MessageSquare, X, Check, PlayCircle, ArrowRight
+} from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import RequestQuoteModal from "../components/builder/RequestQuoteModal";
-import BuilderBadges from "../components/builder/BuilderBadges";
 import StorefrontHeader from "../components/builder/StorefrontHeader";
-import StorefrontBrandStory from "../components/builder/StorefrontBrandStory";
-import StorefrontMediaGallery from "../components/builder/StorefrontMediaGallery";
 import StorefrontPolicies from "../components/builder/StorefrontPolicies";
-import CustomBuildsContent from "../components/builder/CustomBuildsContent";
 import StorefrontInsideWorkshop from "../components/builder/StorefrontInsideWorkshop";
 import StorefrontOnTheBench from "../components/builder/StorefrontOnTheBench";
 
@@ -20,12 +18,10 @@ export default function BuilderProfile() {
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [orderCount, setOrderCount] = useState(0);
-  const [customBuilds, setCustomBuilds] = useState([]);
   const [references, setReferences] = useState([]);
   const [user, setUser] = useState(null);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("products");
   const [showContactForm, setShowContactForm] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
 
@@ -37,18 +33,16 @@ export default function BuilderProfile() {
   async function loadAll() {
     if (!builderId) return;
     try { const u = await base44.auth.me(); setUser(u); } catch {}
-    const [bldrs, prods, revs, customs, refs, orders] = await Promise.all([
+    const [bldrs, prods, revs, refs, orders] = await Promise.all([
       base44.entities.UserProfile.filter({ id: builderId }),
       base44.entities.Product.filter({ builder_id: builderId, status: "available" }),
       base44.entities.BuilderReview.filter({ builder_id: builderId }),
-      base44.entities.CustomBuildListing.filter({ builder_id: builderId, is_published: true }),
       base44.entities.BuilderReference.filter({ builder_id: builderId, status: "verified" }),
       base44.entities.Order.filter({ builder_id: builderId, status: "delivered" }),
     ]);
     if (bldrs.length > 0) setBuilder(bldrs[0]);
     setProducts(prods);
     setReviews(revs);
-    setCustomBuilds(customs);
     setReferences(refs);
     setOrderCount(orders.length);
     setLoading(false);
@@ -84,13 +78,11 @@ export default function BuilderProfile() {
   );
 
   const avgRating = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
-  const media = builder.media_urls || [];
 
-  const tabs = [
-    { id: "products", label: `Available Instruments (${products.length})` },
-    ...(builder?.offers_custom_builds ? [{ id: "custom", label: "Custom Builds" }] : []),
-    ...(reviews.length > 0 ? [{ id: "reviews", label: `Reviews (${reviews.length})` }] : []),
-  ];
+  // Featured instrument: marked featured first, else most recent
+  const featuredProduct = products.find(p => p.is_featured) || products[0];
+  const displayProducts = products.slice(0, 6);
+  const hasMoreProducts = products.length > 6;
 
   return (
     <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
@@ -101,7 +93,7 @@ export default function BuilderProfile() {
           <ChevronLeft className="w-4 h-4" /> Back to Builders
         </Link>
 
-        {/* ── STOREFRONT HEADER (banner, avatar, logo, save, contact) ── */}
+        {/* 1. Hero + Builder Facts */}
         <StorefrontHeader
           builder={builder}
           avgRating={avgRating}
@@ -113,16 +105,166 @@ export default function BuilderProfile() {
           onRequestQuote={() => setShowQuoteModal(true)}
         />
 
-        {/* ── INSIDE THE WORKSHOP ── */}
+        {/* 2. Inside the Workshop */}
         <StorefrontInsideWorkshop builder={builder} />
 
-        {/* ── ON THE BENCH (live activity feed) ── */}
+        {/* 3. On The Bench */}
         <StorefrontOnTheBench builderId={builder.id} />
 
-        {/* ── ACCORDION SECTIONS ── */}
-        <Accordion type="multiple" defaultValue={["brand-story"]} className="mb-8 space-y-2">
+        {/* 4. Featured Instrument */}
+        {featuredProduct && (
+          <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden mb-6">
+            <div className="px-6 pt-6 pb-2">
+              <h2 className="text-base font-bold text-stone-800">Featured Instrument</h2>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-0">
+              <div className="sm:w-1/2 bg-stone-100 overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                {featuredProduct.image_urls?.[0] ? (
+                  <img src={featuredProduct.image_urls[0]} alt={featuredProduct.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Guitar className="w-12 h-12 text-stone-300" />
+                  </div>
+                )}
+              </div>
+              <div className="sm:w-1/2 p-6 flex flex-col justify-center">
+                <h3 className="text-xl font-bold text-stone-900 mb-2">{featuredProduct.name}</h3>
+                {featuredProduct.description && (
+                  <p className="text-sm text-stone-500 leading-relaxed mb-4 line-clamp-3">{featuredProduct.description}</p>
+                )}
+                <p className="text-2xl font-bold mb-5" style={{ color: "#C57A1F" }}>${featuredProduct.price?.toLocaleString()}</p>
+                <Link
+                  to={createPageUrl("ProductDetail?id=" + featuredProduct.id)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors self-start"
+                  style={{ backgroundColor: "#2F3E55" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#243349"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#2F3E55"}
+                >
+                  View Instrument <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
-          {/* Meet the Builder (video) */}
+        {/* 5. Instruments Currently Available */}
+        {products.length > 0 && (
+          <div id="instruments-section" className="mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-bold text-stone-800">Instruments Currently Available</h2>
+              {hasMoreProducts && (
+                <span className="text-xs text-stone-500">{products.length} listings</span>
+              )}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {displayProducts.map(p => (
+                <Link
+                  key={p.id}
+                  to={createPageUrl("ProductDetail?id=" + p.id)}
+                  className="group block bg-white rounded-xl border border-stone-200 overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <div className="relative overflow-hidden bg-stone-100" style={{ aspectRatio: "4/3" }}>
+                    {p.image_urls?.[0] ? (
+                      <img src={p.image_urls[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center"><Guitar className="w-10 h-10 text-stone-300" /></div>
+                    )}
+                    <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                      Ready to Ship
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-sm mb-1 text-stone-900">{p.name}</h3>
+                    <p className="font-bold text-sm" style={{ color: "#C57A1F" }}>${p.price?.toLocaleString()}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            {hasMoreProducts && (
+              <div className="mt-4 text-center">
+                <button
+                  onClick={() => document.getElementById("instruments-section")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-sm font-semibold underline transition-colors"
+                  style={{ color: "#2F3E55" }}
+                >
+                  View All {products.length} Instruments
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 6. Custom Builds */}
+        {builder.offers_custom_builds && (
+          <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Hammer className="w-5 h-5" style={{ color: "#2F3E55" }} />
+              <h2 className="text-base font-bold text-stone-800">Custom Builds</h2>
+            </div>
+            {builder.custom_build_description && (
+              <p className="text-sm text-stone-600 leading-relaxed mb-4">{builder.custom_build_description}</p>
+            )}
+            <div className="flex flex-wrap gap-4 mb-5">
+              {builder.typical_build_time && (
+                <div className="text-sm">
+                  <span className="font-semibold text-stone-700">Typical Timeline:</span>
+                  <span className="text-stone-500 ml-1">{builder.typical_build_time}</span>
+                </div>
+              )}
+              {builder.deposit_required && (
+                <div className="text-sm">
+                  <span className="font-semibold text-stone-700">Deposit:</span>
+                  <span className="text-stone-500 ml-1">
+                    {builder.deposit_type === "percent" && builder.deposit_percent
+                      ? `${builder.deposit_percent}%`
+                      : builder.deposit_fixed_amount
+                      ? `$${builder.deposit_fixed_amount.toLocaleString()}`
+                      : "Required"}
+                  </span>
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => setShowQuoteModal(true)}
+              className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
+              style={{ backgroundColor: "#C57A1F" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+            >
+              <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Request Custom Build
+            </button>
+            <p className="text-xs text-stone-400 mt-2">Share your specs and discuss details with the builder through Stringed Collective.</p>
+          </div>
+        )}
+
+        {/* 7. Reviews */}
+        <div className="mb-6">
+          <h2 className="text-base font-bold text-stone-800 mb-4">
+            Reviews {reviews.length > 0 && <span className="text-stone-400 font-normal text-sm">({reviews.length})</span>}
+          </h2>
+          {reviews.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-stone-200 p-6 text-center">
+              <p className="text-sm font-medium text-stone-600 mb-1">This builder is new to Stringed Collective.</p>
+              <p className="text-sm text-stone-400">All purchases are protected through the Stringed Collective transaction guarantee.</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {reviews.map(r => (
+                <div key={r.id} className="p-5 border border-stone-200 rounded-xl bg-white">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-semibold text-sm text-stone-900">{r.reviewer_name}</span>
+                    <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className="w-4 h-4" style={{ color: n <= r.rating ? "#D4AC0D" : "#DDDDDD", fill: n <= r.rating ? "#D4AC0D" : "none" }} />)}</div>
+                  </div>
+                  <p className="text-sm leading-relaxed text-stone-600">{r.review_text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Supplemental Accordion: Video, References, Policies */}
+        <Accordion type="multiple" className="mb-8 space-y-2">
           {builder.introduction_video_url && (
             <AccordionItem value="intro-video" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
               <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
@@ -152,21 +294,6 @@ export default function BuilderProfile() {
             </AccordionItem>
           )}
 
-
-
-          {/* Custom Builds */}
-          {builder.offers_custom_builds && (
-            <AccordionItem id="custom-builds-section" value="custom-builds" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
-              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
-                <span className="flex items-center gap-2"><Hammer className="w-4 h-4" style={{ color: "#2F3E55" }} /> Custom Builds</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6">
-                <CustomBuildsContent builder={builder} onRequestQuote={() => setShowQuoteModal(true)} />
-              </AccordionContent>
-            </AccordionItem>
-          )}
-
-          {/* Verified Buyer References */}
           {builder.is_verified && references.length > 0 && (
             <AccordionItem value="references" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
               <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Verified Buyer References</AccordionTrigger>
@@ -184,7 +311,6 @@ export default function BuilderProfile() {
             </AccordionItem>
           )}
 
-          {/* Policies */}
           {(builder.warranty_duration || builder.returns_accepted || builder.shipping_timeline || builder.ships_domestically || builder.ships_internationally || builder.payment_schedule) && (
             <AccordionItem value="policies" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
               <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Policies &amp; Commitment</AccordionTrigger>
@@ -193,145 +319,8 @@ export default function BuilderProfile() {
               </AccordionContent>
             </AccordionItem>
           )}
-
         </Accordion>
 
-        {/* ── LISTINGS / CUSTOM WORK / REVIEWS TABS ── */}
-        <div id="instruments-section" className="flex border-b border-stone-200 mb-6">
-          {tabs.map(t => (
-            <button
-              key={t.id}
-              onClick={() => setActiveTab(t.id)}
-              className="px-5 py-3 text-sm font-medium border-b-2 transition-colors"
-              style={{ borderBottomColor: activeTab === t.id ? "#2F3E55" : "transparent", color: activeTab === t.id ? "#2F3E55" : "#6A6A6A" }}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Products */}
-        {activeTab === "products" && (
-          products.length === 0 ? (
-            <div className="text-center py-16">
-              <Guitar className="w-10 h-10 mx-auto mb-3 text-stone-300" />
-              <p className="text-sm text-stone-600 font-medium mb-1">No instruments available for immediate purchase.</p>
-              <p className="text-sm text-stone-400 mb-5">This builder does not currently have instruments available for immediate purchase.</p>
-              {builder.offers_custom_builds && (
-                <div>
-                  <p className="text-sm text-stone-500 mb-3">You can request a custom build instead.</p>
-                  <button
-                    onClick={() => setShowQuoteModal(true)}
-                    className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-                    style={{ backgroundColor: "#C57A1F" }}
-                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                    onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-                  >
-                    <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-                    Request Custom Build
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map(p => (
-                <Link
-                  key={p.id}
-                  to={createPageUrl("ProductDetail?id=" + p.id)}
-                  className="group block bg-white rounded-xl border border-stone-200 overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  <div className="relative overflow-hidden bg-stone-100" style={{ aspectRatio: "4/3" }}>
-                    {p.image_urls?.[0] ? (
-                      <img src={p.image_urls[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center"><Guitar className="w-10 h-10 text-stone-300" /></div>
-                    )}
-                    {p.status === "available" && (
-                      <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                        Ready to Ship
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-sm mb-1 text-stone-900">{p.name}</h3>
-                    <p className="font-bold text-sm" style={{ color: "#C57A1F" }}>${p.price?.toLocaleString()}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )
-        )}
-
-        {/* Custom Work */}
-        {activeTab === "custom" && (
-          <div>
-            {builder.custom_build_description && (
-              <div className="p-5 rounded-xl mb-6 text-sm leading-relaxed border" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8", color: "#1F1F1F" }}>
-                {builder.custom_build_description}
-              </div>
-            )}
-            {(builder.custom_build_examples || []).length === 0 ? (
-              <div className="text-center py-16 text-sm text-stone-400">No examples posted yet.</div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {(builder.custom_build_examples || []).map((ex, i) => (
-                  <div key={i} className="group">
-                    <div className="overflow-hidden rounded-xl border border-stone-200 aspect-square">
-                      <img src={ex.image_url} alt={ex.caption || "Custom build"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                    </div>
-                    {ex.caption && <p className="text-xs text-stone-500 mt-1.5 px-0.5">{ex.caption}</p>}
-                  </div>
-                ))}
-              </div>
-            )}
-            <div className="mt-8 text-center">
-              <button
-                onClick={() => setShowContactForm(true)}
-                className="font-semibold px-6 py-3 text-sm text-white rounded-lg transition-colors"
-                style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-              >
-                Inquire About a Custom Build
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Reviews */}
-        {activeTab === "reviews" && (
-          reviews.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-sm font-medium text-stone-600 mb-1">This builder is new to Stringed Collective.</p>
-              <p className="text-sm text-stone-400 mb-5">All purchases are protected through the Stringed Collective transaction guarantee.</p>
-              {builder.offers_custom_builds && (
-                <button
-                  onClick={() => setShowQuoteModal(true)}
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-                  style={{ backgroundColor: "#C57A1F" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-                >
-                  <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-                  Request Custom Build
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {reviews.map(r => (
-                <div key={r.id} className="p-5 border border-stone-200 rounded-xl bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold text-sm text-stone-900">{r.reviewer_name}</span>
-                    <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className="w-4 h-4" style={{ color: n <= r.rating ? "#D4AC0D" : "#DDDDDD", fill: n <= r.rating ? "#D4AC0D" : "none" }} />)}</div>
-                  </div>
-                  <p className="text-sm leading-relaxed text-stone-600">{r.review_text}</p>
-                </div>
-              ))}
-            </div>
-          )
-        )}
       </div>
 
       {showContactForm && <ContactModal builder={builder} user={user} onClose={() => setShowContactForm(false)} />}
