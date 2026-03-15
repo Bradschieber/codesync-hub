@@ -24,20 +24,6 @@ export default function StorefrontBrandStory({ builder }) {
         </p>
       </div>
 
-      {/* Business Stats */}
-      {stats.length > 0 && (
-        <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-4">
-          <h2 className="font-bold text-stone-800 mb-4">By the Numbers</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {stats.map(({ label, value }) => (
-              <div key={label} className={`${scheme.sectionBg} rounded-xl p-4 text-center`}>
-                <p className={`text-2xl font-bold ${scheme.accentText}`}>{value}</p>
-                <p className="text-xs text-stone-500 mt-1">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
     </>
   );

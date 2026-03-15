@@ -220,26 +220,6 @@ export default function BuilderProfile() {
             </AccordionItem>
           )}
 
-          {/* Contact */}
-          <AccordionItem value="contact" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
-            <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
-              <span className="flex items-center gap-2"><MessageSquare className="w-4 h-4" style={{ color: "#2F3E55" }} /> Get in Touch</span>
-            </AccordionTrigger>
-            <AccordionContent className="pb-6">
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "#5A5A5A" }}>
-                Start a conversation with the builder to discuss your ideas, specifications, or upcoming builds.
-              </p>
-              <button
-                onClick={() => setShowContactForm(true)}
-                className="flex items-center gap-2 border font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors"
-                style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
-                <MessageSquare className="w-4 h-4" /> Message the Builder
-              </button>
-            </AccordionContent>
-          </AccordionItem>
-
         </Accordion>
 
         {/* ── LISTINGS / CUSTOM WORK / REVIEWS TABS ── */}
