@@ -30,6 +30,34 @@ export default function MediaUploader({ mediaUrls = [], onChange }) {
 
   return (
     <div>
+      {/* Guidance above upload area */}
+      <div className="mb-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+        <p className="text-xs font-semibold text-amber-800 mb-2">Great photos help buyers understand how you build and what makes your work unique.</p>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+          {["Your workshop","Tools or workbench","In-progress instruments","Tonewoods and materials","Closeups of craftsmanship","You working on a build"].map(tip => (
+            <p key={tip} className="text-xs text-amber-700 flex items-center gap-1"><span className="text-amber-400">•</span> {tip}</p>
+          ))}
+        </div>
+      </div>
+
+      {/* Example tiles */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-4">
+        {[
+          { label: "Workshop", color: "bg-stone-200", icon: "🏚" },
+          { label: "Workbench", color: "bg-amber-100", icon: "🪚" },
+          { label: "In Progress", color: "bg-yellow-100", icon: "🎸" },
+          { label: "Tonewoods", color: "bg-orange-100", icon: "🪵" },
+          { label: "Finishing", color: "bg-lime-100", icon: "✨" },
+          { label: "Craft Details", color: "bg-blue-100", icon: "🔍" },
+        ].map(({ label, color, icon }) => (
+          <div key={label} className={`${color} rounded-lg aspect-square flex flex-col items-center justify-center gap-1 border border-white/50`}>
+            <span className="text-xl">{icon}</span>
+            <span className="text-xs font-medium text-stone-600 text-center leading-tight px-1">{label}</span>
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-stone-400 mb-3">These are example content types — upload your own photos below.</p>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
         {mediaUrls.map((url, i) => (
           <div key={i} className="relative group rounded-xl overflow-hidden border border-stone-200 aspect-video bg-stone-100">
@@ -73,15 +101,7 @@ export default function MediaUploader({ mediaUrls = [], onChange }) {
         className="hidden"
         onChange={handleFiles}
       />
-      <p className="text-xs text-stone-500 font-medium mb-1">Great photos to include:</p>
-      <ul className="text-xs text-stone-400 space-y-0.5 list-none">
-        <li>• Your workshop</li>
-        <li>• Tools or workbench</li>
-        <li>• In-progress instruments</li>
-        <li>• Tonewoods and materials</li>
-        <li>• Closeups of craftsmanship</li>
-        <li>• You working on a build</li>
-      </ul>
+      <p className="text-xs text-stone-500 mt-2">Builders with workshop photos create stronger storefronts and give buyers more confidence. <span className="font-medium text-stone-600">Recommended: 4–8 photos.</span></p>
     </div>
   );
 }
