@@ -42,6 +42,8 @@ export default function Dashboard() {
         setReviews(revs);
         const builderOrders = allOrders.filter(o => o.items?.some(item => item.builder_name === builderName));
         setRecentOrders(builderOrders.slice(0, 5));
+        const posts = await base44.entities.WorkshopPost.filter({ builder_id: p.id }, "-created_date", 1);
+        setWorkshopPosts(posts);
       }
     } catch {
       base44.auth.redirectToLogin();
