@@ -1,4 +1,4 @@
-import { MapPin, Globe, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar, Package } from "lucide-react";
+import { MapPin, Globe, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar, Package, Check } from "lucide-react";
 
 const COLOR_SCHEMES = {
   "earthy": { banner: "from-amber-900 to-stone-800", accentText: "text-amber-700", accentBg: "bg-amber-50", accentBorder: "border-amber-200", sectionBg: "bg-amber-50" },

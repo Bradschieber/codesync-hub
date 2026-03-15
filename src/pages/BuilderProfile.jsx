@@ -312,7 +312,22 @@ export default function BuilderProfile() {
         {/* Reviews */}
         {activeTab === "reviews" && (
           reviews.length === 0 ? (
-            <div className="text-center py-16 text-sm text-stone-400">No reviews yet.</div>
+            <div className="text-center py-16">
+              <p className="text-sm font-medium text-stone-600 mb-1">This builder is new to Stringed Collective.</p>
+              <p className="text-sm text-stone-400 mb-5">All purchases are protected through the Stringed Collective transaction guarantee.</p>
+              {builder.offers_custom_builds && (
+                <button
+                  onClick={() => setShowQuoteModal(true)}
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
+                  style={{ backgroundColor: "#C57A1F" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                >
+                  <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                  Request Custom Build
+                </button>
+              )}
+            </div>
           ) : (
             <div className="space-y-4">
               {reviews.map(r => (
