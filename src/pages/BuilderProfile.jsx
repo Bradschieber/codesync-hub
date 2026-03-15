@@ -17,6 +17,7 @@ export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [orderCount, setOrderCount] = useState(0);
   const [customBuilds, setCustomBuilds] = useState([]);
   const [references, setReferences] = useState([]);
   const [user, setUser] = useState(null);
