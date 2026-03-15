@@ -1,4 +1,4 @@
-import { MapPin, Globe, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar } from "lucide-react";
+import { MapPin, Globe, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar, Package } from "lucide-react";
 
 const COLOR_SCHEMES = {
   "earthy": { banner: "from-amber-900 to-stone-800", accentText: "text-amber-700", accentBg: "bg-amber-50", accentBorder: "border-amber-200", sectionBg: "bg-amber-50" },
@@ -16,11 +16,42 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
   const scheme = getScheme(builder.storefront_color_scheme);
   const name = builder.business_name || builder.display_name || "Builder";
 
-  const locationTagline = [builder.location, builder.tag_line].filter(Boolean).join(" • ");
-
   function scrollToSection(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Build the trust facts (max 5, in priority order)
+  const facts = [];
+
+  if (builder.years_experience > 0) {
+    facts.push({ icon: Star, label: `${builder.years_experience}+ Years Building` });
+  }
+  if (builder.offers_custom_builds) {
+    facts.push({ icon: Hammer, label: "Custom Builds Available" });
+    if (builder.typical_build_time) {
+      facts.push({ icon: Clock, label: `Typical Custom Build Time: ${builder.typical_build_time}` });
+    }
+    if (builder.deposit_required) {
+      const depositVal = builder.deposit_type === "percent" && builder.deposit_percent
+        ? `${builder.deposit_percent}%`
+        : builder.deposit_fixed_amount
+        ? `$${builder.deposit_fixed_amount.toLocaleString()}`
+        : "Required";
+      facts.push({ icon: DollarSign, label: `Custom Build Deposit: ${depositVal}` });
+    }
+  }
+
+  const shipsLabel =
+    builder.ships_domestically && builder.ships_internationally
+      ? "Ships Domestic & International"
+      : builder.ships_internationally
+      ? "Ships Internationally"
+      : builder.ships_domestically
+      ? "Ships Domestically"
+      : null;
+  if (shipsLabel) {
+    facts.push({ icon: Package, label: shipsLabel });
   }
 
   return (
@@ -63,12 +94,25 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
           </button>
         </div>
 
-        {/* Hero text content — overlaid on banner, padded top/bottom */}
+        {/* Hero text content */}
         <div className="relative z-10 px-6 sm:px-8" style={{ paddingTop: "80px", paddingBottom: "80px" }}>
           <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-md mb-1">{name}</h1>
 
-          {/* Badges inline */}
-          <div className="flex items-center gap-2 flex-wrap mb-2">
+          {/* Tagline */}
+          {builder.tag_line && (
+            <p className="text-white/80 text-base mb-2 max-w-xl">{builder.tag_line}</p>
+          )}
+
+          {/* Location */}
+          {builder.location && (
+            <p className="text-white/70 text-sm flex items-center gap-1.5 mb-2">
+              <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+              {builder.location}
+            </p>
+          )}
+
+          {/* Badges */}
+          <div className="flex items-center gap-2 flex-wrap mb-6">
             {builder.is_verified && (
               <span className="flex items-center gap-1 text-xs font-semibold text-white bg-white/20 border border-white/30 px-2.5 py-0.5 rounded-full backdrop-blur-sm">
                 <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
@@ -81,13 +125,6 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
               </span>
             )}
           </div>
-
-          {locationTagline && (
-            <p className="text-white/80 text-sm flex items-center gap-1.5 mb-6">
-              {builder.location && <MapPin className="w-3.5 h-3.5 flex-shrink-0" />}
-              {locationTagline}
-            </p>
-          )}
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-3">
@@ -140,7 +177,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
         {/* Avatar overlapping bottom of banner */}
         <div className="absolute -bottom-9 left-6 z-20">
           {builder.avatar_url ? (
-            <img src={builder.avatar_url} className="w-18 h-18 rounded-full object-cover border-4 border-white shadow-md" style={{ width: 72, height: 72 }} />
+            <img src={builder.avatar_url} className="rounded-full object-cover border-4 border-white shadow-md" style={{ width: 72, height: 72 }} />
           ) : (
             <div className="rounded-full border-4 border-white shadow-md flex items-center justify-center bg-stone-200" style={{ width: 72, height: 72 }}>
               <span className="text-stone-600 font-bold text-2xl">{name[0]}</span>
@@ -149,7 +186,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
         </div>
       </div>
 
-      {/* ── BELOW BANNER: rating, social, quick-intro ── */}
+      {/* ── BELOW BANNER: rating, social, trust facts ── */}
       <div className="px-6 pb-6" style={{ paddingTop: "52px" }}>
 
         {/* Rating + social links */}
@@ -182,60 +219,17 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
           )}
         </div>
 
-        {/* Quick-intro details */}
-        <div className="border-t border-stone-100 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {builder.years_experience > 0 && (
-            <div className="flex items-start gap-2 text-sm">
-              <Star className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-600"><strong className="text-stone-800">{builder.years_experience} years</strong> of experience</span>
-            </div>
-          )}
-          {(builder.offers_stock_builds || builder.offers_custom_builds) && (
-            <div className="flex items-start gap-2 text-sm">
-              <Guitar className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-600">
-                Offers: <strong className="text-stone-800">
-                  {[builder.offers_stock_builds && "Stock Instruments", builder.offers_custom_builds && "Custom Builds"].filter(Boolean).join(" & ")}
-                </strong>
-              </span>
-            </div>
-          )}
-          {builder.offers_custom_builds && (
-            <div className="flex items-start gap-2 text-sm">
-              <Hammer className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-600">
-                Custom builds available
-                {builder.typical_build_time && <> · typical delivery <strong className="text-stone-800">{builder.typical_build_time}</strong></>}
-              </span>
-            </div>
-          )}
-          {!builder.offers_custom_builds && builder.typical_build_time && (
-            <div className="flex items-start gap-2 text-sm">
-              <Clock className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-600">Typical build time: <strong className="text-stone-800">{builder.typical_build_time}</strong></span>
-            </div>
-          )}
-          {builder.deposit_required && (
-            <div className="flex items-start gap-2 text-sm">
-              <DollarSign className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-600">
-                Deposit required: <strong className="text-stone-800">
-                  {builder.deposit_type === "percent" && builder.deposit_percent
-                    ? `${builder.deposit_percent}%`
-                    : builder.deposit_fixed_amount
-                    ? `$${builder.deposit_fixed_amount.toLocaleString()}`
-                    : "Yes"}
-                </strong>
-              </span>
-            </div>
-          )}
-          {builder.pricing_notes && (
-            <div className="flex items-start gap-2 text-sm sm:col-span-2">
-              <DollarSign className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-600">{builder.pricing_notes}</span>
-            </div>
-          )}
-        </div>
+        {/* Trust Facts Row */}
+        {facts.length > 0 && (
+          <div className="border-t border-stone-100 pt-4 flex flex-wrap" style={{ gap: "12px 24px" }}>
+            {facts.slice(0, 5).map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-1.5 text-sm text-stone-700">
+                <Icon className="w-4 h-4 text-stone-400 flex-shrink-0" />
+                <span className="font-medium">{label}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
