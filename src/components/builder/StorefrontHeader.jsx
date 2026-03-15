@@ -12,7 +12,7 @@ export function getScheme(key) {
   return COLOR_SCHEMES[key] || COLOR_SCHEMES["earthy"];
 }
 
-export default function StorefrontHeader({ builder, avgRating, reviewCount, saved, onToggleSave, onContact, onScrollToProducts, onScrollToCustom }) {
+export default function StorefrontHeader({ builder, avgRating, reviewCount, saved, onToggleSave, onContact, onRequestQuote }) {
   const scheme = getScheme(builder.storefront_color_scheme);
   const name = builder.business_name || builder.display_name || "Builder";
 
