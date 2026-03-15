@@ -189,11 +189,14 @@ export default function DashboardProfile() {
         {/* 3. Tell Your Story */}
         <div ref={sectionRefs.story}>
           <AccordionSection id="story" title="Tell Your Story" isOpen={openSection === "story"} onToggle={toggleSection} complete={sectionComplete("story", form, productCount)}>
-            <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Sparkles className="w-4 h-4 text-stone-500" />
+            <div className="mb-4 p-4 bg-stone-50 border border-stone-200 rounded-xl">
+              <div className="flex items-start gap-3">
+                <Sparkles className="w-4 h-4 text-stone-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-xs font-semibold text-stone-700 mb-1">Your story helps buyers understand who you are, why you build, and what makes your instruments unique.</p>
+                  <p className="text-xs text-stone-500 leading-relaxed">This is your stage. Buyers aren't just buying a guitar — they're buying into you. Make it personal, make it real.</p>
+                </div>
               </div>
-              <p className="text-gray-500 text-xs mt-1.5 leading-relaxed">This is your stage. Buyers aren't just buying a guitar — they're buying into you. Make it personal, make it real.</p>
             </div>
             <div className="mb-5 grid sm:grid-cols-2 gap-3">
               {STORY_PROMPTS.map(({ icon: Icon, label, hint }) => (
@@ -218,17 +221,22 @@ export default function DashboardProfile() {
           </AccordionSection>
         </div>
 
-        {/* 4. Photos & Video */}
+        {/* 4. Show Buyers Your Craft */}
         <div ref={sectionRefs.photos}>
-          <AccordionSection id="photos" title="Photos & Video" isOpen={openSection === "photos"} onToggle={toggleSection} complete={sectionComplete("photos", form, productCount)}>
-            <p className="text-gray-400 text-xs mb-4">Show buyers who you are and where your instruments come to life. Include a photo of yourself, your shop, your tools, and your builds in progress.</p>
+          <AccordionSection id="photos" title="Show Buyers Your Craft" isOpen={openSection === "photos"} onToggle={toggleSection} complete={sectionComplete("photos", form, productCount)}>
             <MediaUploader
               mediaUrls={form.media_urls || []}
               onChange={urls => setForm({ ...form, media_urls: urls })}
             />
             <div className="mt-6 pt-6 border-t border-gray-100">
               <h3 className="text-sm font-semibold text-gray-800 mb-1">Introduction Video</h3>
-              <p className="text-xs text-gray-400 mb-4">Share a short video introducing yourself and your craft. Paste a YouTube or Vimeo link.</p>
+              <p className="text-xs text-gray-400 mb-1">A short shop or intro video can help buyers connect with your process and workspace.</p>
+              <div className="mb-4 text-xs text-stone-500 space-y-0.5">
+                <p className="font-medium text-stone-600">Great video ideas:</p>
+                {["Workshop walkthrough","You talking about your builds","Process footage","Tools or in-progress work"].map(v => (
+                  <p key={v} className="flex items-center gap-1"><span className="text-stone-300">•</span> {v}</p>
+                ))}
+              </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Video URL</label>
