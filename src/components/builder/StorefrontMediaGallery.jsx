@@ -65,7 +65,7 @@ export default function StorefrontMediaGallery({ builder, media }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-6">
+    <div className="bg-white rounded-2xl border border-stone-200 p-6">
       <h2 className="font-bold text-stone-800 mb-4">The Shop & The Craft</h2>
       {renderGrid()}
     </div>
