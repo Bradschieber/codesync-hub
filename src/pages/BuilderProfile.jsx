@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Star, ChevronLeft, Quote, Hammer, MessageSquare, X, Check, PlayCircle } from "lucide-react";
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import RequestQuoteModal from "../components/builder/RequestQuoteModal";
 import BuilderBadges from "../components/builder/BuilderBadges";
