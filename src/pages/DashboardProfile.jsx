@@ -382,6 +382,26 @@ export default function DashboardProfile() {
           </div>
         </div>
 
+        {/* Workshop Activity onboarding nudge */}
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+          <div className="flex items-start gap-3">
+            <Camera className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-amber-900 mb-1">Keep your storefront active with Workshop Activity posts.</p>
+              <p className="text-xs text-amber-700 leading-relaxed mb-3">Share photos of builds in progress, tools, materials, and shop work to show buyers what you're working on. Active storefronts build buyer confidence over time.</p>
+              <Link
+                to={createPageUrl("DashboardWorkshop")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
+                style={{ backgroundColor: "#C57A1F" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+              >
+                <Camera className="w-3.5 h-3.5" /> Create Your First Workshop Post
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <button type="submit" disabled={saving} className={`w-full flex items-center justify-center gap-2 font-semibold py-3.5 rounded-xl transition-colors ${saved ? "bg-green-600 text-white" : "text-white"} disabled:opacity-50`} style={!saved ? { backgroundColor: "#1B2B4B" } : {}}>
           <Save className="w-4 h-4" />
           {saving ? "Saving..." : saved ? "Saved!" : "Save Profile"}
