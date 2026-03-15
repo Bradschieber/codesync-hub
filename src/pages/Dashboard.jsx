@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera } from "lucide-react";
+import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera, X } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -15,6 +15,8 @@ export default function Dashboard() {
   const [reviews, setReviews] = useState([]);
   const [recentOrders, setRecentOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [workshopPosts, setWorkshopPosts] = useState([]);
+  const [workshopPromptDismissed, setWorkshopPromptDismissed] = useState(() => sessionStorage.getItem("workshop_prompt_dismissed") === "1");
 
   useEffect(() => { loadDashboard(); }, []);
 
