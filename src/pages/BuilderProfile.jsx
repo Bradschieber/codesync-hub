@@ -103,6 +103,7 @@ export default function BuilderProfile() {
           saved={saved}
           onToggleSave={toggleSave}
           onContact={() => setShowContactForm(true)}
+          onRequestQuote={() => setShowQuoteModal(true)}
         />
 
         {/* ── ACCORDION SECTIONS ── */}
