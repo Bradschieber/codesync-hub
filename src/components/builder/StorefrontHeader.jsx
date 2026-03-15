@@ -24,6 +24,13 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
   // Build the trust facts (max 5, in priority order)
   const facts = [];
 
+  // Instrument types first
+  const instrumentTypes = builder.instrument_types_built || [];
+  if (instrumentTypes.length > 0) {
+    const labels = instrumentTypes.map(i => i.type === "Other" && i.other_description ? i.other_description : i.type);
+    facts.push({ icon: Guitar, label: labels.join(", ") });
+  }
+
   if (builder.years_experience > 0) {
     facts.push({ icon: Star, label: `${builder.years_experience}+ Years Building` });
   }
