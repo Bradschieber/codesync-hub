@@ -265,7 +265,53 @@ export default function DashboardProfile() {
                 <input value={form.typical_build_time || ""} onChange={e => setForm({...form, typical_build_time: e.target.value})} placeholder="e.g. 3–6 months" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
               </div>
             </div>
-            <div className="mt-4 p-4 bg-stone-50 border border-stone-200 rounded-xl">
+            <div className="mt-4 p-4 bg-stone-50 border border-stone-200 rounded-xl mb-4">
+              <p className="text-sm font-semibold text-gray-700 mb-1">What kind of instruments do you build? <span className="text-red-500">*</span></p>
+              <p className="text-xs text-gray-400 mb-3">Select all that apply.</p>
+              <div className="space-y-2">
+                {["Electric Guitar", "Acoustic Guitar", "Electric Bass", "Acoustic Electric Bass", "Other"].map(type => {
+                  const current = form.instrument_types_built || [];
+                  const entry = current.find(i => i.type === type);
+                  const checked = !!entry;
+                  return (
+                    <div key={type}>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={`inst_${type}`}
+                          checked={checked}
+                          onChange={e => {
+                            let updated = [...current];
+                            if (e.target.checked) {
+                              updated.push({ type });
+                            } else {
+                              updated = updated.filter(i => i.type !== type);
+                            }
+                            setForm({ ...form, instrument_types_built: updated });
+                          }}
+                          className="h-4 w-4 rounded"
+                          style={{ accentColor: "#1B2B4B" }}
+                        />
+                        <label htmlFor={`inst_${type}`} className="text-sm text-gray-700 cursor-pointer">{type}</label>
+                      </div>
+                      {checked && type === "Other" && (
+                        <input
+                          className="mt-1 ml-6 w-full border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+                          placeholder="Describe your instrument type..."
+                          value={entry.other_description || ""}
+                          onChange={e => {
+                            const updated = current.map(i => i.type === "Other" ? { ...i, other_description: e.target.value } : i);
+                            setForm({ ...form, instrument_types_built: updated });
+                          }}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="p-4 bg-stone-50 border border-stone-200 rounded-xl">
               <p className="text-sm font-semibold text-gray-700 mb-1">What do you offer? <span className="text-red-500">*</span></p>
               <p className="text-xs text-gray-400 mb-3">Select at least one. This determines what buyers can do on your storefront.</p>
               <div className="space-y-3">
