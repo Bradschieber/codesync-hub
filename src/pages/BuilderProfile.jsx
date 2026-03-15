@@ -12,6 +12,8 @@ import StorefrontBrandStory from "../components/builder/StorefrontBrandStory";
 import StorefrontMediaGallery from "../components/builder/StorefrontMediaGallery";
 import StorefrontPolicies from "../components/builder/StorefrontPolicies";
 import CustomBuildsContent from "../components/builder/CustomBuildsContent";
+import StorefrontInsideWorkshop from "../components/builder/StorefrontInsideWorkshop";
+import StorefrontOnTheBench from "../components/builder/StorefrontOnTheBench";
 
 export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
@@ -110,6 +112,12 @@ export default function BuilderProfile() {
           onContact={() => setShowContactForm(true)}
           onRequestQuote={() => setShowQuoteModal(true)}
         />
+
+        {/* ── INSIDE THE WORKSHOP ── */}
+        <StorefrontInsideWorkshop builder={builder} />
+
+        {/* ── ON THE BENCH (live activity feed) ── */}
+        <StorefrontOnTheBench builderId={builder.id} />
 
         {/* ── ACCORDION SECTIONS ── */}
         <Accordion type="multiple" defaultValue={["brand-story"]} className="mb-8 space-y-2">
