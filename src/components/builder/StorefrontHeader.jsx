@@ -94,7 +94,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
             {builder.offers_custom_builds ? (
               <>
                 <button
-                  onClick={() => scrollToSection("custom-builds-section")}
+                  onClick={onRequestQuote}
                   className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
                   style={{ backgroundColor: "#C57A1F" }}
                   onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
