@@ -165,14 +165,7 @@ export default function BuilderProfile() {
           </button>
         </div>
 
-        {/* Specialties */}
-        {builder.specialties?.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6">
-            {builder.specialties.map(s => (
-              <span key={s} className="text-xs font-medium px-3 py-1.5 border border-gray-200 rounded-full text-gray-600 bg-white">{s}</span>
-            ))}
-          </div>
-        )}
+
 
         {/* Custom Builds CTA */}
         {builder.offers_custom_builds && (
