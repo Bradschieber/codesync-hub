@@ -86,85 +86,145 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
         )}
       </div>
 
-      <div className="px-6 pb-6">
-        <div className="flex flex-col sm:flex-row sm:items-end gap-4 -mt-10 mb-4">
-          {builder.avatar_url ? (
-            <img src={builder.avatar_url} className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg" />
-          ) : (
-            <div className="w-20 h-20 rounded-full bg-amber-100 border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-amber-700 font-bold text-3xl">{(builder.business_name || "B")[0]}</span>
-            </div>
-          )}
-          {/* Logo */}
-          {builder.logo_url && (
-            <div className="w-24 h-16 bg-white rounded-xl border border-stone-200 shadow-md flex items-center justify-center p-2 -mt-8">
-              <img src={builder.logo_url} alt="Logo" className="max-w-full max-h-full object-contain" />
-            </div>
-          )}
-          {layout !== "editorial" && (
-            <div className="sm:flex-1 sm:pb-2">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-2xl font-bold text-stone-800">{builder.business_name || builder.display_name}</h1>
-                {builder.is_verified && (
-                  <span className="flex items-center gap-1 text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
-                    Verified Builder
-                  </span>
-                )}
+      {/* Avatar + identity — below banner, no overlap */}
+      <div className="px-6 pt-5 pb-6">
+        {/* Top row: avatar/logo + CTAs */}
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex items-center gap-4">
+            {builder.avatar_url ? (
+              <img src={builder.avatar_url} className="w-16 h-16 rounded-full object-cover border-2 border-stone-200 shadow-sm flex-shrink-0" />
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-stone-100 border-2 border-stone-200 flex items-center justify-center flex-shrink-0">
+                <span className="text-stone-500 font-bold text-2xl">{(builder.business_name || "B")[0]}</span>
               </div>
-              {builder.location && (
-                <p className="text-stone-400 text-sm flex items-center gap-1"><MapPin className="w-3 h-3" /> {builder.location}</p>
-              )}
-            </div>
-          )}
-          {layout === "editorial" && <div className="sm:flex-1" />}
-          <div className="flex gap-2 sm:pb-2">
-            <button onClick={onToggleSave} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl border text-sm font-medium transition-colors ${saved ? "bg-red-50 border-red-200 text-red-600" : "border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+            )}
+            {builder.logo_url && (
+              <div className="h-12 bg-white rounded-lg border border-stone-200 shadow-sm flex items-center justify-center p-2">
+                <img src={builder.logo_url} alt="Logo" className="max-h-full max-w-24 object-contain" />
+              </div>
+            )}
+          </div>
+          {/* Save + Contact — top right */}
+          <div className="flex gap-2 flex-shrink-0">
+            <button onClick={onToggleSave} className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${saved ? "bg-red-50 border-red-200 text-red-600" : "border-stone-300 text-stone-500 hover:border-stone-400"}`}>
               {saved ? <HeartOff className="w-4 h-4" /> : <Heart className="w-4 h-4" />}
-              {saved ? "Saved" : "Save"}
+              <span className="hidden sm:inline">{saved ? "Saved" : "Save"}</span>
             </button>
-            <button onClick={onContact} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-sm font-medium ${scheme.accent}`}>
-              <MessageSquare className="w-4 h-4" /> Contact
+            <button onClick={onContact} className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-semibold transition-colors" style={{ backgroundColor: "#2F3E55" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#1e2e42"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#2F3E55"}>
+              <MessageSquare className="w-4 h-4" /> Message
             </button>
           </div>
         </div>
 
-        {layout === "editorial" && builder.is_verified && (
-          <div className="mb-3">
-            <span className="flex items-center gap-1 text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full inline-flex w-fit">
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
-              Verified Builder
-            </span>
+        {/* Name + badges */}
+        {layout !== "editorial" && (
+          <div className="mb-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-2xl font-bold text-stone-900">{builder.business_name || builder.display_name}</h1>
+              {builder.is_verified && (
+                <span className="flex items-center gap-1 text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
+                  Verified Builder
+                </span>
+              )}
+              {builder.founding_builder && (
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full border" style={{ backgroundColor: "#FDF3E3", color: "#C57A1F", borderColor: "#F0D4A0" }}>
+                  Founding Builder
+                </span>
+              )}
+            </div>
+            {builder.location && (
+              <p className="text-stone-400 text-sm flex items-center gap-1 mt-0.5"><MapPin className="w-3 h-3" /> {builder.location}</p>
+            )}
           </div>
         )}
 
-        <div className="flex flex-wrap gap-6 text-sm text-stone-600 mb-4">
-          {builder.years_experience > 0 && <span><strong className="text-stone-800">{builder.years_experience}</strong> years exp.</span>}
+        {/* Rating + social links */}
+        <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500 mb-5">
           {avgRating > 0 && (
             <span className="flex items-center gap-1">
               <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <strong className="text-stone-800">{avgRating.toFixed(1)}</strong> ({reviewCount} reviews)
+              <strong className="text-stone-700">{avgRating.toFixed(1)}</strong> ({reviewCount} reviews)
             </span>
           )}
           {builder.website_url && (
-            <a href={builder.website_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-amber-600 hover:underline">
-              <Globe className="w-3 h-3" /> Website
-            </a>
-          )}
-          {builder.facebook_url && (
-            <a href={builder.facebook_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-600 hover:underline">
-              <Facebook className="w-3 h-3" /> Facebook
+            <a href={builder.website_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-stone-800 transition-colors">
+              <Globe className="w-3.5 h-3.5" /> Website
             </a>
           )}
           {builder.instagram_url && (
-            <a href={builder.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-pink-600 hover:underline">
-              <Instagram className="w-3 h-3" /> Instagram
+            <a href={builder.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-pink-500 hover:text-pink-700 transition-colors">
+              <Instagram className="w-3.5 h-3.5" /> Instagram
+            </a>
+          )}
+          {builder.facebook_url && (
+            <a href={builder.facebook_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-500 hover:text-blue-700 transition-colors">
+              <Facebook className="w-3.5 h-3.5" /> Facebook
             </a>
           )}
           {builder.x_url && (
-            <a href={builder.x_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-stone-700 hover:underline">
+            <a href={builder.x_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-stone-800 transition-colors">
               <span className="text-xs font-bold">𝕏</span> X
             </a>
+          )}
+        </div>
+
+        {/* Quick-intro details */}
+        <div className="border-t border-stone-100 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {builder.years_experience > 0 && (
+            <div className="flex items-start gap-2 text-sm">
+              <Star className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+              <span className="text-stone-600"><strong className="text-stone-800">{builder.years_experience} years</strong> of experience</span>
+            </div>
+          )}
+          {(builder.offers_stock_builds || builder.offers_custom_builds) && (
+            <div className="flex items-start gap-2 text-sm">
+              <Guitar className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+              <span className="text-stone-600">
+                Offers:{" "}
+                <strong className="text-stone-800">
+                  {[builder.offers_stock_builds && "Stock Instruments", builder.offers_custom_builds && "Custom Builds"].filter(Boolean).join(" & ")}
+                </strong>
+              </span>
+            </div>
+          )}
+          {builder.offers_custom_builds && (
+            <div className="flex items-start gap-2 text-sm">
+              <Hammer className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+              <span className="text-stone-600">
+                Custom builds available
+                {builder.typical_build_time && <> · typical delivery <strong className="text-stone-800">{builder.typical_build_time}</strong></>}
+              </span>
+            </div>
+          )}
+          {!builder.offers_custom_builds && builder.typical_build_time && (
+            <div className="flex items-start gap-2 text-sm">
+              <Clock className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+              <span className="text-stone-600">Typical build time: <strong className="text-stone-800">{builder.typical_build_time}</strong></span>
+            </div>
+          )}
+          {(builder.deposit_required) && (
+            <div className="flex items-start gap-2 text-sm">
+              <DollarSign className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+              <span className="text-stone-600">
+                Deposit required:{" "}
+                <strong className="text-stone-800">
+                  {builder.deposit_type === "percent" && builder.deposit_percent
+                    ? `${builder.deposit_percent}%`
+                    : builder.deposit_fixed_amount
+                    ? `$${builder.deposit_fixed_amount.toLocaleString()}`
+                    : "Yes"}
+                </strong>
+              </span>
+            </div>
+          )}
+          {builder.pricing_notes && (
+            <div className="flex items-start gap-2 text-sm sm:col-span-2">
+              <DollarSign className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+              <span className="text-stone-600">{builder.pricing_notes}</span>
+            </div>
           )}
         </div>
       </div>
