@@ -210,6 +210,16 @@ export default function BuilderProfile() {
             </AccordionItem>
           )}
 
+          {/* Policies */}
+          {(builder.warranty_duration || builder.returns_accepted || builder.shipping_timeline || builder.ships_domestically || builder.ships_internationally || builder.payment_schedule) && (
+            <AccordionItem value="policies" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Policies &amp; Commitment</AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <StorefrontPolicies builder={builder} />
+              </AccordionContent>
+            </AccordionItem>
+          )}
+
           {/* Contact */}
           <AccordionItem value="contact" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
             <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
