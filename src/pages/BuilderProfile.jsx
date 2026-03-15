@@ -11,6 +11,7 @@ import StorefrontHeader from "../components/builder/StorefrontHeader";
 import StorefrontBrandStory from "../components/builder/StorefrontBrandStory";
 import StorefrontMediaGallery from "../components/builder/StorefrontMediaGallery";
 import StorefrontPolicies from "../components/builder/StorefrontPolicies";
+import CustomBuildsContent from "../components/builder/CustomBuildsContent";
 
 export default function BuilderProfile() {
   const [builder, setBuilder] = useState(null);
