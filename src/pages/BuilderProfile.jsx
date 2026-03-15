@@ -166,30 +166,7 @@ export default function BuilderProfile() {
                 <span className="flex items-center gap-2"><Hammer className="w-4 h-4" style={{ color: "#2F3E55" }} /> Custom Builds</span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
-                <p className="text-sm leading-relaxed text-stone-600 mb-5">
-                  {builder.custom_build_description || "This builder accepts custom build requests. Reach out to discuss your dream instrument."}
-                </p>
-                {(builder.custom_build_examples || []).length > 0 && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
-                    {(builder.custom_build_examples || []).map((ex, i) => (
-                      <div key={i} className="group">
-                        <div className="overflow-hidden rounded-xl border border-stone-200 aspect-square">
-                          <img src={ex.image_url} alt={ex.caption || "Custom build"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                        </div>
-                        {ex.caption && <p className="text-xs text-stone-500 mt-1.5 px-0.5">{ex.caption}</p>}
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <button
-                  onClick={() => setShowQuoteModal(true)}
-                  className="font-semibold px-5 py-2.5 text-sm text-white rounded-lg transition-colors"
-                  style={{ backgroundColor: "#C57A1F" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-                >
-                  Request a Quote
-                </button>
+                <CustomBuildsContent builder={builder} onRequestQuote={() => setShowQuoteModal(true)} />
               </AccordionContent>
             </AccordionItem>
           )}
