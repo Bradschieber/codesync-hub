@@ -199,12 +199,13 @@ export default function DashboardProfile() {
               </div>
             </div>
             <div className="mb-5 grid sm:grid-cols-2 gap-3">
-              {STORY_PROMPTS.map(({ icon: Icon, label, hint }) => (
+              {STORY_PROMPTS.map(({ icon: Icon, label, hint, example }) => (
                 <div key={label} className="flex items-start gap-2.5 bg-stone-50 border border-stone-200 rounded-lg p-3">
                   <Icon className="w-4 h-4 text-stone-400 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="text-xs font-semibold text-gray-700">{label}</p>
                     <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{hint}</p>
+                    {example && <p className="text-xs text-stone-400 italic mt-1.5 border-l-2 border-stone-200 pl-2 leading-relaxed">"{example}"</p>}
                   </div>
                 </div>
               ))}
