@@ -131,6 +131,11 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
                 Founding Builder
               </span>
             )}
+            {reviewCount === 0 && (
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-white/30 bg-white/15 text-white/90 backdrop-blur-sm">
+                New Builder
+              </span>
+            )}
           </div>
 
           {/* CTAs */}
@@ -235,6 +240,14 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
                 <span className="font-medium">{label}</span>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Platform trust line */}
+        {(reviewCount === 0 || orderCount < 3) && (
+          <div className="mt-3 flex items-center gap-1.5 text-xs text-stone-500">
+            <Check className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+            <span>Purchases protected by Stringed Collective</span>
           </div>
         )}
       </div>
