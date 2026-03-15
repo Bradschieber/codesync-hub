@@ -28,7 +28,7 @@ function sectionComplete(id, form, productCount) {
     case "story":     return !!(form.brand_story && form.brand_story.length > 80);
     case "photos":    return !!(form.media_urls && form.media_urls.length > 0);
     case "business":  return !!(form.years_experience && (form.offers_stock_builds || form.offers_custom_builds));
-    case "policies":  return !!(form.warranty_policy || form.return_policy || form.shipping_policy);
+    case "policies":  return !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included || form.shipping_timeline || form.payment_schedule);
     case "references":return false; // managed externally
     default:          return false;
   }
