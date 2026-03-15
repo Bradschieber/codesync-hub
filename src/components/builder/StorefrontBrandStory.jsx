@@ -43,7 +43,7 @@ export default function StorefrontBrandStory({ builder }) {
 
       {/* Policies */}
       {hasPolicies && (
-        <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-6">
+        <div className="bg-white rounded-2xl border border-stone-200 p-6">
           <h2 className="font-bold text-stone-800 mb-4">Policies & Commitment</h2>
           <div className="space-y-4">
             {builder.warranty_policy && (
