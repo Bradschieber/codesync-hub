@@ -135,6 +135,9 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, save
                 </span>
               )}
             </div>
+            {builder.tag_line && (
+              <p className="text-stone-500 text-sm italic mt-0.5">{builder.tag_line}</p>
+            )}
             {builder.location && (
               <p className="text-stone-400 text-sm flex items-center gap-1 mt-0.5"><MapPin className="w-3 h-3" /> {builder.location}</p>
             )}
