@@ -123,7 +123,7 @@ export default function BuilderProfile() {
                   onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
                   onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}
                 >
-                  <MessageSquare className="w-4 h-4" /> Message Builder
+                  <MessageSquare className="w-4 h-4" /> Message the Builder
                 </button>
                 <button
                   onClick={toggleSave}
@@ -161,7 +161,7 @@ export default function BuilderProfile() {
             style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
             onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
-            <MessageSquare className="w-4 h-4" /> Message Builder
+            <MessageSquare className="w-4 h-4" /> Message the Builder
           </button>
         </div>
 
