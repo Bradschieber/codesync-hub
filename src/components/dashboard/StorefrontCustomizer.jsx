@@ -146,6 +146,19 @@ export default function StorefrontCustomizer({ form, setForm }) {
         <p className="text-xs text-stone-400 mt-1">Recommended: 1600×400px or wider. This displays behind your profile name.</p>
       </div>
 
+      {/* Tag Line */}
+      <div>
+        <label className="block text-xs font-medium text-stone-600 mb-1">Tag Line <span className="text-stone-400 font-normal">(optional)</span></label>
+        <input
+          type="text"
+          value={form.tag_line || ""}
+          onChange={e => setForm(f => ({ ...f, tag_line: e.target.value }))}
+          placeholder='e.g. "Handcrafted in the Appalachians since 2003"'
+          className="w-full border border-stone-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-300"
+        />
+        <p className="text-xs text-stone-400 mt-1">A short phrase that appears beneath your name on your storefront.</p>
+      </div>
+
       {/* Layout */}
       <div>
         <label className="block text-xs font-medium text-stone-600 mb-2 flex items-center gap-1">
