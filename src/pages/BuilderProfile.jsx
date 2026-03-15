@@ -103,97 +103,133 @@ export default function BuilderProfile() {
           onContact={() => setShowContactForm(true)}
         />
 
-        {/* ── INTRO VIDEO ── */}
-        {builder.introduction_video_url && (
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-6">
-            <div className="flex items-center gap-2 mb-4">
-              <PlayCircle className="w-5 h-5" style={{ color: "#2F3E55" }} />
-              <h2 className="font-bold text-stone-800">{builder.introduction_video_title || "Meet the Builder"}</h2>
-            </div>
-            {/* Detect YouTube/Vimeo embeds vs direct video */}
-            {builder.introduction_video_url.includes("youtube.com") || builder.introduction_video_url.includes("youtu.be") || builder.introduction_video_url.includes("vimeo.com") ? (
-              <div className="relative w-full rounded-xl overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  src={
-                    builder.introduction_video_url.includes("youtu.be")
-                      ? builder.introduction_video_url.replace("youtu.be/", "www.youtube.com/embed/")
-                      : builder.introduction_video_url.includes("watch?v=")
-                      ? builder.introduction_video_url.replace("watch?v=", "embed/")
-                      : builder.introduction_video_url
-                  }
-                  className="absolute inset-0 w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            ) : (
-              <video src={builder.introduction_video_url} controls className="w-full rounded-xl max-h-96 bg-black" />
-            )}
-          </div>
-        )}
+        {/* ── ACCORDION SECTIONS ── */}
+        <Accordion type="multiple" defaultValue={["brand-story"]} className="mb-8 space-y-2">
 
-        {/* ── BRAND STORY + STATS + POLICIES ── */}
-        <StorefrontBrandStory builder={builder} />
+          {/* Meet the Builder (video) */}
+          {builder.introduction_video_url && (
+            <AccordionItem value="intro-video" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
+                <span className="flex items-center gap-2"><PlayCircle className="w-5 h-5" style={{ color: "#2F3E55" }} /> Meet the Builder</span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                {builder.introduction_video_url.includes("youtube.com") || builder.introduction_video_url.includes("youtu.be") || builder.introduction_video_url.includes("vimeo.com") ? (
+                  <div className="relative w-full rounded-xl overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+                    <iframe
+                      src={
+                        builder.introduction_video_url.includes("youtu.be")
+                          ? builder.introduction_video_url.replace("youtu.be/", "www.youtube.com/embed/")
+                          : builder.introduction_video_url.includes("watch?v=")
+                          ? builder.introduction_video_url.replace("watch?v=", "embed/")
+                          : builder.introduction_video_url
+                      }
+                      className="absolute inset-0 w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <video src={builder.introduction_video_url} controls className="w-full rounded-xl max-h-96 bg-black" />
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          )}
 
-        {/* ── SHOP MEDIA GALLERY ── */}
-        <StorefrontMediaGallery builder={builder} media={media} />
+          {/* Our Story */}
+          {(builder.brand_story || builder.bio) && (
+            <AccordionItem value="brand-story" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Our Story</AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <StorefrontBrandStory builder={builder} />
+              </AccordionContent>
+            </AccordionItem>
+          )}
 
-        {/* ── CUSTOM BUILDS CTA ── */}
-        {builder.offers_custom_builds && (
-          <div className="p-6 rounded-2xl mb-6 flex items-start gap-4 border" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8" }}>
-            <Hammer className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#2F3E55" }} strokeWidth={1.5} />
-            <div className="flex-1">
-              <h3 className="font-bold text-sm mb-2 text-gray-900">Custom Builds Available</h3>
-              <p className="text-sm mb-4 leading-relaxed text-gray-600">
-                {builder.custom_build_description || "This builder accepts custom build requests. Reach out to discuss your dream instrument."}
+          {/* Shop & Craft media */}
+          {media.length > 0 && (
+            <AccordionItem value="media" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">The Shop &amp; The Craft</AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <StorefrontMediaGallery builder={builder} media={media} />
+              </AccordionContent>
+            </AccordionItem>
+          )}
+
+          {/* Custom Builds */}
+          {builder.offers_custom_builds && (
+            <AccordionItem value="custom-builds" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
+                <span className="flex items-center gap-2"><Hammer className="w-4 h-4" style={{ color: "#2F3E55" }} /> Custom Builds</span>
+              </AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <p className="text-sm leading-relaxed text-stone-600 mb-5">
+                  {builder.custom_build_description || "This builder accepts custom build requests. Reach out to discuss your dream instrument."}
+                </p>
+                {(builder.custom_build_examples || []).length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
+                    {(builder.custom_build_examples || []).map((ex, i) => (
+                      <div key={i} className="group">
+                        <div className="overflow-hidden rounded-xl border border-stone-200 aspect-square">
+                          <img src={ex.image_url} alt={ex.caption || "Custom build"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        </div>
+                        {ex.caption && <p className="text-xs text-stone-500 mt-1.5 px-0.5">{ex.caption}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button
+                  onClick={() => setShowQuoteModal(true)}
+                  className="font-semibold px-5 py-2.5 text-sm text-white rounded-lg transition-colors"
+                  style={{ backgroundColor: "#C57A1F" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                >
+                  Request a Quote
+                </button>
+              </AccordionContent>
+            </AccordionItem>
+          )}
+
+          {/* Verified Buyer References */}
+          {builder.is_verified && references.length > 0 && (
+            <AccordionItem value="references" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Verified Buyer References</AccordionTrigger>
+              <AccordionContent className="pb-6">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {references.map(ref => (
+                    <div key={ref.id} className="p-4 bg-stone-50 rounded-xl">
+                      <Quote className="w-4 h-4 mb-2 text-stone-300" />
+                      <p className="text-sm italic leading-relaxed mb-3 text-stone-600">"{ref.quote}"</p>
+                      <p className="text-sm font-semibold text-stone-800">— {ref.buyer_name}</p>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          )}
+
+          {/* Contact */}
+          <AccordionItem value="contact" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
+            <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">
+              <span className="flex items-center gap-2"><MessageSquare className="w-4 h-4" style={{ color: "#2F3E55" }} /> Get in Touch</span>
+            </AccordionTrigger>
+            <AccordionContent className="pb-6">
+              <p className="text-sm leading-relaxed mb-4" style={{ color: "#5A5A5A" }}>
+                Start a conversation with the builder to discuss your ideas, specifications, or upcoming builds.
               </p>
               <button
-                onClick={() => setShowQuoteModal(true)}
-                className="font-semibold px-5 py-2.5 text-sm text-white rounded-lg transition-colors"
-                style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-              >
-                Request a Quote
+                onClick={() => setShowContactForm(true)}
+                className="flex items-center gap-2 border font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors"
+                style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
+                <MessageSquare className="w-4 h-4" /> Message the Builder
               </button>
-            </div>
-          </div>
-        )}
+            </AccordionContent>
+          </AccordionItem>
 
-        {/* ── VERIFIED BUYER REFERENCES ── */}
-        {builder.is_verified && references.length > 0 && (
-          <div className="p-6 border border-stone-200 rounded-2xl mb-6 bg-white">
-            <h2 className="text-xs font-bold uppercase tracking-widest mb-5 text-stone-400">Verified Buyer References</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {references.map(ref => (
-                <div key={ref.id} className="p-4 bg-stone-50 rounded-xl">
-                  <Quote className="w-4 h-4 mb-2 text-stone-300" />
-                  <p className="text-sm italic leading-relaxed mb-3 text-stone-600">"{ref.quote}"</p>
-                  <p className="text-sm font-semibold text-stone-800">— {ref.buyer_name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── CONTACT PROMPT ── */}
-        <div className="rounded-2xl border px-6 py-5 mb-8 flex flex-col sm:flex-row sm:items-center gap-4" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
-          <div className="flex-1">
-            <h3 className="text-sm font-bold mb-1" style={{ color: "#2F3E55" }}>Thinking about a custom instrument?</h3>
-            <p className="text-sm leading-relaxed" style={{ color: "#5A5A5A" }}>
-              Start a conversation with the builder to discuss your ideas, specifications, or upcoming builds.
-            </p>
-          </div>
-          <button
-            onClick={() => setShowContactForm(true)}
-            className="flex items-center gap-2 border font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors whitespace-nowrap flex-shrink-0"
-            style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
-            <MessageSquare className="w-4 h-4" /> Message the Builder
-          </button>
-        </div>
+        </Accordion>
 
         {/* ── LISTINGS / CUSTOM WORK / REVIEWS TABS ── */}
         <div className="flex border-b border-stone-200 mb-6">
