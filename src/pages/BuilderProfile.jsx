@@ -83,8 +83,8 @@ export default function BuilderProfile() {
 
   const tabs = [
     { id: "products", label: `Available Instruments (${products.length})` },
-    ...(builder?.offers_custom_builds ? [{ id: "custom", label: "Custom Work" }] : []),
-    { id: "reviews", label: `Reviews (${reviews.length})` },
+    ...(builder?.offers_custom_builds ? [{ id: "custom", label: "Custom Builds" }] : []),
+    ...(reviews.length > 0 ? [{ id: "reviews", label: `Reviews (${reviews.length})` }] : []),
   ];
 
   return (
@@ -221,17 +221,42 @@ export default function BuilderProfile() {
           products.length === 0 ? (
             <div className="text-center py-16">
               <Guitar className="w-10 h-10 mx-auto mb-3 text-stone-300" />
-              <p className="text-sm text-stone-400">No instruments listed yet.</p>
+              <p className="text-sm text-stone-600 font-medium mb-1">No instruments available for immediate purchase.</p>
+              <p className="text-sm text-stone-400 mb-5">This builder does not currently have instruments available for immediate purchase.</p>
+              {builder.offers_custom_builds && (
+                <div>
+                  <p className="text-sm text-stone-500 mb-3">You can request a custom build instead.</p>
+                  <button
+                    onClick={() => setShowQuoteModal(true)}
+                    className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
+                    style={{ backgroundColor: "#C57A1F" }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                  >
+                    <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                    Request Custom Build
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map(p => (
-                <Link key={p.id} to={createPageUrl("ProductDetail?id=" + p.id)} className="group block bg-white rounded-xl border border-stone-200 overflow-hidden hover:shadow-md transition-shadow">
-                  <div className="overflow-hidden bg-stone-100" style={{ aspectRatio: "4/3" }}>
+                <Link
+                  key={p.id}
+                  to={createPageUrl("ProductDetail?id=" + p.id)}
+                  className="group block bg-white rounded-xl border border-stone-200 overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <div className="relative overflow-hidden bg-stone-100" style={{ aspectRatio: "4/3" }}>
                     {p.image_urls?.[0] ? (
-                      <img src={p.image_urls[0]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <img src={p.image_urls[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center"><Guitar className="w-10 h-10 text-stone-300" /></div>
+                    )}
+                    {p.status === "available" && (
+                      <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                        Ready to Ship
+                      </span>
                     )}
                   </div>
                   <div className="p-4">
