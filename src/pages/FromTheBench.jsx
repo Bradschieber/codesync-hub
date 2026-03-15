@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowRight, Tag, MapPin, Camera, ExternalLink, Copy, Check } from "lucide-react";
-import { format } from "date-fns";
+import { Camera } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 const NAVY = "#1B2B4B";
+const PAGE_SIZE = 20;
 
 const TAG_COLORS = {
   "Wood Selection":  { bg: "#FDF3E3", color: "#C57A1F" },
@@ -15,29 +16,92 @@ const TAG_COLORS = {
   "Finishing":       { bg: "#E8F6ED", color: "#27AE60" },
   "Setup":           { bg: "#FDF0F0", color: "#CC3A3A" },
   "Sound Test":      { bg: "#FEF9E7", color: "#B7950B" },
+  // WorkshopPost tags
+  "Stock Build":     { bg: "#EEF1F7", color: "#2F3E55" },
+  "Custom Build":    { bg: "#FDF3E3", color: "#C57A1F" },
+  "Shop Work":       { bg: "#E8F6ED", color: "#27AE60" },
+  "Materials":       { bg: "#F0EBF8", color: "#7B5EA7" },
 };
 
-const ALL_TAGS = ["Wood Selection", "Neck Carving", "Body Shaping", "Electronics", "Finishing", "Setup", "Sound Test"];
+const STAGE_FILTERS = ["Wood Selection", "Neck Carving", "Body Shaping", "Electronics", "Finishing", "Setup", "Sound Test"];
+
+// Normalize both content sources into a unified shape
+function normalizeBuildUpdate(u) {
+  return {
+    id: "bu_" + u.id,
+    source: "build_update",
+    builder_id: u.builder_id,
+    builder_name: u.builder_name,
+    builder_avatar_url: u.builder_avatar_url,
+    builder_slug: u.builder_slug,
+    photo_url: u.photo_urls?.[0] || null,
+    caption: u.description || u.title || null,
+    tag: u.tag || null,
+    created_date: u.created_date,
+  };
+}
+
+function normalizeWorkshopPost(p) {
+  return {
+    id: "wp_" + p.id,
+    source: "workshop_post",
+    builder_id: p.builder_id,
+    builder_name: p.builder_name,
+    builder_avatar_url: null,
+    builder_slug: null,
+    photo_url: p.photo_url || null,
+    caption: p.caption || null,
+    tag: p.tags?.[0] || null,
+    created_date: p.created_date,
+  };
+}
 
 export default function FromTheBench() {
-  const [updates, setUpdates] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTag, setActiveTag] = useState("All");
-  const [lightbox, setLightbox] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef(null);
 
   useEffect(() => {
-    base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 100)
-      .then(data => { setUpdates(data); setLoading(false); });
+    async function load() {
+      const [buildUpdates, workshopPosts] = await Promise.all([
+        base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 200),
+        base44.entities.WorkshopPost.filter({ is_public: true }, "-created_date", 200),
+      ]);
+      const combined = [
+        ...buildUpdates.map(normalizeBuildUpdate),
+        ...workshopPosts.map(normalizeWorkshopPost),
+      ].sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+      setAllPosts(combined);
+      setLoading(false);
+    }
+    load();
   }, []);
 
-  const filtered = activeTag === "All" ? updates : updates.filter(u => u.tag === activeTag);
+  // Reset visible count when filter changes
+  useEffect(() => { setVisibleCount(PAGE_SIZE); }, [activeTag]);
+
+  const filtered = activeTag === "All" ? allPosts : allPosts.filter(p => p.tag === activeTag);
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+
+  // Infinite scroll via IntersectionObserver
+  useEffect(() => {
+    if (!sentinelRef.current || !hasMore) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) setVisibleCount(c => c + PAGE_SIZE);
+    }, { rootMargin: "300px" });
+    observer.observe(sentinelRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, visible.length]);
 
   return (
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
 
       {/* Header */}
       <div style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #FAF9F7 100%)" }} className="pt-16 pb-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>From The Bench</p>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4" style={{ color: "#1A1A1A" }}>
             Watch instruments come to life.
@@ -48,10 +112,10 @@ export default function FromTheBench() {
         </div>
       </div>
 
-      {/* Tag Filter */}
+      {/* Stage Filters */}
       <div className="sticky top-16 z-10 bg-white border-b border-stone-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 overflow-x-auto">
-          {["All", ...ALL_TAGS].map(t => (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 overflow-x-auto scrollbar-hide">
+          {["All", ...STAGE_FILTERS].map(t => (
             <button
               key={t}
               onClick={() => setActiveTag(t)}
@@ -67,140 +131,115 @@ export default function FromTheBench() {
       </div>
 
       {/* Feed */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         {loading ? (
-          <div className="grid sm:grid-cols-2 gap-6">
-            {Array(4).fill(0).map((_, i) => (
-              <div key={i} className="rounded-2xl bg-stone-200 animate-pulse h-72" />
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
+            {Array(6).fill(0).map((_, i) => (
+              <div key={i} className="mb-5 break-inside-avoid rounded-2xl bg-stone-200 animate-pulse" style={{ height: `${200 + (i % 3) * 80}px` }} />
             ))}
           </div>
-        ) : filtered.length === 0 ? (
+        ) : visible.length === 0 ? (
           <div className="text-center py-24">
             <Camera className="w-14 h-14 text-stone-300 mx-auto mb-4" />
-            <p className="text-lg font-semibold text-stone-500 mb-1">Nothing here yet</p>
-            <p className="text-sm text-stone-400">Builders will share their work-in-progress updates here.</p>
+            <p className="text-lg font-semibold text-stone-600 mb-2">Nothing on the bench yet.</p>
+            <p className="text-sm text-stone-400 max-w-sm mx-auto leading-relaxed">
+              Builders will soon be sharing workshop updates and build progress here.
+              Check back soon to watch instruments come to life.
+            </p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 gap-6">
-            {filtered.map(update => (
-              <BenchPost key={update.id} update={update} onLightbox={setLightbox} />
-            ))}
-          </div>
+          <>
+            {/* Masonry grid via CSS columns */}
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
+              {visible.map(post => (
+                <BenchCard key={post.id} post={post} />
+              ))}
+            </div>
+            {/* Infinite scroll sentinel */}
+            <div ref={sentinelRef} className="h-1" />
+            {!hasMore && visible.length > 0 && (
+              <p className="text-center text-xs text-stone-400 mt-10">You've seen it all. Check back soon for new updates.</p>
+            )}
+          </>
         )}
       </div>
-
-      {lightbox && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
-          <img src={lightbox} className="max-w-full max-h-full rounded-xl shadow-2xl" />
-        </div>
-      )}
     </div>
   );
 }
 
-function BenchPost({ update, onLightbox }) {
-  const [copied, setCopied] = useState(false);
-  const tagStyle = update.tag ? TAG_COLORS[update.tag] : null;
-  const primaryPhoto = update.photo_urls?.[0];
+function BenchCard({ post }) {
+  const [hovered, setHovered] = useState(false);
+  const tagStyle = post.tag ? TAG_COLORS[post.tag] : null;
 
-  function copyLink() {
-    navigator.clipboard.writeText(window.location.origin + "/from-the-bench#" + update.id);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }
+  const relativeTime = post.created_date
+    ? formatDistanceToNow(new Date(post.created_date), { addSuffix: true })
+    : null;
 
   return (
-    <div id={update.id} className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm flex flex-col">
-
-      {/* Media */}
-      {primaryPhoto ? (
-        <button onClick={() => onLightbox(primaryPhoto)} className="block overflow-hidden" style={{ aspectRatio: "16/9" }}>
-          <img src={primaryPhoto} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-        </button>
-      ) : update.video_url ? (
-        <div style={{ aspectRatio: "16/9" }}>
-          <video src={update.video_url} controls className="w-full h-full object-cover bg-black" />
-        </div>
-      ) : null}
-
-      {/* Content */}
-      <div className="p-5 flex-1 flex flex-col">
-        {/* Builder info */}
-        <div className="flex items-center gap-2 mb-3">
-          {update.builder_avatar_url ? (
-            <img src={update.builder_avatar_url} className="w-8 h-8 rounded-full object-cover flex-shrink-0" />
-          ) : (
-            <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7" }}>
-              <span className="text-xs font-bold" style={{ color: NAVY }}>
-                {(update.builder_name || "B")[0].toUpperCase()}
-              </span>
-            </div>
-          )}
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold truncate" style={{ color: NAVY }}>{update.builder_name}</p>
-            {update.builder_location && (
-              <p className="text-xs flex items-center gap-0.5" style={{ color: "#8A8A8A" }}>
-                <MapPin className="w-2.5 h-2.5 flex-shrink-0" />{update.builder_location}
-              </p>
-            )}
+    <Link
+      to={createPageUrl("BuilderProfile?id=" + post.builder_id)}
+      className="block mb-5 break-inside-avoid rounded-2xl overflow-hidden bg-white border border-stone-200 transition-all duration-200 cursor-pointer no-underline"
+      style={{
+        boxShadow: hovered ? "0 8px 32px rgba(0,0,0,0.12)" : "0 1px 4px rgba(0,0,0,0.06)",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Photo — natural aspect ratio */}
+      {post.photo_url && (
+        <div className="relative overflow-hidden">
+          <img
+            src={post.photo_url}
+            alt={post.caption || "Workshop update"}
+            className="w-full h-auto block"
+            style={{ display: "block" }}
+          />
+          {/* Hover overlay */}
+          <div
+            className="absolute inset-0 flex items-end justify-end p-3 transition-opacity duration-200"
+            style={{ opacity: hovered ? 1 : 0, background: "linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 60%)" }}
+          >
+            <span className="text-white text-xs font-semibold bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-sm">
+              View Builder
+            </span>
           </div>
-          <p className="text-xs text-stone-400 flex-shrink-0">
-            {update.created_date ? format(new Date(update.created_date), "MMM d") : ""}
-          </p>
         </div>
+      )}
 
+      {/* Card Text */}
+      <div className="px-4 pt-3 pb-4">
         {/* Tag */}
-        {update.tag && tagStyle && (
-          <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium mb-2 self-start"
-            style={{ backgroundColor: tagStyle.bg, color: tagStyle.color }}>
-            <Tag className="w-2.5 h-2.5" /> {update.tag}
+        {tagStyle && post.tag && (
+          <span
+            className="inline-block text-xs font-medium px-2 py-0.5 rounded-full mb-2"
+            style={{ backgroundColor: tagStyle.bg, color: tagStyle.color }}
+          >
+            {post.tag}
           </span>
         )}
 
-        {/* Title & description */}
-        <h3 className="font-bold text-sm mb-1.5 leading-snug" style={{ color: "#1A1A1A" }}>{update.title}</h3>
-        {update.description && (
-          <p className="text-sm text-stone-600 leading-relaxed line-clamp-3 flex-1">{update.description}</p>
+        {/* Caption */}
+        {post.caption && (
+          <p className="text-sm text-stone-700 leading-snug mb-3 line-clamp-3">{post.caption}</p>
         )}
 
-        {/* Extra photos strip */}
-        {update.photo_urls?.length > 1 && (
-          <div className="flex gap-1.5 mt-3 overflow-x-auto">
-            {update.photo_urls.slice(1).map((url, i) => (
-              <button key={i} onClick={() => onLightbox(url)} className="flex-shrink-0">
-                <img src={url} className="w-12 h-12 object-cover rounded-lg border border-stone-100 hover:opacity-80 transition-opacity" />
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Actions */}
-        <div className="flex items-center gap-2 mt-4 pt-3 border-t border-stone-100 flex-wrap">
-          {update.builder_id && (
-            <>
-              <Link
-                to={createPageUrl("BuilderProfile?id=" + update.builder_id)}
-                className="text-xs font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity"
-                style={{ color: NAVY }}
-              >
-                View Profile <ArrowRight className="w-3 h-3" />
-              </Link>
-              <span className="text-stone-200">|</span>
-              <Link
-                to={createPageUrl("Catalog") + "?builder=" + encodeURIComponent(update.builder_name || "")}
-                className="text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors"
-              >
-                See Instruments
-              </Link>
-            </>
+        {/* Builder + timestamp */}
+        <div className="flex items-center gap-2 mt-auto">
+          {post.builder_avatar_url ? (
+            <img src={post.builder_avatar_url} className="w-6 h-6 rounded-full object-cover flex-shrink-0" />
+          ) : (
+            <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold"
+              style={{ backgroundColor: "#EEF1F7", color: NAVY }}>
+              {(post.builder_name || "B")[0].toUpperCase()}
+            </div>
           )}
-          <span className="text-stone-200 ml-auto">|</span>
-          <button onClick={copyLink}
-            className="text-xs font-medium flex items-center gap-1 text-stone-400 hover:text-stone-700 transition-colors ml-auto">
-            {copied ? <><Check className="w-3 h-3 text-green-500" /> Copied!</> : <><Copy className="w-3 h-3" /> Copy Link</>}
-          </button>
+          <span className="text-xs font-semibold truncate" style={{ color: NAVY }}>{post.builder_name}</span>
+          {relativeTime && (
+            <span className="text-xs text-stone-400 flex-shrink-0 ml-auto">{relativeTime}</span>
+          )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
