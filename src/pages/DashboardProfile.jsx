@@ -11,11 +11,11 @@ import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 import StorefrontProgressTracker from "../components/dashboard/StorefrontProgressTracker";
 
 const STORY_PROMPTS = [
-  { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?" },
-  { icon: Hammer, label: "Why You Build", hint: "What drew you to lutherie? Was there a moment, a person, a first guitar that started it all?" },
+  { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?", example: "I'm a builder based in Asheville, North Carolina, focused on handbuilt electric guitars and basses." },
+  { icon: Hammer, label: "Why You Build", hint: "What drew you to lutherie? Was there a moment, a person, a first guitar that started it all?", example: "I started building because I wanted instruments that felt more personal, responsive, and inspiring to play." },
   { icon: Music, label: "Your Philosophy", hint: "What makes a great playing experience for a musician? What do you obsess over when you're building?" },
   { icon: Clock, label: "Your Journey", hint: "How long have you been building? How has your craft evolved over time?" },
-  { icon: Store, label: "Your Shop", hint: "Tell us about where the magic happens. What's your setup? What tools do you love?" },
+  { icon: Store, label: "Your Shop", hint: "Tell us about where the magic happens. What's your setup? What tools do you love?", example: "I build one instrument at a time in a small workshop using carefully selected materials and hands-on processes." },
   { icon: Camera, label: "Meet the Builder & Shop Tour", hint: "Add photos and videos below — let buyers see your face, your hands, your workspace." },
   { icon: Shield, label: "Your Commitment to Buyers", hint: "What's your warranty policy? Your satisfaction guarantee? How do you stand behind your work?" },
   { icon: Heart, label: "Why Stringed Collective", hint: "Why did you choose to sell here? What excites you about connecting directly with players who care about craftsmanship?" },
