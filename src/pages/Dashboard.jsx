@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck } from "lucide-react";
+import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -135,6 +135,7 @@ export default function Dashboard() {
                 { label: "Manage Products", sub: `${products.length} listings`, icon: Package, page: "DashboardProducts" },
                 { label: "Custom Build Listings", sub: "Manage your offerings", icon: Hammer, page: "DashboardCustomBuilds" },
                 { label: "Messages", sub: `${unreadMessages} unread`, icon: MessageSquare, page: "Messages" },
+                { label: "Workshop Activity", sub: "Share your process & builds", icon: Camera, page: "DashboardWorkshop" },
                 { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
                 { label: "My Customers", sub: "Customer roster & history", icon: Users, page: "BuilderCustomers" },
                 { label: "Returns & Warranty", sub: "Manage claims", icon: RotateCcw, page: "BuilderReturnsWarranty" },
