@@ -14,16 +14,6 @@ export default function StorefrontBrandStory({ builder }) {
     builder.deposit_percent && { label: "Deposit Required", value: `${builder.deposit_percent}%` },
   ].filter(Boolean);
 
-  const hasWarranty = builder.warranty_duration || (builder.warranty_coverage && builder.warranty_coverage.length > 0) || builder.warranty_claim_process;
-  const hasReturns = builder.returns_accepted;
-  const hasShipping = builder.ships_domestically || builder.ships_internationally || (builder.shipping_carriers && builder.shipping_carriers.length > 0) || builder.shipping_timeline;
-  const hasPayment = builder.payment_schedule || builder.payment_methods;
-  const hasPolicies = hasWarranty || hasReturns || hasShipping || hasPayment;
-
-  const returnsLabel = { yes: "Yes, returns accepted", no: "No returns", case_by_case: "Case by case" };
-  const shippingInsuranceLabel = { yes: "Included", no: "Not included", optional: "Optional" };
-  const returnShippingLabel = { buyer: "Buyer pays return shipping", seller: "Seller pays return shipping", negotiable: "Negotiable" };
-
   return (
     <>
       {/* Brand Story */}
