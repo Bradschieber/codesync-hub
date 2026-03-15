@@ -109,6 +109,32 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Workshop Activity soft prompt */}
+        {workshopPosts.length === 0 && !workshopPromptDismissed && (
+          <div className="mb-6 flex items-start gap-3 p-4 rounded-xl border border-amber-200 bg-amber-50 relative">
+            <Camera className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-amber-900 mb-0.5">Show buyers what you're working on.</p>
+              <p className="text-xs text-amber-700 leading-relaxed mb-3">Builders who share workshop updates create stronger storefronts and build more buyer trust.</p>
+              <Link
+                to={createPageUrl("DashboardWorkshop")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
+                style={{ backgroundColor: "#C57A1F" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+              >
+                <Camera className="w-3.5 h-3.5" /> Add Workshop Update
+              </Link>
+            </div>
+            <button
+              onClick={() => { setWorkshopPromptDismissed(true); sessionStorage.setItem("workshop_prompt_dismissed", "1"); }}
+              className="text-amber-400 hover:text-amber-600 transition-colors flex-shrink-0"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map(({ label, value, icon: Icon, page }) => (
