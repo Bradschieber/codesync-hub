@@ -152,25 +152,7 @@ export default function BuilderProfile() {
             </AccordionItem>
           )}
 
-          {/* Our Story */}
-          {(builder.brand_story || builder.bio) && (
-            <AccordionItem value="brand-story" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
-              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Our Story</AccordionTrigger>
-              <AccordionContent className="pb-6">
-                <StorefrontBrandStory builder={builder} />
-              </AccordionContent>
-            </AccordionItem>
-          )}
 
-          {/* Shop & Craft media */}
-          {media.length > 0 && (
-            <AccordionItem value="media" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
-              <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">The Shop &amp; The Craft</AccordionTrigger>
-              <AccordionContent className="pb-6">
-                <StorefrontMediaGallery builder={builder} media={media} />
-              </AccordionContent>
-            </AccordionItem>
-          )}
 
           {/* Custom Builds */}
           {builder.offers_custom_builds && (

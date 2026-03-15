@@ -73,7 +73,15 @@ export default function MediaUploader({ mediaUrls = [], onChange }) {
         className="hidden"
         onChange={handleFiles}
       />
-      <p className="text-xs text-stone-400">Upload photos or videos of your shop, builds, and process. Shown on your public profile.</p>
+      <p className="text-xs text-stone-500 font-medium mb-1">Great photos to include:</p>
+      <ul className="text-xs text-stone-400 space-y-0.5 list-none">
+        <li>• Your workshop</li>
+        <li>• Tools or workbench</li>
+        <li>• In-progress instruments</li>
+        <li>• Tonewoods and materials</li>
+        <li>• Closeups of craftsmanship</li>
+        <li>• You working on a build</li>
+      </ul>
     </div>
   );
 }
