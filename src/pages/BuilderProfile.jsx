@@ -35,18 +35,20 @@ export default function BuilderProfile() {
   async function loadAll() {
     if (!builderId) return;
     try { const u = await base44.auth.me(); setUser(u); } catch {}
-    const [bldrs, prods, revs, customs, refs] = await Promise.all([
+    const [bldrs, prods, revs, customs, refs, orders] = await Promise.all([
       base44.entities.UserProfile.filter({ id: builderId }),
       base44.entities.Product.filter({ builder_id: builderId, status: "available" }),
       base44.entities.BuilderReview.filter({ builder_id: builderId }),
       base44.entities.CustomBuildListing.filter({ builder_id: builderId, is_published: true }),
       base44.entities.BuilderReference.filter({ builder_id: builderId, status: "verified" }),
+      base44.entities.Order.filter({ builder_id: builderId, status: "delivered" }),
     ]);
     if (bldrs.length > 0) setBuilder(bldrs[0]);
     setProducts(prods);
     setReviews(revs);
     setCustomBuilds(customs);
     setReferences(refs);
+    setOrderCount(orders.length);
     setLoading(false);
   }
 
@@ -102,6 +104,7 @@ export default function BuilderProfile() {
           builder={builder}
           avgRating={avgRating}
           reviewCount={reviews.length}
+          orderCount={orderCount}
           saved={saved}
           onToggleSave={toggleSave}
           onContact={() => setShowContactForm(true)}
