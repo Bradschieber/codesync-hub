@@ -19,7 +19,7 @@ export default function StorefrontBrandStory({ builder }) {
   return (
     <>
       {/* Brand Story */}
-      <div className={`rounded-2xl border ${scheme.accentBorder} ${scheme.accentBg} p-6 mb-6`}>
+      <div className={`rounded-2xl border ${scheme.accentBorder} ${scheme.accentBg} p-6 mb-4`}>
         <h2 className={`font-bold text-lg ${scheme.accentText} mb-4`}>Our Story</h2>
         <p className="text-stone-700 leading-relaxed whitespace-pre-line text-sm">
           {builder.brand_story || builder.bio}
