@@ -21,13 +21,20 @@ export default function Builders() {
     setLoading(false);
   }
 
-  const filtered = builders.filter(b =>
-    !search ||
-    b.business_name?.toLowerCase().includes(search.toLowerCase()) ||
-    b.display_name?.toLowerCase().includes(search.toLowerCase()) ||
-    b.location?.toLowerCase().includes(search.toLowerCase()) ||
-    b.specialties?.some(s => s.toLowerCase().includes(search.toLowerCase()))
-  );
+  const filtered = builders.filter(b => {
+    if (!search) return true;
+    const q = search.toLowerCase();
+    const instrumentTypes = (b.instrument_types_built || []).map(i =>
+      i.type === "Other" && i.other_description ? i.other_description : i.type
+    );
+    return (
+      b.business_name?.toLowerCase().includes(q) ||
+      b.display_name?.toLowerCase().includes(q) ||
+      b.location?.toLowerCase().includes(q) ||
+      b.specialties?.some(s => s.toLowerCase().includes(q)) ||
+      instrumentTypes.some(t => t.toLowerCase().includes(q))
+    );
+  });
 
   const videoBuilders = builders.filter(b => b.introduction_video_url).slice(0, 3);
 
@@ -66,7 +73,7 @@ export default function Builders() {
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search by name, location, specialty..."
+              placeholder="Search builders by name, location, or instrument type"
               className="w-full pl-9 pr-4 py-3 border text-sm focus:outline-none"
               style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
             />
@@ -210,6 +217,13 @@ function VideoCard({ builder }) {
 function BuilderCard({ builder }) {
   const [hovered, setHovered] = useState(false);
 
+  const instrumentTypes = (builder.instrument_types_built || []).map(i =>
+    i.type === "Other" && i.other_description ? i.other_description : i.type
+  );
+
+  // Best preview image: banner > first media > avatar
+  const previewImage = builder.banner_image_url || builder.media_urls?.[0] || null;
+
   return (
     <Link
       to={createPageUrl("BuilderProfile?id=" + builder.id)}
@@ -223,64 +237,65 @@ function BuilderCard({ builder }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Top image band if banner exists */}
-      {builder.banner_image_url && (
-        <div className="h-24 overflow-hidden">
-          <img src={builder.banner_image_url} alt="" className="w-full h-full object-cover" />
+      {/* Top image */}
+      {previewImage ? (
+        <div className="overflow-hidden" style={{ aspectRatio: "16/7", backgroundColor: "#EBEBEB" }}>
+          <img src={previewImage} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        </div>
+      ) : builder.avatar_url ? (
+        <div className="overflow-hidden" style={{ aspectRatio: "16/7", backgroundColor: "#F2F0EA" }}>
+          <img src={builder.avatar_url} alt="" className="w-full h-full object-cover opacity-50" />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center" style={{ aspectRatio: "16/7", backgroundColor: "#F2F0EA" }}>
+          <User className="w-10 h-10" style={{ color: "#CCCCCC" }} strokeWidth={1} />
         </div>
       )}
 
-      <div className="p-6">
-        <div className="flex gap-4 items-start mb-4">
+      <div className="p-5">
+        {/* Avatar + Name row */}
+        <div className="flex gap-3 items-center mb-3">
           {builder.avatar_url ? (
-            <img
-              src={builder.avatar_url}
-              alt={builder.business_name || builder.display_name}
-              className="w-14 h-14 object-cover flex-shrink-0"
-              style={{ borderRadius: 2 }}
-            />
+            <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-sm" />
           ) : (
-            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F2F0EA", borderRadius: 2 }}>
-            <User className="w-6 h-6" style={{ color: NAVY }} strokeWidth={1.5} />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7" }}>
+              <User className="w-5 h-5" style={{ color: NAVY }} strokeWidth={1.5} />
             </div>
           )}
-          <div className="min-w-0 flex-1 pt-0.5">
-            <h3 className="font-bold text-sm mb-0.5 truncate" style={{ color: "#1A1A1A" }}>{builder.business_name || builder.display_name}</h3>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h3 className="font-bold text-sm truncate" style={{ color: "#1A1A1A" }}>{builder.business_name || builder.display_name}</h3>
+              {builder.is_verified && (
+                <span className="flex-shrink-0 text-xs font-semibold px-1.5 py-0.5 rounded-full flex items-center gap-0.5" style={{ backgroundColor: "#EEF1F7", color: NAVY }}>
+                  ✓ Verified
+                </span>
+              )}
+            </div>
             {builder.location && (
-              <p className="text-xs flex items-center gap-1" style={{ color: "#7A7A7A" }}>
+              <p className="text-xs flex items-center gap-1 mt-0.5" style={{ color: "#7A7A7A" }}>
                 <MapPin className="w-3 h-3 flex-shrink-0" />{builder.location}
               </p>
             )}
           </div>
         </div>
 
-        {builder.average_rating > 0 && (
-          <div className="flex items-center gap-1 mb-3">
-            <Star className="w-3 h-3 fill-current" style={{ color: "#D4AC0D" }} />
-            <span className="text-xs" style={{ color: "#7A7A7A" }}>{builder.average_rating.toFixed(1)} ({builder.review_count})</span>
-          </div>
+        {/* Instrument types */}
+        {instrumentTypes.length > 0 && (
+          <p className="text-xs font-medium mb-2" style={{ color: "#4A5566" }}>
+            {instrumentTypes.join(" • ")}
+          </p>
         )}
 
-        {builder.bio && (
-          <p className="text-xs leading-relaxed line-clamp-3 mb-3" style={{ color: "#5A5A5A" }}>{builder.bio}</p>
-        )}
-
+        {/* Years experience */}
         {builder.years_experience > 0 && (
           <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>{builder.years_experience} yrs experience</p>
-        )}
-
-        {builder.introduction_video_url && (
-          <div className="flex items-center gap-1.5 mb-3">
-            <Play className="w-3 h-3" style={{ color: AMBER }} fill={AMBER} />
-            <span className="text-xs font-medium" style={{ color: AMBER }}>Watch intro video</span>
-          </div>
         )}
 
         <div
           className="pt-3 border-t text-xs font-semibold flex items-center gap-1 transition-all duration-200"
           style={{ borderColor: "#F0EDE8", color: hovered ? NAVY : "#9A9A9A" }}
         >
-          View profile <ArrowRight className="w-3 h-3" />
+          View Profile <ArrowRight className="w-3 h-3" />
         </div>
       </div>
     </Link>
