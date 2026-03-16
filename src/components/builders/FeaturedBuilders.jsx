@@ -32,7 +32,7 @@ export default function FeaturedBuilders({ builders, productImageMap = {} }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {featured.map(builder => (
-          <FeaturedBuilderCard key={builder.id} builder={builder} />
+          <FeaturedBuilderCard key={builder.id} builder={builder} productImage={productImageMap[builder.id]} />
         ))}
       </div>
     </section>
