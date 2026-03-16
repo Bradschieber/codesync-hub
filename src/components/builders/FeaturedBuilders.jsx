@@ -11,7 +11,7 @@ function isFeaturedActive(builder) {
   return new Date(builder.featured_until_date) >= new Date();
 }
 
-export default function FeaturedBuilders({ builders }) {
+export default function FeaturedBuilders({ builders, productImageMap = {} }) {
   const featured = builders
     .filter(isFeaturedActive)
     .slice(0, 4);
