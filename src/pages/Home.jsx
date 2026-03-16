@@ -13,6 +13,7 @@ export default function Home() {
   const [featured, setFeatured] = useState([]);
   const [builders, setBuilders] = useState([]);
   const [benchPosts, setBenchPosts] = useState([]);
+  const [buildStory, setBuildStory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [builderModalOpen, setBuilderModalOpen] = useState(false);
 
@@ -20,14 +21,32 @@ export default function Home() {
 
   async function loadData() {
     const [prods, bldrs, buildUpdates, workshopPosts] = await Promise.all([
-      base44.entities.Product.filter({ is_featured: true, status: "available" }, "-created_date", 8),
-      base44.entities.UserProfile.filter({ is_seller: true, is_featured: true }, "-created_date", 6),
+      base44.entities.Product.filter({ status: "available" }, "-created_date", 12),
+      base44.entities.UserProfile.filter({ is_seller: true, is_featured: true }, "-created_date", 4),
       base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 50),
       base44.entities.WorkshopPost.filter({ is_public: true }, "-created_date", 50),
     ]);
-    setFeatured(prods);
+
+    // Featured or most recent instruments
+    const featuredFirst = prods.filter(p => p.is_featured);
+    setFeatured(featuredFirst.length >= 4 ? featuredFirst.slice(0, 6) : prods.slice(0, 6));
     setBuilders(bldrs);
 
+    // Pick one editorial build story (prefer BuildUpdate with photo)
+    const storyCandidate = buildUpdates.find(u => u.photo_urls?.[0]);
+    if (storyCandidate) {
+      setBuildStory({
+        photo_url: storyCandidate.photo_urls[0],
+        title: storyCandidate.title,
+        builder_name: storyCandidate.builder_name,
+        builder_slug: storyCandidate.builder_slug,
+        builder_id: storyCandidate.builder_id,
+        tag: storyCandidate.tag,
+        description: storyCandidate.description,
+      });
+    }
+
+    // Live craft feed
     const combined = [
       ...buildUpdates.map(u => ({
         id: "bu_" + u.id,
@@ -58,180 +77,127 @@ export default function Home() {
     setLoading(false);
   }
 
+  // Hero instrument image — best available from featured products
+  const heroProduct = featured[0] || null;
+
   return (
     <div style={{ backgroundColor: "#F7F6F3", color: "#1F1F1F" }} className="min-h-screen">
 
       {/* ── 1. HERO ── */}
-      <section style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-20 pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="max-w-3xl mb-14">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight mb-6" style={{ color: "#1A1A1A" }}>
-              Play Something<br />Different.
-            </h1>
-            <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
-              A protected way to buy directly from independent builders.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <Link
-                to={createPageUrl("Catalog")}
-                className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors text-white"
-                style={{ backgroundColor: NAVY }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
-              >
-                Browse Instruments
-              </Link>
-              <Link
-                to={createPageUrl("About")}
-                className="inline-flex items-center gap-1.5 font-semibold text-sm pt-4 sm:pt-3.5 transition-opacity hover:opacity-70"
-                style={{ color: NAVY }}
-              >
-                How It Works <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Trust Signal Strip */}
-          <div className="flex flex-wrap gap-x-8 gap-y-2 pb-4 border-b border-stone-200 mb-12">
-            {["Verified Builders", "Secure Payments", "Buyer Protection", "Custom Builds Available"].map(signal => (
-              <div key={signal} className="flex items-center gap-1.5 text-xs font-medium" style={{ color: "#4A5566" }}>
-                <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#27AE60" }} />
-                {signal}
-              </div>
-            ))}
-          </div>
-
-          {/* Instruments Available Now */}
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 style={{ fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.13em", textTransform: "uppercase", color: "#5A5A5A" }}>
-                Instruments Available Now
-              </h2>
-              <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
-                View all <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {Array(4).fill(0).map((_, i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="rounded-sm mb-3" style={{ height: 220, backgroundColor: "#EBEBEB" }} />
-                    <div className="h-3 rounded w-3/4 mb-2" style={{ backgroundColor: "#EBEBEB" }} />
-                    <div className="h-3 rounded w-1/2" style={{ backgroundColor: "#EBEBEB" }} />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {featured.map(p => <ProductCard key={p.id} product={p} />)}
-                {featured.length === 0 && (
-                  <div className="col-span-4 py-16 text-center text-sm" style={{ color: "#9A9A9A" }}>
-                    No featured instruments yet.{" "}
-                    <Link to={createPageUrl("Catalog")} className="font-semibold underline" style={{ color: NAVY }}>Browse all</Link>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 2. BUILD SOMETHING PERSONAL ── */}
-      <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAF9F7" }}>
+      <section style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+            {/* Left: text */}
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#8A8A8A" }}>Custom Builds</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5" style={{ color: "#1A1A1A" }}>
-                Build Something Personal.
-              </h2>
-              <p className="text-base leading-relaxed mb-8" style={{ color: "#4A4A4A" }}>
-                Work directly with independent builders to create an instrument tailored to your specs, style, and sound.
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight mb-6" style={{ color: "#1A1A1A" }}>
+                Play Something<br />Different.
+              </h1>
+              <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
+                A protected way to buy directly from independent builders.
               </p>
-              <Link
-                to={createPageUrl("Builders") + "?custom=1"}
-                className="inline-flex items-center gap-2 font-semibold px-7 py-3.5 text-sm text-white transition-colors"
-                style={{ backgroundColor: AMBER }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
-              >
-                <Hammer className="w-4 h-4" /> Find a Custom Builder
-              </Link>
+              <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
+                <Link
+                  to={createPageUrl("Catalog")}
+                  className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors text-white"
+                  style={{ backgroundColor: NAVY }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+                >
+                  Browse Instruments
+                </Link>
+                <Link
+                  to={createPageUrl("About")}
+                  className="inline-flex items-center gap-1.5 font-semibold text-sm pt-4 sm:pt-3.5 transition-opacity hover:opacity-70"
+                  style={{ color: NAVY }}
+                >
+                  How It Works <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="flex flex-wrap gap-x-8 gap-y-2">
+                {["Verified Builders", "Secure Payments", "Buyer Protection", "Custom Builds Available"].map(signal => (
+                  <div key={signal} className="flex items-center gap-1.5 text-xs font-medium" style={{ color: "#4A5566" }}>
+                    <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#27AE60" }} />
+                    {signal}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Process image grid */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl overflow-hidden col-span-2" style={{ aspectRatio: "16/7", backgroundColor: "#EBEBEB" }}>
-                <img
-                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-                  alt="Tonewood selection"
-                  className="w-full h-full object-cover"
-                />
+            {/* Right: featured instrument image */}
+            <div className="relative hidden lg:block">
+              <div className="overflow-hidden" style={{ aspectRatio: "3/4", backgroundColor: "#EBEBEB" }}>
+                {heroProduct?.image_urls?.[0] ? (
+                  <img
+                    src={heroProduct.image_urls[0]}
+                    alt={heroProduct.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80"
+                    alt="Handcrafted instrument"
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
-              <div className="rounded-xl overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
-                <img
-                  src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400&q=80"
-                  alt="Neck carving"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="rounded-xl overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
-                <img
-                  src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&q=80"
-                  alt="Workshop finishing"
-                  className="w-full h-full object-cover"
-                />
+              {/* Micro label */}
+              <div
+                className="absolute bottom-4 left-4 right-4 flex items-end justify-between"
+              >
+                <span className="text-xs font-semibold px-3 py-1.5 backdrop-blur-sm"
+                  style={{ backgroundColor: "rgba(255,255,255,0.88)", color: NAVY }}>
+                  {heroProduct ? `${heroProduct.name} — $${heroProduct.price?.toLocaleString()}` : "Built by independent makers"}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 3. ON THE BENCH RIGHT NOW ── */}
-      {(benchPosts.length > 0 || loading) && (
-        <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#F2F0EA" }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-end justify-between mb-3">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>From The Bench</p>
-                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>
-                  On The Bench Right Now.
-                </h2>
-              </div>
-              <Link to={createPageUrl("FromTheBench")} className="hidden sm:flex items-center gap-1 text-sm font-semibold hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
-                Explore From The Bench <ArrowRight className="w-4 h-4" />
-              </Link>
+      {/* ── 2. FEATURED BUILDS ── */}
+      <section className="py-16 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Instruments Available Now</p>
+              <h2 className="text-2xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Ready to play. Ready to ship.</h2>
             </div>
-            <p className="text-base mb-10" style={{ color: "#4A4A4A" }}>
-              See what independent builders are working on in their shops right now.
-            </p>
-
-            {loading ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                {Array(6).fill(0).map((_, i) => (
-                  <div key={i} className="animate-pulse rounded-xl bg-stone-300" style={{ aspectRatio: "3/4" }} />
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                {benchPosts.map(post => (
-                  <BenchMiniCard key={post.id} post={post} />
-                ))}
-              </div>
-            )}
-
-            <div className="mt-8 sm:hidden">
-              <Link to={createPageUrl("FromTheBench")} className="text-sm font-semibold flex items-center gap-1" style={{ color: NAVY }}>
-                Explore From The Bench <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity hidden sm:flex" style={{ color: NAVY }}>
+              View all <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-        </section>
-      )}
 
-      {/* ── 4. BUY & BUILD WITH CONFIDENCE ── */}
+          {loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {Array(4).fill(0).map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="mb-3" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }} />
+                  <div className="h-3 rounded w-3/4 mb-2" style={{ backgroundColor: "#EBEBEB" }} />
+                  <div className="h-3 rounded w-1/2" style={{ backgroundColor: "#EBEBEB" }} />
+                </div>
+              ))}
+            </div>
+          ) : featured.length === 0 ? (
+            <div className="py-16 text-center text-sm" style={{ color: "#9A9A9A" }}>
+              No instruments listed yet.{" "}
+              <Link to={createPageUrl("Catalog")} className="font-semibold underline" style={{ color: NAVY }}>Browse all</Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {featured.map(p => <ProductCard key={p.id} product={p} />)}
+            </div>
+          )}
+
+          <div className="mt-6 sm:hidden">
+            <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1" style={{ color: NAVY }}>
+              View all instruments <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. TRUST / BUYER PROTECTION ── */}
       <section className="py-20 border-t" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
@@ -265,13 +231,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. INDEPENDENT MAKERS ── */}
+      {/* ── 4. BUILD STORY FROM THE BENCH ── */}
+      <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAF9F7" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#8A8A8A" }}>From The Bench</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12" style={{ color: "#1A1A1A" }}>
+            A Build In Progress.
+          </h2>
+
+          {buildStory ? (
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+                <img src={buildStory.photo_url} alt={buildStory.title} className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-1" style={{ color: "#1A1A1A" }}>{buildStory.title}</h3>
+                <p className="text-sm font-medium mb-4" style={{ color: "#7A7A7A" }}>by {buildStory.builder_name}</p>
+                {buildStory.tag && (
+                  <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: AMBER }}>
+                    Currently in {buildStory.tag}.
+                  </p>
+                )}
+                {buildStory.description && (
+                  <p className="text-base leading-relaxed mb-8" style={{ color: "#4A4A4A" }}>
+                    {buildStory.description}
+                  </p>
+                )}
+                <Link
+                  to={createPageUrl("BuilderProfile?id=" + buildStory.builder_id)}
+                  className="inline-flex items-center gap-2 font-semibold text-sm transition-opacity hover:opacity-70"
+                  style={{ color: NAVY }}
+                >
+                  Follow the Build <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          ) : (
+            // Placeholder when no build story exists
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+                <img
+                  src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
+                  alt="Instrument being built"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-1" style={{ color: "#1A1A1A" }}>Walnut Short Scale Bass</h3>
+                <p className="text-sm font-medium mb-4" style={{ color: "#7A7A7A" }}>by Rivertown Guitars</p>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: AMBER }}>Currently in Neck Carving.</p>
+                <p className="text-base leading-relaxed mb-8" style={{ color: "#4A4A4A" }}>
+                  Follow this instrument from wood selection to final setup — every step documented by the builder.
+                </p>
+                <Link
+                  to={createPageUrl("FromTheBench")}
+                  className="inline-flex items-center gap-2 font-semibold text-sm transition-opacity hover:opacity-70"
+                  style={{ color: NAVY }}
+                >
+                  Explore From The Bench <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── 5. FEATURED BUILDERS ── */}
       <section className="py-20 border-t" style={{ backgroundColor: "#FFFFFF", borderColor: "#E3E0D8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: "#6B6B6B" }}>The Builders</h2>
-              <h3 className="text-3xl font-bold tracking-tight" style={{ color: NAVY }}>Independent makers.<br />Verified craft.</h3>
+              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>The Builders</p>
+              <h2 className="text-3xl font-bold tracking-tight" style={{ color: NAVY }}>Independent makers.<br />Verified craft.</h2>
             </div>
             <Link to={createPageUrl("Builders")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity hidden sm:flex" style={{ color: NAVY }}>
               All builders <ArrowRight className="w-4 h-4" />
@@ -296,7 +327,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. SELL WITH CONFIDENCE ── */}
+      {/* ── 6. LIVE CRAFT FEED ── */}
+      {(benchPosts.length > 0 || loading) && (
+        <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#F2F0EA" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-end justify-between mb-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>On The Bench Right Now</p>
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Live from the shop.</h2>
+              </div>
+              <Link to={createPageUrl("FromTheBench")} className="hidden sm:flex items-center gap-1 text-sm font-semibold hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
+                Explore From The Bench <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <p className="text-base mb-10" style={{ color: "#4A4A4A" }}>
+              See what independent builders are working on in their shops right now.
+            </p>
+
+            {loading ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                {Array(6).fill(0).map((_, i) => (
+                  <div key={i} className="animate-pulse rounded-xl bg-stone-300" style={{ aspectRatio: "3/4" }} />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                {benchPosts.map(post => <BenchMiniCard key={post.id} post={post} />)}
+              </div>
+            )}
+
+            <div className="mt-8 sm:hidden">
+              <Link to={createPageUrl("FromTheBench")} className="text-sm font-semibold flex items-center gap-1" style={{ color: NAVY }}>
+                Explore From The Bench <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── 7. BUILDER CTA ── */}
       <section className="py-16" style={{ backgroundColor: "#2F3E55" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
@@ -327,42 +396,61 @@ export default function Home() {
 }
 
 function ProductCard({ product }) {
+  const [hovered, setHovered] = useState(false);
   const specs = product.specifications || {};
-  const specLine = [
-    specs.topWood,
+  const specParts = [
+    specs.instrumentCategory === "Other" ? specs.otherInstrumentCategory : specs.instrumentCategory,
+    specs.topWood === "Other" ? specs.otherTopWood : specs.topWood,
     specs.scaleLength ? `${specs.scaleLength}"` : null,
-    specs.instrumentCategory,
-  ].filter(Boolean).join(" · ");
+  ].filter(Boolean);
 
   return (
-    <Link to={createPageUrl("ProductDetail?id=" + product.id)} className="group block" style={{ backgroundColor: "#FFFFFF" }}>
-      <div className="relative overflow-hidden mb-4" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+    <Link
+      to={createPageUrl("ProductDetail?id=" + product.id)}
+      className="group block no-underline transition-all duration-200"
+      style={{
+        backgroundColor: "#FFFFFF",
+        boxShadow: hovered ? "0 6px 24px rgba(27,43,75,0.1)" : "none",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="relative overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
         {product.image_urls?.[0] ? (
           <img
             src={product.image_urls[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500"
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.03)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <Guitar className="w-12 h-12" style={{ color: "#CCCCCC" }} />
           </div>
         )}
-        {/* Ready to Ship badge */}
-        {product.status === "available" && (
-          <span className="absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: "#27AE60" }}>
-            Ready to Ship
+        <span className="absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 text-white" style={{ backgroundColor: "#27AE60" }}>
+          Ready to Ship
+        </span>
+        {/* Hover overlay */}
+        <div
+          className="absolute inset-0 flex items-end justify-center pb-3 transition-opacity duration-200"
+          style={{ opacity: hovered ? 1 : 0, background: "linear-gradient(to top, rgba(27,43,75,0.55) 0%, transparent 60%)" }}
+        >
+          <span className="text-white text-xs font-semibold flex items-center gap-1">
+            View Instrument <ArrowRight className="w-3.5 h-3.5" />
           </span>
-        )}
+        </div>
       </div>
-      <div className="pt-1">
-        <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: "#1B2B4B", lineHeight: 1.3, marginBottom: "2px" }}>{product.name}</h3>
-        <p style={{ fontSize: "0.88rem", fontWeight: 600, color: AMBER, marginBottom: "5px" }}>${product.price?.toLocaleString()}</p>
-        {specLine && <p style={{ fontSize: "0.73rem", color: "#6A7A8A", lineHeight: 1.4, marginBottom: "3px" }}>{specLine}</p>}
+      <div className="pt-3 pb-1 px-0.5">
+        <div className="flex items-start justify-between gap-2 mb-1">
+          <h3 className="font-bold text-sm leading-snug" style={{ color: "#1A1A1A" }}>{product.name}</h3>
+          <span className="font-bold text-sm flex-shrink-0" style={{ color: AMBER }}>${product.price?.toLocaleString()}</span>
+        </div>
+        {specParts.length > 0 && (
+          <p className="text-xs mb-1" style={{ color: "#8A8A8A" }}>{specParts.join(" • ")}</p>
+        )}
         {product.builder_name && (
-          <p style={{ fontSize: "0.78rem", fontWeight: 500, color: "#7A8A9A" }}>By {product.builder_name}</p>
+          <p className="text-xs font-medium" style={{ color: "#5A6A7A" }}>by {product.builder_name}</p>
         )}
       </div>
     </Link>
@@ -370,13 +458,18 @@ function ProductCard({ product }) {
 }
 
 function BuilderCard({ builder }) {
+  const [hovered, setHovered] = useState(false);
+  const instrumentTypes = (builder.instrument_types_built || []).map(i =>
+    i.type === "Other" && i.other_description ? i.other_description : i.type
+  );
+
   return (
     <Link
       to={createPageUrl("BuilderProfile?id=" + builder.id)}
-      className="group flex gap-5 items-start p-6 border transition-all"
-      style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}
-      onMouseEnter={e => e.currentTarget.style.borderColor = NAVY}
-      onMouseLeave={e => e.currentTarget.style.borderColor = "#E0DDD8"}
+      className="group flex gap-5 items-start p-6 border transition-all no-underline"
+      style={{ borderColor: hovered ? NAVY : "#E0DDD8", backgroundColor: "#FFFFFF" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {builder.avatar_url ? (
         <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-16 h-16 object-cover flex-shrink-0" style={{ borderRadius: 2 }} />
@@ -388,15 +481,15 @@ function BuilderCard({ builder }) {
       <div className="min-w-0 flex-1">
         <h3 className="font-bold text-sm mb-1 truncate" style={{ color: "#1A1A1A" }}>{builder.business_name || builder.display_name}</h3>
         {builder.location && (
-          <p className="text-xs flex items-center gap-1 mb-2" style={{ color: "#7A7A7A" }}>
+          <p className="text-xs flex items-center gap-1 mb-1.5" style={{ color: "#7A7A7A" }}>
             <MapPin className="w-3 h-3 flex-shrink-0" />{builder.location}
           </p>
         )}
-        {builder.bio && (
-          <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#5A5A5A" }}>{builder.bio}</p>
+        {instrumentTypes.length > 0 && (
+          <p className="text-xs mb-2" style={{ color: "#4A5566" }}>{instrumentTypes.join(" • ")}</p>
         )}
-        <div className="mt-3 text-xs font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: NAVY }}>
-          View instruments <ArrowRight className="w-3 h-3" />
+        <div className="text-xs font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: NAVY }}>
+          View Builder <ArrowRight className="w-3 h-3" />
         </div>
       </div>
     </Link>
@@ -412,7 +505,7 @@ function BenchMiniCard({ post }) {
   return (
     <Link
       to={createPageUrl("BuilderProfile?id=" + post.builder_id)}
-      className="block rounded-xl overflow-hidden bg-white border border-stone-200 transition-all duration-200 no-underline"
+      className="block overflow-hidden bg-white border border-stone-200 transition-all duration-200 no-underline"
       style={{ boxShadow: hovered ? "0 6px 20px rgba(0,0,0,0.10)" : "0 1px 3px rgba(0,0,0,0.06)", transform: hovered ? "translateY(-2px)" : "translateY(0)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -430,8 +523,8 @@ function BenchMiniCard({ post }) {
           {post.builder_avatar_url ? (
             <img src={post.builder_avatar_url} className="w-4 h-4 rounded-full object-cover flex-shrink-0" />
           ) : (
-            <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold" style={{ backgroundColor: "#EEF1F7", color: NAVY, fontSize: "0.55rem" }}>
-              {(post.builder_name || "B")[0].toUpperCase()}
+            <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#EEF1F7", color: NAVY, fontSize: "0.55rem" }}>
+              <span className="font-bold">{(post.builder_name || "B")[0].toUpperCase()}</span>
             </div>
           )}
           <span className="text-xs font-medium truncate" style={{ color: NAVY }}>{post.builder_name}</span>
