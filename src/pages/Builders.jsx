@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Search, Star, MapPin, Guitar, ArrowRight, User, Play } from "lucide-react";
 import BuildersMap from "../components/builders/BuildersMap";
+import FeaturedBuilders from "../components/builders/FeaturedBuilders";
 
 const NAVY = "#2F3E55";
 const AMBER = "#C57A1F";
@@ -50,6 +51,9 @@ export default function Builders() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        {/* ── FEATURED BUILDERS ── */}
+        <FeaturedBuilders builders={builders} />
 
         {/* ── MEET THE BUILDER VIDEOS ── */}
         {videoBuilders.length > 0 && (
