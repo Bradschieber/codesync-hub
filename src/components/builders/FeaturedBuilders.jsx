@@ -39,15 +39,15 @@ export default function FeaturedBuilders({ builders, productImageMap = {} }) {
   );
 }
 
-function FeaturedBuilderCard({ builder }) {
+function FeaturedBuilderCard({ builder, productImage }) {
   const [hovered, setHovered] = useState(false);
 
   const instrumentTypes = (builder.instrument_types_built || []).map(i =>
     i.type === "Other" && i.other_description ? i.other_description : i.type
   );
 
-  // Image priority: banner > first media > avatar
-  const heroImage = builder.banner_image_url || builder.media_urls?.[0] || builder.avatar_url || null;
+  // Image priority: featured instrument > most recent instrument > workshop > logo/avatar
+  const heroImage = productImage || builder.media_urls?.[0] || builder.logo_url || builder.avatar_url || null;
 
   return (
     <Link
