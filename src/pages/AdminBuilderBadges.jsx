@@ -100,6 +100,13 @@ export default function AdminBuilderBadges() {
                   activeColor="#6B4C2A"
                   onClick={() => toggleBadge(builder, "founding_builder")}
                 />
+                <BadgeToggle
+                  label="Featured Builder"
+                  active={!!builder.is_featured}
+                  loading={!!saving[builder.id + "is_featured"]}
+                  activeColor="#C57A1F"
+                  onClick={() => toggleBadge(builder, "is_featured")}
+                />
                 <div className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border" style={{ borderColor: "#E3E0D8", color: "#9A9A9A", backgroundColor: "#FAFAF8" }}>
                   Custom Shop: {builder.offers_custom_builds ? <span style={{ color: "#4A4A4A", fontWeight: 600 }}>Auto ✓</span> : <span>Off</span>}
                 </div>
