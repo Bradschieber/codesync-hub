@@ -119,11 +119,11 @@ export default function BuilderAccountFormModal({ onClose }) {
                 Once you've finished, our team will review your storefront — usually within 1–2 business days.
               </p>
               <button
-                onClick={() => { window.location.href = createPageUrl("DashboardProfile"); }}
+                onClick={() => { window.location.href = createPageUrl("BuilderOnboarding"); }}
                 className="font-semibold px-6 py-3 text-sm text-white transition-colors"
                 style={{ backgroundColor: NAVY }}
               >
-                Go to Builder Profile
+                Set Up My Storefront
               </button>
             </div>
           )}
