@@ -13,6 +13,7 @@ export default function AdminAllBuilders() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [updating, setUpdating] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 

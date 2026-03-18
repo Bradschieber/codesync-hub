@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import DashboardWorkshop from './pages/DashboardWorkshop';
 import BuilderOnboarding from './pages/BuilderOnboarding';
+import AdminUserAccounts from './pages/AdminUserAccounts';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
