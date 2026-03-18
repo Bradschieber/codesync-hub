@@ -144,7 +144,7 @@ export default function AdminAllBuilders() {
                     {b.founding_builder && <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#FDF3E3", color: "#6B4C2A" }}>Founding</span>}
                   </div>
                 </div>
-                <div className="col-span-3 flex justify-end">
+                <div className="col-span-3 flex justify-end gap-2">
                   <button
                     onClick={() => toggleApproval(b)}
                     disabled={updating === b.id}
@@ -157,6 +157,14 @@ export default function AdminAllBuilders() {
                     }}
                   >
                     {b.is_approved ? <><CheckCircle className="w-3 h-3" /> Approved</> : <><XCircle className="w-3 h-3" /> Pending</>}
+                  </button>
+                  <button
+                    onClick={() => setConfirmDelete(b)}
+                    disabled={updating === b.id}
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
+                    style={{ opacity: updating === b.id ? 0.5 : 1 }}
+                  >
+                    <Trash2 className="w-3 h-3" /> Delete
                   </button>
                 </div>
               </div>
