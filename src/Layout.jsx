@@ -44,7 +44,7 @@ export default function Layout({ children, currentPageName }) {
     } catch { setCartCount(0); }
   }
 
-  function handleLogout() { base44.auth.logout(createPageUrl("Home")); }
+  function handleLogout() { logout(createPageUrl("Home")); }
 
   const navLinks = [
     { label: "Home", page: "Home" },
