@@ -164,11 +164,7 @@ export default function BuilderOnboarding() {
       if (existing.length > 0) {
         setProfile(existing[0]);
         setForm(existing[0]);
-        // If already has story + policies, they're pretty far along — go to dashboard
-        if (existing[0].brand_story && (existing[0].warranty_duration || existing[0].returns_accepted)) {
-          navigate(createPageUrl("Dashboard"));
-          return;
-        }
+
       } else {
         setForm(f => ({
           ...f,
