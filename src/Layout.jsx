@@ -8,6 +8,7 @@ import CartModal from "./components/marketplace/CartModal";
 import BuilderAccountFormModal from "./components/builder/BuilderAccountFormModal";
 
 export default function Layout({ children, currentPageName }) {
+  const { logout } = useAuth();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
