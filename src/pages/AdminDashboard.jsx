@@ -63,6 +63,14 @@ export default function AdminDashboard() {
 
   const adminTools = [
     {
+      title: "Buyer Accounts",
+      description: "View, deactivate, or delete non-builder buyer accounts registered on the platform.",
+      icon: UserCircle,
+      page: "AdminUserAccounts",
+      badge: null,
+      urgent: false,
+    },
+    {
       title: "Payout Management",
       description: "Review deposit and final payout readiness for all orders. Release payouts when all requirements are met.",
       icon: DollarSign,

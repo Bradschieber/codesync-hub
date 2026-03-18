@@ -30,6 +30,18 @@ export default function AdminAllBuilders() {
     setLoading(false);
   }
 
+  async function deleteBuilder(builder) {
+    setUpdating(builder.id);
+    try {
+      await base44.functions.invoke("deleteBuilderAccount", { builder_id: builder.id });
+      setBuilders(prev => prev.filter(b => b.id !== builder.id));
+    } catch (e) {
+      alert("Failed to delete builder: " + e.message);
+    }
+    setUpdating(null);
+    setConfirmDelete(null);
+  }
+
   async function toggleApproval(builder) {
     setUpdating(builder.id);
     await base44.entities.UserProfile.update(builder.id, { is_approved: !builder.is_approved });
