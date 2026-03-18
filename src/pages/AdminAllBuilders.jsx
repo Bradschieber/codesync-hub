@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft } from "lucide-react";
+import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2 } from "lucide-react";
 
 const NAVY = "#2F3E55";
 
