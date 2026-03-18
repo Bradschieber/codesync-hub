@@ -173,6 +173,36 @@ export default function AdminAllBuilders() {
         </div>
         <p className="text-xs mt-3" style={{ color: "#9A9A9A" }}>Showing {filtered.length} of {builders.length} builders</p>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {confirmDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+          <div className="bg-white w-full max-w-md p-6 shadow-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <Trash2 className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <h3 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Delete Builder Account</h3>
+            </div>
+            <p className="text-sm mb-2" style={{ color: "#5A5A5A" }}>
+              Are you sure you want to permanently delete <strong>{confirmDelete.business_name || confirmDelete.display_name}</strong>?
+            </p>
+            <p className="text-xs mb-6 p-3" style={{ backgroundColor: "#FEF2F2", color: "#DC2626", border: "1px solid #FECACA" }}>
+              This will also delete all their products, custom build listings, workshop posts, reviews, and references. This cannot be undone.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <button onClick={() => setConfirmDelete(null)} className="px-4 py-2 text-sm font-medium border" style={{ borderColor: "#DEDBD6", color: "#4A4A4A" }}>
+                Cancel
+              </button>
+              <button
+                onClick={() => deleteBuilder(confirmDelete)}
+                disabled={updating === confirmDelete.id}
+                className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors disabled:opacity-50"
+              >
+                {updating === confirmDelete.id ? "Deleting..." : "Delete Builder"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
