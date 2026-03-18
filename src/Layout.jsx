@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { ShoppingCart, Menu, X, User, Heart, LogOut, LayoutDashboard, ChevronDown, Hammer } from "lucide-react";
 import CartModal from "./components/marketplace/CartModal";
 import BuilderAccountFormModal from "./components/builder/BuilderAccountFormModal";
