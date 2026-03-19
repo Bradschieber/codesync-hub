@@ -466,11 +466,11 @@ export default function BuilderOnboarding() {
           {/* STEP 3: Show Your Craft */}
           {step === 2 && (
             <div className="space-y-8">
-              <div className="p-4 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
-                <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#6B6B6B" }}>What to upload</p>
-                <ul className="text-xs space-y-1.5" style={{ color: "#5A5A5A" }}>
-                  {["Your workshop or build space", "In-progress builds — neck carving, body shaping, finishing", "Close-ups of materials, grain, inlay work", "Tools and process details", "Finished builds (not product listings — those come later)"].map(i => (
-                    <li key={i} className="flex items-start gap-2"><span style={{ color: AMBER }}>—</span> {i}</li>
+              <div className="p-4 border-l-4" style={{ borderColor: AMBER, backgroundColor: "#FFF9F0" }}>
+                <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#7A4000" }}>What to upload here</p>
+                <ul className="text-xs space-y-1.5" style={{ color: "#7A5030" }}>
+                  {["Your workshop or build space", "In-progress builds — neck carving, body shaping, finishing", "Close-ups of materials, grain, and inlay work", "Tools and process details", "Finished builds (save product photos for the listing step later)"].map(i => (
+                    <li key={i} className="flex items-start gap-2"><span>—</span> {i}</li>
                   ))}
                 </ul>
               </div>
