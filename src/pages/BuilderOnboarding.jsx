@@ -599,8 +599,8 @@ export default function BuilderOnboarding() {
           {step === 4 && (
             <div>
               <div className="mb-6 p-4 border-l-4" style={{ borderColor: AMBER, backgroundColor: "#FFF9F0" }}>
-                <p className="text-xs font-bold" style={{ color: "#7A4000" }}>Required before your storefront goes live</p>
-                <p className="text-xs mt-0.5" style={{ color: "#9A6030" }}>These terms are included in every purchase agreement on the platform. Clear policies protect both you and your buyers.</p>
+                <p className="text-xs font-bold mb-1" style={{ color: "#7A4000" }}>Required before your storefront goes live</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>These terms are embedded in every purchase agreement on the platform. Clear policies set expectations for buyers upfront — and protect you if a dispute arises. Don't worry about being perfect; you can refine these anytime from your dashboard.</p>
               </div>
               <PoliciesEditor form={form} setForm={setForm} />
             </div>
