@@ -827,14 +827,16 @@ export default function BuilderOnboarding() {
           )}
 
           {/* ── NAV BUTTONS ── */}
-          <div className="flex items-center justify-between mt-12 pt-6" style={{ borderTop: "1px solid #E3E0D8" }}>
+          <div className="flex items-center justify-between mt-12 pt-6" style={{ borderTop: "1px solid #E8E4DC" }}>
             {step > 0 ? (
               <button
                 type="button"
                 onClick={handleBack}
                 disabled={saving}
-                className="flex items-center gap-2 text-sm font-medium px-5 py-2.5 transition-colors"
-                style={{ color: "#6A6A6A", border: "1px solid #DEDBD6", backgroundColor: "transparent" }}
+                className="flex items-center gap-2 text-sm font-medium px-6 py-3 transition-all"
+                style={{ color: "#7A7A7A", border: "1px solid #E0DDD8", backgroundColor: "transparent", letterSpacing: "0.01em" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "#C0BBB3"; e.currentTarget.style.color = "#4A4A4A"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "#E0DDD8"; e.currentTarget.style.color = "#7A7A7A"; }}
               >
                 <ArrowLeft className="w-3.5 h-3.5" /> Back
               </button>
@@ -845,8 +847,8 @@ export default function BuilderOnboarding() {
                 type="button"
                 onClick={handleNext}
                 disabled={saving}
-                className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-colors"
-                style={{ backgroundColor: saving ? "#AAAAAA" : NAVY }}
+                className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-all"
+                style={{ backgroundColor: saving ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
               >
                 {saving ? "Saving..." : "Continue"} <ArrowRight className="w-4 h-4" />
               </button>
@@ -855,8 +857,8 @@ export default function BuilderOnboarding() {
                 type="button"
                 onClick={handleLaunch}
                 disabled={saving || savingProduct}
-                className="flex items-center gap-2 text-sm font-bold px-8 py-3 text-white transition-colors"
-                style={{ backgroundColor: saving || savingProduct ? "#AAAAAA" : (allRequiredDone ? "#4A9A6A" : NAVY) }}
+                className="flex items-center gap-2 text-sm font-semibold px-8 py-3 text-white transition-all"
+                style={{ backgroundColor: saving || savingProduct ? "#AAAAAA" : (allRequiredDone ? "#4A9A6A" : NAVY), letterSpacing: "0.01em" }}
               >
                 {saving || savingProduct ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
               </button>
@@ -864,7 +866,7 @@ export default function BuilderOnboarding() {
           </div>
 
           {step < STEPS.length - 1 && (
-            <p className="text-center text-xs mt-4" style={{ color: "#BBBBBB" }}>
+            <p className="text-center text-xs mt-4" style={{ color: "#C8C4BC" }}>
               Progress is saved automatically when you continue.
             </p>
           )}
