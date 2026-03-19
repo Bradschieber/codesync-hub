@@ -15,6 +15,29 @@ import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 const NAVY = "#2F3E55";
 const AMBER = "#C57A1F";
 
+function Field({ label, children, hint }) {
+  return (
+    <div>
+      <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>{label}</label>
+      {hint && <p className="text-xs mb-2" style={{ color: "#9A9A9A" }}>{hint}</p>}
+      {children}
+    </div>
+  );
+}
+
+function Input({ field, value, onChange, placeholder, type = "text" }) {
+  return (
+    <input
+      type={type}
+      value={value || ""}
+      onChange={e => onChange(field, type === "number" ? Number(e.target.value) : e.target.value)}
+      placeholder={placeholder}
+      className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+      style={{ borderColor: "#DEDBD6" }}
+    />
+  );
+}
+
 const STEPS = [
   { id: "shop",       label: "Your Shop",         icon: Store },
   { id: "story",      label: "Your Story",         icon: BookOpen },
