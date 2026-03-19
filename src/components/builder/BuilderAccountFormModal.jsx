@@ -89,6 +89,7 @@ export default function BuilderAccountFormModal({ onClose }) {
           {/* Not logged in */}
           {user === null && (
             <div className="py-6">
+              <p className="text-sm font-semibold mb-5" style={{ color: "#1A1A1A" }}>Create your builder profile in 2 easy steps.</p>
               <div className="space-y-4 mb-6">
                 {[
                   { step: "1", label: "Create a free account", detail: "Sign up with your email — takes under a minute." },
