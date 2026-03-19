@@ -479,13 +479,14 @@ export default function BuilderOnboarding() {
                       className="text-left px-4 py-3 border transition-all"
                       style={{
                         borderColor: activePrompt === i ? NAVY : "#E3E0D8",
-                        backgroundColor: activePrompt === i ? "#F2F5FA" : "#FFFFFF",
+                        backgroundColor: activePrompt === i ? "#F0F4FA" : "#FAFAF8",
+                        boxShadow: activePrompt === i ? `inset 3px 0 0 ${NAVY}` : "none",
                       }}
                     >
-                      <p className="text-xs font-semibold mb-0.5" style={{ color: activePrompt === i ? NAVY : "#4A4A4A" }}>{p.label}</p>
+                      <p className="text-xs font-semibold mb-0.5" style={{ color: activePrompt === i ? NAVY : "#5A5A5A" }}>{p.label}</p>
                       {activePrompt === i
-                        ? <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{p.hint}</p>
-                        : <p className="text-xs" style={{ color: "#C0BBB3" }}>Tap to expand →</p>
+                        ? <p className="text-xs leading-relaxed mt-1" style={{ color: "#4A5A6A" }}>{p.hint}</p>
+                        : <p className="text-xs" style={{ color: "#C8C4BC" }}>Tap to expand →</p>
                       }
                     </button>
                   ))}
