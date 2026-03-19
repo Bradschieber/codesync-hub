@@ -88,15 +88,36 @@ export default function BuilderAccountFormModal({ onClose }) {
         <div className="px-6 py-6">
           {/* Not logged in */}
           {user === null && (
-            <div className="text-center py-8">
-              <p className="text-sm mb-4" style={{ color: "#5A5A5A" }}>You need to be signed in to create a builder account.</p>
+            <div className="py-6">
+              <div className="mb-6 p-4 border-l-4" style={{ borderColor: "#C57A1F", backgroundColor: "#FFF9F0" }}>
+                <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: "#7A4000" }}>Two quick steps to get listed</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>Creating your builder profile takes just a few minutes. First, create a free account — then we'll take you straight to your builder setup.</p>
+              </div>
+              <div className="space-y-4 mb-6">
+                {[
+                  { step: "1", label: "Create a free account", detail: "Sign up with your email — takes under a minute." },
+                  { step: "2", label: "Set up your builder profile", detail: "Tell buyers about your shop, your story, and what you build." },
+                  { step: "3", label: "Submit for review", detail: "Our team reviews your storefront and gets you live within 1–2 business days." },
+                ].map(({ step, label, detail }) => (
+                  <div key={step} className="flex items-start gap-4">
+                    <div className="w-7 h-7 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white rounded-full" style={{ backgroundColor: NAVY }}>{step}</div>
+                    <div>
+                      <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>{label}</p>
+                      <p className="text-xs" style={{ color: "#7A7A7A" }}>{detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
               <button
                 onClick={() => base44.auth.redirectToLogin(window.location.href)}
-                className="font-semibold px-6 py-3 text-sm text-white transition-colors"
+                className="w-full font-semibold px-6 py-3 text-sm text-white transition-colors"
                 style={{ backgroundColor: NAVY }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
               >
-                Sign In / Sign Up
+                Create a Free Account & Get Started →
               </button>
+              <p className="text-xs text-center mt-3" style={{ color: "#9A9A9A" }}>Already have an account? Signing in will take you straight to your builder profile.</p>
             </div>
           )}
 
