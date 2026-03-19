@@ -20,12 +20,18 @@ export default function Home() {
   useEffect(() => { loadData(); }, []);
 
   async function loadData() {
-    const [prods, bldrs, buildUpdates, workshopPosts] = await Promise.all([
-      base44.entities.Product.filter({ status: "available" }, "-created_date", 12),
-      base44.entities.UserProfile.filter({ is_seller: true, is_featured: true }, "-created_date", 4),
-      base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 50),
-      base44.entities.WorkshopPost.filter({ is_public: true }, "-created_date", 50),
-    ]);
+    let prods = [], bldrs = [], buildUpdates = [], workshopPosts = [];
+    try {
+      [prods, bldrs, buildUpdates, workshopPosts] = await Promise.all([
+        base44.entities.Product.filter({ status: "available" }, "-created_date", 12),
+        base44.entities.UserProfile.filter({ is_seller: true, is_featured: true }, "-created_date", 4),
+        base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 50),
+        base44.entities.WorkshopPost.filter({ is_public: true }, "-created_date", 50),
+      ]);
+    } catch {
+      setLoading(false);
+      return;
+    }
 
     // Featured or most recent instruments
     const featuredFirst = prods.filter(p => p.is_featured);
