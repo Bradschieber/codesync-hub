@@ -651,9 +651,10 @@ export default function BuilderOnboarding() {
             <div className="space-y-6">
               {!skipInstrument ? (
                 <>
-                  <div className="p-4 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
-                    <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>
-                      A listing gives your storefront immediate substance. Buyers can see your pricing, craftsmanship, and what kind of instruments you make — before they even reach out about a custom build.
+                  <div className="p-4 border-l-4" style={{ borderColor: NAVY, backgroundColor: "#F0F3F8" }}>
+                    <p className="text-xs font-bold mb-1" style={{ color: NAVY }}>Why this matters</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "#3A4A5A" }}>
+                      A listing gives buyers immediate context — your pricing, your craftsmanship, your aesthetic. It's often the first thing that makes someone decide to reach out about a custom build. Even one listing dramatically strengthens your storefront.
                     </p>
                   </div>
                   <FirstInstrumentForm product={product} setProduct={setProduct} />
@@ -663,14 +664,15 @@ export default function BuilderOnboarding() {
                     className="text-xs underline"
                     style={{ color: "#9A9A9A" }}
                   >
-                    Skip for now — I'll add instruments from my dashboard
+                    I don't have a finished instrument to list right now — skip for now
                   </button>
                 </>
               ) : (
                 <div className="py-10 text-center">
                   <Guitar className="w-10 h-10 mx-auto mb-3" style={{ color: "#CCCCCC" }} />
-                  <p className="text-sm font-semibold mb-1" style={{ color: "#3D3D3D" }}>No problem — you can add instruments later.</p>
-                  <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>From your dashboard, go to Manage Products to add your first listing.</p>
+                  <p className="text-sm font-semibold mb-1" style={{ color: "#3D3D3D" }}>No problem — you can add listings anytime.</p>
+                  <p className="text-xs mb-1" style={{ color: "#9A9A9A" }}>From your dashboard, go to <strong>Manage Products</strong> to add your first instrument.</p>
+                  <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Note: storefronts with at least one listing get significantly more buyer interest.</p>
                   <button type="button" onClick={() => setSkipInstrument(false)} className="text-xs underline" style={{ color: NAVY }}>
                     Actually, I'll add one now
                   </button>
