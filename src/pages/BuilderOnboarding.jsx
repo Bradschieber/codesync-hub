@@ -683,53 +683,56 @@ export default function BuilderOnboarding() {
 
           {/* STEP 9: Launch */}
           {step === 8 && (
-            <div className="space-y-6">
-              {/* Completion checklist */}
-              <div className="space-y-2">
-                {[
-                  { label: "Shop identity", done: !!(form.business_name && form.location) },
-                  { label: "Brand story", done: !!(form.brand_story && form.brand_story.length > 80) },
-                  { label: "Workshop photos", done: !!(form.media_urls && form.media_urls.length > 0) },
-                  { label: "Instrument types & offerings", done: !!(form.years_experience && (form.offers_stock_builds || form.offers_custom_builds)) },
-                  { label: "Shop policies", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
-                  { label: "First instrument", done: !!(skipInstrument ? false : product.name && product.price) },
-                ].map(({ label, done }) => (
-                  <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: "#E3E0D8", backgroundColor: done ? "#F0FBF4" : "#FFFFFF" }}>
-                    <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
-                      style={{ backgroundColor: done ? "#27AE60" : "#E3E0D8" }}>
-                      {done && <Check className="w-3 h-3 text-white" />}
+            <div className="space-y-8">
+              {/* Required for review */}
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#CC3333" }}>Required for review</p>
+                <div className="space-y-2">
+                  {[
+                    { label: "Shop name & location", done: !!(form.business_name && form.location) },
+                    { label: "Shop policies (warranty, returns, shipping)", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
+                    { label: "What you build & offer", done: !!(form.offers_stock_builds || form.offers_custom_builds) },
+                  ].map(({ label, done }) => (
+                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: done ? "#C3E6CB" : "#F5C6CB", backgroundColor: done ? "#F0FBF4" : "#FFF5F5" }}>
+                      <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
+                        style={{ backgroundColor: done ? "#27AE60" : "#DC3545" }}>
+                        {done ? <Check className="w-3 h-3 text-white" /> : <span className="text-white text-xs font-bold">!</span>}
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: done ? "#1A6B3A" : "#7A1A1A" }}>{label}</span>
+                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#27AE60" : "#DC3545" }}>{done ? "Complete" : "Needed"}</span>
                     </div>
-                    <span className="text-sm font-medium" style={{ color: done ? "#1A6B3A" : "#9A9A9A" }}>{label}</span>
-                    {done && <span className="ml-auto text-xs font-semibold" style={{ color: "#27AE60" }}>Complete</span>}
-                    {!done && <span className="ml-auto text-xs" style={{ color: "#CCCCCC" }}>Incomplete</span>}
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* Recommended */}
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#6A7A8A" }}>Recommended — strengthen your storefront</p>
+                <div className="space-y-2">
+                  {[
+                    { label: "Brand story", done: !!(form.brand_story && form.brand_story.length > 80) },
+                    { label: "Workshop photos", done: !!(form.media_urls && form.media_urls.length > 0) },
+                    { label: "First instrument listing", done: !!(skipInstrument ? false : product.name && product.price) },
+                    { label: "Buyer references", done: false },
+                    { label: "Payout account connected", done: false },
+                  ].map(({ label, done }) => (
+                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: "#E3E0D8", backgroundColor: done ? "#F0FBF4" : "#FFFFFF" }}>
+                      <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
+                        style={{ backgroundColor: done ? "#27AE60" : "#E3E0D8" }}>
+                        {done && <Check className="w-3 h-3 text-white" />}
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: done ? "#1A6B3A" : "#7A7A7A" }}>{label}</span>
+                      <span className="ml-auto text-xs" style={{ color: done ? "#27AE60" : "#AAAAAA" }}>{done ? "Complete" : "Add later"}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Status */}
               <div className="p-5 text-center border" style={{ borderColor: "#E3E0D8", backgroundColor: "#F7F6F3" }}>
                 <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>Storefront Status</p>
-                <p className="text-2xl font-bold mb-1" style={{ color: NAVY }}>Ready for Review</p>
-                <p className="text-xs" style={{ color: "#7A7A7A" }}>Your storefront will go live once approved by the Stringed Collective team.</p>
-              </div>
-
-              {/* Next steps */}
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#8A8A8A" }}>Suggested next steps</p>
-                <div className="space-y-2">
-                  {[
-                    "Add more instrument listings",
-                    "Share workshop activity photos",
-                    "Deepen your brand story",
-                    "Request verified buyer references",
-                    "Connect your payout account",
-                  ].map(item => (
-                    <div key={item} className="flex items-center gap-2 text-sm" style={{ color: "#4A4A4A" }}>
-                      <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" style={{ color: AMBER }} />
-                      {item}
-                    </div>
-                  ))}
-                </div>
+                <p className="text-2xl font-bold mb-1" style={{ color: NAVY }}>Submitted for Review</p>
+                <p className="text-xs" style={{ color: "#7A7A7A" }}>Our team will review your storefront and get you live within 1–2 business days. You can continue refining everything from your dashboard in the meantime.</p>
               </div>
             </div>
           )}
