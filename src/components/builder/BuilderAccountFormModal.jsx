@@ -89,11 +89,13 @@ export default function BuilderAccountFormModal({ onClose }) {
           {/* Not logged in */}
           {user === null && (
             <div className="py-6">
-              <p className="text-sm font-semibold mb-5" style={{ color: "#1A1A1A" }}>Create your builder profile in 2 easy steps.</p>
-              <div className="space-y-4 mb-6">
+              <p className="text-sm font-semibold mb-2" style={{ color: "#1A1A1A" }}>Create your builder account and start building your storefront.</p>
+              <p className="text-xs mb-6 leading-relaxed" style={{ color: "#7A7A7A" }}>It takes just a minute to create your account. Then we'll guide you through your complete storefront setup — step by step.</p>
+              <div className="space-y-3 mb-6">
                 {[
-                  { step: "1", label: "Create a free account", detail: "Sign up with your email — takes under a minute." },
-                  { step: "2", label: "Set up your builder profile", detail: "Tell buyers about your shop, your story, and what you build." },
+                  { step: "1", label: "Create a free account", detail: "Sign up with your email and verify — takes under a minute." },
+                  { step: "2", label: "Build your storefront", detail: "We'll walk you through your shop, story, policies, and first listing." },
+                  { step: "3", label: "Go live after review", detail: "Our team approves your storefront within 1–2 business days." },
                 ].map(({ step, label, detail }) => (
                   <div key={step} className="flex items-start gap-4">
                     <div className="w-7 h-7 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white rounded-full" style={{ backgroundColor: NAVY }}>{step}</div>
@@ -105,11 +107,11 @@ export default function BuilderAccountFormModal({ onClose }) {
                 ))}
               </div>
               <div className="mb-6 p-3 border-l-2" style={{ borderColor: "#C57A1F", backgroundColor: "#FFF9F0" }}>
-                <p className="text-xs font-bold mb-0.5" style={{ color: "#7A4000" }}>Then what?</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>Our team reviews your storefront and gets you live within 1–2 business days.</p>
+                <p className="text-xs font-bold mb-0.5" style={{ color: "#7A4000" }}>After you verify your email</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>You'll be taken directly into your storefront setup. No need to come back here.</p>
               </div>
               <button
-                onClick={() => base44.auth.redirectToLogin("/Home")}
+                onClick={() => base44.auth.redirectToLogin("/BuilderOnboarding")}
                 className="w-full font-semibold px-6 py-3 text-sm text-white transition-colors"
                 style={{ backgroundColor: NAVY }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
@@ -117,7 +119,7 @@ export default function BuilderAccountFormModal({ onClose }) {
               >
                 Create a Free Account & Get Started →
               </button>
-              <p className="text-xs text-center mt-3" style={{ color: "#9A9A9A" }}>Already have an account? Signing in will take you straight to your builder profile.</p>
+              <p className="text-xs text-center mt-3" style={{ color: "#9A9A9A" }}>Already have an account? Sign in to go straight to your builder setup.</p>
             </div>
           )}
 
