@@ -769,7 +769,7 @@ export default function BuilderOnboarding() {
                 className="flex items-center gap-2 text-sm font-bold px-8 py-3 text-white transition-colors"
                 style={{ backgroundColor: saving || savingProduct ? "#8A8A8A" : "#27AE60" }}
               >
-                {saving || savingProduct ? "Saving..." : <>Go to My Dashboard <ArrowRight className="w-4 h-4" /></>}
+                {saving || savingProduct ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
               </button>
             )}
           </div>
