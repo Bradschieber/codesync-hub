@@ -695,10 +695,13 @@ export default function BuilderOnboarding() {
 
           {/* STEP 6: Buyer References */}
           {step === 5 && (
-            <div className="space-y-5">
-              <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
-                Past buyers can submit a short testimonial about their experience working with you. Once verified by our team, these appear on your storefront as social proof. This step is entirely optional — most builders add references after their first sale.
-              </p>
+            <div className="space-y-6">
+              <GuidanceCard>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>About buyer references</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>
+                  Past buyers can submit a short testimonial about their experience working with you. Once our team verifies it, the quote appears on your storefront. Most builders add references after their first sale. <span style={{ color: "#A89060" }}>This step is optional.</span>
+                </p>
+              </GuidanceCard>
               {profile ? (
                 <ReferencesSection profile={profile} />
               ) : (
