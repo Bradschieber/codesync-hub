@@ -181,15 +181,24 @@ export default function BuilderOnboarding() {
 
   async function saveProfile() {
     setSaving(true);
-    if (profile) {
-      const updated = await base44.entities.UserProfile.update(profile.id, form);
-      setProfile(updated);
-    } else {
-      const created = await base44.entities.UserProfile.create(form);
-      setProfile(created);
-      setForm(created);
+    try {
+      if (profile) {
+        const updated = await base44.entities.UserProfile.update(profile.id, form);
+        setProfile(updated);
+      } else {
+        const created = await base44.entities.UserProfile.create(form);
+        setProfile(created);
+        setForm(created);
+      }
+    } catch (err) {
+      if (err?.status === 401 || err?.status === 403) {
+        base44.auth.redirectToLogin("/BuilderOnboarding");
+        return;
+      }
+      throw err;
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
   }
 
   async function handleNext() {
