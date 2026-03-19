@@ -381,7 +381,7 @@ export default function BuilderOnboarding() {
                 </Field>
               </div>
               <Field label="Tagline" hint="One sentence that sums up your shop's identity.">
-                <Input field="tag_line" placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
+                <Input field="tag_line" value={form.tag_line} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
               </Field>
               <div className="pt-2 border-t" style={{ borderColor: "#E3E0D8" }}>
                 <p className="text-xs font-semibold uppercase tracking-wide mb-4" style={{ color: "#9A9A9A" }}>Online presence (optional)</p>
