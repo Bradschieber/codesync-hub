@@ -365,7 +365,7 @@ export default function BuilderOnboarding() {
             <div className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Shop / Brand Name *" hint="The name buyers will see on your storefront.">
-                  <Input field="business_name" placeholder="e.g. Hartman Guitars" />
+                  <Input field="business_name" value={form.business_name} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. Hartman Guitars" />
                 </Field>
                 <Field label="Location" hint="City, State — shown publicly.">
                   <div className="relative">
