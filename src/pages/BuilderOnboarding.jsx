@@ -807,22 +807,20 @@ export default function BuilderOnboarding() {
 
               {/* Status card */}
               {allRequiredDone ? (
-                <div className="p-6 text-center border" style={{ borderColor: "#C0DEC8", backgroundColor: "#F4FBF6" }}>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: "#4A9A6A" }}>
-                    <Check className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="text-sm font-bold mb-1" style={{ color: "#1A5A3A" }}>Ready for review</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#3A7A5A" }}>Our team will review your storefront and get you live within 1–2 business days. You can continue refining everything from your dashboard in the meantime.</p>
-                </div>
-              ) : (
-                <div className="p-5 border" style={{ borderColor: "#F0C0C0", backgroundColor: "#FFF5F5" }}>
-                  <div className="flex items-start gap-3">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#DC5050" }} />
+                <div className="p-6 border" style={{ borderColor: "#C0DEC8", backgroundColor: "#F4FBF6" }}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#4A9A6A" }}>
+                      <Check className="w-5 h-5 text-white" />
+                    </div>
                     <div>
-                      <p className="text-sm font-semibold mb-1" style={{ color: "#7A2020" }}>Not ready for review yet</p>
-                      <p className="text-xs leading-relaxed" style={{ color: "#9A4040" }}>Please complete the required items above. You can go back to any step to fill in missing information. Your progress is saved automatically.</p>
+                      <p className="text-sm font-bold mb-1" style={{ color: "#1A5A3A" }}>Ready for review</p>
+                      <p className="text-xs leading-relaxed" style={{ color: "#3A7A5A" }}>Our team will review your storefront within 1–2 business days. You can continue refining everything from your dashboard in the meantime.</p>
                     </div>
                   </div>
+                </div>
+              ) : (
+                <div className="px-4 py-3 border-l-2" style={{ borderColor: "#DC5050", backgroundColor: "#FFF8F8" }}>
+                  <p className="text-xs leading-relaxed" style={{ color: "#9A4040" }}>Complete the required items above before submitting for review. Use the Back button to return to any step — your progress is saved automatically.</p>
                 </div>
               )}
             </div>
