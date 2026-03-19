@@ -39,19 +39,19 @@ function Input({ field, value, onChange, placeholder, type = "text" }) {
   );
 }
 
-// Warm editorial guidance card — for instructional/supportive notes
+// Warm editorial guidance card
 function GuidanceCard({ children }) {
   return (
-    <div className="px-5 py-4 border-l-2" style={{ borderColor: "#C8A96A", backgroundColor: "#FDFAF4" }}>
+    <div className="px-5 py-4 border-l-2" style={{ borderColor: "#C8A870", backgroundColor: "#FEFCF7" }}>
       {children}
     </div>
   );
 }
 
-// Neutral form section — for grouped inputs
+// Neutral form section
 function SectionCard({ children, className = "" }) {
   return (
-    <div className={"border p-5 " + className} style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+    <div className={"border p-6 " + className} style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
       {children}
     </div>
   );
