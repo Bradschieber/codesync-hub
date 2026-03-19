@@ -530,18 +530,19 @@ export default function BuilderOnboarding() {
             <div className="space-y-8">
               <GuidanceCard>
                 <p className="text-xs font-semibold mb-2" style={{ color: "#7A6030" }}>What to upload here</p>
-                <ul className="text-xs space-y-1" style={{ color: "#8A7040" }}>
+                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
                   {[
                     "Your workshop or build space",
-                    "In-progress builds — neck carving, body shaping, finishing",
-                    "Close-ups of materials, grain, and inlay work",
+                    "In-progress builds — neck carving, finishing",
+                    "Close-ups of materials, grain, inlay work",
                     "Tools and process details",
-                    "Finished builds (save product photos for the listing step)",
                   ].map(item => (
-                    <li key={item} className="flex items-start gap-2"><span>–</span> {item}</li>
+                    <p key={item} className="text-xs flex items-start gap-1.5" style={{ color: "#8A7040" }}>
+                      <span className="mt-0.5 flex-shrink-0">–</span> {item}
+                    </p>
                   ))}
-                </ul>
-                <p className="text-xs mt-3 font-medium" style={{ color: "#9A8060" }}>Workshop, process, material, and detail shots work best. Recommended: 4–8 photos.</p>
+                </div>
+                <p className="text-xs mt-3" style={{ color: "#9A8060" }}>Save finished product shots for the listing step. <span className="font-medium">Recommended: 4–8 photos.</span></p>
               </GuidanceCard>
 
               <MediaUploader
