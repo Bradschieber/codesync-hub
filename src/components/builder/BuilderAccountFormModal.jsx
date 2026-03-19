@@ -89,15 +89,10 @@ export default function BuilderAccountFormModal({ onClose }) {
           {/* Not logged in */}
           {user === null && (
             <div className="py-6">
-              <div className="mb-6 p-4 border-l-4" style={{ borderColor: "#C57A1F", backgroundColor: "#FFF9F0" }}>
-                <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: "#7A4000" }}>Two quick steps to get listed</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>Creating your builder profile takes just a few minutes. First, create a free account — then we'll take you straight to your builder setup.</p>
-              </div>
               <div className="space-y-4 mb-6">
                 {[
                   { step: "1", label: "Create a free account", detail: "Sign up with your email — takes under a minute." },
                   { step: "2", label: "Set up your builder profile", detail: "Tell buyers about your shop, your story, and what you build." },
-                  { step: "3", label: "Submit for review", detail: "Our team reviews your storefront and gets you live within 1–2 business days." },
                 ].map(({ step, label, detail }) => (
                   <div key={step} className="flex items-start gap-4">
                     <div className="w-7 h-7 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white rounded-full" style={{ backgroundColor: NAVY }}>{step}</div>
@@ -107,6 +102,10 @@ export default function BuilderAccountFormModal({ onClose }) {
                     </div>
                   </div>
                 ))}
+              </div>
+              <div className="mb-6 p-3 border-l-2" style={{ borderColor: "#C57A1F", backgroundColor: "#FFF9F0" }}>
+                <p className="text-xs font-bold mb-0.5" style={{ color: "#7A4000" }}>Then what?</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>Our team reviews your storefront and gets you live within 1–2 business days.</p>
               </div>
               <button
                 onClick={() => base44.auth.redirectToLogin(window.location.pathname)}
