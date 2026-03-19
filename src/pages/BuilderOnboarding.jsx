@@ -308,29 +308,31 @@ export default function BuilderOnboarding() {
             </div>
 
             {/* Step indicators — desktop */}
-            <div className="hidden lg:flex items-center gap-0.5">
+            <div className="hidden lg:flex items-center gap-0">
               {STEPS.map((s, i) => {
                 const done = i < step;
                 const active = i === step;
                 return (
                   <div key={s.id} className="flex items-center">
                     <div
-                      className="flex items-center gap-1.5 px-2.5 py-1 text-xs transition-all"
+                      className="flex items-center gap-1.5 px-3 text-xs transition-all"
                       style={{
                         fontWeight: active ? 600 : 400,
-                        color: active ? NAVY : done ? "#7AAD8A" : "#C0BBB3",
-                        borderBottom: active ? `2px solid ${NAVY}` : "2px solid transparent",
+                        color: active ? NAVY : done ? "#90B89A" : "#CCCCC0",
+                        paddingTop: "4px",
                         paddingBottom: "6px",
+                        borderBottom: active ? `2px solid ${NAVY}` : done ? "2px solid transparent" : "2px solid transparent",
+                        opacity: active ? 1 : done ? 0.85 : 0.5,
                       }}
                     >
                       {done
-                        ? <Check className="w-3 h-3" style={{ color: "#7AAD8A" }} />
-                        : <span style={{ color: active ? NAVY : "#C0BBB3" }}>{i + 1}</span>
+                        ? <Check className="w-3 h-3 flex-shrink-0" style={{ color: "#90B89A" }} />
+                        : <span className="flex-shrink-0" style={{ color: active ? NAVY : "#C8C4BC" }}>{i + 1}</span>
                       }
                       <span className="hidden xl:inline">{s.label}</span>
                     </div>
                     {i < STEPS.length - 1 && (
-                      <div className="w-4 h-px mx-0.5" style={{ backgroundColor: "#E3E0D8" }} />
+                      <div className="w-3 h-px" style={{ backgroundColor: "#E8E4DC" }} />
                     )}
                   </div>
                 );
