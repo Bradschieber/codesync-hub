@@ -343,8 +343,8 @@ export default function BuilderOnboarding() {
               <p className="text-base" style={{ color: "#5A5A5A" }}>Past buyers can vouch for your work. These show up on your storefront and build trust with new customers. <span style={{ color: "#9A9A9A" }}>(Optional)</span></p>
             </>}
             {step === 6 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Payments & payouts.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>Understand how the platform handles money so you can build with confidence.</p>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>How payments work.</h1>
+              <p className="text-base" style={{ color: "#5A5A5A" }}>This step is informational — payout setup happens in your dashboard after your storefront goes live. Here's how the platform handles every transaction.</p>
             </>}
             {step === 7 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Add your first instrument.</h1>
