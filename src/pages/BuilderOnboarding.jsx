@@ -4,8 +4,8 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import {
   Check, ArrowRight, ArrowLeft, Store, BookOpen, Camera, Hammer,
-  ShieldCheck, Users, CreditCard, Guitar, Sparkles, MapPin, Globe,
-  Instagram, Facebook, User, Clock, Package, Upload, X
+  ShieldCheck, Users, Guitar, Sparkles, MapPin, Globe,
+  Instagram, Facebook, Upload, X, AlertCircle
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
@@ -13,12 +13,13 @@ import ReferencesSection from "../components/dashboard/ReferencesSection";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 
 const NAVY = "#2F3E55";
-const AMBER = "#C57A1F";
+
+// ── Shared UI primitives ────────────────────────────────────────────
 
 function Field({ label, children, hint }) {
   return (
     <div>
-      <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>{label}</label>
+      <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>{label}</label>
       {hint && <p className="text-xs mb-2" style={{ color: "#9A9A9A" }}>{hint}</p>}
       {children}
     </div>
@@ -33,21 +34,40 @@ function Input({ field, value, onChange, placeholder, type = "text" }) {
       onChange={e => onChange(field, type === "number" ? Number(e.target.value) : e.target.value)}
       placeholder={placeholder}
       className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-      style={{ borderColor: "#DEDBD6" }}
+      style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
     />
   );
 }
 
+// Warm editorial guidance card — for instructional/supportive notes
+function GuidanceCard({ children }) {
+  return (
+    <div className="px-5 py-4 border-l-2" style={{ borderColor: "#C8A96A", backgroundColor: "#FDFAF4" }}>
+      {children}
+    </div>
+  );
+}
+
+// Neutral form section — for grouped inputs
+function SectionCard({ children, className = "" }) {
+  return (
+    <div className={"border p-5 " + className} style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+      {children}
+    </div>
+  );
+}
+
+// ── Steps ────────────────────────────────────────────────────────────
+
 const STEPS = [
-  { id: "shop",       label: "Your Shop",         icon: Store },
-  { id: "story",      label: "Your Story",         icon: BookOpen },
-  { id: "craft",      label: "Show Your Craft",    icon: Camera },
-  { id: "business",   label: "Your Business",      icon: Hammer },
-  { id: "policies",   label: "Shop Policies",      icon: ShieldCheck },
-  { id: "references", label: "Buyer References",   icon: Users },
-  { id: "payments",   label: "Payments",           icon: CreditCard },
-  { id: "instrument", label: "First Instrument",   icon: Guitar },
-  { id: "launch",     label: "Launch",             icon: Sparkles },
+  { id: "shop",       label: "Your Shop",       icon: Store },
+  { id: "story",      label: "Your Story",      icon: BookOpen },
+  { id: "craft",      label: "Show Your Craft", icon: Camera },
+  { id: "business",   label: "Your Business",   icon: Hammer },
+  { id: "policies",   label: "Shop Policies",   icon: ShieldCheck },
+  { id: "references", label: "References",      icon: Users },
+  { id: "instrument", label: "First Listing",   icon: Guitar },
+  { id: "launch",     label: "Launch",          icon: Sparkles },
 ];
 
 const INSTRUMENT_TYPES = ["Electric Guitar", "Acoustic Guitar", "Electric Bass", "Acoustic Electric Bass", "Other"];
@@ -60,7 +80,8 @@ const STORY_PROMPTS = [
   { label: "Your Shop", hint: "Tell us about where the magic happens — your setup, your tools, your process." },
 ];
 
-// Minimal product form for first instrument step
+// ── First Instrument Form ─────────────────────────────────────────────
+
 function FirstInstrumentForm({ product, setProduct }) {
   const [uploading, setUploading] = useState(false);
 
@@ -80,29 +101,29 @@ function FirstInstrumentForm({ product, setProduct }) {
   return (
     <div className="space-y-5">
       <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>Instrument Name *</label>
+        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Instrument Name *</label>
         <input
           value={product.name || ""}
           onChange={e => setProduct(p => ({ ...p, name: e.target.value }))}
           placeholder='e.g. "Walnut Short Scale Bass"'
           className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-          style={{ borderColor: "#DEDBD6" }}
+          style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
         />
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>Price ($) *</label>
+          <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Price ($) *</label>
           <input
             type="number"
             value={product.price || ""}
             onChange={e => setProduct(p => ({ ...p, price: Number(e.target.value) }))}
             placeholder="e.g. 2500"
             className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-            style={{ borderColor: "#DEDBD6" }}
+            style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>Instrument Category</label>
+          <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Instrument Type</label>
           <select
             value={product.specifications?.instrumentCategory || ""}
             onChange={e => setProduct(p => ({ ...p, specifications: { ...(p.specifications || {}), instrumentCategory: e.target.value } }))}
@@ -117,39 +138,44 @@ function FirstInstrumentForm({ product, setProduct }) {
         </div>
       </div>
       <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>Description</label>
+        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Description</label>
         <textarea
           rows={3}
           value={product.description || ""}
           onChange={e => setProduct(p => ({ ...p, description: e.target.value }))}
           placeholder="Describe this instrument — materials, inspiration, what makes it special."
           className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
-          style={{ borderColor: "#DEDBD6" }}
+          style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
         />
       </div>
+
+      {/* Photo upload — prominent */}
       <div>
-        <label className="block text-xs font-semibold mb-2" style={{ color: "#6B6B6B" }}>Photos</label>
+        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Photos</label>
+        <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>Strong photos are the single biggest factor in whether a buyer reaches out. Add your best angles — front, back, detail shots.</p>
         <div className="flex flex-wrap gap-3">
           {(product.image_urls || []).map((url, i) => (
-            <div key={i} className="relative w-24 h-24 overflow-hidden" style={{ border: "1px solid #DEDBD6" }}>
-              <img src={url} className="w-full h-full object-cover" />
+            <div key={i} className="relative w-28 h-28 overflow-hidden" style={{ border: "1px solid #DEDBD6" }}>
+              <img src={url} className="w-full h-full object-cover" alt="" />
               <button
                 type="button"
                 onClick={() => removeImage(i)}
                 className="absolute top-1 right-1 bg-white rounded-full p-0.5 shadow"
               >
-                <X className="w-3 h-3" style={{ color: "#333" }} />
+                <X className="w-3 h-3" style={{ color: "#555" }} />
               </button>
             </div>
           ))}
-          <label className="w-24 h-24 flex flex-col items-center justify-center cursor-pointer text-xs font-medium gap-1"
-            style={{ border: "1px dashed #BDBBB6", backgroundColor: "#FAFAF8", color: "#9A9A9A" }}>
+          <label
+            className="w-28 h-28 flex flex-col items-center justify-center cursor-pointer gap-1.5 transition-colors"
+            style={{ border: "2px dashed #C8B99A", backgroundColor: "#FDFAF4", color: "#9A8A7A" }}
+          >
             {uploading ? (
-              <div className="w-4 h-4 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: NAVY, borderTopColor: "transparent" }} />
+              <div className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: NAVY, borderTopColor: "transparent" }} />
             ) : (
               <>
-                <Upload className="w-4 h-4" />
-                Add photo
+                <Upload className="w-5 h-5" />
+                <span className="text-xs font-medium">Add photo</span>
               </>
             )}
             <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploading} />
@@ -159,6 +185,8 @@ function FirstInstrumentForm({ product, setProduct }) {
     </div>
   );
 }
+
+// ── Main Component ───────────────────────────────────────────────────
 
 export default function BuilderOnboarding() {
   const navigate = useNavigate();
@@ -187,7 +215,6 @@ export default function BuilderOnboarding() {
       if (existing.length > 0) {
         setProfile(existing[0]);
         setForm(existing[0]);
-
       } else {
         setForm(f => ({
           ...f,
@@ -235,7 +262,6 @@ export default function BuilderOnboarding() {
   }
 
   async function handleLaunch() {
-    // Save first instrument if not skipped
     if (!skipInstrument && product.name && product.price && profile) {
       setSavingProduct(true);
       await base44.entities.Product.create({
@@ -249,60 +275,75 @@ export default function BuilderOnboarding() {
     navigate(createPageUrl("Dashboard"));
   }
 
+  const updateForm = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
+
   const currentStep = STEPS[step];
-  const progressPct = Math.round(((step) / (STEPS.length - 1)) * 100);
+  const progressPct = Math.round((step / (STEPS.length - 1)) * 100);
 
-
+  // Launch readiness
+  const requiredItems = [
+    { label: "Shop name & location", done: !!(form.business_name && form.location) },
+    { label: "Shop policies (warranty, returns, shipping)", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
+    { label: "What you build & offer", done: !!(form.offers_stock_builds || form.offers_custom_builds) },
+  ];
+  const allRequiredDone = requiredItems.every(r => r.done);
 
   if (loading) return (
     <div className="fixed inset-0 flex items-center justify-center" style={{ backgroundColor: "#F7F6F3" }}>
-      <div className="w-8 h-8 border-3 border-t-transparent rounded-full animate-spin" style={{ borderColor: NAVY, borderTopColor: "transparent", borderWidth: 3 }} />
+      <div className="w-8 h-8 rounded-full animate-spin" style={{ border: "3px solid #E3E0D8", borderTopColor: NAVY }} />
     </div>
   );
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F7F6F3" }}>
 
-      {/* ── TOP PROGRESS BAR ── */}
-      <div className="sticky top-0 z-40" style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E3E0D8" }}>
+      {/* ── TOP STEPPER ── */}
+      <div className="sticky top-0 z-40" style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E8E5E0" }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
-            <div className="flex flex-col" style={{ lineHeight: 1.1 }}>
+            <div className="flex flex-col flex-shrink-0" style={{ lineHeight: 1.1 }}>
               <span className="font-bold text-sm" style={{ color: NAVY, letterSpacing: "0.02em" }}>Stringed</span>
               <span className="font-normal text-sm" style={{ color: NAVY, letterSpacing: "0.12em" }}>Collective</span>
             </div>
 
-            {/* Step pills — desktop */}
-            <div className="hidden lg:flex items-center gap-1">
+            {/* Step indicators — desktop */}
+            <div className="hidden lg:flex items-center gap-0.5">
               {STEPS.map((s, i) => {
                 const done = i < step;
                 const active = i === step;
                 return (
-                  <div key={s.id} className="flex items-center gap-1">
+                  <div key={s.id} className="flex items-center">
                     <div
-                      className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium transition-colors"
+                      className="flex items-center gap-1.5 px-2.5 py-1 text-xs transition-all"
                       style={{
-                        backgroundColor: active ? NAVY : done ? "#E8F4EC" : "transparent",
-                        color: active ? "#FFFFFF" : done ? "#27AE60" : "#9A9A9A",
+                        fontWeight: active ? 600 : 400,
+                        color: active ? NAVY : done ? "#7AAD8A" : "#C0BBB3",
+                        borderBottom: active ? `2px solid ${NAVY}` : "2px solid transparent",
+                        paddingBottom: "6px",
                       }}
                     >
-                      {done ? <Check className="w-3 h-3" /> : <span>{i + 1}</span>}
+                      {done
+                        ? <Check className="w-3 h-3" style={{ color: "#7AAD8A" }} />
+                        : <span style={{ color: active ? NAVY : "#C0BBB3" }}>{i + 1}</span>
+                      }
                       <span className="hidden xl:inline">{s.label}</span>
                     </div>
-                    {i < STEPS.length - 1 && <div className="w-3 h-px" style={{ backgroundColor: "#DEDBD6" }} />}
+                    {i < STEPS.length - 1 && (
+                      <div className="w-4 h-px mx-0.5" style={{ backgroundColor: "#E3E0D8" }} />
+                    )}
                   </div>
                 );
               })}
             </div>
 
             {/* Step count — mobile */}
-            <div className="lg:hidden text-xs font-medium" style={{ color: "#7A7A7A" }}>
+            <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
               Step {step + 1} of {STEPS.length}
             </div>
           </div>
           {/* Progress bar */}
-          <div className="h-0.5 w-full" style={{ backgroundColor: "#E3E0D8" }}>
+          <div className="h-px w-full" style={{ backgroundColor: "#E8E5E0" }}>
             <div
               className="h-full transition-all duration-500"
               style={{ width: `${progressPct}%`, backgroundColor: NAVY }}
@@ -317,44 +358,47 @@ export default function BuilderOnboarding() {
 
           {/* Step header */}
           <div className="mb-10">
-            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#9A9A9A" }}>
-              Step {step + 1} — {currentStep.label}
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#AAAA9A", letterSpacing: "0.12em" }}>
+              Step {step + 1} of {STEPS.length} — {currentStep.label}
             </p>
+
             {step === 0 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Welcome. Let's build your shop.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>This is where buyers will find you, learn your story, and decide to reach out. Let's start with the basics.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>This is where buyers will find you, learn your story, and decide to reach out. Start with the basics — you can always refine later.</p>
             </>}
             {step === 1 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Tell your story.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>Buyers aren't just buying an instrument — they're buying into you. Make it personal, make it real.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Buyers aren't just purchasing an instrument — they're investing in you. A genuine story is one of the most powerful things on your storefront.</p>
             </>}
             {step === 2 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Show your craft.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>Photos of your workshop, process, and materials bring your storefront to life. This is what builds trust at first glance.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Photos of your workshop, process, and materials bring your storefront to life. This is what earns trust before a word is read.</p>
             </>}
             {step === 3 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Your business.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>Help buyers understand what working with you looks like — your experience, output, and what you offer.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Help buyers understand what working with you looks like — your experience, your output, and what you offer.</p>
             </>}
             {step === 4 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Shop policies.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>Clear policies build buyer confidence and are included in every purchase agreement. These are required before your storefront goes live.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Clear policies are embedded in every purchase agreement and protect both you and the buyer. These are required before your storefront goes live.</p>
             </>}
             {step === 5 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Buyer references.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>Past buyers can vouch for your work. These show up on your storefront and build trust with new customers. <span style={{ color: "#9A9A9A" }}>(Optional)</span></p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Past buyers who vouch for your work give new customers the confidence to reach out. This step is optional — you can add references anytime.</p>
             </>}
             {step === 6 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>How payments work.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>This step is informational — payout setup happens in your dashboard after your storefront goes live. Here's how the platform handles every transaction.</p>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Add your first instrument.</h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A listing gives your storefront immediate credibility. It shows buyers what your craft looks like in finished form — and often starts the conversation.</p>
             </>}
             {step === 7 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Add your first instrument.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>A listing makes your storefront tangible. It shows buyers what your craft looks like in finished form.</p>
-            </>}
-            {step === 8 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Your storefront is ready.</h1>
-              <p className="text-base" style={{ color: "#5A5A5A" }}>You've built the foundation. Here's what's been completed and what you can strengthen over time.</p>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
+                {allRequiredDone ? "Your storefront is ready for review." : "Almost there."}
+              </h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
+                {allRequiredDone
+                  ? "You've completed everything needed. Our team will review your storefront within 1–2 business days."
+                  : "A few required items still need attention before your storefront can be submitted for review."}
+              </p>
             </>}
           </div>
 
@@ -365,101 +409,111 @@ export default function BuilderOnboarding() {
             <div className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Shop / Brand Name *" hint="The name buyers will see on your storefront.">
-                  <Input field="business_name" value={form.business_name} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. Hartman Guitars" />
+                  <Input field="business_name" value={form.business_name} onChange={updateForm} placeholder="e.g. Hartman Guitars" />
                 </Field>
                 <Field label="Location" hint="City, State — shown publicly.">
                   <div className="relative">
-                    <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#AAAAAA" }} />
+                    <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#BBBBBB" }} />
                     <input
                       value={form.location || ""}
                       onChange={e => setForm(f => ({ ...f, location: e.target.value }))}
                       placeholder="e.g. Asheville, NC"
                       className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none"
-                      style={{ borderColor: "#DEDBD6" }}
+                      style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                     />
                   </div>
                 </Field>
               </div>
               <Field label="Tagline" hint="One sentence that sums up your shop's identity.">
-                <Input field="tag_line" value={form.tag_line} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
+                <Input field="tag_line" value={form.tag_line} onChange={updateForm} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
               </Field>
-              <div className="pt-2 border-t" style={{ borderColor: "#E3E0D8" }}>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-4" style={{ color: "#9A9A9A" }}>Online presence (optional)</p>
+
+              <div className="pt-4 border-t" style={{ borderColor: "#E3E0D8" }}>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#BBBBBB" }}>Online presence <span className="normal-case font-normal">(optional)</span></p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Website">
                     <div className="relative">
-                      <Globe className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#AAAAAA" }} />
-                      <input value={form.website_url || ""} onChange={e => setForm(f => ({ ...f, website_url: e.target.value }))} placeholder="https://..." className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6" }} />
+                      <Globe className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#BBBBBB" }} />
+                      <input value={form.website_url || ""} onChange={e => setForm(f => ({ ...f, website_url: e.target.value }))} placeholder="https://..." className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                     </div>
                   </Field>
                   <Field label="Instagram">
                     <div className="relative">
-                      <Instagram className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#AAAAAA" }} />
-                      <input value={form.instagram_url || ""} onChange={e => setForm(f => ({ ...f, instagram_url: e.target.value }))} placeholder="https://instagram.com/..." className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6" }} />
+                      <Instagram className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#BBBBBB" }} />
+                      <input value={form.instagram_url || ""} onChange={e => setForm(f => ({ ...f, instagram_url: e.target.value }))} placeholder="https://instagram.com/..." className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                     </div>
                   </Field>
                   <Field label="Facebook">
                     <div className="relative">
-                      <Facebook className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#AAAAAA" }} />
-                      <input value={form.facebook_url || ""} onChange={e => setForm(f => ({ ...f, facebook_url: e.target.value }))} placeholder="https://facebook.com/..." className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6" }} />
+                      <Facebook className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#BBBBBB" }} />
+                      <input value={form.facebook_url || ""} onChange={e => setForm(f => ({ ...f, facebook_url: e.target.value }))} placeholder="https://facebook.com/..." className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                     </div>
                   </Field>
                   <Field label="X (Twitter)">
-                    <input value={form.x_url || ""} onChange={e => setForm(f => ({ ...f, x_url: e.target.value }))} placeholder="https://x.com/..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6" }} />
+                    <input value={form.x_url || ""} onChange={e => setForm(f => ({ ...f, x_url: e.target.value }))} placeholder="https://x.com/..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                   </Field>
                 </div>
               </div>
             </div>
           )}
 
-          {/* STEP 2: Tell Your Story */}
+          {/* STEP 2: Your Story */}
           {step === 1 && (
             <div className="space-y-6">
-              {/* Prompts */}
+              <GuidanceCard>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>What good looks like</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>The best brand stories are specific and personal. Mention where you're from, who taught you, what you obsess over, and why you haven't stopped building. Buyers connect with people, not credentials.</p>
+              </GuidanceCard>
+
+              {/* Writing prompts */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "#8A8A8A" }}>Writing prompts — tap one for inspiration</p>
-                <div className="grid sm:grid-cols-2 gap-3">
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Writing prompts — tap one for inspiration</p>
+                <div className="grid sm:grid-cols-2 gap-2">
                   {STORY_PROMPTS.map((p, i) => (
                     <button
                       key={i}
                       type="button"
                       onClick={() => setActivePrompt(activePrompt === i ? null : i)}
-                      className="text-left p-3 border transition-all"
+                      className="text-left px-4 py-3 border transition-all"
                       style={{
                         borderColor: activePrompt === i ? NAVY : "#E3E0D8",
-                        backgroundColor: activePrompt === i ? "#F0F3F8" : "#FAFAF8",
+                        backgroundColor: activePrompt === i ? "#F2F5FA" : "#FFFFFF",
                       }}
                     >
-                      <p className="text-xs font-bold mb-0.5" style={{ color: NAVY }}>{p.label}</p>
-                      {activePrompt === i && <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{p.hint}</p>}
-                      {activePrompt !== i && <p className="text-xs" style={{ color: "#BBBBBB" }}>Tap for a prompt →</p>}
+                      <p className="text-xs font-semibold mb-0.5" style={{ color: activePrompt === i ? NAVY : "#4A4A4A" }}>{p.label}</p>
+                      {activePrompt === i
+                        ? <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{p.hint}</p>
+                        : <p className="text-xs" style={{ color: "#C0BBB3" }}>Tap to expand →</p>
+                      }
                     </button>
                   ))}
                 </div>
               </div>
+
               <div>
-                <label className="block text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
-                <p className="text-xs mb-3" style={{ color: "#7A7A7A" }}>Use the prompts above as inspiration, then write your story in your own voice below. The more personal and specific, the more buyers will connect with you.</p>
+                <label className="block text-sm font-semibold mb-1" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
+                <p className="text-xs mb-2" style={{ color: "#8A8A8A" }}>Write in your own voice. The more personal and specific, the more buyers will connect with you.</p>
                 <textarea
                   rows={14}
                   value={form.brand_story || ""}
                   onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
                   placeholder={`Write in your own voice — no need to be formal.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
                   className="w-full border px-4 py-3 text-sm focus:outline-none resize-none leading-relaxed"
-                  style={{ borderColor: "#DEDBD6" }}
+                  style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                 />
-                <p className="text-xs mt-2" style={{ color: "#9A9A9A" }}>
-                  {form.brand_story?.length || 0} characters — longer, genuine stories are consistently the biggest trust builder on a storefront.
+                <p className="text-xs mt-1.5" style={{ color: "#BBBBBB" }}>
+                  {form.brand_story?.length || 0} characters
                 </p>
               </div>
-              <Field label="Short Bio (optional)" hint="A 1–2 sentence summary shown on your profile cards across the site.">
+
+              <Field label="Short Bio" hint="A 1–2 sentence summary shown on your profile card across the site. Optional.">
                 <textarea
                   rows={2}
                   value={form.bio || ""}
                   onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
                   placeholder="e.g. Builder of hand-carved electric guitars from Portland, OR. 15 years, ~120 instruments."
                   className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
-                  style={{ borderColor: "#DEDBD6" }}
+                  style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                 />
               </Field>
             </div>
@@ -468,27 +522,36 @@ export default function BuilderOnboarding() {
           {/* STEP 3: Show Your Craft */}
           {step === 2 && (
             <div className="space-y-8">
-              <div className="p-4 border-l-4" style={{ borderColor: AMBER, backgroundColor: "#FFF9F0" }}>
-                <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "#7A4000" }}>What to upload here</p>
-                <ul className="text-xs space-y-1.5" style={{ color: "#7A5030" }}>
-                  {["Your workshop or build space", "In-progress builds — neck carving, body shaping, finishing", "Close-ups of materials, grain, and inlay work", "Tools and process details", "Finished builds (save product photos for the listing step later)"].map(i => (
-                    <li key={i} className="flex items-start gap-2"><span>—</span> {i}</li>
+              <GuidanceCard>
+                <p className="text-xs font-semibold mb-2" style={{ color: "#7A6030" }}>What to upload here</p>
+                <ul className="text-xs space-y-1" style={{ color: "#8A7040" }}>
+                  {[
+                    "Your workshop or build space",
+                    "In-progress builds — neck carving, body shaping, finishing",
+                    "Close-ups of materials, grain, and inlay work",
+                    "Tools and process details",
+                    "Finished builds (save product photos for the listing step)",
+                  ].map(item => (
+                    <li key={item} className="flex items-start gap-2"><span>–</span> {item}</li>
                   ))}
                 </ul>
-              </div>
+                <p className="text-xs mt-3 font-medium" style={{ color: "#9A8060" }}>Workshop, process, material, and detail shots work best. Recommended: 4–8 photos.</p>
+              </GuidanceCard>
+
               <MediaUploader
                 mediaUrls={form.media_urls || []}
                 onChange={urls => setForm(f => ({ ...f, media_urls: urls }))}
               />
+
               <div className="border-t pt-6" style={{ borderColor: "#E3E0D8" }}>
-                <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: "#6B6B6B" }}>Introduction Video (optional)</p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or builder interview adds a powerful human element to your storefront.</p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human element. Paste a YouTube or Vimeo link.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Video URL">
-                    <input value={form.introduction_video_url || ""} onChange={e => setForm(f => ({ ...f, introduction_video_url: e.target.value }))} placeholder="https://youtube.com/watch?v=..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6" }} />
+                    <input value={form.introduction_video_url || ""} onChange={e => setForm(f => ({ ...f, introduction_video_url: e.target.value }))} placeholder="https://youtube.com/watch?v=..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                   </Field>
                   <Field label="Video Caption">
-                    <input value={form.introduction_video_title || ""} onChange={e => setForm(f => ({ ...f, introduction_video_title: e.target.value }))} placeholder='e.g. "A day in my shop"' className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6" }} />
+                    <input value={form.introduction_video_title || ""} onChange={e => setForm(f => ({ ...f, introduction_video_title: e.target.value }))} placeholder='e.g. "A day in my shop"' className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                   </Field>
                 </div>
               </div>
@@ -500,23 +563,23 @@ export default function BuilderOnboarding() {
             <div className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Years Building">
-                  <Input field="years_experience" value={form.years_experience} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 12" type="number" />
+                  <Input field="years_experience" value={form.years_experience} onChange={updateForm} placeholder="e.g. 12" type="number" />
                 </Field>
                 <Field label="Total Instruments Built">
-                  <Input field="total_instruments_built" value={form.total_instruments_built} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 150" type="number" />
+                  <Input field="total_instruments_built" value={form.total_instruments_built} onChange={updateForm} placeholder="e.g. 150" type="number" />
                 </Field>
-                <Field label="Instruments Built Per Year">
-                  <Input field="instruments_per_year" value={form.instruments_per_year} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 10" type="number" />
+                <Field label="Instruments Per Year">
+                  <Input field="instruments_per_year" value={form.instruments_per_year} onChange={updateForm} placeholder="e.g. 10" type="number" />
                 </Field>
                 <Field label="Typical Build Time">
-                  <Input field="typical_build_time" value={form.typical_build_time} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 3–6 months" />
+                  <Input field="typical_build_time" value={form.typical_build_time} onChange={updateForm} placeholder="e.g. 3–6 months" />
                 </Field>
               </div>
 
-              {/* Instrument types */}
-              <div className="p-5 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
+              {/* What do you build */}
+              <SectionCard>
                 <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you build?</p>
-                <p className="text-xs mb-4" style={{ color: "#6A6A6A" }}>This appears prominently on your storefront and helps buyers find the right builder. Select all that apply.</p>
+                <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>This appears prominently on your storefront and helps buyers find the right builder. Select all that apply.</p>
                 <div className="flex flex-wrap gap-2">
                   {INSTRUMENT_TYPES.map(type => {
                     const current = form.instrument_types_built || [];
@@ -532,10 +595,10 @@ export default function BuilderOnboarding() {
                             else updated.push({ type });
                             setForm(f => ({ ...f, instrument_types_built: updated }));
                           }}
-                          className="px-4 py-2 text-xs font-semibold border transition-colors"
+                          className="px-4 py-2 text-xs font-semibold border transition-all"
                           style={{
                             borderColor: checked ? NAVY : "#DEDBD6",
-                            backgroundColor: checked ? NAVY : "#FFFFFF",
+                            backgroundColor: checked ? NAVY : "#FAFAF8",
                             color: checked ? "#FFFFFF" : "#4A4A4A",
                           }}
                         >
@@ -544,8 +607,8 @@ export default function BuilderOnboarding() {
                         </button>
                         {checked && type === "Other" && (
                           <input
-                            className="mt-1 border px-3 py-1.5 text-sm focus:outline-none"
-                            style={{ borderColor: "#DEDBD6" }}
+                            className="mt-1.5 border px-3 py-1.5 text-sm focus:outline-none"
+                            style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                             placeholder="Describe your instrument type..."
                             value={entry.other_description || ""}
                             onChange={e => {
@@ -558,34 +621,46 @@ export default function BuilderOnboarding() {
                     );
                   })}
                 </div>
-              </div>
+              </SectionCard>
 
-              {/* What you offer */}
-              <div className="p-5 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
+              {/* What do you offer */}
+              <SectionCard>
                 <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you offer?</p>
-                <p className="text-xs mb-4" style={{ color: "#6A6A6A" }}>This shapes how buyers interact with your storefront — what they can browse, buy, and request. You can offer one or both.</p>
+                <p className="text-xs mb-5" style={{ color: "#7A7A7A" }}>This shapes how buyers interact with your storefront. You can offer stock instruments, custom commissions, or both.</p>
                 <div className="space-y-4">
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={form.offers_stock_builds || false} onChange={e => setForm(f => ({ ...f, offers_stock_builds: e.target.checked }))} className="h-4 w-4 mt-0.5" style={{ accentColor: NAVY }} />
+                  <label
+                    className="flex items-start gap-4 cursor-pointer p-4 border transition-all"
+                    style={{
+                      borderColor: form.offers_stock_builds ? NAVY : "#E3E0D8",
+                      backgroundColor: form.offers_stock_builds ? "#F2F5FA" : "#FAFAF8",
+                    }}
+                  >
+                    <input type="checkbox" checked={form.offers_stock_builds || false} onChange={e => setForm(f => ({ ...f, offers_stock_builds: e.target.checked }))} className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ accentColor: NAVY }} />
                     <div>
                       <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Stock Builds</p>
-                      <p className="text-xs" style={{ color: "#7A7A7A" }}>Pre-made instruments listed with specs and a fixed price — ready to ship.</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Pre-made instruments listed with specs and a fixed price — ready to ship.</p>
                     </div>
                   </label>
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={form.offers_custom_builds || false} onChange={e => setForm(f => ({ ...f, offers_custom_builds: e.target.checked }))} className="h-4 w-4 mt-0.5" style={{ accentColor: NAVY }} />
+                  <label
+                    className="flex items-start gap-4 cursor-pointer p-4 border transition-all"
+                    style={{
+                      borderColor: form.offers_custom_builds ? NAVY : "#E3E0D8",
+                      backgroundColor: form.offers_custom_builds ? "#F2F5FA" : "#FAFAF8",
+                    }}
+                  >
+                    <input type="checkbox" checked={form.offers_custom_builds || false} onChange={e => setForm(f => ({ ...f, offers_custom_builds: e.target.checked }))} className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ accentColor: NAVY }} />
                     <div className="flex-1">
                       <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Custom Builds</p>
-                      <p className="text-xs" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their desired specs — you build to order.</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their desired specs — you build to order.</p>
                       {form.offers_custom_builds && (
-                        <div className="mt-3 space-y-3">
+                        <div className="mt-4 space-y-3">
                           <textarea
                             rows={3}
                             value={form.custom_build_description || ""}
                             onChange={e => setForm(f => ({ ...f, custom_build_description: e.target.value }))}
                             placeholder="Describe your custom build offering — instrument types, options, lead times, starting prices."
                             className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
-                            style={{ borderColor: "#DEDBD6" }}
+                            style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                           />
                           <CustomBuildExamples form={form} setForm={setForm} />
                         </div>
@@ -593,28 +668,27 @@ export default function BuilderOnboarding() {
                     </div>
                   </label>
                 </div>
-              </div>
+              </SectionCard>
             </div>
           )}
 
           {/* STEP 5: Shop Policies */}
           {step === 4 && (
             <div>
-              <div className="mb-6 p-4 border-l-4" style={{ borderColor: AMBER, backgroundColor: "#FFF9F0" }}>
-                <p className="text-xs font-bold mb-1" style={{ color: "#7A4000" }}>Required before your storefront goes live</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>These terms are embedded in every purchase agreement on the platform. Clear policies set expectations for buyers upfront — and protect you if a dispute arises. Don't worry about being perfect; you can refine these anytime from your dashboard.</p>
-              </div>
+              <GuidanceCard>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Required before your storefront goes live</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>These terms are embedded in every purchase agreement. Clear policies set expectations for buyers upfront and protect you if a dispute ever arises. You can refine them anytime from your dashboard.</p>
+              </GuidanceCard>
               <PoliciesEditor form={form} setForm={setForm} />
             </div>
           )}
 
           {/* STEP 6: Buyer References */}
           {step === 5 && (
-            <div>
-              <div className="mb-6 p-4 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
-                <p className="text-xs font-bold mb-1" style={{ color: "#1A1A1A" }}>What are buyer references?</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>Past buyers can submit a short quote about their experience working with you. Once verified by Stringed Collective, these appear on your storefront as social proof.</p>
-              </div>
+            <div className="space-y-5">
+              <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
+                Past buyers can submit a short testimonial about their experience working with you. Once verified by our team, these appear on your storefront as social proof. This step is entirely optional — most builders add references after their first sale.
+              </p>
               {profile ? (
                 <ReferencesSection profile={profile} />
               ) : (
@@ -623,59 +697,34 @@ export default function BuilderOnboarding() {
             </div>
           )}
 
-          {/* STEP 7: Payments */}
+          {/* STEP 7: First Instrument */}
           {step === 6 && (
-            <div className="space-y-5">
-              {[
-                { icon: ShieldCheck, title: "Buyer funds are protected", body: "When a buyer pays, their funds are held securely by Stringed Collective — not released to you until the instrument is confirmed received. This protects the buyer and gives them confidence to purchase from independent builders." },
-                { icon: CreditCard, title: "Your payouts are guaranteed", body: "Once delivery is confirmed, your payout is released reliably. No chargebacks to worry about, no platform delays on standard transactions." },
-                { icon: Package, title: "Deposits are released on schedule", body: "For custom builds, deposits are released when the build begins. The final balance is released on confirmed delivery. First-time transactions include a brief verification hold." },
-                { icon: Clock, title: "Payout timeline", body: "Standard payouts are processed within 3–5 business days after delivery confirmation. Custom build deposits are released at build start." },
-              ].map(({ icon: Icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
-                  <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: NAVY }} strokeWidth={1.5} />
-                  <div>
-                    <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>{title}</p>
-                    <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{body}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="p-5 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
-                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Payout setup</p>
-                <p className="text-xs leading-relaxed mb-3" style={{ color: "#5A5A5A" }}>Payout account details can be connected from your dashboard after your storefront is live. You'll be prompted to connect a bank account before your first transaction is processed.</p>
-                <p className="text-xs font-medium" style={{ color: AMBER }}>You can complete this step from your dashboard.</p>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 8: First Instrument */}
-          {step === 7 && (
             <div className="space-y-6">
               {!skipInstrument ? (
                 <>
-                  <div className="p-4 border-l-4" style={{ borderColor: NAVY, backgroundColor: "#F0F3F8" }}>
-                    <p className="text-xs font-bold mb-1" style={{ color: NAVY }}>Why this matters</p>
-                    <p className="text-xs leading-relaxed" style={{ color: "#3A4A5A" }}>
-                      A listing gives buyers immediate context — your pricing, your craftsmanship, your aesthetic. It's often the first thing that makes someone decide to reach out about a custom build. Even one listing dramatically strengthens your storefront.
+                  <GuidanceCard>
+                    <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why this matters</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>
+                      A listing gives buyers immediate context — your pricing, your craftsmanship, your aesthetic. It's often the first thing that makes someone decide to reach out about a custom commission. Even one listing dramatically strengthens your storefront.
                     </p>
-                  </div>
+                  </GuidanceCard>
                   <FirstInstrumentForm product={product} setProduct={setProduct} />
                   <button
                     type="button"
                     onClick={() => setSkipInstrument(true)}
-                    className="text-xs underline"
-                    style={{ color: "#9A9A9A" }}
+                    className="text-xs"
+                    style={{ color: "#AAAAAA", textDecoration: "underline" }}
                   >
                     I don't have a finished instrument to list right now — skip for now
                   </button>
                 </>
               ) : (
-                <div className="py-10 text-center">
-                  <Guitar className="w-10 h-10 mx-auto mb-3" style={{ color: "#CCCCCC" }} />
+                <div className="py-12 text-center">
+                  <Guitar className="w-10 h-10 mx-auto mb-4" style={{ color: "#D0CAC0" }} strokeWidth={1.5} />
                   <p className="text-sm font-semibold mb-1" style={{ color: "#3D3D3D" }}>No problem — you can add listings anytime.</p>
                   <p className="text-xs mb-1" style={{ color: "#9A9A9A" }}>From your dashboard, go to <strong>Manage Products</strong> to add your first instrument.</p>
-                  <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Note: storefronts with at least one listing get significantly more buyer interest.</p>
-                  <button type="button" onClick={() => setSkipInstrument(false)} className="text-xs underline" style={{ color: NAVY }}>
+                  <p className="text-xs mb-5" style={{ color: "#BBBBBB" }}>Storefronts with at least one listing get significantly more buyer interest.</p>
+                  <button type="button" onClick={() => setSkipInstrument(false)} className="text-xs font-semibold" style={{ color: NAVY, textDecoration: "underline" }}>
                     Actually, I'll add one now
                   </button>
                 </div>
@@ -683,73 +732,98 @@ export default function BuilderOnboarding() {
             </div>
           )}
 
-          {/* STEP 9: Launch */}
-          {step === 8 && (
-            <div className="space-y-8">
-              {/* Required for review */}
+          {/* STEP 8: Launch */}
+          {step === 7 && (
+            <div className="space-y-6">
+              {/* Required items */}
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#CC3333" }}>Required for review</p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: allRequiredDone ? "#5A8A6A" : "#B04040" }}>
+                  {allRequiredDone ? "Required — all complete" : "Required — action needed"}
+                </p>
                 <div className="space-y-2">
-                  {[
-                    { label: "Shop name & location", done: !!(form.business_name && form.location) },
-                    { label: "Shop policies (warranty, returns, shipping)", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
-                    { label: "What you build & offer", done: !!(form.offers_stock_builds || form.offers_custom_builds) },
-                  ].map(({ label, done }) => (
-                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: done ? "#C3E6CB" : "#F5C6CB", backgroundColor: done ? "#F0FBF4" : "#FFF5F5" }}>
+                  {requiredItems.map(({ label, done }) => (
+                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{
+                      borderColor: done ? "#C0DEC8" : "#F0C0C0",
+                      backgroundColor: done ? "#F4FBF6" : "#FFF5F5"
+                    }}>
                       <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
-                        style={{ backgroundColor: done ? "#27AE60" : "#DC3545" }}>
-                        {done ? <Check className="w-3 h-3 text-white" /> : <span className="text-white text-xs font-bold">!</span>}
+                        style={{ backgroundColor: done ? "#4A9A6A" : "#DC5050" }}>
+                        {done
+                          ? <Check className="w-3 h-3 text-white" />
+                          : <span className="text-white text-xs font-bold leading-none">!</span>
+                        }
                       </div>
-                      <span className="text-sm font-medium" style={{ color: done ? "#1A6B3A" : "#7A1A1A" }}>{label}</span>
-                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#27AE60" : "#DC3545" }}>{done ? "Complete" : "Needed"}</span>
+                      <span className="text-sm font-medium" style={{ color: done ? "#1A5A3A" : "#7A2020" }}>{label}</span>
+                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#4A9A6A" : "#DC5050" }}>
+                        {done ? "Complete" : "Needed"}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Recommended */}
+              {/* Recommended items */}
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#6A7A8A" }}>Recommended — strengthen your storefront</p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Recommended — strengthen your storefront</p>
                 <div className="space-y-2">
                   {[
                     { label: "Brand story", done: !!(form.brand_story && form.brand_story.length > 80) },
                     { label: "Workshop photos", done: !!(form.media_urls && form.media_urls.length > 0) },
-                    { label: "First instrument listing", done: !!(skipInstrument ? false : product.name && product.price) },
+                    { label: "First instrument listing", done: !skipInstrument && !!(product.name && product.price) },
                     { label: "Buyer references", done: false },
-                    { label: "Payout account connected", done: false },
-                  ].map(({ label, done }) => (
-                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: "#E3E0D8", backgroundColor: done ? "#F0FBF4" : "#FFFFFF" }}>
+                    { label: "Payout account connected", done: false, note: "Set up from your dashboard" },
+                  ].map(({ label, done, note }) => (
+                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{
+                      borderColor: "#E3E0D8",
+                      backgroundColor: done ? "#F4FBF6" : "#FFFFFF"
+                    }}>
                       <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
-                        style={{ backgroundColor: done ? "#27AE60" : "#E3E0D8" }}>
+                        style={{ backgroundColor: done ? "#4A9A6A" : "#E3E0D8" }}>
                         {done && <Check className="w-3 h-3 text-white" />}
                       </div>
-                      <span className="text-sm font-medium" style={{ color: done ? "#1A6B3A" : "#7A7A7A" }}>{label}</span>
-                      <span className="ml-auto text-xs" style={{ color: done ? "#27AE60" : "#AAAAAA" }}>{done ? "Complete" : "Add later"}</span>
+                      <span className="text-sm" style={{ color: done ? "#1A5A3A" : "#7A7A7A" }}>{label}</span>
+                      <span className="ml-auto text-xs" style={{ color: done ? "#4A9A6A" : "#BBBBBB" }}>
+                        {done ? "Complete" : (note || "Add later")}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Status */}
-              <div className="p-5 text-center border" style={{ borderColor: "#E3E0D8", backgroundColor: "#F7F6F3" }}>
-                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>Storefront Status</p>
-                <p className="text-2xl font-bold mb-1" style={{ color: NAVY }}>Submitted for Review</p>
-                <p className="text-xs" style={{ color: "#7A7A7A" }}>Our team will review your storefront and get you live within 1–2 business days. You can continue refining everything from your dashboard in the meantime.</p>
-              </div>
+              {/* Status card */}
+              {allRequiredDone ? (
+                <div className="p-6 text-center border" style={{ borderColor: "#C0DEC8", backgroundColor: "#F4FBF6" }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: "#4A9A6A" }}>
+                    <Check className="w-5 h-5 text-white" />
+                  </div>
+                  <p className="text-sm font-bold mb-1" style={{ color: "#1A5A3A" }}>Ready for review</p>
+                  <p className="text-xs leading-relaxed" style={{ color: "#3A7A5A" }}>Our team will review your storefront and get you live within 1–2 business days. You can continue refining everything from your dashboard in the meantime.</p>
+                </div>
+              ) : (
+                <div className="p-5 border" style={{ borderColor: "#F0C0C0", backgroundColor: "#FFF5F5" }}>
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#DC5050" }} />
+                    <div>
+                      <p className="text-sm font-semibold mb-1" style={{ color: "#7A2020" }}>Not ready for review yet</p>
+                      <p className="text-xs leading-relaxed" style={{ color: "#9A4040" }}>Please complete the required items above. You can go back to any step to fill in missing information. Your progress is saved automatically.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
           {/* ── NAV BUTTONS ── */}
-          <div className="flex items-center justify-between mt-10 pt-6" style={{ borderTop: "1px solid #E3E0D8" }}>
+          <div className="flex items-center justify-between mt-12 pt-6" style={{ borderTop: "1px solid #E3E0D8" }}>
             {step > 0 ? (
               <button
                 type="button"
                 onClick={handleBack}
                 disabled={saving}
-                className="flex items-center gap-2 text-sm font-medium px-4 py-2.5 border transition-colors"
-                style={{ borderColor: "#DEDBD6", color: "#4A4A4A", backgroundColor: "#FFFFFF" }}
+                className="flex items-center gap-2 text-sm font-medium px-5 py-2.5 transition-colors"
+                style={{ color: "#6A6A6A", border: "1px solid #DEDBD6", backgroundColor: "transparent" }}
               >
-                <ArrowLeft className="w-4 h-4" /> Back
+                <ArrowLeft className="w-3.5 h-3.5" /> Back
               </button>
             ) : <div />}
 
@@ -759,7 +833,7 @@ export default function BuilderOnboarding() {
                 onClick={handleNext}
                 disabled={saving}
                 className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-colors"
-                style={{ backgroundColor: saving ? "#8A8A8A" : NAVY }}
+                style={{ backgroundColor: saving ? "#AAAAAA" : NAVY }}
               >
                 {saving ? "Saving..." : "Continue"} <ArrowRight className="w-4 h-4" />
               </button>
@@ -769,16 +843,15 @@ export default function BuilderOnboarding() {
                 onClick={handleLaunch}
                 disabled={saving || savingProduct}
                 className="flex items-center gap-2 text-sm font-bold px-8 py-3 text-white transition-colors"
-                style={{ backgroundColor: saving || savingProduct ? "#8A8A8A" : "#27AE60" }}
+                style={{ backgroundColor: saving || savingProduct ? "#AAAAAA" : (allRequiredDone ? "#4A9A6A" : NAVY) }}
               >
                 {saving || savingProduct ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
               </button>
             )}
           </div>
 
-          {/* Save indicator */}
           {step < STEPS.length - 1 && (
-            <p className="text-center text-xs mt-4" style={{ color: "#9A9A9A" }}>
+            <p className="text-center text-xs mt-4" style={{ color: "#BBBBBB" }}>
               Progress is saved automatically when you continue.
             </p>
           )}
