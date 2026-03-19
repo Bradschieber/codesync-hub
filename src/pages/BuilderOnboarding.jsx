@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import {
   Check, ArrowRight, ArrowLeft, Store, BookOpen, Camera, Hammer,
   ShieldCheck, Users, Guitar, Sparkles, MapPin, Globe,
-  Instagram, Facebook, Upload, X, AlertCircle
+  Instagram, Facebook, Upload, X
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
