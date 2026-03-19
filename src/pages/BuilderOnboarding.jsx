@@ -725,8 +725,10 @@ export default function BuilderOnboarding() {
                   <button
                     type="button"
                     onClick={() => setSkipInstrument(true)}
-                    className="text-xs"
-                    style={{ color: "#AAAAAA", textDecoration: "underline" }}
+                    className="text-xs font-medium transition-colors"
+                    style={{ color: "#AAAAAA", textDecoration: "underline", textUnderlineOffset: "3px" }}
+                    onMouseEnter={e => e.currentTarget.style.color = "#7A7A7A"}
+                    onMouseLeave={e => e.currentTarget.style.color = "#AAAAAA"}
                   >
                     I don't have a finished instrument to list right now — skip for now
                   </button>
