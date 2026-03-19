@@ -414,44 +414,48 @@ export default function BuilderOnboarding() {
           {step === 1 && (
             <div className="space-y-6">
               {/* Prompts */}
-              <div className="grid sm:grid-cols-2 gap-3">
-                {STORY_PROMPTS.map((p, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setActivePrompt(activePrompt === i ? null : i)}
-                    className="text-left p-3 border transition-all"
-                    style={{
-                      borderColor: activePrompt === i ? NAVY : "#E3E0D8",
-                      backgroundColor: activePrompt === i ? "#F0F3F8" : "#FFFFFF",
-                    }}
-                  >
-                    <p className="text-xs font-bold mb-0.5" style={{ color: NAVY }}>{p.label}</p>
-                    {activePrompt === i && <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{p.hint}</p>}
-                    {activePrompt !== i && <p className="text-xs" style={{ color: "#AAAAAA" }}>Tap to expand prompt</p>}
-                  </button>
-                ))}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "#8A8A8A" }}>Writing prompts — tap one for inspiration</p>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {STORY_PROMPTS.map((p, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActivePrompt(activePrompt === i ? null : i)}
+                      className="text-left p-3 border transition-all"
+                      style={{
+                        borderColor: activePrompt === i ? NAVY : "#E3E0D8",
+                        backgroundColor: activePrompt === i ? "#F0F3F8" : "#FAFAF8",
+                      }}
+                    >
+                      <p className="text-xs font-bold mb-0.5" style={{ color: NAVY }}>{p.label}</p>
+                      {activePrompt === i && <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{p.hint}</p>}
+                      {activePrompt !== i && <p className="text-xs" style={{ color: "#BBBBBB" }}>Tap for a prompt →</p>}
+                    </button>
+                  ))}
+                </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold mb-2" style={{ color: "#6B6B6B" }}>Your Brand Story</label>
+                <label className="block text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
+                <p className="text-xs mb-3" style={{ color: "#7A7A7A" }}>Use the prompts above as inspiration, then write your story in your own voice below. The more personal and specific, the more buyers will connect with you.</p>
                 <textarea
                   rows={14}
                   value={form.brand_story || ""}
                   onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
-                  placeholder={`Write in your own voice. Use the prompts above as a guide.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
+                  placeholder={`Write in your own voice — no need to be formal.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
                   className="w-full border px-4 py-3 text-sm focus:outline-none resize-none leading-relaxed"
                   style={{ borderColor: "#DEDBD6" }}
                 />
                 <p className="text-xs mt-2" style={{ color: "#9A9A9A" }}>
-                  {form.brand_story?.length || 0} characters — longer, personal stories build significantly more buyer trust.
+                  {form.brand_story?.length || 0} characters — longer, genuine stories are consistently the biggest trust builder on a storefront.
                 </p>
               </div>
-              <Field label="Short Bio (optional)" hint="A 1–2 sentence summary shown in preview cards.">
+              <Field label="Short Bio (optional)" hint="A 1–2 sentence summary shown on your profile cards across the site.">
                 <textarea
                   rows={2}
                   value={form.bio || ""}
                   onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
-                  placeholder="A brief, public-facing summary about you and your work."
+                  placeholder="e.g. Builder of hand-carved electric guitars from Portland, OR. 15 years, ~120 instruments."
                   className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
                   style={{ borderColor: "#DEDBD6" }}
                 />
