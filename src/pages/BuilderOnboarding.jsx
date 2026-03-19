@@ -500,16 +500,16 @@ export default function BuilderOnboarding() {
             <div className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Years Building">
-                  <Input field="years_experience" placeholder="e.g. 12" type="number" />
+                  <Input field="years_experience" value={form.years_experience} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 12" type="number" />
                 </Field>
                 <Field label="Total Instruments Built">
-                  <Input field="total_instruments_built" placeholder="e.g. 150" type="number" />
+                  <Input field="total_instruments_built" value={form.total_instruments_built} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 150" type="number" />
                 </Field>
                 <Field label="Instruments Built Per Year">
-                  <Input field="instruments_per_year" placeholder="e.g. 10" type="number" />
+                  <Input field="instruments_per_year" value={form.instruments_per_year} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 10" type="number" />
                 </Field>
                 <Field label="Typical Build Time">
-                  <Input field="typical_build_time" placeholder="e.g. 3–6 months" />
+                  <Input field="typical_build_time" value={form.typical_build_time} onChange={(f, v) => setForm(prev => ({ ...prev, [f]: v }))} placeholder="e.g. 3–6 months" />
                 </Field>
               </div>
 
