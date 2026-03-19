@@ -560,8 +560,8 @@ export default function BuilderOnboarding() {
 
               {/* What you offer */}
               <div className="p-5 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
-                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you offer? *</p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>This determines what buyers can do on your storefront.</p>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you offer?</p>
+                <p className="text-xs mb-4" style={{ color: "#6A6A6A" }}>This shapes how buyers interact with your storefront — what they can browse, buy, and request. You can offer one or both.</p>
                 <div className="space-y-4">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" checked={form.offers_stock_builds || false} onChange={e => setForm(f => ({ ...f, offers_stock_builds: e.target.checked }))} className="h-4 w-4 mt-0.5" style={{ accentColor: NAVY }} />
