@@ -492,20 +492,23 @@ export default function BuilderOnboarding() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold mb-1" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
-                <p className="text-xs mb-2" style={{ color: "#8A8A8A" }}>Write in your own voice. The more personal and specific, the more buyers will connect with you.</p>
+              <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+                <label className="block text-sm font-semibold mb-0.5" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
+                <p className="text-xs mb-3" style={{ color: "#8A8A8A" }}>Write in your own voice. The more personal and specific, the more buyers will connect with you.</p>
                 <textarea
                   rows={14}
                   value={form.brand_story || ""}
                   onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
                   placeholder={`Write in your own voice — no need to be formal.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
-                  className="w-full border px-4 py-3 text-sm focus:outline-none resize-none leading-relaxed"
-                  style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
+                  className="w-full border-0 px-0 py-0 text-sm focus:outline-none resize-none leading-relaxed"
+                  style={{ backgroundColor: "transparent", color: "#1A1A1A" }}
                 />
-                <p className="text-xs mt-1.5" style={{ color: "#BBBBBB" }}>
-                  {form.brand_story?.length || 0} characters
-                </p>
+                <div className="flex items-center justify-between mt-3 pt-3" style={{ borderTop: "1px solid #F0EDE8" }}>
+                  <p className="text-xs" style={{ color: "#CCCCCC" }}>{form.brand_story?.length || 0} characters</p>
+                  {(form.brand_story?.length || 0) > 80 && (
+                    <p className="text-xs font-medium" style={{ color: "#90B89A" }}>Looking good ✓</p>
+                  )}
+                </div>
               </div>
 
               <Field label="Short Bio" hint="A 1–2 sentence summary shown on your profile card across the site. Optional.">
