@@ -152,35 +152,38 @@ function FirstInstrumentForm({ product, setProduct }) {
       {/* Photo upload — prominent */}
       <div>
         <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Photos</label>
-        <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>Strong photos are the single biggest factor in whether a buyer reaches out. Add your best angles — front, back, detail shots.</p>
-        <div className="flex flex-wrap gap-3">
+        <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>Strong photos are the single biggest factor in whether a buyer reaches out. Add your best angles — front, back, and detail shots.</p>
+        <div className="flex flex-wrap gap-3 mb-3">
           {(product.image_urls || []).map((url, i) => (
-            <div key={i} className="relative w-28 h-28 overflow-hidden" style={{ border: "1px solid #DEDBD6" }}>
+            <div key={i} className="relative w-32 h-32 overflow-hidden flex-shrink-0" style={{ border: "1px solid #DEDBD6" }}>
               <img src={url} className="w-full h-full object-cover" alt="" />
               <button
                 type="button"
                 onClick={() => removeImage(i)}
-                className="absolute top-1 right-1 bg-white rounded-full p-0.5 shadow"
+                className="absolute top-1.5 right-1.5 bg-white rounded-full p-1 shadow"
               >
                 <X className="w-3 h-3" style={{ color: "#555" }} />
               </button>
             </div>
           ))}
           <label
-            className="w-28 h-28 flex flex-col items-center justify-center cursor-pointer gap-1.5 transition-colors"
-            style={{ border: "2px dashed #C8B99A", backgroundColor: "#FDFAF4", color: "#9A8A7A" }}
+            className="flex-shrink-0 w-32 h-32 flex flex-col items-center justify-center cursor-pointer gap-2 transition-colors"
+            style={{ border: "2px dashed #C8B89A", backgroundColor: "#FEFCF7", color: "#9A8878" }}
           >
             {uploading ? (
               <div className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: NAVY, borderTopColor: "transparent" }} />
             ) : (
               <>
-                <Upload className="w-5 h-5" />
-                <span className="text-xs font-medium">Add photo</span>
+                <Upload className="w-6 h-6" />
+                <span className="text-xs font-medium text-center leading-tight">Add photo</span>
               </>
             )}
             <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploading} />
           </label>
         </div>
+        {(product.image_urls || []).length === 0 && (
+          <p className="text-xs" style={{ color: "#CCCCCC" }}>No photos yet — listings with photos get significantly more views.</p>
+        )}
       </div>
     </div>
   );
