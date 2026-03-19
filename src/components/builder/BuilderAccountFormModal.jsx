@@ -109,7 +109,7 @@ export default function BuilderAccountFormModal({ onClose }) {
                 <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>Our team reviews your storefront and gets you live within 1–2 business days.</p>
               </div>
               <button
-                onClick={() => base44.auth.redirectToLogin(window.location.pathname)}
+                onClick={() => base44.auth.redirectToLogin("/Home")}
                 className="w-full font-semibold px-6 py-3 text-sm text-white transition-colors"
                 style={{ backgroundColor: NAVY }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
