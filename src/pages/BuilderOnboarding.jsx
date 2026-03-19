@@ -229,28 +229,7 @@ export default function BuilderOnboarding() {
   const currentStep = STEPS[step];
   const progressPct = Math.round(((step) / (STEPS.length - 1)) * 100);
 
-  function Field({ label, children, hint }) {
-    return (
-      <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#6B6B6B" }}>{label}</label>
-        {hint && <p className="text-xs mb-2" style={{ color: "#9A9A9A" }}>{hint}</p>}
-        {children}
-      </div>
-    );
-  }
 
-  function Input({ field, placeholder, type = "text" }) {
-    return (
-      <input
-        type={type}
-        value={form[field] || ""}
-        onChange={e => setForm(f => ({ ...f, [field]: type === "number" ? Number(e.target.value) : e.target.value }))}
-        placeholder={placeholder}
-        className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-        style={{ borderColor: "#DEDBD6" }}
-      />
-    );
-  }
 
   if (loading) return (
     <div className="fixed inset-0 flex items-center justify-center" style={{ backgroundColor: "#F7F6F3" }}>
