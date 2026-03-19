@@ -513,8 +513,8 @@ export default function BuilderOnboarding() {
 
               {/* Instrument types */}
               <div className="p-5 border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
-                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you build? *</p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Select all that apply.</p>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you build?</p>
+                <p className="text-xs mb-4" style={{ color: "#6A6A6A" }}>This appears prominently on your storefront and helps buyers find the right builder. Select all that apply.</p>
                 <div className="flex flex-wrap gap-2">
                   {INSTRUMENT_TYPES.map(type => {
                     const current = form.instrument_types_built || [];
