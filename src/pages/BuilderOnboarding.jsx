@@ -480,13 +480,13 @@ export default function BuilderOnboarding() {
           {step === 1 && (
             <div className="space-y-6">
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>What good looks like</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>The best brand stories are specific and personal. Mention where you're from, who taught you, what you obsess over, and why you haven't stopped building. Buyers connect with people, not credentials.</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>What buyers connect with</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Whether you're a new builder or have years of work behind you, buyers respond to specificity — what you build, why you build it, and what you care about. This is your space to share that, in whatever form feels right for where you are.</p>
               </GuidanceCard>
 
               {/* Writing prompts */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Writing prompts — tap one for inspiration</p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Starting points — tap one for a prompt</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {STORY_PROMPTS.map((p, i) => (
                     <button
@@ -512,12 +512,12 @@ export default function BuilderOnboarding() {
 
               <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
                 <label className="block text-sm font-semibold mb-0.5" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
-                <p className="text-xs mb-3" style={{ color: "#8A8A8A" }}>Write in your own voice. The more personal and specific, the more buyers will connect with you.</p>
+                <p className="text-xs mb-3" style={{ color: "#8A8A8A" }}>Start with a strong first draft — you can revise and expand this anytime from your dashboard.</p>
                 <textarea
                   rows={14}
                   value={form.brand_story || ""}
                   onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
-                  placeholder={`Write in your own voice — no need to be formal.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
+                  placeholder={`E.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil. I've been building ever since — each instrument is a conversation between the wood and the player it's meant for..."`}
                   className="w-full border-0 px-0 py-0 text-sm focus:outline-none resize-none leading-relaxed"
                   style={{ backgroundColor: "transparent", color: "#1A1A1A" }}
                 />
@@ -529,7 +529,7 @@ export default function BuilderOnboarding() {
                 </div>
               </div>
 
-              <Field label="Short Bio" hint="A 1–2 sentence summary shown on your profile card across the site. Optional.">
+              <Field label="Short Bio (optional)" hint="A 1–2 sentence public-facing introduction shown on your profile card, search results, and other preview areas across the site. Keep it concise — buyers will read the full story on your storefront.">
                 <textarea
                   rows={2}
                   value={form.bio || ""}
