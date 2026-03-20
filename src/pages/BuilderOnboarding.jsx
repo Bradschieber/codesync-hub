@@ -382,7 +382,7 @@ export default function BuilderOnboarding() {
             </>}
             {step === 4 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Shop policies.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Clear policies are embedded in every purchase agreement and protect both you and the buyer. These are required before your storefront goes live.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Clear policies create shared expectations before a transaction begins. They reduce confusion, help you and the buyer start on the same page, and lay the groundwork for a good working relationship — one where everyone knows what to expect.</p>
             </>}
             {step === 5 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Buyer references.</h1>
