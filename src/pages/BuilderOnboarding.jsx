@@ -285,7 +285,7 @@ export default function BuilderOnboarding() {
 
   // Launch readiness
   const requiredItems = [
-    { label: "Shop name & location", done: !!(form.business_name && form.location) },
+    { label: "Shop name & location", done: !!(form.business_name && (form.business_city || form.location)) },
     { label: "Shop policies (warranty, returns, shipping)", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
     { label: "What you build & offer", done: !!(form.offers_stock_builds || form.offers_custom_builds) },
   ];
