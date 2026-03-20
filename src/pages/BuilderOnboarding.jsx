@@ -711,11 +711,12 @@ export default function BuilderOnboarding() {
                       <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their desired specs — you build to order.</p>
                       {form.offers_custom_builds && (
                         <div className="mt-4 space-y-3">
+                          <p className="text-xs" style={{ color: "#9A9A9A" }}>Give buyers a clearer sense of how your custom build process works.</p>
                           <textarea
                             rows={3}
                             value={form.custom_build_description || ""}
                             onChange={e => setForm(f => ({ ...f, custom_build_description: e.target.value }))}
-                            placeholder="Describe your custom build offering — instrument types, options, lead times, starting prices."
+                            placeholder="Share a few details about your custom build offering — for example instrument types, options, lead times, starting prices, or how you typically work with clients."
                             className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
                             style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                           />
