@@ -734,8 +734,8 @@ export default function BuilderOnboarding() {
           {step === 4 && (
             <div>
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Required before your storefront goes live</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>These terms are embedded in every purchase agreement. Clear policies set expectations for buyers upfront and protect you if a dispute ever arises. You can refine them anytime from your dashboard.</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>How Stringed Collective uses these terms</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Your policies are embedded directly into every purchase agreement on the platform — protecting both you and the buyer if questions arise. They don't need to be perfect on the first pass. You can revisit and refine them anytime from your dashboard.</p>
               </GuidanceCard>
               <PoliciesEditor form={form} setForm={setForm} />
             </div>
