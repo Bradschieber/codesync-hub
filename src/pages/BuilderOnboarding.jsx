@@ -409,24 +409,41 @@ export default function BuilderOnboarding() {
           {/* STEP 1: Your Shop */}
           {step === 0 && (
             <div className="space-y-5">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Shop / Brand Name *" hint="The name buyers will see on your storefront.">
-                  <Input field="business_name" value={form.business_name} onChange={updateForm} placeholder="e.g. Hartman Guitars" />
+              <Field label="Shop / Brand Name *" hint="The name buyers will see on your storefront.">
+                <Input field="business_name" value={form.business_name} onChange={updateForm} placeholder="e.g. Hartman Guitars" />
+              </Field>
+
+              <div className="grid sm:grid-cols-3 gap-4">
+                <Field label="City">
+                  <input
+                    value={form.business_city || ""}
+                    onChange={e => setForm(f => ({ ...f, business_city: e.target.value, location: [e.target.value, f.business_state, f.business_country].filter(Boolean).join(", ") }))}
+                    placeholder="e.g. Asheville"
+                    className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
+                  />
                 </Field>
-                <Field label="Location" hint="City, State — shown publicly.">
-                  <div className="relative">
-                    <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#BBBBBB" }} />
-                    <input
-                      value={form.location || ""}
-                      onChange={e => setForm(f => ({ ...f, location: e.target.value }))}
-                      placeholder="e.g. Asheville, NC"
-                      className="w-full border pl-8 pr-3 py-2.5 text-sm focus:outline-none"
-                      style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
-                    />
-                  </div>
+                <Field label="State / Province / Region">
+                  <input
+                    value={form.business_state || ""}
+                    onChange={e => setForm(f => ({ ...f, business_state: e.target.value, location: [f.business_city, e.target.value, f.business_country].filter(Boolean).join(", ") }))}
+                    placeholder="e.g. North Carolina"
+                    className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
+                  />
+                </Field>
+                <Field label="Country">
+                  <input
+                    value={form.business_country || ""}
+                    onChange={e => setForm(f => ({ ...f, business_country: e.target.value, location: [f.business_city, f.business_state, e.target.value].filter(Boolean).join(", ") }))}
+                    placeholder="e.g. United States"
+                    className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
+                  />
                 </Field>
               </div>
-              <Field label="Tagline" hint="One sentence that sums up your shop's identity.">
+
+              <Field label="Tagline (optional)" hint="A short line that captures your shop's identity.">
                 <Input field="tag_line" value={form.tag_line} onChange={updateForm} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
               </Field>
 
