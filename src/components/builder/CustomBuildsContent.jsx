@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Clock, DollarSign } from "lucide-react";
+import { Clock, DollarSign, X } from "lucide-react";
 
 const FALLBACK_DESC = "This builder accepts custom build inquiries through Stringed Collective.";
 const MAX_CHARS = 280;
 
 export default function CustomBuildsContent({ builder, onRequestQuote }) {
   const [expanded, setExpanded] = useState(false);
+  const [lightboxIdx, setLightboxIdx] = useState(null);
 
   const desc = builder.custom_build_description || FALLBACK_DESC;
   const isTruncated = desc.length > MAX_CHARS;
