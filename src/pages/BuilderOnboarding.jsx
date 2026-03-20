@@ -531,28 +531,61 @@ export default function BuilderOnboarding() {
           {/* STEP 3: Show Your Craft */}
           {step === 2 && (
             <div className="space-y-8">
+
+              {/* Single guidance card */}
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-2" style={{ color: "#7A6030" }}>What to upload here</p>
-                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
+                <p className="text-xs font-semibold mb-2" style={{ color: "#7A6030" }}>What makes a strong craft gallery</p>
+                <p className="text-xs leading-relaxed mb-3" style={{ color: "#8A7040" }}>
+                  Photos of your process and workspace are what earn trust before a word is read. Show buyers where and how you work — not just the finished result. Aim for 4–8 photos.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-x-8 gap-y-1">
                   {[
                     "Your workshop or build space",
-                    "In-progress builds — neck carving, finishing",
-                    "Close-ups of materials, grain, inlay work",
-                    "Tools and process details",
+                    "In-progress builds — carving, fitting, finishing",
+                    "Close-ups of materials, grain, and inlay work",
+                    "Tools, jigs, and process details",
                   ].map(item => (
-                    <p key={item} className="text-xs flex items-start gap-1.5" style={{ color: "#8A7040" }}>
-                      <span className="mt-0.5 flex-shrink-0">–</span> {item}
+                    <p key={item} className="text-xs flex items-start gap-1.5" style={{ color: "#9A7840" }}>
+                      <span className="flex-shrink-0 mt-0.5">–</span> {item}
                     </p>
                   ))}
                 </div>
-                <p className="text-xs mt-3" style={{ color: "#9A8060" }}>Save finished product shots for the listing step. <span className="font-medium">Recommended: 4–8 photos.</span></p>
               </GuidanceCard>
 
-              <MediaUploader
-                mediaUrls={form.media_urls || []}
-                onChange={urls => setForm(f => ({ ...f, media_urls: urls }))}
-              />
+              {/* Category tiles — inspiration only */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#BBBBAA", letterSpacing: "0.10em" }}>Suggested photo categories</p>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {[
+                    { label: "Workshop" },
+                    { label: "Workbench" },
+                    { label: "In Progress" },
+                    { label: "Tonewoods" },
+                    { label: "Finishing" },
+                    { label: "Craft Details" },
+                  ].map(({ label }) => (
+                    <div
+                      key={label}
+                      className="flex items-center justify-center rounded-sm aspect-square"
+                      style={{ backgroundColor: "#F2EFE9", border: "1px solid #E3E0D8" }}
+                    >
+                      <span className="text-xs font-medium text-center leading-tight px-2" style={{ color: "#7A7060" }}>{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
+              {/* Upload area — primary action */}
+              <div>
+                <p className="text-sm font-semibold mb-1" style={{ color: "#2A2A2A" }}>Your shop & process photos</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Start with 4–8 photos from your shop, process, materials, and craftsmanship details. Save finished instrument shots for the listing step.</p>
+                <MediaUploader
+                  mediaUrls={form.media_urls || []}
+                  onChange={urls => setForm(f => ({ ...f, media_urls: urls }))}
+                />
+              </div>
+
+              {/* Intro video */}
               <div className="border-t pt-6" style={{ borderColor: "#E3E0D8" }}>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
                 <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human element. Paste a YouTube or Vimeo link.</p>
