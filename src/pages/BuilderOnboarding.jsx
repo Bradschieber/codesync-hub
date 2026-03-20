@@ -311,31 +311,28 @@ export default function BuilderOnboarding() {
             </div>
 
             {/* Step indicators — desktop */}
-            <div className="hidden lg:flex items-center gap-0">
+            <div className="hidden lg:flex items-center">
               {STEPS.map((s, i) => {
                 const done = i < step;
                 const active = i === step;
                 return (
                   <div key={s.id} className="flex items-center">
                     <div
-                      className="flex items-center gap-1.5 px-3 text-xs transition-all"
+                      className="flex items-center gap-1.5 px-2.5 text-xs transition-all"
                       style={{
                         fontWeight: active ? 600 : 400,
-                        color: active ? NAVY : done ? "#90B89A" : "#CCCCC0",
+                        color: active ? NAVY : done ? "#90B89A" : "#C8C4BC",
                         paddingTop: "4px",
                         paddingBottom: "6px",
-                        borderBottom: active ? `2px solid ${NAVY}` : done ? "2px solid transparent" : "2px solid transparent",
-                        opacity: active ? 1 : done ? 0.85 : 0.5,
+                        borderBottom: active ? `2px solid ${NAVY}` : "2px solid transparent",
                       }}
                     >
-                      {done
-                        ? <Check className="w-3 h-3 flex-shrink-0" style={{ color: "#90B89A" }} />
-                        : <span className="flex-shrink-0" style={{ color: active ? NAVY : "#C8C4BC" }}>{i + 1}</span>
-                      }
+                      {done && <Check className="w-3 h-3 flex-shrink-0" style={{ color: "#90B89A" }} />}
                       <span className="hidden xl:inline">{s.label}</span>
+                      {!done && <span className="xl:hidden" style={{ color: active ? NAVY : "#C8C4BC" }}>{i + 1}</span>}
                     </div>
                     {i < STEPS.length - 1 && (
-                      <div className="w-3 h-px" style={{ backgroundColor: "#E8E4DC" }} />
+                      <div className="w-2 h-px flex-shrink-0" style={{ backgroundColor: "#E8E4DC" }} />
                     )}
                   </div>
                 );
