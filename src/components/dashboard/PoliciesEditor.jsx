@@ -1,6 +1,15 @@
-const WARRANTY_DURATIONS = ["6 months", "1 year", "2 years", "5 years", "Lifetime", "Other"];
-const WARRANTY_COVERAGE_OPTIONS = ["Structural defects", "Workmanship", "Electronic components", "Hardware", "Finish defects", "Fretwork"];
-const WARRANTY_EXCLUSION_OPTIONS = ["Normal wear and tear", "Abuse or neglect", "Unauthorized modifications", "Accidental damage", "Environmental damage (humidity, heat)", "Strings & consumables"];
+import { useState } from "react";
+
+const COVERAGE_DURATIONS = [
+  "Not covered", "30 days", "90 days", "6 months", "1 year", "2 years", "5 years", "Lifetime"
+];
+const PRESET_COVERAGE = [
+  "Structural defects", "Workmanship", "Electronics", "Hardware", "Finish defects", "Fretwork"
+];
+const PRESET_EXCLUSIONS = [
+  "Normal wear and tear", "Abuse or neglect", "Unauthorized modifications",
+  "Accidental damage", "Environmental damage (humidity, heat)", "Strings & consumables"
+];
 const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL"];
 
 function SectionLabel({ children }) {
