@@ -49,7 +49,60 @@ function CheckboxGroup({ label, values = [], options, onChange }) {
 }
 
 export default function PoliciesEditor({ form, setForm }) {
+  const [newCoverageItem, setNewCoverageItem] = useState("");
+  const [newExclusionItem, setNewExclusionItem] = useState("");
+
   function set(key, val) { setForm({ ...form, [key]: val }); }
+
+  // warranty_coverage is now an array of { label, duration }
+  // Initialize from old format if needed
+  const coverageItems = (() => {
+    const raw = form.warranty_coverage || [];
+    if (raw.length === 0) return PRESET_COVERAGE.map(label => ({ label, duration: "" }));
+    if (typeof raw[0] === "string") return raw.map(label => ({ label, duration: "" }));
+    return raw;
+  })();
+
+  function setCoverageDuration(label, duration) {
+    const updated = coverageItems.map(item => item.label === label ? { ...item, duration } : item);
+    set("warranty_coverage", updated);
+  }
+
+  function addCoverageItem() {
+    const trimmed = newCoverageItem.trim();
+    if (!trimmed || coverageItems.find(i => i.label === trimmed)) return;
+    set("warranty_coverage", [...coverageItems, { label: trimmed, duration: "" }]);
+    setNewCoverageItem("");
+  }
+
+  function removeCoverageItem(label) {
+    set("warranty_coverage", coverageItems.filter(i => i.label !== label));
+  }
+
+  // warranty_exclusions: array of strings, defaulting to all presets selected
+  const exclusions = (() => {
+    const raw = form.warranty_exclusions;
+    if (!raw) return [...PRESET_EXCLUSIONS];
+    return raw;
+  })();
+
+  function toggleExclusion(item) {
+    const next = exclusions.includes(item) ? exclusions.filter(e => e !== item) : [...exclusions, item];
+    set("warranty_exclusions", next);
+  }
+
+  function addExclusionItem() {
+    const trimmed = newExclusionItem.trim();
+    if (!trimmed || exclusions.includes(trimmed)) return;
+    set("warranty_exclusions", [...exclusions, trimmed]);
+    setNewExclusionItem("");
+  }
+
+  function removeExclusionItem(item) {
+    set("warranty_exclusions", exclusions.filter(e => e !== item));
+  }
+
+  const allExclusions = [...new Set([...PRESET_EXCLUSIONS, ...exclusions])];
 
   return (
     <div className="space-y-6 mt-4">
