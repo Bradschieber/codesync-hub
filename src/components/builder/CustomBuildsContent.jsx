@@ -64,6 +64,68 @@ export default function CustomBuildsContent({ builder, onRequestQuote }) {
         </div>
       )}
 
+      {/* Custom Build Examples — portfolio grid */}
+      {(builder.custom_build_examples || []).length > 0 && (
+        <div className="mb-6">
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-stone-400">Past Custom Work</p>
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+            {builder.custom_build_examples.map((ex, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setLightboxIdx(i)}
+                className="relative group aspect-square overflow-hidden focus:outline-none"
+                style={{ border: "1px solid #E3E0D8" }}
+              >
+                <img src={ex.image_url} alt={ex.title || ""} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                {(ex.title || ex.description) && (
+                  <div className="absolute inset-0 flex flex-col justify-end p-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)" }}>
+                    {ex.title && <p className="text-white text-xs font-semibold leading-tight">{ex.title}</p>}
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Lightbox */}
+      {lightboxIdx !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
+          onClick={() => setLightboxIdx(null)}
+        >
+          <div
+            className="relative max-w-lg w-full bg-white"
+            onClick={e => e.stopPropagation()}
+          >
+            <img
+              src={builder.custom_build_examples[lightboxIdx]?.image_url}
+              alt=""
+              className="w-full object-contain max-h-[70vh]"
+            />
+            {(builder.custom_build_examples[lightboxIdx]?.title || builder.custom_build_examples[lightboxIdx]?.description) && (
+              <div className="px-4 py-3">
+                {builder.custom_build_examples[lightboxIdx]?.title && (
+                  <p className="text-sm font-semibold text-stone-800 mb-1">{builder.custom_build_examples[lightboxIdx].title}</p>
+                )}
+                {builder.custom_build_examples[lightboxIdx]?.description && (
+                  <p className="text-xs text-stone-500 leading-relaxed">{builder.custom_build_examples[lightboxIdx].description}</p>
+                )}
+              </div>
+            )}
+            <button
+              onClick={() => setLightboxIdx(null)}
+              className="absolute top-2 right-2 bg-black/40 text-white p-1.5 rounded-full hover:bg-black/60 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* CTA */}
       <button
         onClick={onRequestQuote}
