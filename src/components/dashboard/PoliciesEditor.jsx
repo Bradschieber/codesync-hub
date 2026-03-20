@@ -213,32 +213,71 @@ export default function PoliciesEditor({ form, setForm }) {
       {/* ── Warranty ── */}
       <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
         <h3 className="text-sm font-bold text-gray-700 mb-1">Warranty Policy</h3>
-        <p className="text-xs text-gray-400 mb-3">Clearly defined warranty terms build buyer confidence and are used in purchase contracts.</p>
+        <p className="text-xs text-gray-400 mb-3">Set a coverage period for each item. Different categories can have different durations — or be excluded entirely. Buyers will see this on your storefront and in their purchase agreement.</p>
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          <SelectField
-            label="Warranty Duration"
-            value={form.warranty_duration}
-            onChange={v => set("warranty_duration", v)}
-            options={WARRANTY_DURATIONS}
+        <SectionLabel>What's Covered &amp; For How Long</SectionLabel>
+        <div className="space-y-2 mb-3">
+          {coverageItems.map(item => (
+            <div key={item.label} className="flex items-center gap-2">
+              <span className="flex-1 text-xs text-gray-700">{item.label}</span>
+              <select
+                value={item.duration || ""}
+                onChange={e => setCoverageDuration(item.label, e.target.value)}
+                className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:outline-none bg-white text-gray-700 w-36"
+              >
+                <option value="">Select...</option>
+                {COVERAGE_DURATIONS.map(d => <option key={d} value={d}>{d}</option>)}
+              </select>
+              {!PRESET_COVERAGE.includes(item.label) && (
+                <button type="button" onClick={() => removeCoverageItem(item.label)} className="text-gray-300 hover:text-red-400 transition-colors text-xs font-bold leading-none">✕</button>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newCoverageItem}
+            onChange={e => setNewCoverageItem(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addCoverageItem())}
+            placeholder="Add custom covered item..."
+            className="flex-1 border border-dashed border-gray-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-white placeholder-gray-300"
           />
+          <button type="button" onClick={addCoverageItem} className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 text-gray-600 hover:border-gray-500 hover:text-gray-800 transition-colors bg-white">Add</button>
         </div>
 
-        <SectionLabel>What's Covered</SectionLabel>
-        <CheckboxGroup
-          label=""
-          values={form.warranty_coverage || []}
-          options={WARRANTY_COVERAGE_OPTIONS}
-          onChange={v => set("warranty_coverage", v)}
-        />
-
         <SectionLabel>Exclusions</SectionLabel>
-        <CheckboxGroup
-          label=""
-          values={form.warranty_exclusions || []}
-          options={WARRANTY_EXCLUSION_OPTIONS}
-          onChange={v => set("warranty_exclusions", v)}
-        />
+        <p className="text-xs text-gray-400 mb-3">Standard exclusions are selected by default. Deselect any that don't apply, or add your own.</p>
+        <div className="flex flex-wrap gap-2 mb-3">
+          {allExclusions.map(item => {
+            const active = exclusions.includes(item);
+            return (
+              <div key={item} className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => toggleExclusion(item)}
+                  className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${active ? "bg-gray-200 border-gray-400 text-gray-800 font-medium" : "bg-white border-gray-200 text-gray-400 line-through hover:border-gray-400"}`}
+                >
+                  {item}
+                </button>
+                {!PRESET_EXCLUSIONS.includes(item) && (
+                  <button type="button" onClick={() => removeExclusionItem(item)} className="text-gray-300 hover:text-red-400 transition-colors text-xs leading-none -ml-1">✕</button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newExclusionItem}
+            onChange={e => setNewExclusionItem(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addExclusionItem())}
+            placeholder="Add custom exclusion..."
+            className="flex-1 border border-dashed border-gray-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-white placeholder-gray-300"
+          />
+          <button type="button" onClick={addExclusionItem} className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 text-gray-600 hover:border-gray-500 hover:text-gray-800 transition-colors bg-white">Add</button>
+        </div>
 
         <SectionLabel>Claim Process</SectionLabel>
         <div>
