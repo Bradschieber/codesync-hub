@@ -130,6 +130,10 @@ export default function Layout({ children, currentPageName }) {
                     </button>
                     {userMenuOpen && (
                       <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-50">
+                        <div className="px-4 py-3 border-b border-gray-100">
+                          <p className="text-xs font-semibold text-gray-500 truncate">{profile?.business_name || user?.full_name}</p>
+                          <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+                        </div>
                         <Link to={createPageUrl("Account")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <User className="w-4 h-4" /> My Account
                         </Link>
