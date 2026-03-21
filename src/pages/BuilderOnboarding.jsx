@@ -799,7 +799,7 @@ export default function BuilderOnboarding() {
                   <GuidanceCard>
                     <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why this matters</p>
                     <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>
-                      A listing gives buyers immediate context — your pricing, your craftsmanship, your aesthetic. It's often the first thing that makes someone decide to reach out about a custom commission. Even one listing dramatically strengthens your storefront.
+                      One strong listing can dramatically strengthen your storefront. It helps buyers understand your style, pricing, and craftsmanship at a glance.
                     </p>
                   </GuidanceCard>
                   <FirstInstrumentForm product={product} setProduct={setProduct} />
