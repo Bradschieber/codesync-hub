@@ -370,37 +370,51 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>This is where buyers will find you, learn your story, and decide to reach out. Start with the basics — you can always refine later.</p>
             </>}
             {step === 1 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Tell your story.</h1>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
+                {shopName ? `Tell the story behind ${shopName}.` : "Tell your story."}
+              </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Buyers aren't just purchasing an instrument — they're investing in you. A genuine story is one of the most powerful things on your storefront.</p>
             </>}
             {step === 2 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Show your craft.</h1>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
+                {shopName ? `Show buyers how ${shopName} comes to life.` : "Show your craft."}
+              </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Photos of your workshop, process, and materials bring your storefront to life. This is what earns trust before a word is read.</p>
             </>}
             {step === 3 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Your business.</h1>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
+                {shopName ? `What does ${shopName} offer?` : "Your business."}
+              </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Help buyers understand what working with you looks like — your experience, your output, and what you offer.</p>
             </>}
             {step === 4 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Shop policies.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Clear policies create shared expectations before a transaction begins. They reduce confusion, help you and the buyer start on the same page, and lay the groundwork for a good working relationship — one where everyone knows what to expect.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
+                {shopName
+                  ? `Set the policies that will guide every purchase from ${shopName}. Clear terms create shared expectations — and lay the groundwork for a good working relationship.`
+                  : "Clear policies create shared expectations before a transaction begins. They reduce confusion, help you and the buyer start on the same page, and lay the groundwork for a good working relationship — one where everyone knows what to expect."}
+              </p>
             </>}
             {step === 5 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Buyer references.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Past buyers who vouch for your work give new customers the confidence to reach out. This step is optional — you can add references anytime.</p>
             </>}
             {step === 6 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Add your first instrument.</h1>
+              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
+                {shopName ? `Add your first listing to ${shopName}.` : "Add your first instrument."}
+              </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A listing gives your storefront immediate credibility. It shows buyers what your craft looks like in finished form — and often starts the conversation.</p>
             </>}
             {step === 7 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
-                {allRequiredDone ? "Your storefront is ready for review." : "Almost there."}
+                {allRequiredDone
+                  ? (shopName ? `${shopName} is ready for review.` : "Your storefront is ready for review.")
+                  : "Almost there."}
               </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
                 {allRequiredDone
                   ? "You've completed everything needed. Our team will review your storefront within 1–2 business days."
-                  : "A few required items still need attention before your storefront can be submitted for review."}
+                  : `A few required items still need attention before ${shopName ? shopName : "your storefront"} can be submitted for review.`}
               </p>
             </>}
           </div>
