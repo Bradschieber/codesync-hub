@@ -817,9 +817,9 @@ export default function BuilderOnboarding() {
               ) : (
                 <div className="py-12 text-center">
                   <Guitar className="w-10 h-10 mx-auto mb-4" style={{ color: "#D0CAC0" }} strokeWidth={1.5} />
-                  <p className="text-sm font-semibold mb-1" style={{ color: "#3D3D3D" }}>No problem — you can add listings anytime.</p>
-                  <p className="text-xs mb-1" style={{ color: "#9A9A9A" }}>From your dashboard, go to <strong>Manage Products</strong> to add your first instrument.</p>
-                  <p className="text-xs mb-5" style={{ color: "#BBBBBB" }}>Storefronts with at least one listing get significantly more buyer interest.</p>
+                  <p className="text-sm font-semibold mb-1" style={{ color: "#3D3D3D" }}>You can add your first listing anytime from your dashboard.</p>
+                  <p className="text-xs mb-1" style={{ color: "#9A9A9A" }}>Go to <strong>Manage Products</strong> whenever you're ready.</p>
+                  <p className="text-xs mb-5" style={{ color: "#BBBBBB" }}>Storefronts with at least one listing get significantly more attention from buyers.</p>
                   <button type="button" onClick={() => setSkipInstrument(false)} className="text-xs font-semibold" style={{ color: NAVY, textDecoration: "underline" }}>
                     Actually, I'll add one now
                   </button>
