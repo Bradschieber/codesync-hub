@@ -366,26 +366,26 @@ export default function BuilderOnboarding() {
             </p>
 
             {step === 0 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Welcome. Let's build your shop.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>This is where buyers will find you, learn your story, and decide to reach out. Start with the basics — you can always refine later.</p>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Your storefront starts here.</h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Every great builder shop begins with a name, a place, and a voice. Set the foundation — you can refine everything from your dashboard at any time.</p>
             </>}
             {step === 1 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
-                {shopName ? `Tell the story behind ${shopName}.` : "Tell your story."}
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
+                {shopName ? `The story behind ${shopName}.` : "What's your story?"}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Buyers aren't just purchasing an instrument — they're investing in you. A genuine story is one of the most powerful things on your storefront.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Buyers aren't just purchasing an instrument — they're choosing a maker. A genuine, specific story is what separates a storefront from a listing. This is yours to tell.</p>
             </>}
             {step === 2 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
-                {shopName ? `Show buyers how ${shopName} comes to life.` : "Show your craft."}
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
+                {shopName ? `Bring ${shopName} to life.` : "Make your storefront visible."}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Photos of your workshop, process, and materials bring your storefront to life. This is what earns trust before a word is read.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>This is where your storefront becomes real. Process photos — your bench, your materials, work in progress — create the kind of trust that no amount of copy can replicate.</p>
             </>}
             {step === 3 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
-                {shopName ? `What does ${shopName} offer?` : "Your business."}
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
+                {shopName ? `How ${shopName} works.` : "Your craft, your terms."}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Help buyers understand what working with you looks like — your experience, your output, and what you offer.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Define what you build, how many you make, and how buyers can work with you. This is what helps serious buyers decide to reach out.</p>
             </>}
             {step === 4 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Shop policies.</h1>
