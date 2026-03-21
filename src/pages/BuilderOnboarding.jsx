@@ -923,7 +923,7 @@ export default function BuilderOnboarding() {
                 className="flex items-center gap-2 text-sm font-semibold px-8 py-3 text-white transition-all"
                 style={{ backgroundColor: saving || savingProduct ? "#AAAAAA" : (allRequiredDone ? "#4A9A6A" : NAVY), letterSpacing: "0.01em" }}
               >
-                {saving || savingProduct ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
+                {saving || savingProduct ? "Saving..." : <>{shopName ? `Launch ${shopName}` : "Go to Builder Dashboard"} <ArrowRight className="w-4 h-4" /></>}
               </button>
             )}
           </div>
