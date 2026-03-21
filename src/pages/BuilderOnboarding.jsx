@@ -900,13 +900,14 @@ export default function BuilderOnboarding() {
                     </div>
                     <div>
                       <p className="text-sm font-bold mb-1" style={{ color: "#1A5A3A" }}>Ready for review</p>
-                      <p className="text-xs leading-relaxed" style={{ color: "#3A7A5A" }}>Our team will review your storefront within 1–2 business days. You can continue refining everything from your dashboard in the meantime.</p>
+                      <p className="text-xs leading-relaxed" style={{ color: "#3A7A5A" }}>Our team will review it within 1–2 business days. You can keep refining your story, references, listings, and other details anytime from your dashboard.</p>
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="px-4 py-3 border-l-2" style={{ borderColor: "#DC5050", backgroundColor: "#FFF8F8" }}>
-                  <p className="text-xs leading-relaxed" style={{ color: "#9A4040" }}>Complete the required items above before submitting for review. Use the Back button to return to any step — your progress is saved automatically.</p>
+                <div className="px-5 py-4 border-l-2" style={{ borderColor: "#C8973A", backgroundColor: "#FFFAF2" }}>
+                  <p className="text-xs font-semibold mb-1" style={{ color: "#7A5A10" }}>Not ready for review yet</p>
+                  <p className="text-xs leading-relaxed" style={{ color: "#8A6A20" }}>Finish the required items above to submit your storefront for review. Your progress is already saved, and you can return to any step to make updates.</p>
                 </div>
               )}
             </div>
