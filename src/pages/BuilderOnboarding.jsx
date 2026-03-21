@@ -833,8 +833,8 @@ export default function BuilderOnboarding() {
             <div className="space-y-6">
               {/* Required items */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: allRequiredDone ? "#5A8A6A" : "#B04040" }}>
-                  {allRequiredDone ? "Required — all complete" : "Required — action needed"}
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: allRequiredDone ? "#5A8A6A" : "#8A6A30" }}>
+                  {allRequiredDone ? "Required — all complete" : "Required — attention needed"}
                 </p>
                 <div className="space-y-2">
                   {requiredItems.map(({ label, done }) => (
