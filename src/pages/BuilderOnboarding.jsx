@@ -777,9 +777,9 @@ export default function BuilderOnboarding() {
           {step === 5 && (
             <div className="space-y-6">
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>About buyer references</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why references help</p>
                 <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>
-                  Past buyers can submit a short testimonial about their experience working with you. Once our team verifies it, the quote appears on your storefront. Most builders add references after their first sale. <span style={{ color: "#A89060" }}>This step is optional.</span>
+                  Buyer references act as social proof on your storefront. After our team verifies them, they help signal credibility to people discovering your work for the first time.
                 </p>
               </GuidanceCard>
               {profile ? (
@@ -787,6 +787,7 @@ export default function BuilderOnboarding() {
               ) : (
                 <p className="text-sm text-center py-10" style={{ color: "#9A9A9A" }}>Save your profile first to add references.</p>
               )}
+              <p className="text-xs text-center" style={{ color: "#BBBBBB" }}>Most builders add references after they've made a few sales — you can always come back to this.</p>
             </div>
           )}
 
