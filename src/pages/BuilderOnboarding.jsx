@@ -509,14 +509,14 @@ export default function BuilderOnboarding() {
           {step === 1 && (
             <div className="space-y-6">
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why this matters more than you might expect</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Buyers respond to specificity — your background, your influences, what drives your work. Whether you've been building for two years or twenty, the story behind the craft is what makes a buyer choose you over someone else. Start with a strong first draft and refine it from your dashboard whenever you're ready.</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>What buyers connect with</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Buyers respond to specificity — your background, what you care about, how you work. A genuine story, at any stage of your career, is what makes someone choose to reach out. Start with a first draft and refine it whenever you're ready.</p>
               </GuidanceCard>
 
-              {/* Writing prompts — more actionable framing */}
+              {/* Writing prompts */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Need a starting point?</p>
-                <p className="text-xs mb-3" style={{ color: "#BBBBBB" }}>Select a prompt to use as a writing anchor — then let the rest follow naturally.</p>
+                <p className="text-xs mb-3" style={{ color: "#BBBBBB" }}>Tap a prompt to open it — use it as an anchor and let the rest follow.</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {STORY_PROMPTS.map((p, i) => (
                     <button
