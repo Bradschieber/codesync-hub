@@ -362,7 +362,11 @@ export default function BuilderOnboarding() {
           {/* Step header */}
           <div className="mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#AAAA9A", letterSpacing: "0.12em" }}>
-              Step {step + 1} of {STEPS.length} — {currentStep.label}
+              {step === 0 && "Foundation — Step 1 of 8"}
+              {step === 1 && "Your Voice — Step 2 of 8"}
+              {step === 2 && "Visual Identity — Step 3 of 8"}
+              {step === 3 && "Your Offering — Step 4 of 8"}
+              {step > 3 && `Step ${step + 1} of ${STEPS.length} — ${currentStep.label}`}
             </p>
 
             {step === 0 && <>
