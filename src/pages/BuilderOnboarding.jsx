@@ -392,11 +392,11 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Tell buyers what you make, how you work, and how they can purchase from you. This shapes how your storefront appears in search and how buyers decide to reach out.</p>
             </>}
             {step === 4 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Shop policies.</h1>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Set clear expectations for buyers.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
                 {shopName
-                  ? `Set the policies that will guide every purchase from ${shopName}. Clear terms create shared expectations — and lay the groundwork for a good working relationship.`
-                  : "Clear policies create shared expectations before a transaction begins. They reduce confusion, help you and the buyer start on the same page, and lay the groundwork for a good working relationship — one where everyone knows what to expect."}
+                  ? `These policies shape how purchases work with ${shopName}. Clear terms help you and the buyer start from the same understanding — and create a stronger working relationship from the beginning.`
+                  : "These policies shape how purchases work on your storefront. Clear terms help you and the buyer start from the same understanding — and create a stronger working relationship from the beginning."}
               </p>
             </>}
             {step === 5 && <>
