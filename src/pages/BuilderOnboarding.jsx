@@ -579,63 +579,54 @@ export default function BuilderOnboarding() {
           {step === 2 && (
             <div className="space-y-8">
 
-              {/* Single guidance card */}
-              <GuidanceCard>
-                <p className="text-xs font-semibold mb-2" style={{ color: "#7A6030" }}>What makes a strong craft gallery</p>
-                <p className="text-xs leading-relaxed mb-3" style={{ color: "#8A7040" }}>
-                  Photos of your process and workspace are what earn trust before a word is read. Show buyers where and how you work — not just the finished result. Aim for 4–8 photos.
-                </p>
-                <div className="grid sm:grid-cols-2 gap-x-8 gap-y-1">
-                  {[
-                    "Your workshop or build space",
-                    "In-progress builds — carving, fitting, finishing",
-                    "Close-ups of materials, grain, and inlay work",
-                    "Tools, jigs, and process details",
-                  ].map(item => (
-                    <p key={item} className="text-xs flex items-start gap-1.5" style={{ color: "#9A7840" }}>
-                      <span className="flex-shrink-0 mt-0.5">–</span> {item}
+              {/* Elevated moment — this is the visual centrepiece of the flow */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="flex-1">
+                    <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>
+                      {shopName ? `Your ${shopName} gallery` : "Your craft gallery"}
                     </p>
-                  ))}
+                    <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
+                      This is what makes your storefront feel real. Process photos — your bench, your materials, a build in progress — create the kind of trust that no amount of copy can replicate. Aim for 4–8 images to start. You can add more anytime.
+                    </p>
+                  </div>
                 </div>
-              </GuidanceCard>
 
-              {/* Category tiles — inspiration only */}
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#BBBBAA", letterSpacing: "0.10em" }}>Suggested photo categories</p>
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                {/* What to shoot */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
                   {[
-                    { label: "Workshop" },
-                    { label: "Workbench" },
-                    { label: "In Progress" },
-                    { label: "Tonewoods" },
-                    { label: "Finishing" },
-                    { label: "Craft Details" },
-                  ].map(({ label }) => (
+                    { label: "Workshop", sub: "Where you work" },
+                    { label: "In Progress", sub: "Builds underway" },
+                    { label: "Materials", sub: "Tonewoods, grain" },
+                    { label: "Details", sub: "Craft up close" },
+                  ].map(({ label, sub }) => (
                     <div
                       key={label}
-                      className="flex items-center justify-center rounded-sm aspect-square"
-                      style={{ backgroundColor: "#F2EFE9", border: "1px solid #E3E0D8" }}
+                      className="flex flex-col items-center justify-center py-3 px-2 text-center"
+                      style={{ backgroundColor: "#F5F3EF", border: "1px solid #E8E4DC" }}
                     >
-                      <span className="text-xs font-medium text-center leading-tight px-2" style={{ color: "#7A7060" }}>{label}</span>
+                      <span className="text-xs font-semibold mb-0.5" style={{ color: "#3A3A3A" }}>{label}</span>
+                      <span className="text-xs" style={{ color: "#AAAAAA" }}>{sub}</span>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Upload area — primary action */}
-              <div>
-                <p className="text-sm font-semibold mb-1" style={{ color: "#2A2A2A" }}>Your shop & process photos</p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Start with 4–8 photos from your shop, process, materials, and craftsmanship details. Save finished instrument shots for the listing step.</p>
                 <MediaUploader
                   mediaUrls={form.media_urls || []}
                   onChange={urls => setForm(f => ({ ...f, media_urls: urls }))}
                 />
+
+                {(form.media_urls || []).length > 0 && (
+                  <p className="text-xs mt-3 font-medium" style={{ color: "#90B89A" }}>
+                    {(form.media_urls || []).length} photo{(form.media_urls || []).length !== 1 ? "s" : ""} added — your storefront is taking shape ✓
+                  </p>
+                )}
               </div>
 
-              {/* Intro video */}
+              {/* Intro video — secondary */}
               <div className="border-t pt-6" style={{ borderColor: "#E3E0D8" }}>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human element. Paste a YouTube or Vimeo link.</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview puts a face and voice to your work. Paste a YouTube or Vimeo link — it appears as an embedded player on your storefront.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Video URL">
                     <input value={form.introduction_video_url || ""} onChange={e => setForm(f => ({ ...f, introduction_video_url: e.target.value }))} placeholder="https://youtube.com/watch?v=..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
