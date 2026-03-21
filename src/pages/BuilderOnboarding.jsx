@@ -408,15 +408,15 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A finished instrument makes your storefront feel real. It gives buyers something concrete to study — and often becomes the first thing they look at before reaching out.</p>
             </>}
             {step === 7 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
                 {allRequiredDone
                   ? (shopName ? `${shopName} is ready for review.` : "Your storefront is ready for review.")
-                  : "Almost there."}
+                  : "A few items still need attention."}
               </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
                 {allRequiredDone
-                  ? "You've completed everything needed. Our team will review your storefront within 1–2 business days."
-                  : `A few required items still need attention before ${shopName ? shopName : "your storefront"} can be submitted for review.`}
+                  ? "You've built the foundation of your storefront. Our team will review it and follow up within 1–2 business days."
+                  : `You're close. Complete the required items below before your storefront can be submitted for review.`}
               </p>
             </>}
           </div>
