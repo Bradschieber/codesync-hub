@@ -546,7 +546,7 @@ export default function BuilderOnboarding() {
                   <label className="block text-sm font-bold mb-0.5" style={{ color: "#1A1A1A" }}>
                     {shopName ? `The ${shopName} story` : "Your brand story"}
                   </label>
-                  <p className="text-xs" style={{ color: "#9A9A9A" }}>Written in your own voice. No need to be formal — just honest and specific.</p>
+                  <p className="text-xs" style={{ color: "#9A9A9A" }}>In your own voice — honest, specific, and as long or short as feels right.</p>
                 </div>
                 <div className="px-5 pb-2">
                   <textarea
