@@ -505,56 +505,64 @@ export default function BuilderOnboarding() {
           {step === 1 && (
             <div className="space-y-6">
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>What buyers connect with</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Whether you're a new builder or have years of work behind you, buyers respond to specificity — what you build, why you build it, and what you care about. This is your space to share that, in whatever form feels right for where you are.</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why this matters more than you might expect</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Buyers respond to specificity — your background, your influences, what drives your work. Whether you've been building for two years or twenty, the story behind the craft is what makes a buyer choose you over someone else. Start with a strong first draft and refine it from your dashboard whenever you're ready.</p>
               </GuidanceCard>
 
-              {/* Writing prompts */}
+              {/* Writing prompts — more actionable framing */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Starting points — tap one for a prompt</p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Need a starting point?</p>
+                <p className="text-xs mb-3" style={{ color: "#BBBBBB" }}>Select a prompt to use as a writing anchor — then let the rest follow naturally.</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {STORY_PROMPTS.map((p, i) => (
                     <button
                       key={i}
                       type="button"
                       onClick={() => setActivePrompt(activePrompt === i ? null : i)}
-                      className="text-left px-4 py-3 border transition-all"
+                      className="text-left px-4 py-3.5 border transition-all"
                       style={{
                         borderColor: activePrompt === i ? NAVY : "#E3E0D8",
-                        backgroundColor: activePrompt === i ? "#F0F4FA" : "#FAFAF8",
+                        backgroundColor: activePrompt === i ? "#F0F4FA" : "#FFFFFF",
                         boxShadow: activePrompt === i ? `inset 3px 0 0 ${NAVY}` : "none",
                       }}
                     >
-                      <p className="text-xs font-semibold mb-0.5" style={{ color: activePrompt === i ? NAVY : "#5A5A5A" }}>{p.label}</p>
+                      <p className="text-xs font-bold mb-0.5" style={{ color: activePrompt === i ? NAVY : "#3A3A3A" }}>{p.label}</p>
                       {activePrompt === i
-                        ? <p className="text-xs leading-relaxed mt-1" style={{ color: "#4A5A6A" }}>{p.hint}</p>
-                        : <p className="text-xs" style={{ color: "#C8C4BC" }}>Tap to expand →</p>
+                        ? <p className="text-xs leading-relaxed mt-1.5" style={{ color: "#4A5A6A" }}>{p.hint}</p>
+                        : <p className="text-xs" style={{ color: "#C0BDB8" }}>Expand →</p>
                       }
                     </button>
                   ))}
                 </div>
               </div>
 
-              <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
-                <label className="block text-sm font-semibold mb-0.5" style={{ color: "#1A1A1A" }}>Your Brand Story</label>
-                <p className="text-xs mb-3" style={{ color: "#8A8A8A" }}>Start with a strong first draft — you can revise and expand this anytime from your dashboard.</p>
-                <textarea
-                  rows={14}
-                  value={form.brand_story || ""}
-                  onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
-                  placeholder={`E.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil. I've been building ever since — each instrument is a conversation between the wood and the player it's meant for..."`}
-                  className="w-full border-0 px-0 py-0 text-sm focus:outline-none resize-none leading-relaxed"
-                  style={{ backgroundColor: "transparent", color: "#1A1A1A" }}
-                />
-                <div className="flex items-center justify-between mt-3 pt-3" style={{ borderTop: "1px solid #F0EDE8" }}>
+              {/* Story textarea — primary focal area */}
+              <div className="border" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <div className="px-5 pt-5 pb-3">
+                  <label className="block text-sm font-bold mb-0.5" style={{ color: "#1A1A1A" }}>
+                    {shopName ? `The ${shopName} story` : "Your brand story"}
+                  </label>
+                  <p className="text-xs" style={{ color: "#9A9A9A" }}>Written in your own voice. No need to be formal — just honest and specific.</p>
+                </div>
+                <div className="px-5 pb-2">
+                  <textarea
+                    rows={13}
+                    value={form.brand_story || ""}
+                    onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
+                    placeholder={`E.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil. I've been building ever since — each instrument is a conversation between the wood and the player it's meant for..."`}
+                    className="w-full border-0 px-0 py-0 text-sm focus:outline-none resize-none leading-relaxed"
+                    style={{ backgroundColor: "transparent", color: "#1A1A1A" }}
+                  />
+                </div>
+                <div className="flex items-center justify-between px-5 py-3" style={{ borderTop: "1px solid #F0EDE8" }}>
                   <p className="text-xs" style={{ color: "#CCCCCC" }}>{form.brand_story?.length || 0} characters</p>
                   {(form.brand_story?.length || 0) > 80 && (
-                    <p className="text-xs font-medium" style={{ color: "#90B89A" }}>Looking good ✓</p>
+                    <p className="text-xs font-semibold" style={{ color: "#90B89A" }}>Strong start ✓</p>
                   )}
                 </div>
               </div>
 
-              <Field label="Short Bio (optional)" hint="A 1–2 sentence public-facing introduction shown on your profile card, search results, and other preview areas across the site. Keep it concise — buyers will read the full story on your storefront.">
+              <Field label="Short Bio" hint="1–2 sentences shown on your profile card and in search results — the first thing a buyer reads. Your full story lives on your storefront.">
                 <textarea
                   rows={2}
                   value={form.bio || ""}
