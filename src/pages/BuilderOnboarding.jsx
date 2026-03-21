@@ -101,11 +101,11 @@ function FirstInstrumentForm({ product, setProduct }) {
   return (
     <div className="space-y-5">
       <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Instrument Name *</label>
+        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Instrument name *</label>
         <input
           value={product.name || ""}
           onChange={e => setProduct(p => ({ ...p, name: e.target.value }))}
-          placeholder='e.g. "Walnut Short Scale Bass"'
+          placeholder="Example: Walnut Short Scale Bass"
           className="w-full border px-3 py-2.5 text-sm focus:outline-none"
           style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
         />
@@ -113,6 +113,7 @@ function FirstInstrumentForm({ product, setProduct }) {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Price ($) *</label>
+
           <input
             type="number"
             value={product.price || ""}
@@ -123,14 +124,14 @@ function FirstInstrumentForm({ product, setProduct }) {
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Instrument Type</label>
+          <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Instrument type</label>
           <select
             value={product.specifications?.instrumentCategory || ""}
             onChange={e => setProduct(p => ({ ...p, specifications: { ...(p.specifications || {}), instrumentCategory: e.target.value } }))}
             className="w-full border px-3 py-2.5 text-sm focus:outline-none bg-white"
             style={{ borderColor: "#DEDBD6" }}
           >
-            <option value="">Select type...</option>
+            <option value="">Select type</option>
             {["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"].map(t => (
               <option key={t} value={t}>{t}</option>
             ))}
@@ -143,7 +144,7 @@ function FirstInstrumentForm({ product, setProduct }) {
           rows={3}
           value={product.description || ""}
           onChange={e => setProduct(p => ({ ...p, description: e.target.value }))}
-          placeholder="Describe this instrument — materials, inspiration, what makes it special."
+          placeholder="Describe the instrument in a few sentences — materials, inspiration, build details, tone, or anything that makes it distinctive."
           className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
           style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
         />
@@ -152,7 +153,7 @@ function FirstInstrumentForm({ product, setProduct }) {
       {/* Photo upload — prominent */}
       <div>
         <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Photos</label>
-        <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>Strong photos are the single biggest factor in whether a buyer reaches out. Add your best angles — front, back, and detail shots.</p>
+        <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>Strong photos are often the biggest factor in whether a buyer clicks through. Add your best front, back, and detail shots.</p>
         <div className="flex flex-wrap gap-3 mb-3">
           {(product.image_urls || []).map((url, i) => (
             <div key={i} className="relative w-32 h-32 overflow-hidden flex-shrink-0" style={{ border: "1px solid #DEDBD6" }}>
@@ -182,7 +183,7 @@ function FirstInstrumentForm({ product, setProduct }) {
           </label>
         </div>
         {(product.image_urls || []).length === 0 && (
-          <p className="text-xs" style={{ color: "#CCCCCC" }}>No photos yet — listings with photos get significantly more views.</p>
+          <p className="text-xs" style={{ color: "#CCCCCC" }}>No photos yet — listings with photos get significantly more attention.</p>
         )}
       </div>
     </div>
@@ -945,7 +946,7 @@ export default function BuilderOnboarding() {
                 className="flex items-center gap-2 text-sm font-semibold px-8 py-3 text-white transition-all"
                 style={{ backgroundColor: saving || savingProduct ? "#AAAAAA" : (allRequiredDone ? "#4A9A6A" : NAVY), letterSpacing: "0.01em" }}
               >
-                {saving || savingProduct ? "Saving..." : <>{shopName ? `Launch ${shopName}` : "Go to Builder Dashboard"} <ArrowRight className="w-4 h-4" /></>}
+                {saving || savingProduct ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
               </button>
             )}
           </div>
