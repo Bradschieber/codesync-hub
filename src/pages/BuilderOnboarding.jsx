@@ -400,8 +400,8 @@ export default function BuilderOnboarding() {
               </p>
             </>}
             {step === 5 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Buyer references.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Past buyers who vouch for your work give new customers the confidence to reach out. This step is optional — you can add references anytime.</p>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Add buyer references.</h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional — you can add references now or later from your dashboard.</p>
             </>}
             {step === 6 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
