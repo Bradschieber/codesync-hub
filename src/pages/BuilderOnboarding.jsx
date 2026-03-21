@@ -366,7 +366,10 @@ export default function BuilderOnboarding() {
               {step === 1 && "Your Voice — Step 2 of 8"}
               {step === 2 && "Visual Identity — Step 3 of 8"}
               {step === 3 && "Your Offering — Step 4 of 8"}
-              {step > 3 && `Step ${step + 1} of ${STEPS.length} — ${currentStep.label}`}
+              {step === 4 && "Step 5 of 8 — Shop Policies"}
+              {step === 5 && "Step 6 of 8 — References"}
+              {step === 6 && "Step 7 of 8 — First Listing"}
+              {step === 7 && "Step 8 of 8 — Launch"}
             </p>
 
             {step === 0 && <>

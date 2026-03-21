@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Plus, X, CheckCircle, Clock, XCircle } from "lucide-react";
 
+const NAVY = "#2F3E55";
+
 const STATUS_STYLES = {
-  pending: { label: "Pending Verification", icon: Clock, className: "bg-yellow-50 text-yellow-700 border-yellow-200" },
-  verified: { label: "Verified", icon: CheckCircle, className: "bg-green-50 text-green-700 border-green-200" },
-  rejected: { label: "Not Verified", icon: XCircle, className: "bg-red-50 text-red-700 border-red-200" },
+  pending: { label: "Pending verification", icon: Clock, bg: "#FFFAF2", border: "#E8D9B8", text: "#7A5A10" },
+  verified: { label: "Verified", icon: CheckCircle, bg: "#F4FBF6", border: "#C0DEC8", text: "#1A5A3A" },
+  rejected: { label: "Not verified", icon: XCircle, bg: "#FFF8F8", border: "#F0C0C0", text: "#7A2020" },
 };
 
 export default function ReferencesSection({ profile }) {
@@ -45,16 +47,16 @@ export default function ReferencesSection({ profile }) {
   const verifiedCount = references.filter(r => r.status === "verified").length;
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 p-6">
+    <div className="border p-6" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
       <div className="flex items-start justify-between mb-1">
         <div>
-          <h2 className="font-bold text-stone-800">Buyer References</h2>
-          <p className="text-stone-400 text-xs mt-1 leading-relaxed">
-            Earn a <strong className="text-blue-600">Verified Builder</strong> badge on your profile and listings by submitting 2 references from past customers.
+          <h2 className="font-bold text-sm" style={{ color: "#1A1A1A" }}>Buyer references</h2>
+          <p className="text-xs mt-1 leading-relaxed" style={{ color: "#7A7A7A" }}>
+            Verified references can strengthen your profile and help you earn a Verified Builder badge once enough approved references are on file.
           </p>
         </div>
         {verifiedCount >= 2 && (
-          <span className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+          <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 flex-shrink-0 ml-4" style={{ backgroundColor: "#F4FBF6", border: "1px solid #C0DEC8", color: "#1A5A3A" }}>
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.62L2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2z"/></svg>
             Verified Builder
           </span>
@@ -62,95 +64,147 @@ export default function ReferencesSection({ profile }) {
       </div>
 
       {/* How it works */}
-      <div className="mt-4 bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-2">
-        <p className="text-xs font-semibold text-stone-600 uppercase tracking-wide">How it works</p>
+      <div className="mt-4 p-4 space-y-2" style={{ backgroundColor: "#FEFCF7", border: "1px solid #EDE8DE" }}>
+        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#9A8878" }}>How it works</p>
         <ol className="space-y-1.5">
           {[
-            "Submit up to 2 references from past buyers — include their name, a short quote, and a way to contact them.",
-            "Our team reaches out to verify each reference is authentic.",
-            "Once 2 references are verified, your profile earns the Verified Builder badge, which appears on your public profile and in search listings.",
-            "The verified badge builds buyer trust and can lead to more inquiries and sales.",
+            "Submit up to 2 references from past buyers, including their name, a short quote, and a way to contact them.",
+            "Our team reaches out to verify that each reference is authentic.",
+            "Once enough references are verified, your profile can earn the Verified Builder badge.",
+            "Verified references can help buyers feel more comfortable starting a conversation.",
           ].map((step, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-stone-500 leading-relaxed">
-              <span className="w-4 h-4 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px]">{i + 1}</span>
+            <li key={i} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: "#7A7060" }}>
+              <span className="w-4 h-4 rounded-full font-bold flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px]" style={{ backgroundColor: "#F0E8D8", color: "#9A7840" }}>{i + 1}</span>
               {step}
             </li>
           ))}
         </ol>
       </div>
 
-      <div className="mt-4 mb-2 flex items-center gap-2">
-        <div className="flex-1 h-2 rounded-full bg-stone-100 overflow-hidden">
+      {/* Progress bar */}
+      <div className="mt-4 mb-2 flex items-center gap-3">
+        <div className="flex-1 h-1.5 overflow-hidden" style={{ backgroundColor: "#ECEAE5" }}>
           <div
-            className="h-full rounded-full bg-blue-500 transition-all"
-            style={{ width: `${Math.min((verifiedCount / 2) * 100, 100)}%` }}
+            className="h-full transition-all"
+            style={{ width: `${Math.min((verifiedCount / 2) * 100, 100)}%`, backgroundColor: "#4A9A6A" }}
           />
         </div>
-        <span className="text-xs text-stone-500">{verifiedCount}/2 verified</span>
+        <span className="text-xs flex-shrink-0" style={{ color: "#9A9A9A" }}>{verifiedCount}/2 verified</span>
       </div>
 
+      {/* Existing references */}
       <div className="space-y-3 mt-4">
         {references.map(ref => {
-          const { label, icon: Icon, className } = STATUS_STYLES[ref.status] || STATUS_STYLES.pending;
+          const style = STATUS_STYLES[ref.status] || STATUS_STYLES.pending;
+          const Icon = style.icon;
           return (
-            <div key={ref.id} className="border border-stone-200 rounded-xl p-4 relative">
+            <div key={ref.id} className="border p-4 relative" style={{ borderColor: style.border, backgroundColor: style.bg }}>
               <button
                 type="button"
                 onClick={() => handleDelete(ref.id)}
-                className="absolute top-3 right-3 text-stone-300 hover:text-red-400 transition-colors"
+                className="absolute top-3 right-3 transition-colors"
+                style={{ color: "#C8C4BC" }}
+                onMouseEnter={e => e.currentTarget.style.color = "#DC5050"}
+                onMouseLeave={e => e.currentTarget.style.color = "#C8C4BC"}
               >
                 <X className="w-4 h-4" />
               </button>
-              <p className="font-semibold text-stone-700 text-sm mb-1">{ref.buyer_name}</p>
-              <p className="text-stone-500 text-sm italic mb-2">"{ref.quote}"</p>
+              <p className="font-semibold text-sm mb-1" style={{ color: "#1A1A1A" }}>{ref.buyer_name}</p>
+              <p className="text-sm italic mb-2" style={{ color: "#5A5A5A" }}>"{ref.quote}"</p>
               <div className="flex items-center gap-3 flex-wrap">
-                <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border ${className}`}>
-                  <Icon className="w-3 h-3" /> {label}
+                <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 border" style={{ borderColor: style.border, color: style.text, backgroundColor: "transparent" }}>
+                  <Icon className="w-3 h-3" /> {style.label}
                 </span>
-                {ref.contact_email && <span className="text-xs text-stone-400">{ref.contact_email}</span>}
-                {ref.contact_phone && <span className="text-xs text-stone-400">{ref.contact_phone}</span>}
+                {ref.contact_email && <span className="text-xs" style={{ color: "#9A9A9A" }}>{ref.contact_email}</span>}
+                {ref.contact_phone && <span className="text-xs" style={{ color: "#9A9A9A" }}>{ref.contact_phone}</span>}
               </div>
             </div>
           );
         })}
       </div>
 
+      {/* Add reference CTA */}
       {references.length < 2 && !showForm && (
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="mt-4 flex items-center gap-2 text-sm text-amber-600 hover:text-amber-700 font-medium"
+          className="mt-5 flex items-center gap-2 text-sm font-medium transition-colors"
+          style={{ color: "#C8973A" }}
+          onMouseEnter={e => e.currentTarget.style.color = "#9A7030"}
+          onMouseLeave={e => e.currentTarget.style.color = "#C8973A"}
         >
-          <Plus className="w-4 h-4" /> Add Reference
+          <Plus className="w-4 h-4" /> Add a reference
         </button>
       )}
 
+      {/* Add reference form */}
       {showForm && (
-        <form onSubmit={handleAdd} className="mt-4 border border-amber-200 rounded-xl p-4 space-y-3 bg-amber-50">
-          <p className="text-xs font-semibold text-stone-700">New Reference</p>
+        <form onSubmit={handleAdd} className="mt-5 border p-5 space-y-4" style={{ borderColor: "#E8D9B8", backgroundColor: "#FFFAF2" }}>
+          <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "#9A8060" }}>Add a reference</p>
           <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">Buyer Name *</label>
-            <input required value={form.buyer_name} onChange={e => setForm({...form, buyer_name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white" placeholder="Full name" />
+            <label className="block text-xs font-medium mb-1" style={{ color: "#5A5A5A" }}>Buyer name *</label>
+            <input
+              required
+              value={form.buyer_name}
+              onChange={e => setForm({...form, buyer_name: e.target.value})}
+              className="w-full border px-3 py-2 text-sm focus:outline-none bg-white"
+              style={{ borderColor: "#DEDBD6" }}
+              placeholder="Full name"
+            />
           </div>
           <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">Their Quote / Review *</label>
-            <textarea required rows={3} value={form.quote} onChange={e => setForm({...form, quote: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none bg-white" placeholder="A brief quote from the buyer about their experience..." />
+            <label className="block text-xs font-medium mb-1" style={{ color: "#5A5A5A" }}>Buyer quote *</label>
+            <textarea
+              required
+              rows={3}
+              value={form.quote}
+              onChange={e => setForm({...form, quote: e.target.value})}
+              className="w-full border px-3 py-2 text-sm focus:outline-none resize-none bg-white"
+              style={{ borderColor: "#DEDBD6" }}
+              placeholder="A short note about what it was like to work with you."
+            />
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Buyer Email</label>
-              <input type="email" value={form.contact_email} onChange={e => setForm({...form, contact_email: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white" placeholder="For verification" />
+              <label className="block text-xs font-medium mb-1" style={{ color: "#5A5A5A" }}>Buyer email</label>
+              <input
+                type="email"
+                value={form.contact_email}
+                onChange={e => setForm({...form, contact_email: e.target.value})}
+                className="w-full border px-3 py-2 text-sm focus:outline-none bg-white"
+                style={{ borderColor: "#DEDBD6" }}
+                placeholder="For verification"
+              />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Buyer Phone</label>
-              <input type="tel" value={form.contact_phone} onChange={e => setForm({...form, contact_phone: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white" placeholder="For verification" />
+              <label className="block text-xs font-medium mb-1" style={{ color: "#5A5A5A" }}>Buyer phone</label>
+              <input
+                type="tel"
+                value={form.contact_phone}
+                onChange={e => setForm({...form, contact_phone: e.target.value})}
+                className="w-full border px-3 py-2 text-sm focus:outline-none bg-white"
+                style={{ borderColor: "#DEDBD6" }}
+                placeholder="For verification"
+              />
             </div>
           </div>
-          <p className="text-xs text-stone-400">At least one contact method is required for verification.</p>
+          <p className="text-xs" style={{ color: "#AAAAAA" }}>At least one contact method is required so our team can verify the reference.</p>
           <div className="flex gap-2">
-            <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-stone-300 text-stone-600 py-2 rounded-xl text-sm">Cancel</button>
-            <button type="submit" disabled={saving || (!form.contact_email && !form.contact_phone)} className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-medium py-2 rounded-xl text-sm disabled:opacity-50">
-              {saving ? "Saving..." : "Submit Reference"}
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className="flex-1 border py-2 text-sm transition-colors"
+              style={{ borderColor: "#DEDBD6", color: "#7A7A7A" }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving || (!form.contact_email && !form.contact_phone)}
+              className="flex-1 py-2 text-sm font-medium text-white transition-colors disabled:opacity-50"
+              style={{ backgroundColor: saving ? "#AAAAAA" : NAVY }}
+            >
+              {saving ? "Saving..." : "Submit reference"}
             </button>
           </div>
         </form>

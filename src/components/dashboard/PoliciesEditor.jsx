@@ -12,15 +12,30 @@ const PRESET_EXCLUSIONS = [
 ];
 const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL"];
 
+const FIELD_STYLE = "w-full border px-3 py-2 text-sm focus:outline-none bg-white";
+const BORDER = { borderColor: "#DEDBD6" };
+const LABEL_STYLE = "block text-xs font-medium mb-1";
+const LABEL_COLOR = { color: "#5A5A5A" };
+const SECTION_HELPER = { color: "#9A9A9A" };
+
 function SectionLabel({ children }) {
-  return <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-5 mb-3 border-b border-gray-100 pb-1">{children}</p>;
+  return (
+    <p className="text-xs font-bold uppercase tracking-wider mt-5 mb-3 pb-1" style={{ color: "#7A7A7A", borderBottom: "1px solid #ECEAE5" }}>
+      {children}
+    </p>
+  );
 }
 
 function SelectField({ label, value, onChange, options, placeholder = "Select..." }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
-      <select value={value || ""} onChange={e => onChange(e.target.value)} className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white">
+      <label className={LABEL_STYLE} style={LABEL_COLOR}>{label}</label>
+      <select
+        value={value || ""}
+        onChange={e => onChange(e.target.value)}
+        className={FIELD_STYLE}
+        style={BORDER}
+      >
         <option value="">{placeholder}</option>
         {options.map(o => <option key={o.value ?? o} value={o.value ?? o}>{o.label ?? o}</option>)}
       </select>
@@ -35,11 +50,16 @@ function CheckboxGroup({ label, values = [], options, onChange }) {
   }
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-600 mb-2">{label}</label>
+      {label && <label className={LABEL_STYLE} style={LABEL_COLOR}>{label}</label>}
       <div className="flex flex-wrap gap-2">
         {options.map(opt => (
           <button key={opt} type="button" onClick={() => toggle(opt)}
-            className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${values.includes(opt) ? "bg-indigo-100 border-indigo-400 text-indigo-800 font-medium" : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"}`}>
+            className="text-xs px-3 py-1.5 border transition-colors"
+            style={{
+              borderColor: values.includes(opt) ? "#2F3E55" : "#DEDBD6",
+              backgroundColor: values.includes(opt) ? "#2F3E55" : "#FAFAF8",
+              color: values.includes(opt) ? "#FFFFFF" : "#5A5A5A",
+            }}>
             {opt}
           </button>
         ))}
@@ -54,8 +74,6 @@ export default function PoliciesEditor({ form, setForm }) {
 
   function set(key, val) { setForm({ ...form, [key]: val }); }
 
-  // warranty_coverage is now an array of { label, duration }
-  // Initialize from old format if needed
   const coverageItems = (() => {
     const raw = form.warranty_coverage || [];
     if (raw.length === 0) return PRESET_COVERAGE.map(label => ({ label, duration: "" }));
@@ -79,7 +97,7 @@ export default function PoliciesEditor({ form, setForm }) {
     set("warranty_coverage", coverageItems.filter(i => i.label !== label));
   }
 
-  // warranty_exclusions: array of strings, defaulting to all presets selected
+  // exclusions = items actively excluded (default = all presets)
   const exclusions = (() => {
     const raw = form.warranty_exclusions;
     if (!raw) return [...PRESET_EXCLUSIONS];
@@ -108,60 +126,79 @@ export default function PoliciesEditor({ form, setForm }) {
     <div className="space-y-6 mt-4">
 
       {/* ── Pricing & Deposit ── */}
-      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
-        <h3 className="text-sm font-bold text-gray-700 mb-1">Pricing & Deposit Policy</h3>
-        <p className="text-xs text-gray-400 mb-4">These terms are included in purchase contracts to set clear financial expectations for buyers.</p>
+      <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+        <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Pricing & Deposit</h3>
+        <p className="text-xs mb-4" style={SECTION_HELPER}>These terms help buyers understand how payment works before they commit.</p>
 
-        <div className="flex items-start gap-3 mb-4">
-          <input type="checkbox" id="deposit_required" checked={form.deposit_required || false} onChange={e => set("deposit_required", e.target.checked)} className="h-4 w-4 accent-indigo-700 rounded mt-0.5" />
+        <div className="flex items-start gap-3 mb-5">
+          <input
+            type="checkbox"
+            id="deposit_required"
+            checked={form.deposit_required || false}
+            onChange={e => set("deposit_required", e.target.checked)}
+            className="h-4 w-4 mt-0.5 flex-shrink-0"
+            style={{ accentColor: "#2F3E55" }}
+          />
           <div>
-            <label htmlFor="deposit_required" className="text-sm font-semibold text-gray-700 cursor-pointer">Deposit Required</label>
-            <p className="text-xs text-gray-400 mt-0.5">A deposit is required to secure the build or hold an instrument.</p>
+            <label htmlFor="deposit_required" className="text-sm font-semibold cursor-pointer" style={{ color: "#1A1A1A" }}>Deposit required</label>
+            <p className="text-xs mt-0.5" style={SECTION_HELPER}>Require a deposit to secure a build slot or hold an instrument.</p>
           </div>
         </div>
 
         {form.deposit_required && (
           <div className="grid sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Deposit Type</label>
-              <div className="flex gap-3">
+              <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit type</label>
+              <div className="flex gap-2">
                 <button type="button" onClick={() => set("deposit_type", "percent")}
-                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${(!form.deposit_type || form.deposit_type === "percent") ? "bg-indigo-100 border-indigo-400 text-indigo-800 font-medium" : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"}`}>
-                  % of Price
+                  className="flex-1 text-xs py-2 border transition-colors"
+                  style={{
+                    borderColor: (!form.deposit_type || form.deposit_type === "percent") ? "#2F3E55" : "#DEDBD6",
+                    backgroundColor: (!form.deposit_type || form.deposit_type === "percent") ? "#2F3E55" : "#FAFAF8",
+                    color: (!form.deposit_type || form.deposit_type === "percent") ? "#FFFFFF" : "#5A5A5A",
+                  }}>
+                  % of price
                 </button>
                 <button type="button" onClick={() => set("deposit_type", "fixed")}
-                  className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${form.deposit_type === "fixed" ? "bg-indigo-100 border-indigo-400 text-indigo-800 font-medium" : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"}`}>
-                  Fixed $ Amount
+                  className="flex-1 text-xs py-2 border transition-colors"
+                  style={{
+                    borderColor: form.deposit_type === "fixed" ? "#2F3E55" : "#DEDBD6",
+                    backgroundColor: form.deposit_type === "fixed" ? "#2F3E55" : "#FAFAF8",
+                    color: form.deposit_type === "fixed" ? "#FFFFFF" : "#5A5A5A",
+                  }}>
+                  Fixed $ amount
                 </button>
               </div>
             </div>
             <div>
               {(!form.deposit_type || form.deposit_type === "percent") ? (
                 <>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">Deposit Percentage (%)</label>
+                  <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit percentage (%)</label>
                   <input
                     type="number" min="1" max="100"
                     value={form.deposit_percent || ""}
                     onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
                     placeholder="e.g. 50"
-                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    className={FIELD_STYLE}
+                    style={BORDER}
                   />
                 </>
               ) : (
                 <>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">Deposit Amount ($)</label>
+                  <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit amount ($)</label>
                   <input
                     type="number" min="0"
                     value={form.deposit_fixed_amount || ""}
                     onChange={e => set("deposit_fixed_amount", e.target.value ? Number(e.target.value) : "")}
                     placeholder="e.g. 500"
-                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    className={FIELD_STYLE}
+                    style={BORDER}
                   />
                 </>
               )}
             </div>
             <SelectField
-              label="Deposit Refundable?"
+              label="Is the deposit refundable?"
               value={form.deposit_refundable}
               onChange={v => set("deposit_refundable", v)}
               options={[
@@ -175,7 +212,7 @@ export default function PoliciesEditor({ form, setForm }) {
 
         <div className="grid sm:grid-cols-2 gap-4">
           <SelectField
-            label="Payment Schedule"
+            label="Payment schedule"
             value={form.payment_schedule}
             onChange={v => set("payment_schedule", v)}
             options={[
@@ -186,7 +223,7 @@ export default function PoliciesEditor({ form, setForm }) {
             ]}
           />
           <SelectField
-            label="Accepted Payment Methods"
+            label="Accepted payment methods"
             value={form.payment_methods}
             onChange={v => set("payment_methods", v)}
             options={[
@@ -198,32 +235,34 @@ export default function PoliciesEditor({ form, setForm }) {
           />
         </div>
 
-        <div className="mt-3">
-          <label className="block text-xs font-medium text-gray-600 mb-1">Additional Pricing Notes</label>
+        <div className="mt-4">
+          <label className={LABEL_STYLE} style={LABEL_COLOR}>Additional pricing notes</label>
           <textarea
             rows={2}
             value={form.pricing_notes || ""}
             onChange={e => set("pricing_notes", e.target.value)}
-            placeholder="e.g. Price includes setup and basic case. Upgrades available at additional cost. All prices in USD."
-            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
+            placeholder="Share anything buyers should know upfront, such as what is included in the price, upgrade options, or how final pricing is confirmed."
+            className="w-full border px-3 py-2 text-sm focus:outline-none resize-none"
+            style={{ ...BORDER, backgroundColor: "#FFFFFF" }}
           />
         </div>
       </div>
 
       {/* ── Warranty ── */}
-      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
-        <h3 className="text-sm font-bold text-gray-700 mb-1">Warranty Policy</h3>
-        <p className="text-xs text-gray-400 mb-3">Set a coverage period for each item. Different categories can have different durations — or be excluded entirely. Buyers will see this on your storefront and in their purchase agreement.</p>
+      <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+        <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Warranty</h3>
+        <p className="text-xs mb-4" style={SECTION_HELPER}>Let buyers know what your warranty covers, and for how long. Different categories can have different coverage periods.</p>
 
-        <SectionLabel>What's Covered &amp; For How Long</SectionLabel>
+        <SectionLabel>What's covered — and for how long</SectionLabel>
         <div className="space-y-2 mb-3">
           {coverageItems.map(item => (
             <div key={item.label} className="flex items-center gap-2">
-              <span className="flex-1 text-xs text-gray-700">{item.label}</span>
+              <span className="flex-1 text-xs" style={{ color: "#3A3A3A" }}>{item.label}</span>
               <select
                 value={item.duration || ""}
                 onChange={e => setCoverageDuration(item.label, e.target.value)}
-                className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:outline-none bg-white text-gray-700 w-36"
+                className="border px-2 py-1.5 text-xs focus:outline-none bg-white w-36"
+                style={BORDER}
               >
                 <option value="">Select...</option>
                 {COVERAGE_DURATIONS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -240,14 +279,15 @@ export default function PoliciesEditor({ form, setForm }) {
             value={newCoverageItem}
             onChange={e => setNewCoverageItem(e.target.value)}
             onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addCoverageItem())}
-            placeholder="Add custom covered item..."
-            className="flex-1 border border-dashed border-gray-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-white placeholder-gray-300"
+            placeholder="Add another covered item"
+            className="flex-1 border border-dashed px-3 py-1.5 text-xs focus:outline-none bg-white"
+            style={{ borderColor: "#C8C4BC" }}
           />
-          <button type="button" onClick={addCoverageItem} className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 text-gray-600 hover:border-gray-500 hover:text-gray-800 transition-colors bg-white">Add</button>
+          <button type="button" onClick={addCoverageItem} className="text-xs font-semibold px-3 py-1.5 border transition-colors bg-white" style={{ borderColor: "#DEDBD6", color: "#5A5A5A" }}>Add</button>
         </div>
 
         <SectionLabel>Exclusions</SectionLabel>
-        <p className="text-xs text-gray-400 mb-3">Standard exclusions are selected by default. Deselect any that don't apply, or add your own.</p>
+        <p className="text-xs mb-3" style={SECTION_HELPER}>Standard exclusions are active by default. Remove any that don't apply, or add your own.</p>
         <div className="flex flex-wrap gap-2 mb-3">
           {allExclusions.map(item => {
             const active = exclusions.includes(item);
@@ -256,7 +296,15 @@ export default function PoliciesEditor({ form, setForm }) {
                 <button
                   type="button"
                   onClick={() => toggleExclusion(item)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${active ? "bg-gray-200 border-gray-400 text-gray-800 font-medium" : "bg-white border-gray-200 text-gray-400 line-through hover:border-gray-400"}`}
+                  className="text-xs px-3 py-1.5 border transition-colors"
+                  style={{
+                    borderColor: active ? "#5A5A5A" : "#DEDBD6",
+                    backgroundColor: active ? "#ECEAE5" : "#FFFFFF",
+                    color: active ? "#2A2A2A" : "#BBBBBB",
+                    fontWeight: active ? 500 : 400,
+                    textDecoration: active ? "none" : "none",
+                    opacity: active ? 1 : 0.5,
+                  }}
                 >
                   {item}
                 </button>
@@ -273,33 +321,35 @@ export default function PoliciesEditor({ form, setForm }) {
             value={newExclusionItem}
             onChange={e => setNewExclusionItem(e.target.value)}
             onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addExclusionItem())}
-            placeholder="Add custom exclusion..."
-            className="flex-1 border border-dashed border-gray-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none bg-white placeholder-gray-300"
+            placeholder="Add another exclusion"
+            className="flex-1 border border-dashed px-3 py-1.5 text-xs focus:outline-none bg-white"
+            style={{ borderColor: "#C8C4BC" }}
           />
-          <button type="button" onClick={addExclusionItem} className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-300 text-gray-600 hover:border-gray-500 hover:text-gray-800 transition-colors bg-white">Add</button>
+          <button type="button" onClick={addExclusionItem} className="text-xs font-semibold px-3 py-1.5 border transition-colors bg-white" style={{ borderColor: "#DEDBD6", color: "#5A5A5A" }}>Add</button>
         </div>
 
-        <SectionLabel>Claim Process</SectionLabel>
+        <SectionLabel>Claim process</SectionLabel>
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">How does a buyer make a warranty claim?</label>
+          <label className={LABEL_STYLE} style={LABEL_COLOR}>How should a buyer start a warranty claim?</label>
           <textarea
             rows={2}
             value={form.warranty_claim_process || ""}
             onChange={e => set("warranty_claim_process", e.target.value)}
-            placeholder="e.g. Contact me by email with photos. I'll assess and arrange repair or replacement within 30 days."
-            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
+            placeholder="Example: Contact us by email with photos, order details, and a description of the issue."
+            className="w-full border px-3 py-2 text-sm focus:outline-none resize-none"
+            style={{ ...BORDER, backgroundColor: "#FFFFFF" }}
           />
         </div>
       </div>
 
       {/* ── Returns ── */}
-      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
-        <h3 className="text-sm font-bold text-gray-700 mb-1">Return Policy</h3>
-        <p className="text-xs text-gray-400 mb-3">Used in purchase contracts — clear return terms reduce disputes.</p>
+      <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+        <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Returns</h3>
+        <p className="text-xs mb-4" style={SECTION_HELPER}>If you accept returns, set the terms clearly so buyers know what qualifies and what to expect.</p>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <SelectField
-            label="Returns Accepted?"
+            label="Do you accept returns?"
             value={form.returns_accepted}
             onChange={v => set("returns_accepted", v)}
             options={[
@@ -310,7 +360,7 @@ export default function PoliciesEditor({ form, setForm }) {
           />
           {form.returns_accepted === "yes" && (
             <SelectField
-              label="Return Window"
+              label="Return window"
               value={form.return_window_days}
               onChange={v => set("return_window_days", Number(v))}
               options={[
@@ -325,7 +375,7 @@ export default function PoliciesEditor({ form, setForm }) {
           {form.returns_accepted !== "no" && (
             <>
               <SelectField
-                label="Return Shipping Paid By"
+                label="Return shipping paid by"
                 value={form.return_shipping_paid_by}
                 onChange={v => set("return_shipping_paid_by", v)}
                 options={[
@@ -335,13 +385,14 @@ export default function PoliciesEditor({ form, setForm }) {
                 ]}
               />
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Restocking Fee (%)</label>
+                <label className={LABEL_STYLE} style={LABEL_COLOR}>Restocking fee (%)</label>
                 <input
                   type="number" min="0" max="100"
                   value={form.return_restocking_fee_percent || ""}
                   onChange={e => set("return_restocking_fee_percent", e.target.value ? Number(e.target.value) : "")}
                   placeholder="0 = no fee"
-                  className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className={FIELD_STYLE}
+                  style={BORDER}
                 />
               </div>
             </>
@@ -349,35 +400,36 @@ export default function PoliciesEditor({ form, setForm }) {
         </div>
 
         {form.returns_accepted !== "no" && (
-          <div className="mt-3">
-            <label className="block text-xs font-medium text-gray-600 mb-1">Required Return Condition</label>
+          <div className="mt-4">
+            <label className={LABEL_STYLE} style={LABEL_COLOR}>Required return condition</label>
             <textarea
               rows={2}
               value={form.return_condition || ""}
               onChange={e => set("return_condition", e.target.value)}
-              placeholder="e.g. Must be in original, unplayed condition with original case and all included accessories."
-              className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
+              placeholder="Example: Instrument must be returned in original condition with case, paperwork, and included accessories."
+              className="w-full border px-3 py-2 text-sm focus:outline-none resize-none"
+              style={{ ...BORDER, backgroundColor: "#FFFFFF" }}
             />
           </div>
         )}
       </div>
 
       {/* ── Shipping ── */}
-      <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
-        <h3 className="text-sm font-bold text-gray-700 mb-1">Shipping Policy</h3>
-        <p className="text-xs text-gray-400 mb-3">Shipping terms are included in purchase contracts and set buyer expectations.</p>
+      <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+        <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Shipping</h3>
+        <p className="text-xs mb-4" style={SECTION_HELPER}>Shipping details help buyers understand how instruments are packed, shipped, and insured.</p>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="flex items-center gap-3">
-            <input type="checkbox" id="ships_dom" checked={form.ships_domestically ?? true} onChange={e => set("ships_domestically", e.target.checked)} className="h-4 w-4 accent-indigo-700 rounded" />
-            <label htmlFor="ships_dom" className="text-sm text-gray-700 cursor-pointer">Ships Domestically</label>
+            <input type="checkbox" id="ships_dom" checked={form.ships_domestically ?? true} onChange={e => set("ships_domestically", e.target.checked)} className="h-4 w-4 flex-shrink-0" style={{ accentColor: "#2F3E55" }} />
+            <label htmlFor="ships_dom" className="text-sm cursor-pointer" style={{ color: "#1A1A1A" }}>Ships domestically</label>
           </div>
           <div className="flex items-center gap-3">
-            <input type="checkbox" id="ships_intl" checked={form.ships_internationally || false} onChange={e => set("ships_internationally", e.target.checked)} className="h-4 w-4 accent-indigo-700 rounded" />
-            <label htmlFor="ships_intl" className="text-sm text-gray-700 cursor-pointer">Ships Internationally</label>
+            <input type="checkbox" id="ships_intl" checked={form.ships_internationally || false} onChange={e => set("ships_internationally", e.target.checked)} className="h-4 w-4 flex-shrink-0" style={{ accentColor: "#2F3E55" }} />
+            <label htmlFor="ships_intl" className="text-sm cursor-pointer" style={{ color: "#1A1A1A" }}>Ships internationally</label>
           </div>
           <SelectField
-            label="Shipping Insurance"
+            label="Shipping insurance"
             value={form.shipping_insurance_included}
             onChange={v => set("shipping_insurance_included", v)}
             options={[
@@ -387,32 +439,33 @@ export default function PoliciesEditor({ form, setForm }) {
             ]}
           />
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Handling / Ship-Out Timeline</label>
+            <label className={LABEL_STYLE} style={LABEL_COLOR}>Handling / ship-out timeline</label>
             <input
               value={form.shipping_timeline || ""}
               onChange={e => set("shipping_timeline", e.target.value)}
-              placeholder="e.g. Ships within 3 business days of payment"
-              className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="Example: Ships within 3 business days of cleared payment."
+              className={FIELD_STYLE}
+              style={BORDER}
             />
           </div>
         </div>
 
-        <SectionLabel>Carriers Used</SectionLabel>
+        <SectionLabel>Carriers used</SectionLabel>
         <CheckboxGroup
-          label=""
           values={form.shipping_carriers || []}
           options={SHIPPING_CARRIERS}
           onChange={v => set("shipping_carriers", v)}
         />
 
-        <div className="mt-3">
-          <label className="block text-xs font-medium text-gray-600 mb-1">Packaging Description</label>
+        <div className="mt-4">
+          <label className={LABEL_STYLE} style={LABEL_COLOR}>Packaging description</label>
           <textarea
             rows={2}
             value={form.shipping_packaging || ""}
             onChange={e => set("shipping_packaging", e.target.value)}
-            placeholder="e.g. Instruments are double-boxed with foam padding and suspended in a hard shell case."
-            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none"
+            placeholder="Example: Double-boxed with protective padding and shipped in a fitted hard case."
+            className="w-full border px-3 py-2 text-sm focus:outline-none resize-none"
+            style={{ ...BORDER, backgroundColor: "#FFFFFF" }}
           />
         </div>
       </div>
