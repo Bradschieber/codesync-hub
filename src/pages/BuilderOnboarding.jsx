@@ -276,7 +276,11 @@ export default function BuilderOnboarding() {
       setSavingProduct(false);
     }
     await saveProfile();
-    navigate(createPageUrl("Dashboard"));
+    if (profile?.id) {
+      navigate(createPageUrl("BuilderProfile") + `?id=${profile.id}`);
+    } else {
+      navigate(createPageUrl("Dashboard"));
+    }
   }
 
   const updateForm = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
