@@ -729,7 +729,7 @@ export default function BuilderOnboarding() {
                     <input type="checkbox" checked={form.offers_stock_builds || false} onChange={e => setForm(f => ({ ...f, offers_stock_builds: e.target.checked }))} className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ accentColor: NAVY }} />
                     <div>
                       <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Stock Builds</p>
-                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Finished instruments listed with specs and a fixed price. Buyers can purchase directly and you ship when ready.</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Finished instruments listed with specs and a set price — buyers purchase directly and you ship when ready.</p>
                     </div>
                   </label>
                   <label
