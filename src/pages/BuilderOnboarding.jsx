@@ -591,7 +591,7 @@ export default function BuilderOnboarding() {
                       {shopName ? `Your ${shopName} gallery` : "Your craft gallery"}
                     </p>
                     <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
-                      This is what makes your storefront feel real. Process photos — your bench, your materials, a build in progress — create the kind of trust that no amount of copy can replicate. Aim for 4–8 images to start. You can add more anytime.
+                      Workshop and process photos are what make buyers feel confident before they ever send a message. Show your bench, a build in progress, your materials — not just finished results. Start with 4–8 images. You can always add more.
                     </p>
                   </div>
                 </div>
