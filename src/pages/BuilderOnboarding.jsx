@@ -861,6 +861,7 @@ export default function BuilderOnboarding() {
               {/* Recommended items */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Recommended — strengthen your storefront</p>
+
                 <div className="space-y-2">
                   {[
                     { label: "Brand story", done: !!(form.brand_story && form.brand_story.length > 80) },
