@@ -282,6 +282,7 @@ export default function BuilderOnboarding() {
 
   const currentStep = STEPS[step];
   const progressPct = Math.round((step / (STEPS.length - 1)) * 100);
+  const shopName = form.business_name?.trim() || null;
 
   // Launch readiness
   const requiredItems = [
