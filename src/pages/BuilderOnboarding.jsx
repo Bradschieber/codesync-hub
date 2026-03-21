@@ -431,7 +431,7 @@ export default function BuilderOnboarding() {
               {/* Identity anchor — the name is the foundation */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <label className="block text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Shop or Brand Name *</label>
-                <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>This is the name buyers will see first — on your storefront, in search results, and in every order they place with you.</p>
+                <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>The name buyers will see on your storefront, in search results, and on every order. You can update this anytime.</p>
                 <input
                   type="text"
                   value={form.business_name || ""}
