@@ -472,7 +472,7 @@ export default function BuilderOnboarding() {
                 </Field>
               </div>
 
-              <Field label="Tagline" hint="One line that captures what your shop is about. This appears directly beneath your name on your storefront.">
+              <Field label="Tagline (optional)" hint="A short line that captures your shop's identity — appears beneath your name on your storefront.">
                 <Input field="tag_line" value={form.tag_line} onChange={updateForm} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
               </Field>
 
