@@ -630,7 +630,7 @@ export default function BuilderOnboarding() {
               {/* Intro video — secondary */}
               <div className="border-t pt-6" style={{ borderColor: "#E3E0D8" }}>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview puts a face and voice to your work. Paste a YouTube or Vimeo link — it appears as an embedded player on your storefront.</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link — it embeds directly on your builder page.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Video URL">
                     <input value={form.introduction_video_url || ""} onChange={e => setForm(f => ({ ...f, introduction_video_url: e.target.value }))} placeholder="https://youtube.com/watch?v=..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
