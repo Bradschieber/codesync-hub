@@ -839,18 +839,18 @@ export default function BuilderOnboarding() {
                 <div className="space-y-2">
                   {requiredItems.map(({ label, done }) => (
                     <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{
-                      borderColor: done ? "#C0DEC8" : "#F0C0C0",
-                      backgroundColor: done ? "#F4FBF6" : "#FFF5F5"
+                      borderColor: done ? "#C0DEC8" : "#E8D9B8",
+                      backgroundColor: done ? "#F4FBF6" : "#FFFAF2"
                     }}>
                       <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
-                        style={{ backgroundColor: done ? "#4A9A6A" : "#DC5050" }}>
+                        style={{ backgroundColor: done ? "#4A9A6A" : "#C8973A" }}>
                         {done
                           ? <Check className="w-3 h-3 text-white" />
                           : <span className="text-white text-xs font-bold leading-none">!</span>
                         }
                       </div>
-                      <span className="text-sm font-medium" style={{ color: done ? "#1A5A3A" : "#7A2020" }}>{label}</span>
-                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#4A9A6A" : "#DC5050" }}>
+                      <span className="text-sm font-medium" style={{ color: done ? "#1A5A3A" : "#6A4A10" }}>{label}</span>
+                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#4A9A6A" : "#C8973A" }}>
                         {done ? "Complete" : "Needed"}
                       </span>
                     </div>
