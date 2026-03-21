@@ -404,10 +404,8 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional — you can add references now or later from your dashboard.</p>
             </>}
             {step === 6 && <>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
-                {shopName ? `Add your first listing to ${shopName}.` : "Add your first instrument."}
-              </h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A listing gives your storefront immediate credibility. It shows buyers what your craft looks like in finished form — and often starts the conversation.</p>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Add a featured instrument.</h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A finished instrument makes your storefront feel real. It gives buyers something concrete to study — and often becomes the first thing they look at before reaching out.</p>
             </>}
             {step === 7 && <>
               <h1 className="text-3xl font-bold mb-2" style={{ color: "#1A1A1A" }}>
