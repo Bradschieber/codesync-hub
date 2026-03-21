@@ -742,15 +742,15 @@ export default function BuilderOnboarding() {
                     <input type="checkbox" checked={form.offers_custom_builds || false} onChange={e => setForm(f => ({ ...f, offers_custom_builds: e.target.checked }))} className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ accentColor: NAVY }} />
                     <div className="flex-1">
                       <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Custom Builds</p>
-                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their specs and vision — you build to order. Great for builders who work closely with clients.</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their specs — you build to order. Well suited to builders who work closely with clients from the start.</p>
                       {form.offers_custom_builds && (
                         <div className="mt-4 space-y-3">
-                          <p className="text-xs" style={{ color: "#9A9A9A" }}>Tell buyers how you approach custom work — timelines, options, starting prices, or how the conversation typically begins.</p>
+                          <p className="text-xs" style={{ color: "#9A9A9A" }}>Describe your custom build offering so buyers know what to expect — instrument types, available options, lead times, starting prices, and how the process typically works.</p>
                           <textarea
                             rows={3}
                             value={form.custom_build_description || ""}
                             onChange={e => setForm(f => ({ ...f, custom_build_description: e.target.value }))}
-                            placeholder="Share a few details about your custom build offering — for example instrument types, options, lead times, starting prices, or how you typically work with clients."
+                            placeholder="e.g. I build custom electric guitars and basses to order. Lead times are typically 4–8 months. Starting prices vary by spec. Reach out to start a conversation."
                             className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
                             style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                           />
