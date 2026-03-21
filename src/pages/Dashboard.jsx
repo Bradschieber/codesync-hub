@@ -95,15 +95,28 @@ export default function Dashboard() {
               <h1 className="text-4xl font-bold tracking-tight mb-1" style={{ color: "#1A1A1A" }}>Builder Dashboard</h1>
               <p className="text-base" style={{ color: "#5A5A5A" }}>Welcome back, {profile?.business_name || user?.full_name}</p>
             </div>
-            <Link
-              to={createPageUrl("DashboardProducts")}
-              className="hidden sm:flex items-center gap-2 font-semibold px-5 py-3 text-sm text-white transition-colors"
-              style={{ backgroundColor: NAVY }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
-            >
-              <Plus className="w-4 h-4" /> Add Product
-            </Link>
+            <div className="hidden sm:flex items-center gap-3">
+              {profile?.id && (
+                <Link
+                  to={createPageUrl("BuilderProfile") + `?id=${profile.id}`}
+                  className="flex items-center gap-2 font-semibold px-5 py-3 text-sm transition-colors"
+                  style={{ backgroundColor: "transparent", color: NAVY, border: `1px solid ${NAVY}` }}
+                  onMouseEnter={e => { e.currentTarget.style.backgroundColor = NAVY; e.currentTarget.style.color = "#fff"; }}
+                  onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = NAVY; }}
+                >
+                  <Eye className="w-4 h-4" /> View Store
+                </Link>
+              )}
+              <Link
+                to={createPageUrl("DashboardProducts")}
+                className="flex items-center gap-2 font-semibold px-5 py-3 text-sm text-white transition-colors"
+                style={{ backgroundColor: NAVY }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+              >
+                <Plus className="w-4 h-4" /> Add Product
+              </Link>
+            </div>
           </div>
         </div>
       </div>
