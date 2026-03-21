@@ -669,8 +669,8 @@ export default function BuilderOnboarding() {
 
               {/* What do you build */}
               <SectionCard>
-                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>What you build</p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Used to surface your storefront in relevant searches. Select all that apply.</p>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Instrument categories</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Used to match your storefront with buyers searching by instrument type. Select all that apply.</p>
                 <div className="flex flex-wrap gap-2">
                   {INSTRUMENT_TYPES.map(type => {
                     const current = form.instrument_types_built || [];
