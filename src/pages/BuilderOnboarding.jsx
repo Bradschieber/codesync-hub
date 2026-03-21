@@ -716,8 +716,8 @@ export default function BuilderOnboarding() {
 
               {/* What do you offer */}
               <SectionCard>
-                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>How buyers work with you</p>
-                <p className="text-xs mb-5" style={{ color: "#9A9A9A" }}>This defines the primary way buyers can purchase from your storefront. Select one or both.</p>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>How buyers can purchase</p>
+                <p className="text-xs mb-5" style={{ color: "#9A9A9A" }}>This shapes how buyers interact with your storefront — whether they're browsing finished instruments, requesting a custom quote, or both.</p>
                 <div className="space-y-4">
                   <label
                     className="flex items-start gap-4 cursor-pointer p-4 border transition-all"
