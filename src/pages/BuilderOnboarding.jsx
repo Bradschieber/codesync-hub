@@ -423,10 +423,20 @@ export default function BuilderOnboarding() {
 
           {/* STEP 1: Your Shop */}
           {step === 0 && (
-            <div className="space-y-5">
-              <Field label="Shop / Brand Name *" hint="The name buyers will see on your storefront.">
-                <Input field="business_name" value={form.business_name} onChange={updateForm} placeholder="e.g. Hartman Guitars" />
-              </Field>
+            <div className="space-y-6">
+              {/* Identity anchor — the name is the foundation */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <label className="block text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Shop or Brand Name *</label>
+                <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>This is the name buyers will see first — on your storefront, in search results, and in every order they place with you.</p>
+                <input
+                  type="text"
+                  value={form.business_name || ""}
+                  onChange={e => updateForm("business_name", e.target.value)}
+                  placeholder='e.g. "Hartman Guitars" or "Morrow Stringed Instruments"'
+                  className="w-full border-0 border-b px-0 py-2 text-lg font-semibold focus:outline-none bg-transparent"
+                  style={{ borderColor: "#E3E0D8", color: "#1A1A1A" }}
+                />
+              </div>
 
               <div className="grid sm:grid-cols-3 gap-4">
                 <Field label="City">
@@ -458,7 +468,7 @@ export default function BuilderOnboarding() {
                 </Field>
               </div>
 
-              <Field label="Tagline (optional)" hint="A short line that captures your shop's identity.">
+              <Field label="Tagline" hint="One line that captures what your shop is about. This appears directly beneath your name on your storefront.">
                 <Input field="tag_line" value={form.tag_line} onChange={updateForm} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
               </Field>
 
