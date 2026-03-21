@@ -649,8 +649,8 @@ export default function BuilderOnboarding() {
 
               {/* Build credentials — framed as signal to buyers, not a form */}
               <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
-                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Your credentials</p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>These figures appear on your storefront and help buyers quickly gauge your experience and pace of work.</p>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Your experience</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>These figures appear on your storefront and help buyers understand the depth and pace of your work at a glance.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Years Building">
                     <Input field="years_experience" value={form.years_experience} onChange={updateForm} placeholder="e.g. 12" type="number" />
