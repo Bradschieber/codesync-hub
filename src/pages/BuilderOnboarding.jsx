@@ -566,7 +566,7 @@ export default function BuilderOnboarding() {
                 </div>
               </div>
 
-              <Field label="Short Bio" hint="1–2 sentences shown on your profile card and in search results — the first thing a buyer reads. Your full story lives on your storefront.">
+              <Field label="Short Bio (optional)" hint="A brief public-facing introduction — shown on your profile card, in search results, and in other preview areas across the site. Your full story lives on your storefront.">
                 <textarea
                   rows={2}
                   value={form.bio || ""}
