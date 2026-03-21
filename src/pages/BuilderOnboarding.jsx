@@ -642,25 +642,31 @@ export default function BuilderOnboarding() {
           {/* STEP 4: Your Business */}
           {step === 3 && (
             <div className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Years Building">
-                  <Input field="years_experience" value={form.years_experience} onChange={updateForm} placeholder="e.g. 12" type="number" />
-                </Field>
-                <Field label="Total Instruments Built">
-                  <Input field="total_instruments_built" value={form.total_instruments_built} onChange={updateForm} placeholder="e.g. 150" type="number" />
-                </Field>
-                <Field label="Instruments Per Year">
-                  <Input field="instruments_per_year" value={form.instruments_per_year} onChange={updateForm} placeholder="e.g. 10" type="number" />
-                </Field>
-                <Field label="Typical Build Time">
-                  <Input field="typical_build_time" value={form.typical_build_time} onChange={updateForm} placeholder="e.g. 3–6 months" />
-                </Field>
+
+              {/* Build credentials — framed as signal to buyers, not a form */}
+              <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Your credentials</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>These figures appear on your storefront and help buyers quickly gauge your experience and pace of work.</p>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Field label="Years Building">
+                    <Input field="years_experience" value={form.years_experience} onChange={updateForm} placeholder="e.g. 12" type="number" />
+                  </Field>
+                  <Field label="Total Instruments Built">
+                    <Input field="total_instruments_built" value={form.total_instruments_built} onChange={updateForm} placeholder="e.g. 150" type="number" />
+                  </Field>
+                  <Field label="Instruments Per Year">
+                    <Input field="instruments_per_year" value={form.instruments_per_year} onChange={updateForm} placeholder="e.g. 10" type="number" />
+                  </Field>
+                  <Field label="Typical Build Time">
+                    <Input field="typical_build_time" value={form.typical_build_time} onChange={updateForm} placeholder="e.g. 3–6 months" />
+                  </Field>
+                </div>
               </div>
 
               {/* What do you build */}
               <SectionCard>
-                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you build?</p>
-                <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>This appears prominently on your storefront and helps buyers find the right builder. Select all that apply.</p>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>What you build</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>Used to surface your storefront in relevant searches. Select all that apply.</p>
                 <div className="flex flex-wrap gap-2">
                   {INSTRUMENT_TYPES.map(type => {
                     const current = form.instrument_types_built || [];
@@ -706,8 +712,8 @@ export default function BuilderOnboarding() {
 
               {/* What do you offer */}
               <SectionCard>
-                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>What do you offer?</p>
-                <p className="text-xs mb-5" style={{ color: "#7A7A7A" }}>This shapes how buyers interact with your storefront. You can offer stock instruments, custom commissions, or both.</p>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>How buyers work with you</p>
+                <p className="text-xs mb-5" style={{ color: "#9A9A9A" }}>This defines the primary way buyers can purchase from your storefront. Select one or both.</p>
                 <div className="space-y-4">
                   <label
                     className="flex items-start gap-4 cursor-pointer p-4 border transition-all"
