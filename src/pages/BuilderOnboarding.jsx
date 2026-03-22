@@ -751,11 +751,11 @@ export default function BuilderOnboarding() {
               <button
                 type="button"
                 onClick={handleNext}
-                disabled={saving}
+                disabled={saving || (step === 4 && !policyConfirmed)}
                 className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-all"
-                style={{ backgroundColor: saving ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
+                style={{ backgroundColor: (saving || (step === 4 && !policyConfirmed)) ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
               >
-                {saving ? "Saving..." : "Continue"} <ArrowRight className="w-4 h-4" />
+                {saving ? "Saving..." : "Save Policies & Continue"} <ArrowRight className="w-4 h-4" />
               </button>
             ) : (
               <div className="flex items-center gap-3">
