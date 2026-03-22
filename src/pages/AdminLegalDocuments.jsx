@@ -2,27 +2,83 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { FileText, Plus, ChevronRight, ExternalLink, ShieldCheck, Copy, Check } from "lucide-react";
+import { FileText, Plus, ExternalLink, ShieldCheck, Copy, Check, Clock, History } from "lucide-react";
 
 const NAVY = "#2F3E55";
 
 const DOC_TYPES = [
-  { type: "terms_of_use",    label: "Terms of Use",     slug: "terms-of-use" },
-  { type: "privacy_policy",  label: "Privacy Policy",   slug: "privacy-policy" },
-  { type: "builder_terms",   label: "Builder Terms",    slug: "builder-terms" },
-  { type: "buyer_terms",     label: "Buyer Terms",      slug: "buyer-terms" },
+  {
+    type: "terms_of_use",
+    label: "Terms of Use",
+    slug: "terms-of-use",
+    usedIn: "Builder signup, Buyer signup",
+  },
+  {
+    type: "privacy_policy",
+    label: "Privacy Policy",
+    slug: "privacy-policy",
+    usedIn: "Builder signup, Buyer signup",
+  },
+  {
+    type: "builder_terms",
+    label: "Builder Terms",
+    slug: "builder-terms",
+    usedIn: "Builder signup, Builder policy confirmation",
+  },
+  {
+    type: "buyer_terms",
+    label: "Buyer Terms",
+    slug: "buyer-terms",
+    usedIn: "Stock checkout, Custom build agreement acceptance",
+  },
 ];
 
-function StatusBadge({ status }) {
-  const styles = {
-    active:   { backgroundColor: "#E8F5EE", color: "#2E7D52" },
-    draft:    { backgroundColor: "#FEF3E2", color: "#C57A1F" },
-    archived: { backgroundColor: "#F0EFED", color: "#7A7A7A" },
-  };
+function StatusBadge({ label, style }) {
   return (
-    <span className="text-xs font-semibold px-2 py-0.5 rounded-full capitalize" style={styles[status] || styles.archived}>
-      {status}
+    <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={style}>
+      {label}
     </span>
+  );
+}
+
+// Simple version history modal
+function VersionHistoryModal({ label, versions, onClose }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4" style={{ backgroundColor: "rgba(0,0,0,0.4)" }} onClick={onClose}>
+      <div className="bg-white border max-w-lg w-full p-6" style={{ borderColor: "#E0DDD8" }} onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="font-bold text-base" style={{ color: "#1A1A1A" }}>Version History — {label}</h2>
+          <button onClick={onClose} className="text-sm font-medium" style={{ color: "#7A7A7A" }}>Close</button>
+        </div>
+        {versions.length === 0 ? (
+          <p className="text-sm" style={{ color: "#9A9A9A" }}>No version history yet.</p>
+        ) : (
+          <div className="space-y-2">
+            {versions.map(v => (
+              <div key={v.id} className="flex items-center justify-between px-4 py-3 border" style={{ borderColor: "#ECEAE5", backgroundColor: "#FAFAF8" }}>
+                <div>
+                  <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>v{v.version_number}</p>
+                  {v.effective_date && (
+                    <p className="text-xs" style={{ color: "#7A7A7A" }}>
+                      Effective {new Date(v.effective_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </p>
+                  )}
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full capitalize"
+                    style={v.status === "active"
+                      ? { backgroundColor: "#E8F5EE", color: "#2E7D52" }
+                      : { backgroundColor: "#F0EFED", color: "#7A7A7A" }}>
+                    {v.status}
+                  </span>
+                  <Link to={`/AdminLegalDocumentEdit?id=${v.id}`} className="text-xs underline" style={{ color: NAVY }}>View</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -32,6 +88,7 @@ export default function AdminLegalDocuments() {
   const [docs, setDocs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copiedSlug, setCopiedSlug] = useState(null);
+  const [historyModal, setHistoryModal] = useState(null); // { type, label }
 
   useEffect(() => { loadData(); }, []);
 
@@ -56,7 +113,8 @@ export default function AdminLegalDocuments() {
   }
 
   async function createNewVersion(docType) {
-    const label = DOC_TYPES.find(d => d.type === docType)?.label || docType;
+    const entry = DOC_TYPES.find(d => d.type === docType);
+    const label = entry?.label || docType;
     const active = docs.find(d => d.document_type === docType && d.status === "active");
     const newDoc = await base44.entities.LegalDocument.create({
       document_type: docType,
@@ -88,78 +146,101 @@ export default function AdminLegalDocuments() {
     </div>
   );
 
+  const historyDocs = historyModal
+    ? docs.filter(d => d.document_type === historyModal.type).sort((a, b) => b.version_number?.localeCompare(a.version_number))
+    : [];
+
   return (
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
       <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-2">
             <FileText className="w-7 h-7" style={{ color: NAVY }} strokeWidth={1.5} />
-            <h1 className="text-4xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Legal Documents</h1>
+            <h1 className="text-4xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Terms & Policies</h1>
           </div>
-          <p className="text-base" style={{ color: "#5A5A5A" }}>Manage the current versions of your terms and policies.</p>
+          <p className="text-base" style={{ color: "#5A5A5A" }}>Manage the current versions of your legal terms and policies.</p>
         </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-4">
-          {DOC_TYPES.map(({ type, label, slug }) => {
+          {DOC_TYPES.map(({ type, label, slug, usedIn }) => {
             const active = docs.find(d => d.document_type === type && d.status === "active");
             const draft = docs.find(d => d.document_type === type && d.status === "draft");
+            const hasAny = active || draft;
 
             return (
               <div key={type} className="bg-white border p-6" style={{ borderColor: "#E0DDD8" }}>
                 <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                   {/* Doc info */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
                       <h3 className="font-bold text-base" style={{ color: "#1A1A1A" }}>{label}</h3>
-                      {active && <StatusBadge status="active" />}
-                      {!active && !draft && (
-                        <span className="text-xs text-stone-400 italic">No document yet</span>
+                      {!hasAny && (
+                        <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EFED", color: "#9A9A9A" }}>
+                          No document
+                        </span>
+                      )}
+                      {!active && draft && (
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#FEF3E2", color: "#C57A1F" }}>
+                          Draft
+                        </span>
+                      )}
+                      {active && (
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#E8F5EE", color: "#2E7D52" }}>
+                          Active v{active.version_number}
+                        </span>
                       )}
                     </div>
 
-                    {/* Active version row */}
-                    {active ? (
-                      <div className="text-sm space-y-0.5">
-                        <p style={{ color: "#3A3A3A" }}>
-                          <span className="font-medium">Active version:</span> {active.version_number}
-                          {active.effective_date && (
-                            <span className="ml-3" style={{ color: "#7A7A7A" }}>
-                              Effective {new Date(active.effective_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                            </span>
-                          )}
-                        </p>
+                    {/* Used in */}
+                    <p className="text-xs mb-2" style={{ color: "#9A9A9A" }}>
+                      <span className="font-semibold" style={{ color: "#7A7A7A" }}>Used in:</span> {usedIn}
+                    </p>
+
+                    {/* Dates */}
+                    {active && (
+                      <div className="text-xs space-y-0.5">
+                        {active.effective_date && (
+                          <p style={{ color: "#5A5A5A" }}>
+                            Effective {new Date(active.effective_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                          </p>
+                        )}
                         {active.updated_date && (
-                          <p className="text-xs" style={{ color: "#9A9A9A" }}>
+                          <p style={{ color: "#9A9A9A" }}>
                             Last updated {new Date(active.updated_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                           </p>
                         )}
                       </div>
-                    ) : (
-                      <p className="text-sm" style={{ color: "#9A9A9A" }}>No active version published.</p>
                     )}
 
-                    {/* Draft notice */}
+                    {/* Draft in progress notice */}
                     {draft && (
                       <div className="mt-2 flex items-center gap-2">
-                        <StatusBadge status="draft" />
+                        <Clock className="w-3.5 h-3.5" style={{ color: "#C57A1F" }} />
                         <span className="text-xs" style={{ color: "#7A7A7A" }}>
                           Draft v{draft.version_number} in progress
                         </span>
-                        <Link
-                          to={`/AdminLegalDocumentEdit?id=${draft.id}`}
-                          className="text-xs font-semibold underline"
-                          style={{ color: NAVY }}
-                        >
-                          Edit Draft →
-                        </Link>
                       </div>
                     )}
                   </div>
 
                   {/* Actions */}
                   <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+                    {/* View History */}
+                    {hasAny && (
+                      <button
+                        onClick={() => setHistoryModal({ type, label })}
+                        className="flex items-center gap-1.5 text-xs font-medium px-3 py-2 border transition-colors"
+                        style={{ borderColor: "#DEDBD6", color: "#7A7A7A", backgroundColor: "#FAFAF8" }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F0EDE8"}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FAFAF8"}
+                      >
+                        <History className="w-3.5 h-3.5" /> Version History
+                      </button>
+                    )}
+
+                    {/* View live */}
                     {active && (
                       <>
                         <Link
@@ -181,18 +262,21 @@ export default function AdminLegalDocuments() {
                         >
                           {copiedSlug === slug ? <><Check className="w-3.5 h-3.5 text-green-600" /> Copied</> : <><Copy className="w-3.5 h-3.5" /> Copy Link</>}
                         </button>
-                        <Link
-                          to={`/AdminLegalDocumentEdit?id=${active.id}`}
-                          className="flex items-center gap-1.5 text-xs font-medium px-3 py-2 border transition-colors"
-                          style={{ borderColor: "#DEDBD6", color: "#5A5A5A", backgroundColor: "#FAFAF8" }}
-                          onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F0EDE8"}
-                          onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FAFAF8"}
-                        >
-                          View Active
-                        </Link>
                       </>
                     )}
-                    {!draft && (
+
+                    {/* Primary action */}
+                    {draft ? (
+                      <Link
+                        to={`/AdminLegalDocumentEdit?id=${draft.id}`}
+                        className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 text-white transition-colors"
+                        style={{ backgroundColor: "#C57A1F" }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = "#A5641A"}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                      >
+                        Continue Draft
+                      </Link>
+                    ) : (
                       <button
                         onClick={() => createNewVersion(type)}
                         className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 text-white transition-colors"
@@ -200,7 +284,7 @@ export default function AdminLegalDocuments() {
                         onMouseEnter={e => e.currentTarget.style.backgroundColor = "#1E2E3E"}
                         onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
                       >
-                        <Plus className="w-3.5 h-3.5" /> {active ? "New Version" : "Create Document"}
+                        <Plus className="w-3.5 h-3.5" /> {active ? "Edit New Version" : "Create Document"}
                       </button>
                     )}
                   </div>
@@ -216,6 +300,14 @@ export default function AdminLegalDocuments() {
           </Link>
         </div>
       </div>
+
+      {historyModal && (
+        <VersionHistoryModal
+          label={historyModal.label}
+          versions={historyDocs}
+          onClose={() => setHistoryModal(null)}
+        />
+      )}
     </div>
   );
 }

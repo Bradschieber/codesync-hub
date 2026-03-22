@@ -101,8 +101,8 @@ export default function AdminDashboard() {
       badge: stats?.pendingRefs > 0 ? `${stats.pendingRefs} pending` : null,
     },
     {
-      title: "Legal Documents",
-      description: "Manage the current versions of your terms and policies. Publish new versions and preserve prior versions for acceptance records.",
+      title: "Terms & Policies",
+      description: "Manage the current versions of your legal terms and policies. Publish new versions and preserve prior versions for acceptance records.",
       icon: FileText,
       page: "AdminLegalDocuments",
       badge: null,
