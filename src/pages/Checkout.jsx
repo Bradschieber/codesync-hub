@@ -35,9 +35,10 @@ export default function Checkout() {
 
   async function handlePlaceOrder(e) {
     e.preventDefault();
-    if (!user) return;
+    if (!user || !legalChecked.order_terms) return;
     setPlacing(true);
-    await base44.entities.Order.create({
+    // Log legal acceptance before placing order
+    const order = await base44.entities.Order.create({
       user_id: user.id,
       buyer_email: user.email,
       items: cartItems.map(i => ({ product_id: i.product_id, product_name: i.product_name, product_image: i.product_image, product_price: i.product_price, builder_name: i.builder_name })),
