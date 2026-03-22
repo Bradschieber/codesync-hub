@@ -211,26 +211,21 @@ export default function ProductDetail() {
                   style={{ borderColor: SLATE, color: SLATE, backgroundColor: "#FFFFFF" }}
                   onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#F2F0EA"; }}
                   onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}>
-                  <MessageSquare className="w-4 h-4" /> Message Builder
+                  <MessageSquare className="w-4 h-4" /> Message the Builder
                 </button>
               )}
             </div>
           </div>
         </div>
 
-        {/* TALK TO THE BUILDER */}
-        {builder && (
+        {/* CUSTOM BUILD SECTION */}
+        {builder && builder.offers_custom_builds && (
           <section className="rounded-xl border px-7 py-6 mb-6 bg-white flex flex-col sm:flex-row sm:items-center gap-5" style={{ borderColor: "#E3E0D8" }}>
             <div className="flex-1">
-              <h3 className="text-base font-bold mb-1" style={{ color: "#2F3E55" }}>Talk to the Builder</h3>
+              <h3 className="text-base font-bold mb-1" style={{ color: "#2F3E55" }}>Talk to the Builder About A Custom Build</h3>
               <p className="text-sm leading-relaxed" style={{ color: "#5A5A5A" }}>
-                Have a question about this instrument or thinking about a custom version? Builders on Stringed Collective are available to talk directly with players.
+                Interested in a version built specifically for you? This builder offers custom instruments — reach out to start a conversation or request a formal quote.
               </p>
-              {builder.offers_custom_builds && (
-                <p className="text-xs mt-2 font-medium" style={{ color: "#7A7A7A" }}>
-                  Custom versions of this instrument may be available.
-                </p>
-              )}
             </div>
             <div className="flex flex-col gap-2 flex-shrink-0">
               <button
@@ -239,18 +234,16 @@ export default function ProductDetail() {
                 style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
                 onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
-                <MessageSquare className="w-4 h-4" /> Message Builder
+                <MessageSquare className="w-4 h-4" /> Start a Custom Build Conversation
               </button>
-              {builder.offers_custom_builds && (
-                <button
-                  onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
-                  className="flex items-center justify-center gap-2 border font-medium px-5 py-2.5 rounded-lg text-sm transition-colors whitespace-nowrap"
-                  style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
-                  Start a Custom Build Conversation
-                </button>
-              )}
+              <Link
+                to={createPageUrl(`BuilderProfile?id=${builder.id}`) + "#custom-builds"}
+                className="flex items-center justify-center gap-2 border font-medium px-5 py-2.5 rounded-lg text-sm transition-colors whitespace-nowrap"
+                style={{ borderColor: "#2F3E55", color: "#2F3E55", backgroundColor: "#FFFFFF" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F2F0EA"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}>
+                <ArrowRight className="w-4 h-4" /> Request a Quote
+              </Link>
             </div>
           </section>
         )}
