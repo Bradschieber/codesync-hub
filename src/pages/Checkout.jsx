@@ -46,6 +46,16 @@ export default function Checkout() {
       status: "paid",
       shipping_address: shippingForm,
     });
+    // Log legal acceptance
+    await logLegalAcceptance(base44, {
+      user,
+      agreementType: "stock_build_checkout",
+      checkboxLabels: ["I agree to the Buyer Terms and the builder's applicable policies for this order."],
+      documentUrls: [LEGAL_URLS.buyer_terms],
+      versions: { buyer_terms: LEGAL_VERSIONS.buyer_terms },
+      sourceScreen: "Checkout",
+      orderId: order.id,
+    });
     // Clear cart
     for (const item of cartItems) {
       await base44.entities.CartItem.delete(item.id);
@@ -119,7 +129,22 @@ export default function Checkout() {
               </div>
             </div>
 
-            <button type="submit" disabled={placing} className="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-xl text-lg transition-colors disabled:opacity-50">
+            {/* Legal acceptance */}
+            <div className="bg-white rounded-2xl border border-stone-200 p-6">
+              <h2 className="font-bold text-stone-800 mb-2">Review and accept order terms</h2>
+              <p className="text-sm text-stone-500 mb-4">This purchase is subject to the Buyer Terms and the builder's applicable shipping, return, and warranty policies.</p>
+              <LegalAcceptanceBlock
+                checkboxes={[{
+                  id: "order_terms",
+                  label: <>I agree to the <LegalLink href={LEGAL_URLS.buyer_terms}>Buyer Terms</LegalLink> and the builder's applicable policies for this order.</>,
+                }]}
+                checked={legalChecked}
+                onChange={(id, val) => setLegalChecked(prev => ({ ...prev, [id]: val }))}
+                smallPrint='By selecting "Place Order," you authorize payment and agree to the Buyer Terms and the order-specific builder policies that apply to this purchase.'
+              />
+            </div>
+
+            <button type="submit" disabled={placing || !legalChecked.order_terms} className="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-xl text-lg transition-colors disabled:opacity-50">
               {placing ? "Placing Order..." : `Place Order — $${total.toLocaleString()}`}
             </button>
           </form>
