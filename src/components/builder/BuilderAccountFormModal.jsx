@@ -206,9 +206,24 @@ export default function BuilderAccountFormModal({ onClose }) {
                 </div>
 
 
+                <LegalAcceptanceBlock
+                  checkboxes={[
+                    {
+                      id: "terms_privacy",
+                      label: <>I agree to the <LegalLink href={LEGAL_URLS.terms_of_use}>Terms of Use</LegalLink> and <LegalLink href={LEGAL_URLS.privacy_policy}>Privacy Policy</LegalLink>.</>,
+                    },
+                    {
+                      id: "builder_terms",
+                      label: <>I agree to the <LegalLink href={LEGAL_URLS.builder_terms}>Builder Terms</LegalLink>.</>,
+                    },
+                  ]}
+                  checked={legalChecked}
+                  onChange={(id, val) => setLegalChecked(prev => ({ ...prev, [id]: val }))}
+                  smallPrint='By selecting "Create My Builder Profile," you agree to the Terms of Use, Privacy Policy, and Builder Terms.'
+                />
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !legalChecked.terms_privacy || !legalChecked.builder_terms}
                   className="w-full font-semibold py-3 text-sm text-white transition-colors disabled:opacity-50"
                   style={{ backgroundColor: NAVY }}
                 >
