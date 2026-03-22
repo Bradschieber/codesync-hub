@@ -212,7 +212,7 @@ export default function BuilderOnboarding() {
 
             {/* Step count — mobile */}
             <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
-              Step {step + 1} of {STEPS.length}
+              Step {step + 1} of 7
             </div>
           </div>
           {/* Progress bar */}
