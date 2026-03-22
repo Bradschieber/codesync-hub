@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 import { X, Hammer, CheckCircle } from "lucide-react";
+import LegalAcceptanceBlock from "@/components/legal/LegalAcceptanceBlock";
+import LegalLink from "@/components/legal/LegalLink";
+import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "@/lib/legalConfig";
 
 const NAVY = "#1B2B4B";
 const SPECIALTIES = ["Electric Guitars", "Acoustic Guitars", "Bass Guitars", "Classical", "Archtop", "Custom Finishes", "Repairs"];

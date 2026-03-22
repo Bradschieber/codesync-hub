@@ -3,6 +3,9 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ShoppingCart, CreditCard, CheckCircle, ArrowLeft, Truck } from "lucide-react";
+import LegalAcceptanceBlock from "@/components/legal/LegalAcceptanceBlock";
+import LegalLink from "@/components/legal/LegalLink";
+import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "@/lib/legalConfig";
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
