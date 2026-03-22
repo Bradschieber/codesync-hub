@@ -66,6 +66,22 @@ export default function BuilderAccountFormModal({ onClose }) {
       } else {
         await base44.entities.UserProfile.create({ ...profileData, is_featured: false });
       }
+      // Log legal acceptance
+      await logLegalAcceptance(base44, {
+        user: u,
+        agreementType: "builder_account_creation",
+        checkboxLabels: [
+          "I agree to the Terms of Use and Privacy Policy.",
+          "I agree to the Builder Terms.",
+        ],
+        documentUrls: [LEGAL_URLS.terms_of_use, LEGAL_URLS.privacy_policy, LEGAL_URLS.builder_terms],
+        versions: {
+          terms_of_use: LEGAL_VERSIONS.terms_of_use,
+          privacy_policy: LEGAL_VERSIONS.privacy_policy,
+          builder_terms: LEGAL_VERSIONS.builder_terms,
+        },
+        sourceScreen: "BuilderAccountFormModal",
+      });
       setSubmitted(true);
     } catch (err) {
       setError("Something went wrong. Please try again.");
