@@ -342,14 +342,13 @@ export default function BuilderOnboarding() {
           {/* Step header */}
           <div className="mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#AAAA9A", letterSpacing: "0.12em" }}>
-              {step === 0 && "Foundation — Step 1 of 8"}
-              {step === 1 && "Your Voice — Step 2 of 8"}
-              {step === 2 && "Visual Identity — Step 3 of 8"}
-              {step === 3 && "Your Offering — Step 4 of 8"}
-              {step === 4 && "Step 5 of 8 — Shop Policies"}
-              {step === 5 && "Step 6 of 8 — References"}
-              {step === 6 && "Step 7 of 8 — First Listing"}
-              {step === 7 && "Step 8 of 8 — Launch"}
+              {step === 0 && "Foundation — Step 1 of 7"}
+              {step === 1 && "Your Voice — Step 2 of 7"}
+              {step === 2 && "Visual Identity — Step 3 of 7"}
+              {step === 3 && "Your Offering — Step 4 of 7"}
+              {step === 4 && "Step 5 of 7 — Shop Policies"}
+              {step === 5 && "Step 6 of 7 — References"}
+              {step === 6 && "Step 7 of 7 — Next Steps"}
             </p>
 
             {step === 0 && <>
@@ -387,10 +386,6 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional — you can add references now or later from your dashboard.</p>
             </>}
             {step === 6 && <>
-              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Add a featured instrument.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A finished instrument makes your storefront feel real. It gives buyers something concrete to study — and often becomes the first thing they look at before reaching out.</p>
-            </>}
-            {step === 7 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Your storefront foundation is complete.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
                 You've completed your builder profile, shop details, and policies. To submit your storefront for review, add at least one complete product listing buyers can explore.
