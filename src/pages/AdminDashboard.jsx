@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle
+  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText
 } from "lucide-react";
 
 const NAVY = "#2F3E55";
@@ -99,6 +99,13 @@ export default function AdminDashboard() {
       icon: CheckCircle,
       page: "AdminReferences",
       badge: stats?.pendingRefs > 0 ? `${stats.pendingRefs} pending` : null,
+    },
+    {
+      title: "Legal Documents",
+      description: "Manage the current versions of your terms and policies. Publish new versions and preserve prior versions for acceptance records.",
+      icon: FileText,
+      page: "AdminLegalDocuments",
+      badge: null,
     },
   ];
 

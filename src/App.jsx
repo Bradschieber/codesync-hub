@@ -10,6 +10,9 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import DashboardWorkshop from './pages/DashboardWorkshop';
 import BuilderOnboarding from './pages/BuilderOnboarding';
 import AdminUserAccounts from './pages/AdminUserAccounts';
+import AdminLegalDocuments from './pages/AdminLegalDocuments';
+import AdminLegalDocumentEdit from './pages/AdminLegalDocumentEdit';
+import LegalDocumentPublic from './pages/LegalDocumentPublic';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -61,6 +64,12 @@ const AuthenticatedApp = () => {
       <Route path="/DashboardWorkshop" element={<LayoutWrapper currentPageName="DashboardWorkshop"><DashboardWorkshop /></LayoutWrapper>} />
       <Route path="/BuilderOnboarding" element={<BuilderOnboarding />} />
       <Route path="/AdminUserAccounts" element={<LayoutWrapper currentPageName="AdminUserAccounts"><AdminUserAccounts /></LayoutWrapper>} />
+      <Route path="/AdminLegalDocuments" element={<LayoutWrapper currentPageName="AdminLegalDocuments"><AdminLegalDocuments /></LayoutWrapper>} />
+      <Route path="/AdminLegalDocumentEdit" element={<LayoutWrapper currentPageName="AdminLegalDocumentEdit"><AdminLegalDocumentEdit /></LayoutWrapper>} />
+      <Route path="/legal/terms-of-use" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
+      <Route path="/legal/privacy-policy" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
+      <Route path="/legal/builder-terms" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
+      <Route path="/legal/buyer-terms" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
