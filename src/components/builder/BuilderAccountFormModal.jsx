@@ -16,6 +16,7 @@ export default function BuilderAccountFormModal({ onClose }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [legalChecked, setLegalChecked] = useState({ terms_privacy: false, builder_terms: false });
 
   useEffect(() => {
     base44.auth.me().then(async u => {

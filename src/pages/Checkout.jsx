@@ -14,6 +14,7 @@ export default function Checkout() {
   const [placing, setPlacing] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [shippingForm, setShippingForm] = useState({ full_name: "", address: "", city: "", state: "", zip: "", country: "US" });
+  const [legalChecked, setLegalChecked] = useState({ order_terms: false });
 
   const params = new URLSearchParams(window.location.search);
   const success = params.get("success");
