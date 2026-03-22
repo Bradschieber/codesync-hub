@@ -74,6 +74,14 @@ export default function Dashboard() {
     );
   }
 
+  const hasCompleteListing = products.some(p =>
+    p.name && p.price && p.description &&
+    p.specifications?.instrumentCategory &&
+    p.image_urls?.length >= 1
+  );
+  const storefrontSetupComplete = !!(profile?.business_name && (profile?.business_city || profile?.location));
+  const showLaunchBanner = storefrontSetupComplete && !hasCompleteListing && !profile?.is_approved;
+
   const avgRating = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
   const pendingRequests = requests.filter(r => r.status === "pending").length;
   const unreadMessages = messages.filter(m => !m.is_read).length;
