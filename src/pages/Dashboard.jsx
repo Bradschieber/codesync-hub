@@ -130,6 +130,65 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Launch Progress Banner */}
+        {showLaunchBanner && (
+          <div className="mb-6 border p-6" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Rocket className="w-4 h-4 flex-shrink-0" style={{ color: NAVY }} />
+                  <p className="text-sm font-bold" style={{ color: "#1A1A1A" }}>Add your first listing to launch your storefront</p>
+                </div>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#5A5A5A" }}>
+                  Your builder profile is set up and looking good. The next step is to add one complete instrument listing. Once that's done, your storefront can be submitted for review.
+                </p>
+                {/* Progress milestones */}
+                <div className="flex flex-wrap items-center gap-4 mb-5">
+                  {[
+                    { label: "Storefront setup", done: true },
+                    { label: "First listing", done: false },
+                    { label: "Submitted for review", done: false },
+                  ].map(({ label, done }, i) => (
+                    <div key={i} className="flex items-center gap-1.5">
+                      <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{ backgroundColor: done ? "#4A9A6A" : "#E3E0D8" }}>
+                        {done
+                          ? <Check className="w-2.5 h-2.5 text-white" />
+                          : <span className="w-1.5 h-1.5 rounded-full" style={{ display: "block", backgroundColor: "#C8C4BC" }} />
+                        }
+                      </div>
+                      <span className="text-xs" style={{ color: done ? "#3A6A4A" : "#7A7A7A" }}>{label}</span>
+                      {i < 2 && <span className="text-xs" style={{ color: "#D8D4CC" }}>→</span>}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center gap-3">
+                  <Link
+                    to={createPageUrl("DashboardProducts")}
+                    className="inline-flex items-center gap-2 text-white text-sm font-semibold px-5 py-2.5 transition-colors"
+                    style={{ backgroundColor: NAVY }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
+                  >
+                    <Plus className="w-4 h-4" /> Create First Listing
+                  </Link>
+                  {profile?.id && (
+                    <Link
+                      to={createPageUrl("BuilderProfile") + `?id=${profile.id}`}
+                      className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 border transition-colors"
+                      style={{ color: NAVY, borderColor: NAVY, backgroundColor: "transparent" }}
+                      onMouseEnter={e => { e.currentTarget.style.backgroundColor = NAVY; e.currentTarget.style.color = "#fff"; }}
+                      onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = NAVY; }}
+                    >
+                      <Eye className="w-4 h-4" /> Preview Storefront
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Workshop Activity soft prompt */}
         {workshopPosts.length === 0 && !workshopPromptDismissed && (
           <div className="mb-6 flex items-start gap-3 p-4 rounded-xl border border-amber-200 bg-amber-50 relative">
