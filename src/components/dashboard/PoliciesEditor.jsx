@@ -130,84 +130,88 @@ export default function PoliciesEditor({ form, setForm }) {
         <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Payment</h3>
         <p className="text-xs mb-4" style={SECTION_HELPER}>These terms help buyers understand how payment works before they commit.</p>
 
-        <div className="flex items-start gap-3 mb-5">
-          <input
-            type="checkbox"
-            id="deposit_required"
-            checked={form.deposit_required || false}
-            onChange={e => set("deposit_required", e.target.checked)}
-            className="h-4 w-4 mt-0.5 flex-shrink-0"
-            style={{ accentColor: "#2F3E55" }}
-          />
-          <div>
-            <label htmlFor="deposit_required" className="text-sm font-semibold cursor-pointer" style={{ color: "#1A1A1A" }}>Deposit required</label>
-            <p className="text-xs mt-0.5" style={SECTION_HELPER}>Require a deposit to secure a build slot or hold an instrument.</p>
-          </div>
-        </div>
-
-        {form.deposit_required && (
-          <div className="grid sm:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit type</label>
-              <div className="flex gap-2">
-                <button type="button" onClick={() => set("deposit_type", "percent")}
-                  className="flex-1 text-xs py-2 border transition-colors"
-                  style={{
-                    borderColor: (!form.deposit_type || form.deposit_type === "percent") ? "#2F3E55" : "#DEDBD6",
-                    backgroundColor: (!form.deposit_type || form.deposit_type === "percent") ? "#2F3E55" : "#FAFAF8",
-                    color: (!form.deposit_type || form.deposit_type === "percent") ? "#FFFFFF" : "#5A5A5A",
-                  }}>
-                  % of price
-                </button>
-                <button type="button" onClick={() => set("deposit_type", "fixed")}
-                  className="flex-1 text-xs py-2 border transition-colors"
-                  style={{
-                    borderColor: form.deposit_type === "fixed" ? "#2F3E55" : "#DEDBD6",
-                    backgroundColor: form.deposit_type === "fixed" ? "#2F3E55" : "#FAFAF8",
-                    color: form.deposit_type === "fixed" ? "#FFFFFF" : "#5A5A5A",
-                  }}>
-                  Fixed $ amount
-                </button>
+        {form.offers_custom_builds && (
+          <>
+            <div className="flex items-start gap-3 mb-5">
+              <input
+                type="checkbox"
+                id="deposit_required"
+                checked={form.deposit_required || false}
+                onChange={e => set("deposit_required", e.target.checked)}
+                className="h-4 w-4 mt-0.5 flex-shrink-0"
+                style={{ accentColor: "#2F3E55" }}
+              />
+              <div>
+                <label htmlFor="deposit_required" className="text-sm font-semibold cursor-pointer" style={{ color: "#1A1A1A" }}>Deposit required</label>
+                <p className="text-xs mt-0.5" style={SECTION_HELPER}>Require a deposit to secure a build slot before work begins.</p>
               </div>
             </div>
-            <div>
-              {(!form.deposit_type || form.deposit_type === "percent") ? (
-                <>
-                  <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit percentage (%)</label>
-                  <input
-                    type="number" min="1" max="100"
-                    value={form.deposit_percent || ""}
-                    onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
-                    placeholder="e.g. 50"
-                    className={FIELD_STYLE}
-                    style={BORDER}
-                  />
-                </>
-              ) : (
-                <>
-                  <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit amount ($)</label>
-                  <input
-                    type="number" min="0"
-                    value={form.deposit_fixed_amount || ""}
-                    onChange={e => set("deposit_fixed_amount", e.target.value ? Number(e.target.value) : "")}
-                    placeholder="e.g. 500"
-                    className={FIELD_STYLE}
-                    style={BORDER}
-                  />
-                </>
-              )}
-            </div>
-            <SelectField
-              label="Is the deposit refundable?"
-              value={form.deposit_refundable}
-              onChange={v => set("deposit_refundable", v)}
-              options={[
-                { value: "yes", label: "Yes — fully refundable" },
-                { value: "partial", label: "Partial refund" },
-                { value: "no", label: "Non-refundable" },
-              ]}
-            />
-          </div>
+
+            {form.deposit_required && (
+              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit type</label>
+                  <div className="flex gap-2">
+                    <button type="button" onClick={() => set("deposit_type", "percent")}
+                      className="flex-1 text-xs py-2 border transition-colors"
+                      style={{
+                        borderColor: (!form.deposit_type || form.deposit_type === "percent") ? "#2F3E55" : "#DEDBD6",
+                        backgroundColor: (!form.deposit_type || form.deposit_type === "percent") ? "#2F3E55" : "#FAFAF8",
+                        color: (!form.deposit_type || form.deposit_type === "percent") ? "#FFFFFF" : "#5A5A5A",
+                      }}>
+                      % of price
+                    </button>
+                    <button type="button" onClick={() => set("deposit_type", "fixed")}
+                      className="flex-1 text-xs py-2 border transition-colors"
+                      style={{
+                        borderColor: form.deposit_type === "fixed" ? "#2F3E55" : "#DEDBD6",
+                        backgroundColor: form.deposit_type === "fixed" ? "#2F3E55" : "#FAFAF8",
+                        color: form.deposit_type === "fixed" ? "#FFFFFF" : "#5A5A5A",
+                      }}>
+                      Fixed $ amount
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  {(!form.deposit_type || form.deposit_type === "percent") ? (
+                    <>
+                      <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit percentage (%)</label>
+                      <input
+                        type="number" min="1" max="100"
+                        value={form.deposit_percent || ""}
+                        onChange={e => set("deposit_percent", e.target.value ? Number(e.target.value) : "")}
+                        placeholder="e.g. 50"
+                        className={FIELD_STYLE}
+                        style={BORDER}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <label className={LABEL_STYLE} style={LABEL_COLOR}>Deposit amount ($)</label>
+                      <input
+                        type="number" min="0"
+                        value={form.deposit_fixed_amount || ""}
+                        onChange={e => set("deposit_fixed_amount", e.target.value ? Number(e.target.value) : "")}
+                        placeholder="e.g. 500"
+                        className={FIELD_STYLE}
+                        style={BORDER}
+                      />
+                    </>
+                  )}
+                </div>
+                <SelectField
+                  label="Is the deposit refundable?"
+                  value={form.deposit_refundable}
+                  onChange={v => set("deposit_refundable", v)}
+                  options={[
+                    { value: "yes", label: "Yes — fully refundable" },
+                    { value: "partial", label: "Partial refund" },
+                    { value: "no", label: "Non-refundable" },
+                  ]}
+                />
+              </div>
+            )}
+          </>
         )}
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -217,20 +221,7 @@ export default function PoliciesEditor({ form, setForm }) {
             onChange={v => set("payment_schedule", v)}
             options={[
               { value: "full_upfront", label: "Full payment upfront" },
-              { value: "deposit_then_completion", label: "Deposit + balance at completion" },
-              { value: "deposit_milestones_completion", label: "Deposit + milestones + balance" },
-              { value: "negotiable", label: "Negotiable" },
-            ]}
-          />
-          <SelectField
-            label="Accepted payment methods"
-            value={form.payment_methods}
-            onChange={v => set("payment_methods", v)}
-            options={[
-              { value: "platform_only", label: "Platform only" },
-              { value: "platform_and_check", label: "Platform + check/money order" },
-              { value: "platform_and_wire", label: "Platform + bank wire" },
-              { value: "all", label: "All methods accepted" },
+              { value: "deposit_then_completion", label: "Deposit & balance on completion" },
             ]}
           />
         </div>
