@@ -70,7 +70,7 @@ const STEPS = [
   { id: "complete",   label: "Next Steps",      icon: Sparkles },
 ];
 
-const INSTRUMENT_TYPES = ["Electric Guitar", "Acoustic Guitar", "Electric Bass", "Acoustic Electric Bass", "Other"];
+const INSTRUMENT_TYPES = ["Electric Guitars", "Acoustic Guitars", "Electric Bass Guitars", "Acoustic Electric Bass Guitars", "Other"];
 
 const STORY_PROMPTS = [
   { label: "Who You Are", hint: "Introduce yourself — where you're from, your background, what makes you, you." },
