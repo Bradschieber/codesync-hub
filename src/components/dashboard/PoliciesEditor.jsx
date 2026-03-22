@@ -127,7 +127,7 @@ export default function PoliciesEditor({ form, setForm }) {
 
       {/* ── Pricing & Deposit ── */}
       <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
-        <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Pricing & Deposit</h3>
+        <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Payment</h3>
         <p className="text-xs mb-4" style={SECTION_HELPER}>These terms help buyers understand how payment works before they commit.</p>
 
         <div className="flex items-start gap-3 mb-5">
