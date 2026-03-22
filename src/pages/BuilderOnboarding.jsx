@@ -266,21 +266,8 @@ export default function BuilderOnboarding() {
   }
 
   async function handleLaunch() {
-    if (!skipInstrument && product.name && product.price && profile) {
-      setSavingProduct(true);
-      await base44.entities.Product.create({
-        ...product,
-        builder_id: profile.id,
-        builder_name: form.business_name || form.display_name,
-      });
-      setSavingProduct(false);
-    }
     await saveProfile();
-    if (profile?.id) {
-      navigate(createPageUrl("BuilderProfile") + `?id=${profile.id}`);
-    } else {
-      navigate(createPageUrl("Dashboard"));
-    }
+    navigate(createPageUrl("Dashboard"));
   }
 
   const updateForm = (field, value) => setForm(prev => ({ ...prev, [field]: value }));

@@ -76,9 +76,19 @@ export default function DashboardProducts() {
       )}
 
       {products.length === 0 && !showForm ? (
-        <div className="text-center py-16">
-          <Guitar className="w-12 h-12 text-stone-300 mx-auto mb-3" />
-          <p className="text-stone-500">No products yet. Add your first listing!</p>
+        <div className="text-center py-16 border-2 border-dashed rounded-2xl" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
+          <Guitar className="w-12 h-12 mx-auto mb-4" style={{ color: "#C8C4BC" }} strokeWidth={1.5} />
+          <h3 className="font-bold text-base mb-2" style={{ color: "#1A1A1A" }}>Your storefront needs its first instrument</h3>
+          <p className="text-sm mb-6 max-w-sm mx-auto" style={{ color: "#7A7A7A" }}>Listings give buyers something concrete to explore — and they're required before your storefront can go live.</p>
+          <button
+            onClick={() => { setEditing(null); setShowForm(true); }}
+            className="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 text-sm transition-colors"
+            style={{ backgroundColor: "#1B2B4B" }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
+          >
+            <Plus className="w-4 h-4" /> Add First Listing
+          </button>
         </div>
       ) : (
         <div className="space-y-3">
