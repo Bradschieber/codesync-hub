@@ -291,7 +291,7 @@ export default function PoliciesEditor({ form, setForm }) {
                   style={{
                     borderColor: active ? "#5A5A5A" : "#DEDBD6",
                     backgroundColor: active ? "#ECEAE5" : "#FFFFFF",
-                    color: active ? "#2A2A2A" : "#BBBBBB",
+                    color: active ? "#2A2A2A" : "#5A5A5A",
                     fontWeight: active ? 500 : 400,
                     textDecoration: active ? "none" : "none",
                     opacity: active ? 1 : 0.5,
