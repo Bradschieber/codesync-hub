@@ -624,6 +624,39 @@ export default function BuilderOnboarding() {
                 <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>These terms are embedded into purchase agreements on the platform to protect both you and the buyer. Don't worry about making them perfect on the first pass — you can revise them anytime from your dashboard.</p>
               </GuidanceCard>
               <PoliciesEditor form={form} setForm={setForm} />
+
+              {/* Policy confirmation */}
+              <div className="mt-8 border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Confirm your builder policies</p>
+                <p className="text-xs mb-4 leading-relaxed" style={{ color: "#7A7A7A" }}>
+                  These policies set expectations for buyers and will be incorporated into the applicable transaction agreement for custom-build orders.
+                </p>
+
+                {/* Policy summary */}
+                <div className="grid sm:grid-cols-2 gap-3 mb-5">
+                  {[
+                    { label: "Deposit policy", value: form.deposit_required ? `${form.deposit_type === "fixed" ? `$${form.deposit_fixed_amount}` : `${form.deposit_percent}%`} deposit required` : "No deposit required" },
+                    { label: "Expected build timeline", value: form.typical_build_time || "Not specified" },
+                    { label: "Return policy", value: form.returns_accepted === "yes" ? `Returns accepted (${form.return_window_days || "?"}d window)` : form.returns_accepted === "no" ? "No returns" : form.returns_accepted === "case_by_case" ? "Case-by-case" : "Not specified" },
+                    { label: "Warranty policy", value: form.warranty_duration || (form.warranty_coverage?.find(c => c.duration)?.duration ? "Coverage defined" : "Not specified") },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="px-3 py-2" style={{ backgroundColor: "#F7F5F2", border: "1px solid #ECEAE5" }}>
+                      <p className="text-xs font-semibold mb-0.5" style={{ color: "#5A5A5A" }}>{label}</p>
+                      <p className="text-xs" style={{ color: "#1A1A1A" }}>{value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <LegalAcceptanceBlock
+                  checkboxes={[{
+                    id: "policy_confirm",
+                    label: "I confirm that these builder-defined policies are accurate and understand that the policies shown at the time of purchase will govern the applicable transaction.",
+                  }]}
+                  checked={{ policy_confirm: policyConfirmed }}
+                  onChange={(_, val) => setPolicyConfirmed(val)}
+                  smallPrint="You can update these policies later, but the version shown to the buyer at the time of purchase will apply to that order."
+                />
+              </div>
             </div>
           )}
 
