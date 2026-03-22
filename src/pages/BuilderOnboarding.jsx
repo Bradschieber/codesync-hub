@@ -4,8 +4,8 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import {
   Check, ArrowRight, ArrowLeft, Store, BookOpen, Camera, Hammer,
-  ShieldCheck, Users, Guitar, Sparkles, MapPin, Globe,
-  Instagram, Facebook, Upload, X
+  ShieldCheck, Users, Sparkles, Globe,
+  Instagram, Facebook
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
@@ -66,8 +66,7 @@ const STEPS = [
   { id: "business",   label: "Your Business",   icon: Hammer },
   { id: "policies",   label: "Shop Policies",   icon: ShieldCheck },
   { id: "references", label: "References",      icon: Users },
-  { id: "instrument", label: "First Listing",   icon: Guitar },
-  { id: "launch",     label: "Launch",          icon: Sparkles },
+  { id: "complete",   label: "Next Steps",      icon: Sparkles },
 ];
 
 const INSTRUMENT_TYPES = ["Electric Guitar", "Acoustic Guitar", "Electric Bass", "Acoustic Electric Bass", "Other"];
@@ -205,9 +204,7 @@ export default function BuilderOnboarding() {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activePrompt, setActivePrompt] = useState(null);
-  const [product, setProduct] = useState({ image_urls: [], status: "available", is_available: true });
-  const [savingProduct, setSavingProduct] = useState(false);
-  const [skipInstrument, setSkipInstrument] = useState(false);
+
 
   useEffect(() => { loadUser(); }, []);
 
@@ -272,17 +269,8 @@ export default function BuilderOnboarding() {
 
   const updateForm = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
-  const currentStep = STEPS[step];
   const progressPct = Math.round((step / (STEPS.length - 1)) * 100);
   const shopName = form.business_name?.trim() || null;
-
-  // Launch readiness
-  const requiredItems = [
-    { label: "Shop name & location", done: !!(form.business_name && (form.business_city || form.location)) },
-    { label: "Shop policies (warranty, returns, shipping)", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
-    { label: "What you build & offer", done: !!(form.offers_stock_builds || form.offers_custom_builds) },
-  ];
-  const allRequiredDone = requiredItems.every(r => r.done);
 
   if (loading) return (
     <div className="fixed inset-0 flex items-center justify-center" style={{ backgroundColor: "#F7F6F3" }}>
