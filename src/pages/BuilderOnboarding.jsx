@@ -12,6 +12,9 @@ import LocationFields from "../components/onboarding/LocationFields";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
+import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
+import LegalLink from "../components/legal/LegalLink";
+import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConfig";
 
 const NAVY = "#2F3E55";
 
