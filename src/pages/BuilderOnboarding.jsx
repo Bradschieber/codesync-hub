@@ -303,35 +303,7 @@ export default function BuilderOnboarding() {
                 />
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-4">
-                <Field label="City">
-                  <input
-                    value={form.business_city || ""}
-                    onChange={e => setForm(f => ({ ...f, business_city: e.target.value, location: [e.target.value, f.business_state, f.business_country].filter(Boolean).join(", ") }))}
-                    placeholder="e.g. Asheville"
-                    className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
-                  />
-                </Field>
-                <Field label="State / Province / Region">
-                  <input
-                    value={form.business_state || ""}
-                    onChange={e => setForm(f => ({ ...f, business_state: e.target.value, location: [f.business_city, e.target.value, f.business_country].filter(Boolean).join(", ") }))}
-                    placeholder="e.g. North Carolina"
-                    className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
-                  />
-                </Field>
-                <Field label="Country">
-                  <input
-                    value={form.business_country || ""}
-                    onChange={e => setForm(f => ({ ...f, business_country: e.target.value, location: [f.business_city, f.business_state, e.target.value].filter(Boolean).join(", ") }))}
-                    placeholder="e.g. United States"
-                    className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
-                  />
-                </Field>
-              </div>
+              <LocationFields form={form} setForm={setForm} />
 
               <Field label="Tagline (optional)" hint="A short line that captures your shop's identity — appears beneath your name on your storefront.">
                 <Input field="tag_line" value={form.tag_line} onChange={updateForm} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
