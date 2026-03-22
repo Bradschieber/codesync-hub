@@ -897,15 +897,28 @@ export default function BuilderOnboarding() {
                 {saving ? "Saving..." : "Continue"} <ArrowRight className="w-4 h-4" />
               </button>
             ) : (
-              <button
-                type="button"
-                onClick={handleLaunch}
-                disabled={saving || savingProduct}
-                className="flex items-center gap-2 text-sm font-semibold px-8 py-3 text-white transition-all"
-                style={{ backgroundColor: saving || savingProduct ? "#AAAAAA" : (allRequiredDone ? "#4A9A6A" : NAVY), letterSpacing: "0.01em" }}
-              >
-                {saving || savingProduct ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
-              </button>
+              <div className="flex items-center gap-3">
+                {profile?.id && (
+                  <a
+                    href={createPageUrl("BuilderProfile") + `?id=${profile.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium px-6 py-3 border transition-all"
+                    style={{ color: NAVY, borderColor: NAVY, backgroundColor: "transparent" }}
+                  >
+                    Preview Storefront
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={handleLaunch}
+                  disabled={saving}
+                  className="flex items-center gap-2 text-sm font-semibold px-8 py-3 text-white transition-all"
+                  style={{ backgroundColor: saving ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
+                >
+                  {saving ? "Saving..." : <>Go to Builder Dashboard <ArrowRight className="w-4 h-4" /></>}
+                </button>
+              </div>
             )}
           </div>
 
