@@ -763,45 +763,8 @@ export default function BuilderOnboarding() {
             </div>
           )}
 
-          {/* STEP 7: First Instrument */}
+          {/* STEP 7: Complete / Next Steps */}
           {step === 6 && (
-            <div className="space-y-6">
-              {!skipInstrument ? (
-                <>
-                  <GuidanceCard>
-                    <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why this matters</p>
-                    <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>
-                      One strong listing can dramatically strengthen your storefront. It helps buyers understand your style, pricing, and craftsmanship at a glance.
-                    </p>
-                  </GuidanceCard>
-                  <FirstInstrumentForm product={product} setProduct={setProduct} />
-                  <button
-                    type="button"
-                    onClick={() => setSkipInstrument(true)}
-                    className="text-xs font-medium transition-colors"
-                    style={{ color: "#AAAAAA", textDecoration: "underline", textUnderlineOffset: "3px" }}
-                    onMouseEnter={e => e.currentTarget.style.color = "#7A7A7A"}
-                    onMouseLeave={e => e.currentTarget.style.color = "#AAAAAA"}
-                  >
-                    I don't have a finished instrument to list right now — skip for now
-                  </button>
-                </>
-              ) : (
-                <div className="py-12 text-center">
-                  <Guitar className="w-10 h-10 mx-auto mb-4" style={{ color: "#D0CAC0" }} strokeWidth={1.5} />
-                  <p className="text-sm font-semibold mb-1" style={{ color: "#3D3D3D" }}>You can add your first listing anytime from your dashboard.</p>
-                  <p className="text-xs mb-1" style={{ color: "#9A9A9A" }}>Go to <strong>Manage Products</strong> whenever you're ready.</p>
-                  <p className="text-xs mb-5" style={{ color: "#BBBBBB" }}>Storefronts with at least one listing get significantly more attention from buyers.</p>
-                  <button type="button" onClick={() => setSkipInstrument(false)} className="text-xs font-semibold" style={{ color: NAVY, textDecoration: "underline" }}>
-                    Actually, I'll add one now
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* STEP 8: Launch */}
-          {step === 7 && (
             <div className="space-y-6">
 
               {/* What's complete */}
