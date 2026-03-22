@@ -11,11 +11,13 @@ import { format } from "date-fns";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
 import FulfillmentStatusBadge from "../components/orders/FulfillmentStatusBadge";
 import BuildUpdatesFeed from "../components/orders/BuildUpdatesFeed";
+import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
+import LegalLink from "../components/legal/LegalLink";
+import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConfig";
 
 const NAVY = "#1B2B4B";
 const AMBER = "#C57A1F";
 
-// Dynamic status messages per stage
 const STATUS_MESSAGES = {
   order_received:        { text: "Your order has been received. The builder will confirm it shortly.", type: "info" },
   order_confirmed:       { text: "Your builder has confirmed the order and will begin preparing the instrument.", type: "info" },
@@ -152,6 +154,29 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
   const isShipped    = order.fulfillment_status === "shipped";
   const remainingBalance = (order.total_amount || 0) - (order.deposit_amount || 0);
 
+  // Final payment legal acceptance state (per card instance)
+  const [finalPaymentChecked, setFinalPaymentChecked] = useState({ authorize: false, shipment: false });
+  const [payingFinal, setPayingFinal] = useState(false);
+
+  async function handleFinalPayment() {
+    if (!finalPaymentChecked.authorize) return;
+    setPayingFinal(true);
+    await logLegalAcceptance(base44, {
+      user,
+      agreementType: "final_payment_authorization",
+      checkboxLabels: [
+        "I authorize payment of the final balance for this custom build.",
+        ...(finalPaymentChecked.shipment ? ["I understand that shipment will not occur until final payment is received through Stringed Collective."] : []),
+      ],
+      documentUrls: [LEGAL_URLS.buyer_terms],
+      versions: { buyer_terms: LEGAL_VERSIONS.buyer_terms },
+      sourceScreen: "Orders",
+      orderId: order.id,
+    });
+    alert("Please contact Stringed Collective to complete your final balance payment. Your authorization has been recorded.");
+    setPayingFinal(false);
+  }
+
   return (
     <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
 
@@ -195,36 +220,54 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
       {expanded && (
         <div className="border-t border-stone-100 px-5 pb-6 pt-4 space-y-5">
 
-          {/* PART 2: Final Payment Banner */}
+          {/* Final Payment Banner with Legal Acceptance */}
           {isFinalPaymentDue && (
-            <div className="rounded-xl border-2 p-5" style={{ borderColor: AMBER, backgroundColor: "#FDF8F0" }}>
+            <div className="rounded-xl border-2 p-5 space-y-4" style={{ borderColor: AMBER, backgroundColor: "#FDF8F0" }}>
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: AMBER }} />
                 <div className="flex-1">
-                  <p className="font-bold text-sm mb-1" style={{ color: "#7A4A10" }}>Final Payment Required</p>
-                  <p className="text-sm mb-3 leading-relaxed" style={{ color: "#8C5E20" }}>
-                    Your instrument is complete. Final payment is required before the builder can ship your order.
+                  <p className="font-bold text-sm mb-1" style={{ color: "#7A4A10" }}>Your instrument is complete</p>
+                  <p className="text-sm mb-2 leading-relaxed" style={{ color: "#8C5E20" }}>
+                    Your builder has marked this custom build complete. Final payment is required before shipment can proceed.
                   </p>
                   {order.deposit_amount > 0 && (
-                    <p className="text-sm font-semibold mb-3" style={{ color: "#7A4A10" }}>
-                      Remaining balance: <span style={{ color: AMBER }}>${remainingBalance.toLocaleString()}</span>
+                    <p className="text-sm font-semibold" style={{ color: "#7A4A10" }}>
+                      Final balance: <span style={{ color: AMBER }}>${remainingBalance.toLocaleString()}</span>
                     </p>
                   )}
-                  <button
-                    onClick={() => alert("Please contact Stringed Collective to complete your final balance payment.")}
-                    className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white rounded-lg transition-colors"
-                    style={{ backgroundColor: AMBER }}
-                    onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                    onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
-                  >
-                    <CreditCard className="w-4 h-4" /> Pay Final Balance
-                  </button>
                 </div>
               </div>
+
+              <LegalAcceptanceBlock
+                checkboxes={[
+                  {
+                    id: "authorize",
+                    label: "I authorize payment of the final balance for this custom build.",
+                  },
+                  {
+                    id: "shipment",
+                    required: false,
+                    label: <>I understand that shipment will not occur until final payment is received through Stringed Collective. <span className="text-stone-400 font-normal">(View <LegalLink href={LEGAL_URLS.buyer_terms}>Buyer Terms</LegalLink>)</span></>,
+                  },
+                ]}
+                checked={finalPaymentChecked}
+                onChange={(id, val) => setFinalPaymentChecked(prev => ({ ...prev, [id]: val }))}
+              />
+
+              <button
+                onClick={handleFinalPayment}
+                disabled={!finalPaymentChecked.authorize || payingFinal}
+                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
+                style={{ backgroundColor: AMBER }}
+                onMouseEnter={e => { if (finalPaymentChecked.authorize) e.currentTarget.style.backgroundColor = "#a8661a"; }}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
+              >
+                <CreditCard className="w-4 h-4" /> {payingFinal ? "Processing..." : "Pay Final Balance"}
+              </button>
             </div>
           )}
 
-          {/* PART 4: Dynamic Status Message (non-payment stages) */}
+          {/* Dynamic Status Message (non-payment stages) */}
           {statusMsg && !isFinalPaymentDue && (
             <div className={`flex items-start gap-3 rounded-xl p-4 ${
               statusMsg.type === "complete"  ? "bg-green-50 border border-green-200" :
@@ -245,10 +288,10 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </div>
           )}
 
-          {/* PART 1 & 6: Progress Tracker */}
+          {/* Progress Tracker */}
           <OrderProgressTracker order={order} />
 
-          {/* PART 3: Payment Summary */}
+          {/* Payment Summary */}
           {order.order_type === "custom" && order.total_amount > 0 && (
             <div className="rounded-xl border border-stone-200 overflow-hidden">
               <div className="px-4 py-3 border-b border-stone-100 bg-stone-50">
@@ -312,7 +355,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </div>
           )}
 
-          {/* PART 5: Shipping Tracking */}
+          {/* Shipping Tracking */}
           {isShipped && order.tracking_number && (
             <div className="rounded-xl border border-stone-200 overflow-hidden">
               <div className="px-4 py-3 border-b border-stone-100 bg-stone-50 flex items-center gap-2">
@@ -345,7 +388,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </div>
           )}
 
-          {/* Build Updates — custom builds only */}
+          {/* Build Updates */}
           {order.order_type === "custom" && (
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-stone-400 mb-3">Build Updates</p>
