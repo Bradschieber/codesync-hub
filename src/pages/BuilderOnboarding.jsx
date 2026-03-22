@@ -8,6 +8,7 @@ import {
   Instagram, Facebook
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
+import LocationFields from "../components/onboarding/LocationFields";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
