@@ -98,6 +98,7 @@ export default function BuilderOnboarding() {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activePrompt, setActivePrompt] = useState(null);
+  const [policyConfirmed, setPolicyConfirmed] = useState(false);
 
 
   useEffect(() => { loadUser(); }, []);
@@ -147,6 +148,21 @@ export default function BuilderOnboarding() {
   }
 
   async function handleNext() {
+    // On policies step, log acceptance if confirmed
+    if (step === 4 && policyConfirmed) {
+      const snapshotVersion = new Date().toISOString().slice(0, 10);
+      await logLegalAcceptance(base44, {
+        user,
+        agreementType: "builder_policy_confirmation",
+        checkboxLabels: ["I confirm that these builder-defined policies are accurate and understand that the policies shown at the time of purchase will govern the applicable transaction."],
+        documentUrls: [LEGAL_URLS.builder_terms],
+        versions: {
+          builder_terms: LEGAL_VERSIONS.builder_terms,
+          builder_policy_snapshot: snapshotVersion,
+        },
+        sourceScreen: "BuilderOnboarding/Policies",
+      });
+    }
     await saveProfile();
     if (step < STEPS.length - 1) setStep(s => s + 1);
   }
