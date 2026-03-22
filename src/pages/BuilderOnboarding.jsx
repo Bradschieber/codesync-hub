@@ -820,81 +820,53 @@ export default function BuilderOnboarding() {
           {/* STEP 8: Launch */}
           {step === 7 && (
             <div className="space-y-6">
-              {/* Required items */}
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: allRequiredDone ? "#5A8A6A" : "#8A6A30" }}>
-                  {allRequiredDone ? "Required — all complete" : "Required — attention needed"}
-                </p>
-                <div className="space-y-2">
-                  {requiredItems.map(({ label, done }) => (
-                    <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{
-                      borderColor: done ? "#C0DEC8" : "#E8D9B8",
-                      backgroundColor: done ? "#F4FBF6" : "#FFFAF2"
-                    }}>
-                      <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
-                        style={{ backgroundColor: done ? "#4A9A6A" : "#C8973A" }}>
-                        {done
-                          ? <Check className="w-3 h-3 text-white" />
-                          : <span className="text-white text-xs font-bold leading-none">!</span>
-                        }
-                      </div>
-                      <span className="text-sm font-medium" style={{ color: done ? "#1A5A3A" : "#6A4A10" }}>{label}</span>
-                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#4A9A6A" : "#C8973A" }}>
-                        {done ? "Complete" : "Needed"}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* Recommended items */}
+              {/* What's complete */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#AAAA9A" }}>Recommended — strengthen your storefront</p>
-
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#5A8A6A" }}>Complete</p>
                 <div className="space-y-2">
                   {[
-                    { label: "Brand story", done: !!(form.brand_story && form.brand_story.length > 80) },
-                    { label: "Workshop photos", done: !!(form.media_urls && form.media_urls.length > 0) },
-                    { label: "First instrument listing", done: !skipInstrument && !!(product.name && product.price) },
-                    { label: "Buyer references", done: false },
-                    { label: "Payout account connected", done: false, note: "Set up from your dashboard" },
-                  ].map(({ label, done, note }) => (
+                    { label: "Shop name & location", done: !!(form.business_name && (form.business_city || form.location)) },
+                    { label: "Builder story", done: !!(form.brand_story && form.brand_story.length > 80) },
+                    { label: "Craft photos", done: !!(form.media_urls && form.media_urls.length > 0) },
+                    { label: "Business details", done: !!(form.offers_stock_builds || form.offers_custom_builds) },
+                    { label: "Shop policies", done: !!(form.warranty_duration || form.returns_accepted || form.shipping_insurance_included) },
+                  ].map(({ label, done }) => (
                     <div key={label} className="flex items-center gap-3 px-4 py-3 border" style={{
-                      borderColor: "#E3E0D8",
-                      backgroundColor: done ? "#F4FBF6" : "#FFFFFF"
+                      borderColor: done ? "#C0DEC8" : "#E3E0D8",
+                      backgroundColor: done ? "#F4FBF6" : "#FAFAF8"
                     }}>
                       <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full"
                         style={{ backgroundColor: done ? "#4A9A6A" : "#E3E0D8" }}>
                         {done && <Check className="w-3 h-3 text-white" />}
                       </div>
-                      <span className="text-sm" style={{ color: done ? "#1A5A3A" : "#7A7A7A" }}>{label}</span>
-                      <span className="ml-auto text-xs" style={{ color: done ? "#4A9A6A" : "#BBBBBB" }}>
-                        {done ? "Complete" : (note || "Add later")}
+                      <span className="text-sm" style={{ color: done ? "#1A5A3A" : "#9A9A9A" }}>{label}</span>
+                      <span className="ml-auto text-xs font-semibold" style={{ color: done ? "#4A9A6A" : "#BBBBBB" }}>
+                        {done ? "Complete" : "Not yet"}
                       </span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Status card */}
-              {allRequiredDone ? (
-                <div className="p-6 border" style={{ borderColor: "#C0DEC8", backgroundColor: "#F4FBF6" }}>
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#4A9A6A" }}>
-                      <Check className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold mb-1" style={{ color: "#1A5A3A" }}>Ready for review</p>
-                      <p className="text-xs leading-relaxed" style={{ color: "#3A7A5A" }}>Our team will review it within 1–2 business days. You can keep refining your story, references, listings, and other details anytime from your dashboard.</p>
-                    </div>
+              {/* Required before launch */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#C8973A" }}>Required before launch</p>
+                <div className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: "#E8D9B8", backgroundColor: "#FFFAF2" }}>
+                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full" style={{ backgroundColor: "#E8D9B8" }}>
+                    <span className="text-xs font-bold" style={{ color: "#C8973A" }}>1</span>
                   </div>
+                  <span className="text-sm font-medium" style={{ color: "#6A4A10" }}>First product listing</span>
+                  <span className="ml-auto text-xs font-semibold" style={{ color: "#C8973A" }}>Add from dashboard</span>
                 </div>
-              ) : (
-                <div className="px-5 py-4 border-l-2" style={{ borderColor: "#C8973A", backgroundColor: "#FFFAF2" }}>
-                  <p className="text-xs font-semibold mb-1" style={{ color: "#7A5A10" }}>Not ready for review yet</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#8A6A20" }}>Finish the required items above to submit your storefront for review. Your progress is already saved, and you can return to any step to make updates.</p>
-                </div>
-              )}
+              </div>
+
+              {/* Context card */}
+              <div className="px-5 py-4 border-l-2" style={{ borderColor: NAVY, backgroundColor: "#F2F5FA" }}>
+                <p className="text-xs leading-relaxed" style={{ color: "#4A5A6A" }}>
+                  You can continue refining your profile anytime, but at least one completed listing is required before your storefront can be submitted for review.
+                </p>
+              </div>
             </div>
           )}
 
