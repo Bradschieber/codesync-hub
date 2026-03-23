@@ -425,17 +425,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
               <MessageSquare className="w-4 h-4" /> Message The Builder
             </button>
 
-            {order.purchase_agreement_signed && (
-              <button
-                onClick={() => alert("Purchase agreement details are on file. Contact Stringed Collective for a copy.")}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
-                style={{ borderColor: "#C0BBB4", color: "#555", backgroundColor: "#fff" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F5F3F0"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
-              >
-                <FileText className="w-4 h-4" /> View Purchase Agreement
-              </button>
-            )}
+            <PurchaseAgreementButton orderId={order.id} userRole="buyer" />
           </div>
 
           <p className="text-xs text-stone-300">Order #{order.id.slice(-8).toUpperCase()}</p>

@@ -238,6 +238,9 @@ function OrderPayoutCard({ order, onUpdate }) {
           </button>
         </div>
 
+        {/* Purchase Agreement */}
+        <PurchaseAgreementButton orderId={order.id} userRole="admin" />
+
         {/* Payout release buttons */}
         <div className="flex flex-wrap gap-3">
           {isCustom && (

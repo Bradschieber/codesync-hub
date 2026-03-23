@@ -209,6 +209,9 @@ export default function BuilderOrders() {
                       </div>
                     )}
 
+                    {/* Purchase Agreement */}
+                    <PurchaseAgreementButton orderId={order.id} userRole="builder" />
+
                     {/* Shipping Address */}
                     {order.shipping_address && (
                       <div>
