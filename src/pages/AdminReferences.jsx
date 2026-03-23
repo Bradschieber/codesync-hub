@@ -70,7 +70,7 @@ export default function AdminReferences() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
-          <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+          <Link to={createPageUrl("AdminDashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
           <h1 className="text-2xl font-bold text-stone-800">Manage Builder References</h1>
         </div>
         <Link to={createPageUrl("AdminBuilderBadges")} className="text-xs font-semibold px-4 py-2 rounded-lg border transition-colors" style={{ borderColor: "#2F3E55", color: "#2F3E55" }}
