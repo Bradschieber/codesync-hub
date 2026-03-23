@@ -176,12 +176,7 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Back to builder dashboard */}
-        <div className="mt-10 pt-6 border-t" style={{ borderColor: "#E0DDD8" }}>
-          <Link to={createPageUrl("Dashboard")} className="text-sm font-medium hover:opacity-70 transition-opacity" style={{ color: NAVY }}>
-            ← Back to Builder Dashboard
-          </Link>
-        </div>
+
       </div>
     </div>
   );
