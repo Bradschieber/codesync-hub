@@ -47,7 +47,7 @@ export default function AdminBuilderBadges() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8" style={{ minHeight: "100vh", backgroundColor: "#F7F6F3" }}>
       <div className="flex items-center gap-3 mb-8">
-        <Link to={createPageUrl("Dashboard")} style={{ color: "#9A9A9A" }} className="hover:opacity-70 transition-opacity">
+        <Link to={createPageUrl("AdminDashboard")} style={{ color: "#9A9A9A" }} className="hover:opacity-70 transition-opacity">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
