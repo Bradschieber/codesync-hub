@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
 import FulfillmentStatusBadge from "../components/orders/FulfillmentStatusBadge";
 import BuildUpdatesFeed from "../components/orders/BuildUpdatesFeed";
+import PurchaseAgreementButton from "../components/orders/PurchaseAgreementButton";
 import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
 import LegalLink from "../components/legal/LegalLink";
 import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConfig";

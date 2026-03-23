@@ -6,6 +6,7 @@ import {
   ShieldCheck, ChevronLeft, CheckCircle2, XCircle, Clock,
   DollarSign, Truck, Package, AlertTriangle, RefreshCw, Search
 } from "lucide-react";
+import PurchaseAgreementButton from "../components/orders/PurchaseAgreementButton";
 import { format } from "date-fns";
 
 const NAVY = "#2F3E55";

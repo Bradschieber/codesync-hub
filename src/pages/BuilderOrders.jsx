@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ShoppingBag, ChevronLeft, Package, ChevronDown, ChevronUp, Calendar, Save, AlertCircle, CheckCircle2 } from "lucide-react";
+import PurchaseAgreementButton from "../components/orders/PurchaseAgreementButton";
 import { format } from "date-fns";
 import FulfillmentStatusBadge, { STOCK_STATUSES, CUSTOM_STATUSES, STATUS_COLORS } from "../components/orders/FulfillmentStatusBadge";
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
