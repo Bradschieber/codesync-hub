@@ -48,6 +48,8 @@ export default function Layout({ children, currentPageName }) {
 
   function handleLogout() { logout("/"); }
 
+  const isBuilder = profile?.account === 'seller' || profile?.account === 'admin';
+
   const navLinks = [
     { label: "Home", page: "Home" },
     { label: "Catalog", page: "Catalog" },
@@ -139,21 +141,27 @@ export default function Layout({ children, currentPageName }) {
                         <Link to={createPageUrl("Account")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <User className="w-4 h-4" /> My Account
                         </Link>
-                        <Link to={createPageUrl(profile?.account === 'seller' || profile?.account === 'admin' ? "BuilderOrders" : "Orders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-                          <ShoppingCart className="w-4 h-4" /> Orders
-                        </Link>
-                        <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-                          <Heart className="w-4 h-4" /> Wishlist
-                        </Link>
-                        {(profile?.account === 'seller' || profile?.account === 'admin') && (
-                          <Link to={createPageUrl("Dashboard")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-                            <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
-                          </Link>
-                        )}
-                        {profile?.account === 'user' && (
-                          <button onClick={() => { setUserMenuOpen(false); setBuilderModalOpen(true); }} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-full text-left">
-                            <Hammer className="w-4 h-4" /> Become a Builder
-                          </button>
+                        {isBuilder ? (
+                          <>
+                            <Link to={createPageUrl("BuilderOrders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                              <ShoppingCart className="w-4 h-4" /> Orders
+                            </Link>
+                            <Link to={createPageUrl("Dashboard")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                              <LayoutDashboard className="w-4 h-4" /> Builder Dashboard
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link to={createPageUrl("Orders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                              <ShoppingCart className="w-4 h-4" /> Orders
+                            </Link>
+                            <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                              <Heart className="w-4 h-4" /> Wishlist
+                            </Link>
+                            <button onClick={() => { setUserMenuOpen(false); setBuilderModalOpen(true); }} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-full text-left">
+                              <Hammer className="w-4 h-4" /> Become a Builder
+                            </button>
+                          </>
                         )}
                         <hr className="my-1 border-gray-100" />
                         <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-gray-50 w-full">
