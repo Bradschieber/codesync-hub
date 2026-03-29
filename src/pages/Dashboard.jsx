@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera, X, Eye, Rocket, Check, BookOpen } from "lucide-react";
+import StripePayoutStatus from "../components/dashboard/StripePayoutStatus";
 
 const NAVY = "#1B2B4B";
 
@@ -130,6 +131,9 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stripe Payout Status */}
+        <StripePayoutStatus profile={profile} />
+
         {/* Launch Progress Banner */}
         {showLaunchBanner && (
           <div className="mb-6 border p-6" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
