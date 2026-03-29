@@ -1,0 +1,86 @@
+{
+  "name": "Dispute",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "FK to Order"
+    },
+    "payment_id": {
+      "type": "string",
+      "description": "FK to Payment"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "stripe_charge_id": {
+      "type": "string"
+    },
+    "stripe_dispute_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "buyer_dispute",
+        "chargeback"
+      ],
+      "description": "Whether initiated by buyer via platform or by card issuer"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Stripe reason code or internal description"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "under_review",
+        "won",
+        "lost",
+        "resolved",
+        "closed"
+      ],
+      "default": "open"
+    },
+    "amount_disputed": {
+      "type": "number"
+    },
+    "buyer_notes": {
+      "type": "string",
+      "description": "Buyer's description of the issue"
+    },
+    "admin_notes": {
+      "type": "string"
+    },
+    "resolution_notes": {
+      "type": "string"
+    },
+    "evidence_submitted_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "resolution_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "admin_user_id": {
+      "type": "string",
+      "description": "Admin handling this dispute"
+    }
+  },
+  "required": [
+    "order_id",
+    "type",
+    "amount_disputed"
+  ]
+}

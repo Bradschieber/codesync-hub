@@ -1,0 +1,55 @@
+{
+  "name": "AgreementSnapshot",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "FK to Order"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string"
+    },
+    "order_type": {
+      "type": "string",
+      "enum": [
+        "stock",
+        "custom"
+      ]
+    },
+    "snapshot_version": {
+      "type": "string"
+    },
+    "listing_snapshot_json": {
+      "type": "object",
+      "description": "Frozen copy of the product or custom build listing at time of purchase"
+    },
+    "specifications_snapshot_json": {
+      "type": "object",
+      "description": "Frozen copy of agreed specifications (especially for custom builds)"
+    },
+    "pricing_snapshot_json": {
+      "type": "object",
+      "description": "Frozen pricing: gross_amount, deposit_amount, final_balance_amount, platform_fee_percent, estimated_net_for_builder"
+    },
+    "buyer_info_snapshot_json": {
+      "type": "object",
+      "description": "Frozen buyer name, email, shipping address at time of agreement"
+    },
+    "builder_info_snapshot_json": {
+      "type": "object",
+      "description": "Frozen builder name, business_name, location at time of agreement"
+    },
+    "snapshotted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "order_id",
+    "builder_id",
+    "order_type"
+  ]
+}

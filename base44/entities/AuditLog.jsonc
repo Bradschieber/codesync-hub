@@ -1,0 +1,52 @@
+{
+  "name": "AuditLog",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "e.g. ORDER_STATUS_UPDATED, PAYOUT_HELD, ADMIN_REFUND_INITIATED, TRACKING_VERIFIED, DEPOSIT_RELEASED, DISPUTE_OPENED, TRANSFER_SUCCEEDED"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "e.g. Order, Payment, TransferInstruction, PayoutHold, Dispute"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "ID of the affected entity"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Denormalized for easy filtering by order"
+    },
+    "actor_user_id": {
+      "type": "string",
+      "description": "User who triggered the event (admin, builder, buyer, or system)"
+    },
+    "actor_role": {
+      "type": "string",
+      "enum": [
+        "system",
+        "admin",
+        "builder",
+        "buyer"
+      ],
+      "description": "Role of the actor"
+    },
+    "details_json": {
+      "type": "object",
+      "description": "Contextual data: field changes, previous/new values, reason codes, Stripe event IDs, etc."
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "stripe_event_id": {
+      "type": "string",
+      "description": "Stripe webhook event ID if triggered by Stripe"
+    }
+  },
+  "required": [
+    "event_type",
+    "entity_type",
+    "entity_id"
+  ]
+}

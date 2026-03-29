@@ -1,0 +1,31 @@
+{
+  "name": "PolicySnapshot",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "FK to Order"
+    },
+    "builder_id": {
+      "type": "string",
+      "description": "FK to UserProfile of builder"
+    },
+    "snapshot_version": {
+      "type": "string",
+      "description": "Version tag at time of snapshot (e.g. 1.0)"
+    },
+    "snapshot_json": {
+      "type": "object",
+      "description": "Frozen copy of builder policy fields at time of transaction. Includes: deposit_type, deposit_percent, deposit_fixed_amount, deposit_refundable, payment_schedule, typical_build_time, return_policy, returns_accepted, return_window_days, return_condition, return_restocking_fee_percent, return_shipping_paid_by, warranty_policy, warranty_duration, warranty_coverage, warranty_exclusions, warranty_claim_process, shipping_policy, ships_domestically, ships_internationally, shipping_carriers, shipping_insurance_included, shipping_packaging, shipping_timeline"
+    },
+    "snapshotted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "order_id",
+    "builder_id",
+    "snapshot_json"
+  ]
+}

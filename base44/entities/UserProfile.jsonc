@@ -1,0 +1,432 @@
+{
+  "name": "UserProfile",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "brand_story": {
+      "type": "string"
+    },
+    "tag_line": {
+      "type": "string",
+      "description": "Short phrase displayed beneath the builder's name on their storefront"
+    },
+    "location": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "account": {
+      "type": "string",
+      "enum": [
+        "user",
+        "seller",
+        "admin"
+      ],
+      "default": "user"
+    },
+    "is_seller": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_approved": {
+      "type": "boolean",
+      "default": false,
+      "description": "Admin must approve a builder's storefront before it goes live on the site"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "specialties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "instrument_types_built": {
+      "type": "array",
+      "description": "Types of instruments the builder builds",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Electric Guitar",
+              "Acoustic Guitar",
+              "Electric Bass",
+              "Acoustic Electric Bass",
+              "Other"
+            ]
+          },
+          "other_description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      }
+    },
+    "years_experience": {
+      "type": "number"
+    },
+    "total_instruments_built": {
+      "type": "number"
+    },
+    "instruments_per_year": {
+      "type": "number"
+    },
+    "typical_build_time": {
+      "type": "string"
+    },
+    "deposit_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "deposit_type": {
+      "type": "string",
+      "enum": [
+        "percent",
+        "fixed"
+      ],
+      "default": "percent"
+    },
+    "deposit_percent": {
+      "type": "number"
+    },
+    "deposit_fixed_amount": {
+      "type": "number"
+    },
+    "deposit_refundable": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "partial",
+        "no"
+      ]
+    },
+    "payment_schedule": {
+      "type": "string"
+    },
+    "payment_methods": {
+      "type": "string"
+    },
+    "pricing_notes": {
+      "type": "string"
+    },
+    "warranty_policy": {
+      "type": "string"
+    },
+    "warranty_duration": {
+      "type": "string"
+    },
+    "warranty_coverage": {
+      "type": "array",
+      "description": "Per-category warranty coverage with individual durations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "warranty_exclusions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warranty_claim_process": {
+      "type": "string"
+    },
+    "return_policy": {
+      "type": "string"
+    },
+    "returns_accepted": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "case_by_case"
+      ]
+    },
+    "return_window_days": {
+      "type": "number"
+    },
+    "return_condition": {
+      "type": "string"
+    },
+    "return_restocking_fee_percent": {
+      "type": "number"
+    },
+    "return_shipping_paid_by": {
+      "type": "string",
+      "enum": [
+        "buyer",
+        "seller",
+        "negotiable"
+      ]
+    },
+    "shipping_policy": {
+      "type": "string"
+    },
+    "ships_domestically": {
+      "type": "boolean",
+      "default": true
+    },
+    "ships_internationally": {
+      "type": "boolean",
+      "default": false
+    },
+    "shipping_carriers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "shipping_insurance_included": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "optional"
+      ]
+    },
+    "shipping_packaging": {
+      "type": "string"
+    },
+    "shipping_timeline": {
+      "type": "string"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "facebook_url": {
+      "type": "string"
+    },
+    "x_url": {
+      "type": "string"
+    },
+    "instagram_url": {
+      "type": "string"
+    },
+    "business_address_1": {
+      "type": "string"
+    },
+    "business_address_2": {
+      "type": "string"
+    },
+    "business_city": {
+      "type": "string"
+    },
+    "business_state": {
+      "type": "string"
+    },
+    "business_postal_code": {
+      "type": "string"
+    },
+    "business_country": {
+      "type": "string"
+    },
+    "shipping_address_1": {
+      "type": "string"
+    },
+    "shipping_address_2": {
+      "type": "string"
+    },
+    "shipping_city": {
+      "type": "string"
+    },
+    "shipping_state": {
+      "type": "string"
+    },
+    "shipping_postal_code": {
+      "type": "string"
+    },
+    "shipping_country": {
+      "type": "string"
+    },
+    "shipping_address": {
+      "type": "string"
+    },
+    "business_address": {
+      "type": "string"
+    },
+    "average_rating": {
+      "type": "number"
+    },
+    "review_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "featured_until_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Optional expiry date for featured placement."
+    },
+    "is_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "founding_builder": {
+      "type": "boolean",
+      "default": false,
+      "description": "Admin-assigned badge for early builders who helped launch the marketplace"
+    },
+    "media_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "custom_build_examples": {
+      "type": "array",
+      "description": "Portfolio images showcasing past custom build work",
+      "items": {
+        "type": "object",
+        "properties": {
+          "image_url": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "description": "Optional project title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional short notes about this build"
+          },
+          "caption": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notify_email": {
+      "type": "boolean",
+      "default": true
+    },
+    "notify_sms": {
+      "type": "boolean",
+      "default": false
+    },
+    "notification_phone": {
+      "type": "string"
+    },
+    "banner_image_url": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "storefront_layout": {
+      "type": "string",
+      "enum": [
+        "classic",
+        "bold",
+        "editorial",
+        "minimal"
+      ],
+      "default": "classic"
+    },
+    "storefront_color_scheme": {
+      "type": "string",
+      "enum": [
+        "earthy",
+        "dark-wood",
+        "slate",
+        "warm-cream",
+        "midnight"
+      ],
+      "default": "earthy"
+    },
+    "offers_stock_builds": {
+      "type": "boolean",
+      "default": false
+    },
+    "offers_custom_builds": {
+      "type": "boolean",
+      "default": false
+    },
+    "custom_build_description": {
+      "type": "string"
+    },
+    "introduction_video_url": {
+      "type": "string",
+      "description": "URL to a short introduction/interview video for the builder (YouTube, Vimeo, etc.)"
+    },
+    "introduction_video_title": {
+      "type": "string",
+      "description": "Optional title or caption for the introduction video"
+    },
+    "stripe_account_id": {
+      "type": "string",
+      "description": "Stripe Connect account ID for this builder"
+    },
+    "stripe_onboarding_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "pending_verification",
+        "complete"
+      ],
+      "default": "not_started",
+      "description": "Current state of Stripe Connect onboarding"
+    },
+    "stripe_payouts_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "True when Stripe reports charges_enabled and payouts_enabled for this account"
+    },
+    "stripe_charges_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "True when Stripe reports charges are enabled for this account"
+    },
+    "is_first_sale_completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "True after builder's first sale has been fully paid out. Disables first-sale hold rules."
+    },
+    "last_successful_sale_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of most recent successfully completed and paid-out sale"
+    }
+  },
+  "required": []
+}

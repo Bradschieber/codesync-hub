@@ -1,0 +1,247 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "buyer_name": {
+      "type": "string"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "order_type": {
+      "type": "string",
+      "enum": [
+        "stock",
+        "custom"
+      ],
+      "default": "stock"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "paid",
+        "shipped",
+        "delivered",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "Legacy status field \u2014 retained for backwards compatibility"
+    },
+    "current_status": {
+      "type": "string",
+      "enum": [
+        "pending_payment",
+        "payment_succeeded",
+        "builder_confirmed",
+        "building_in_progress",
+        "build_complete_awaiting_final_payment",
+        "fully_paid",
+        "shipped",
+        "delivered",
+        "refunded",
+        "disputed",
+        "cancelled"
+      ],
+      "default": "pending_payment",
+      "description": "Primary consolidated order lifecycle status"
+    },
+    "fulfillment_status": {
+      "type": "string",
+      "enum": [
+        "order_received",
+        "order_confirmed",
+        "deposit_paid",
+        "build_scheduled",
+        "build_in_progress",
+        "build_complete",
+        "preparing_to_ship",
+        "shipped",
+        "received_by_buyer",
+        "cancelled"
+      ],
+      "default": "order_received"
+    },
+    "payout_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "held_first_sale",
+        "held_tracking_unverified",
+        "held_dispute",
+        "held_admin",
+        "awaiting_release",
+        "partially_released",
+        "fully_released",
+        "payout_failed"
+      ],
+      "default": "pending",
+      "description": "Tracks where builder payout stands for this order"
+    },
+    "payment_stage": {
+      "type": "string",
+      "enum": [
+        "awaiting_deposit",
+        "deposit_paid",
+        "awaiting_final_payment",
+        "final_payment_received",
+        "fully_paid"
+      ],
+      "description": "Tracks the payment milestone stage for the order"
+    },
+    "total_amount": {
+      "type": "number",
+      "description": "Legacy total \u2014 retained for backwards compatibility"
+    },
+    "total_gross_amount": {
+      "type": "number",
+      "description": "Original full gross amount charged to buyer"
+    },
+    "platform_fee_percent": {
+      "type": "number",
+      "default": 0.05,
+      "description": "Platform fee rate (e.g. 0.05 = 5%)"
+    },
+    "platform_fee_amount": {
+      "type": "number",
+      "description": "Calculated 5% Stringed Collective marketplace fee"
+    },
+    "stripe_fee_amount": {
+      "type": "number",
+      "description": "Actual Stripe processing fee, recorded from Stripe webhook"
+    },
+    "builder_net_payout_expected": {
+      "type": "number",
+      "description": "total_gross_amount - platform_fee_amount - stripe_fee_amount"
+    },
+    "deposit_amount": {
+      "type": "number",
+      "description": "Deposit amount required (from policy)"
+    },
+    "deposit_amount_paid": {
+      "type": "number",
+      "description": "Actual deposit amount received"
+    },
+    "final_balance_amount_paid": {
+      "type": "number",
+      "description": "Actual final balance payment received"
+    },
+    "refund_amount": {
+      "type": "number",
+      "default": 0,
+      "description": "Total amount refunded on this order"
+    },
+    "stripe_payment_intent_id": {
+      "type": "string",
+      "description": "Stripe PaymentIntent ID for the primary charge"
+    },
+    "stripe_charge_id": {
+      "type": "string",
+      "description": "Stripe Charge ID associated with primary payment"
+    },
+    "stripe_account_id_destination": {
+      "type": "string",
+      "description": "Builder's Stripe Connect account ID for payouts"
+    },
+    "policy_snapshot_id": {
+      "type": "string",
+      "description": "FK to PolicySnapshot entity"
+    },
+    "agreement_snapshot_id": {
+      "type": "string",
+      "description": "FK to AgreementSnapshot entity"
+    },
+    "purchase_agreement_signed": {
+      "type": "boolean",
+      "default": false
+    },
+    "final_payment_paid": {
+      "type": "boolean",
+      "default": false
+    },
+    "deposit_payout_released": {
+      "type": "boolean",
+      "default": false
+    },
+    "final_payout_released": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_first_transaction": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, first-sale hold rules apply to this order"
+    },
+    "delivery_confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "delivery_confirmed_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date delivery was confirmed (required to release first-sale hold)"
+    },
+    "tracking_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "tracking_number": {
+      "type": "string"
+    },
+    "tracking_carrier": {
+      "type": "string"
+    },
+    "next_payment_due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Due date for final balance payment on custom builds"
+    },
+    "shipping_address": {
+      "type": "object"
+    },
+    "build_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "estimated_build_completion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "builder_notes": {
+      "type": "string"
+    },
+    "warranty_snapshot": {
+      "type": "object"
+    },
+    "return_policy_snapshot": {
+      "type": "object"
+    },
+    "warranty_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "return_period_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "stripe_session_id": {
+      "type": "string"
+    }
+  },
+  "required": []
+}

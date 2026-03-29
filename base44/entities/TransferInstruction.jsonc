@@ -1,0 +1,97 @@
+{
+  "name": "TransferInstruction",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "FK to Order"
+    },
+    "payment_id": {
+      "type": "string",
+      "description": "FK to Payment"
+    },
+    "builder_id": {
+      "type": "string",
+      "description": "FK to UserProfile of builder"
+    },
+    "stripe_account_id_destination": {
+      "type": "string",
+      "description": "Builder's Stripe Connect account ID"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "deposit_release",
+        "final_payout",
+        "refund_adjustment"
+      ],
+      "description": "Type of transfer"
+    },
+    "transfer_amount_gross": {
+      "type": "number",
+      "description": "Amount before platform/Stripe deductions"
+    },
+    "platform_fee_amount": {
+      "type": "number",
+      "description": "5% Stringed Collective fee withheld"
+    },
+    "stripe_fee_amount": {
+      "type": "number",
+      "description": "Stripe processing fee withheld"
+    },
+    "transfer_amount_net": {
+      "type": "number",
+      "description": "Actual amount to be transferred to builder"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "pending_admin_approval",
+        "admin_approved",
+        "pending_hold_resolution",
+        "ready_for_transfer",
+        "transfer_initiated",
+        "succeeded",
+        "failed",
+        "cancelled"
+      ],
+      "default": "created"
+    },
+    "stripe_transfer_id": {
+      "type": "string"
+    },
+    "hold_id": {
+      "type": "string",
+      "description": "FK to PayoutHold if applicable"
+    },
+    "reason_for_hold": {
+      "type": "string",
+      "description": "Denormalized hold reason for quick display"
+    },
+    "expected_release_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actual_release_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "admin_notes": {
+      "type": "string"
+    },
+    "admin_user_id": {
+      "type": "string",
+      "description": "Admin who last acted on this instruction"
+    },
+    "failure_reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "order_id",
+    "builder_id",
+    "type",
+    "transfer_amount_net"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "name": "PayoutHold",
+  "type": "object",
+  "properties": {
+    "transfer_instruction_id": {
+      "type": "string",
+      "description": "FK to TransferInstruction"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "FK to Order"
+    },
+    "builder_id": {
+      "type": "string",
+      "description": "FK to UserProfile of builder"
+    },
+    "amount_held": {
+      "type": "number"
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "first_stock_sale_hold",
+        "first_custom_deposit_hold",
+        "invalid_tracking",
+        "dispute_open",
+        "chargeback_open",
+        "fraud_review",
+        "manual_admin_hold",
+        "buyer_default_pending"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "resolved",
+        "expired",
+        "overridden"
+      ],
+      "default": "active"
+    },
+    "hold_start_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expected_release_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actual_release_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "admin_notes": {
+      "type": "string"
+    },
+    "admin_user_id": {
+      "type": "string",
+      "description": "Admin who created or resolved this hold"
+    },
+    "resolved_by_event": {
+      "type": "string",
+      "description": "What event caused this hold to be resolved (e.g. delivery_confirmed, admin_override)"
+    }
+  },
+  "required": [
+    "order_id",
+    "builder_id",
+    "reason",
+    "amount_held"
+  ]
+}

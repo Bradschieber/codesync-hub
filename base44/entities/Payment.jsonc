@@ -1,0 +1,85 @@
+{
+  "name": "Payment",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "FK to Order"
+    },
+    "builder_id": {
+      "type": "string",
+      "description": "FK to UserProfile of builder"
+    },
+    "buyer_id": {
+      "type": "string",
+      "description": "FK to User of buyer"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Gross amount charged to buyer"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "deposit",
+        "final_balance",
+        "full_purchase"
+      ],
+      "description": "Type of payment event"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "succeeded",
+        "failed",
+        "refunded",
+        "partially_refunded"
+      ],
+      "default": "pending"
+    },
+    "stripe_payment_intent_id": {
+      "type": "string"
+    },
+    "stripe_charge_id": {
+      "type": "string"
+    },
+    "platform_fee_amount": {
+      "type": "number",
+      "description": "5% Stringed Collective marketplace fee"
+    },
+    "stripe_fee_amount": {
+      "type": "number",
+      "description": "Actual Stripe processing fee recorded from webhook"
+    },
+    "net_for_builder": {
+      "type": "number",
+      "description": "Amount - platform_fee_amount - stripe_fee_amount"
+    },
+    "refund_amount": {
+      "type": "number",
+      "default": 0,
+      "description": "Total amount refunded against this payment"
+    },
+    "stripe_refund_id": {
+      "type": "string"
+    },
+    "failure_reason": {
+      "type": "string",
+      "description": "Reason for payment failure if applicable"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "order_id",
+    "amount",
+    "type"
+  ]
+}
