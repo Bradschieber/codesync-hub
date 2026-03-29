@@ -8,7 +8,7 @@ import CartModal from "./components/marketplace/CartModal";
 import BuilderAccountFormModal from "./components/builder/BuilderAccountFormModal";
 
 export default function Layout({ children, currentPageName }) {
-  const { logout } = useAuth();
+  const { logout, user: authUser } = useAuth();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,7 +18,7 @@ export default function Layout({ children, currentPageName }) {
   const [builderModalOpen, setBuilderModalOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => { loadUser(); }, []);
+  useEffect(() => { loadUser(); }, [authUser]);
   useEffect(() => {
     if (!user) return;
     loadCartCount();
@@ -32,8 +32,10 @@ export default function Layout({ children, currentPageName }) {
       setUser(u);
       const profiles = await base44.entities.UserProfile.filter({ user_id: u.id });
       if (profiles.length > 0) setProfile(profiles[0]);
+      else setProfile(null);
     } catch {
       setUser(null);
+      setProfile(null);
     }
   }
 
@@ -137,7 +139,7 @@ export default function Layout({ children, currentPageName }) {
                         <Link to={createPageUrl("Account")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <User className="w-4 h-4" /> My Account
                         </Link>
-                        <Link to={createPageUrl("Orders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                        <Link to={createPageUrl(profile?.account === 'seller' || profile?.account === 'admin' ? "BuilderOrders" : "Orders")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                           <ShoppingCart className="w-4 h-4" /> Orders
                         </Link>
                         <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
