@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Hammer, LayoutDashboard, Package, MessageSquare, Users, RotateCcw,
-  ShoppingBag, User, Save, Bell, Mail, MessageCircle, ChevronRight, ArrowRight
+  ShoppingBag, User, Save, Bell, Mail, MessageCircle, ChevronRight, ArrowRight, BookOpen
 } from "lucide-react";
 
 const NAVY = "#1B2B4B";
@@ -21,6 +21,7 @@ export default function BuilderAccountView({ user, profile, form, setForm, savin
     { label: "Edit Builder Profile", sub: "Your public storefront", icon: User, page: "DashboardProfile" },
     { label: "My Customers", sub: "Customer roster", icon: Users, page: "BuilderCustomers" },
     { label: "Returns & Warranty", sub: "Manage claims", icon: RotateCcw, page: "BuilderReturnsWarranty" },
+    { label: "Builder Resources", sub: "Guides, FAQ & best practices", icon: BookOpen, page: "BuilderResources" },
   ];
 
   const tabs = [
