@@ -18,7 +18,7 @@ export default function Layout({ children, currentPageName }) {
   const [builderModalOpen, setBuilderModalOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => { loadUser(); }, [authUser]);
+  useEffect(() => { loadUser(); }, [authUser, location.pathname]);
   useEffect(() => {
     if (!user) return;
     loadCartCount();
