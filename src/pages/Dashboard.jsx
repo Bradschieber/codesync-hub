@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera, X, Eye, Rocket, Check } from "lucide-react";
+import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera, X, Eye, Rocket, Check, BookOpen } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -249,6 +249,7 @@ export default function Dashboard() {
                 { label: "Edit Profile", sub: "Update your builder page", icon: User, page: "DashboardProfile" },
                 { label: "My Customers", sub: "Customer roster & history", icon: Users, page: "BuilderCustomers" },
                 { label: "Returns & Warranty", sub: "Manage claims", icon: RotateCcw, page: "BuilderReturnsWarranty" },
+                { label: "Builder Resources", sub: "Guides, FAQ & best practices", icon: BookOpen, page: "BuilderResources" },
                 ...(profile?.account === "admin" ? [{ label: "Admin Dashboard", sub: "Badges, references & platform tools", icon: ShieldCheck, page: "AdminDashboard" }] : []),
               ].map(({ label, sub, icon: Icon, page }) => (
                 <Link
