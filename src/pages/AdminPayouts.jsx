@@ -4,305 +4,282 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   ShieldCheck, ChevronLeft, CheckCircle2, XCircle, Clock,
-  DollarSign, Truck, Package, AlertTriangle, RefreshCw, Search
+  DollarSign, Truck, Package, AlertTriangle, RefreshCw, Search,
+  ChevronDown, ChevronUp, Shield, Send
 } from "lucide-react";
-import PurchaseAgreementButton from "../components/orders/PurchaseAgreementButton";
 import { format } from "date-fns";
+import PayoutBreakdown from "../components/orders/PayoutBreakdown";
 
 const NAVY = "#2F3E55";
 
-function getPayoutState(order) {
-  const isCustom = order.order_type === "custom";
-
-  if (isCustom) {
-    const depositEligible =
-      order.purchase_agreement_signed &&
-      ["deposit_paid", "awaiting_final_payment", "final_payment_received", "fully_paid"].includes(order.payment_stage);
-
-    const finalPaymentReceived = order.final_payment_paid;
-    const trackingUploaded = !!order.tracking_number;
-    const trackingVerified = order.tracking_verified;
-    const firstTransactionSatisfied = order.is_first_transaction
-      ? order.delivery_confirmed
-      : trackingVerified;
-
-    const finalPayoutEligible =
-      finalPaymentReceived && trackingUploaded && trackingVerified && firstTransactionSatisfied;
-
-    if (order.deposit_payout_released && order.final_payout_released) return "paid";
-    if (finalPayoutEligible && !order.final_payout_released) return "final_payout_ready";
-    if (depositEligible && !order.deposit_payout_released) return "deposit_ready";
-    if (order.payment_stage === "awaiting_final_payment") return "waiting_final_payment";
-    if (finalPaymentReceived && !trackingUploaded) return "waiting_tracking";
-    if (finalPaymentReceived && trackingUploaded && order.is_first_transaction && !order.delivery_confirmed) return "waiting_delivery";
-    return "pending";
-  } else {
-    const buyerPaid = order.status === "paid";
-    const trackingUploaded = !!order.tracking_number;
-    const trackingVerified = order.tracking_verified;
-    const firstTransactionSatisfied = order.is_first_transaction
-      ? order.delivery_confirmed
-      : trackingVerified;
-
-    const payoutEligible = buyerPaid && trackingUploaded && trackingVerified && firstTransactionSatisfied;
-
-    if (order.final_payout_released) return "paid";
-    if (payoutEligible) return "final_payout_ready";
-    if (buyerPaid && !trackingUploaded) return "waiting_tracking";
-    if (buyerPaid && trackingUploaded && order.is_first_transaction && !order.delivery_confirmed) return "waiting_delivery";
-    return "pending";
-  }
-}
-
-const PAYOUT_STATE_CONFIG = {
-  deposit_ready:        { label: "Deposit Ready",             color: "#166534", bg: "#DCFCE7", icon: DollarSign },
-  final_payout_ready:   { label: "Final Payout Ready",        color: "#14532D", bg: "#BBF7D0", icon: DollarSign },
-  waiting_final_payment:{ label: "Waiting for Final Payment", color: "#92400E", bg: "#FEF3C7", icon: Clock },
-  waiting_tracking:     { label: "Waiting for Tracking",      color: "#1E40AF", bg: "#DBEAFE", icon: Truck },
-  waiting_delivery:     { label: "Waiting for Delivery",      color: "#7C2D12", bg: "#FED7AA", icon: Package },
-  paid:                 { label: "Paid Out",                  color: "#6B7280", bg: "#F3F4F6", icon: CheckCircle2 },
-  pending:              { label: "Pending",                   color: "#374151", bg: "#F9FAFB", icon: Clock },
+const CURRENT_STATUS_LABELS = {
+  pending_payment: "Pending Payment",
+  payment_succeeded: "Payment Succeeded",
+  awaiting_shipment: "Awaiting Shipment",
+  tracking_submitted: "Tracking Submitted",
+  shipment_verified: "Shipment Verified",
+  shipped: "Shipped",
+  delivered: "Delivered",
+  refunded: "Refunded",
+  disputed: "Disputed",
+  cancelled: "Cancelled",
 };
 
-function PayoutStateBadge({ state }) {
-  const cfg = PAYOUT_STATE_CONFIG[state] || PAYOUT_STATE_CONFIG.pending;
-  const Icon = cfg.icon;
+const PAYOUT_STATUS_CONFIG = {
+  pending:                  { label: "Pending",            color: "#6B7280", bg: "#F9FAFB" },
+  held_first_sale:          { label: "Held — 1st Sale",    color: "#92400E", bg: "#FEF3C7" },
+  held_tracking_unverified: { label: "Held — Tracking",   color: "#1E40AF", bg: "#DBEAFE" },
+  held_dispute:             { label: "Held — Dispute",     color: "#991B1B", bg: "#FEE2E2" },
+  held_admin:               { label: "Held — Admin",       color: "#374151", bg: "#F3F4F6" },
+  awaiting_release:         { label: "Awaiting Release",   color: "#065F46", bg: "#D1FAE5" },
+  fully_released:           { label: "Paid Out",           color: "#166534", bg: "#DCFCE7" },
+  payout_failed:            { label: "Payout Failed",      color: "#991B1B", bg: "#FEE2E2" },
+};
+
+function PayoutBadge({ status }) {
+  const cfg = PAYOUT_STATUS_CONFIG[status] || PAYOUT_STATUS_CONFIG.pending;
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full"
+    <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full"
       style={{ backgroundColor: cfg.bg, color: cfg.color }}>
-      <Icon className="w-3 h-3" />
       {cfg.label}
     </span>
   );
 }
 
-function CheckRow({ label, satisfied }) {
+function StatusBadge({ status }) {
+  const label = CURRENT_STATUS_LABELS[status] || status;
   return (
-    <div className="flex items-center gap-2 py-1">
-      {satisfied
-        ? <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
-        : <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />}
-      <span className={`text-xs ${satisfied ? "text-gray-700" : "text-gray-400"}`}>{label}</span>
-    </div>
+    <span className="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-stone-100 text-stone-600">
+      {label}
+    </span>
   );
 }
 
-function OrderPayoutCard({ order, onUpdate }) {
-  const [saving, setSaving] = useState(false);
-  const state = getPayoutState(order);
-  const isCustom = order.order_type === "custom";
+function AdminOrderCard({ order, transferInstructions, onUpdate }) {
+  const [expanded, setExpanded] = useState(false);
+  const [adminNotes, setAdminNotes] = useState("");
+  const [deliveryDate, setDeliveryDate] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [actionResult, setActionResult] = useState(null);
 
-  const depositReady =
-    order.purchase_agreement_signed &&
-    ["deposit_paid", "awaiting_final_payment", "final_payment_received", "fully_paid"].includes(order.payment_stage);
+  const relevantTI = transferInstructions.find(ti => ti.order_id === order.id);
 
-  const finalPaymentReceived = order.final_payment_paid;
-  const trackingUploaded = !!order.tracking_number;
-  const trackingVerified = order.tracking_verified;
-  const firstTransactionSatisfied = order.is_first_transaction
-    ? order.delivery_confirmed
-    : trackingVerified;
-
-  const finalPayoutEligible = isCustom
-    ? finalPaymentReceived && trackingUploaded && trackingVerified && firstTransactionSatisfied
-    : order.status === "paid" && trackingUploaded && trackingVerified && firstTransactionSatisfied;
-
-  async function update(fields) {
-    setSaving(true);
-    await base44.entities.Order.update(order.id, fields);
-    onUpdate(order.id, fields);
-    setSaving(false);
+  async function invokeAction(fn, payload, successMsg) {
+    setProcessing(true);
+    setActionResult(null);
+    const res = await base44.functions.invoke(fn, payload);
+    if (res.data?.success || res.data?.clientSecret === undefined) {
+      setActionResult({ type: "success", msg: res.data?.message || successMsg });
+      onUpdate();
+    } else {
+      setActionResult({ type: "error", msg: res.data?.error || "Action failed." });
+    }
+    setProcessing(false);
   }
 
+  const canVerifyShipment = order.current_status === "tracking_submitted";
+  const canConfirmDelivery = ["shipment_verified", "shipped"].includes(order.current_status) && !order.delivery_confirmed;
+  const canProcessPayout = relevantTI?.status === "ready_for_transfer";
+
   return (
-    <div className="bg-white border rounded-xl p-5 space-y-4" style={{ borderColor: "#E0DDD8" }}>
+    <div className="bg-white border rounded-xl overflow-hidden" style={{ borderColor: "#E0DDD8" }}>
       {/* Header */}
-      <div className="flex flex-wrap items-start justify-between gap-3">
+      <div
+        className="flex flex-wrap items-start justify-between gap-3 p-5 cursor-pointer hover:bg-stone-50 transition-colors"
+        onClick={() => setExpanded(e => !e)}
+      >
         <div>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap mb-1">
             <p className="font-bold text-sm" style={{ color: "#1A1A1A" }}>
-              Order #{order.id.slice(-8).toUpperCase()}
+              #{order.id.slice(-8).toUpperCase()}
             </p>
-            <PayoutStateBadge state={state} />
-            {isCustom && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-medium">Custom Build</span>
-            )}
+            <StatusBadge status={order.current_status} />
+            <PayoutBadge status={order.payout_status} />
             {order.is_first_transaction && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium">1st Transaction</span>
+              <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium">
+                <Shield className="w-3 h-3" /> 1st Sale
+              </span>
+            )}
+            {order.order_type === "custom" && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-medium">Custom</span>
             )}
           </div>
-          <p className="text-xs text-gray-500 mt-0.5">
-            {order.builder_name} → {order.buyer_name || order.buyer_email}
+          <p className="text-xs text-stone-400">
+            <span className="font-medium text-stone-600">{order.builder_name}</span>
+            {" → "}{order.buyer_name || order.buyer_email}
             {order.created_date && ` · ${format(new Date(order.created_date), "MMM d, yyyy")}`}
           </p>
         </div>
-        <div className="text-right">
-          <p className="font-bold text-base" style={{ color: "#A0692A" }}>${order.total_amount?.toLocaleString()}</p>
-          {isCustom && order.deposit_amount && (
-            <p className="text-xs text-gray-500">Deposit: ${order.deposit_amount?.toLocaleString()}</p>
-          )}
-        </div>
-      </div>
-
-      {/* Checklist */}
-      <div className="grid sm:grid-cols-2 gap-x-6 gap-y-0 border-t pt-4" style={{ borderColor: "#F3F2EF" }}>
-        {isCustom ? (
-          <>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Deposit Payout</p>
-              <CheckRow label="Purchase agreement signed" satisfied={order.purchase_agreement_signed} />
-              <CheckRow
-                label="Deposit payment received"
-                satisfied={["deposit_paid","awaiting_final_payment","final_payment_received","fully_paid"].includes(order.payment_stage)}
-              />
-              {order.deposit_payout_released && (
-                <p className="text-xs text-green-600 font-medium mt-1">✓ Deposit released</p>
-              )}
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Final Payout</p>
-              <CheckRow label="Final payment received" satisfied={order.final_payment_paid} />
-              <CheckRow label="Tracking uploaded" satisfied={trackingUploaded} />
-              <CheckRow label="Tracking verified" satisfied={order.tracking_verified} />
-              {order.is_first_transaction
-                ? <CheckRow label="Delivery confirmed (1st transaction)" satisfied={order.delivery_confirmed} />
-                : <CheckRow label="First transaction rule N/A" satisfied={true} />
-              }
-              {order.final_payout_released && (
-                <p className="text-xs text-green-600 font-medium mt-1">✓ Final payout released</p>
-              )}
-            </div>
-          </>
-        ) : (
-          <div className="sm:col-span-2">
-            <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Payout Requirements</p>
-            <div className="grid sm:grid-cols-2 gap-x-6">
-              <div>
-                <CheckRow label="Buyer payment received" satisfied={order.status === "paid"} />
-                <CheckRow label="Tracking uploaded" satisfied={trackingUploaded} />
-              </div>
-              <div>
-                <CheckRow label="Tracking verified" satisfied={order.tracking_verified} />
-                {order.is_first_transaction
-                  ? <CheckRow label="Delivery confirmed (1st transaction)" satisfied={order.delivery_confirmed} />
-                  : <CheckRow label="First transaction rule N/A" satisfied={true} />
-                }
-              </div>
-            </div>
-            {order.final_payout_released && (
-              <p className="text-xs text-green-600 font-medium mt-1">✓ Payout released</p>
+        <div className="flex items-center gap-3">
+          <div className="text-right">
+            <p className="font-bold" style={{ color: "#A0692A" }}>${(order.total_gross_amount || order.total_amount || 0).toLocaleString()}</p>
+            {order.tracking_number && (
+              <p className="text-xs text-stone-400 font-mono mt-0.5">{order.tracking_carrier} {order.tracking_number}</p>
             )}
           </div>
-        )}
-      </div>
-
-      {/* Admin Controls */}
-      <div className="border-t pt-4 space-y-3" style={{ borderColor: "#F3F2EF" }}>
-        <p className="text-xs font-bold uppercase tracking-wider text-gray-400">Admin Controls</p>
-
-        <div className="flex flex-wrap gap-2">
-          {/* Toggle flags */}
-          {isCustom && !order.purchase_agreement_signed && (
-            <button onClick={() => update({ purchase_agreement_signed: true })} disabled={saving}
-              className="text-xs px-3 py-1.5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
-              ✓ Mark Agreement Signed
-            </button>
-          )}
-          {isCustom && !order.final_payment_paid && (
-            <button onClick={() => update({ final_payment_paid: true, payment_stage: "final_payment_received" })} disabled={saving}
-              className="text-xs px-3 py-1.5 rounded-lg border border-blue-300 text-blue-700 hover:bg-blue-50 transition-colors">
-              ✓ Mark Final Payment Received
-            </button>
-          )}
-          {!order.tracking_verified && trackingUploaded && (
-            <button onClick={() => update({ tracking_verified: true })} disabled={saving}
-              className="text-xs px-3 py-1.5 rounded-lg border border-indigo-300 text-indigo-700 hover:bg-indigo-50 transition-colors">
-              ✓ Verify Tracking
-            </button>
-          )}
-          {!order.delivery_confirmed && (
-            <button onClick={() => update({ delivery_confirmed: true })} disabled={saving}
-              className="text-xs px-3 py-1.5 rounded-lg border border-teal-300 text-teal-700 hover:bg-teal-50 transition-colors">
-              ✓ Confirm Delivery
-            </button>
-          )}
-          <button
-            onClick={() => update({ is_first_transaction: !order.is_first_transaction })}
-            disabled={saving}
-            className={`text-xs px-3 py-1.5 rounded-lg border transition-colors ${
-              order.is_first_transaction
-                ? "border-amber-300 text-amber-700 bg-amber-50"
-                : "border-gray-300 text-gray-600 hover:bg-gray-50"
-            }`}>
-            {order.is_first_transaction ? "1st Txn: ON" : "Mark 1st Transaction"}
-          </button>
-        </div>
-
-        {/* Purchase Agreement */}
-        <PurchaseAgreementButton orderId={order.id} userRole="admin" />
-
-        {/* Payout release buttons */}
-        <div className="flex flex-wrap gap-3">
-          {isCustom && (
-            <button
-              disabled={saving || order.deposit_payout_released || !depositReady}
-              onClick={() => update({ deposit_payout_released: true })}
-              className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${
-                order.deposit_payout_released
-                  ? "bg-gray-100 text-gray-400 cursor-default"
-                  : depositReady
-                  ? "bg-green-600 text-white hover:bg-green-700"
-                  : "bg-gray-100 text-gray-400 cursor-not-allowed"
-              }`}>
-              {order.deposit_payout_released ? "Deposit Released ✓" : "Release Deposit"}
-            </button>
-          )}
-          <button
-            disabled={saving || order.final_payout_released || !finalPayoutEligible}
-            onClick={() => update({ final_payout_released: true })}
-            className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${
-              order.final_payout_released
-                ? "bg-gray-100 text-gray-400 cursor-default"
-                : finalPayoutEligible
-                ? "bg-green-600 text-white hover:bg-green-700"
-                : "bg-gray-100 text-gray-400 cursor-not-allowed"
-            }`}>
-            {order.final_payout_released
-              ? "Final Payout Released ✓"
-              : isCustom ? "Release Final Payout" : "Release Payout"}
-          </button>
-          {!finalPayoutEligible && !order.final_payout_released && (
-            <p className="text-xs text-gray-400 self-center">
-              {isCustom && !order.final_payment_paid
-                ? "Awaiting final payment"
-                : !trackingUploaded
-                ? "Awaiting tracking"
-                : !order.tracking_verified
-                ? "Tracking not verified"
-                : order.is_first_transaction && !order.delivery_confirmed
-                ? "Awaiting delivery confirmation (1st transaction)"
-                : "Requirements not met"}
-            </p>
-          )}
+          {expanded ? <ChevronUp className="w-4 h-4 text-stone-400" /> : <ChevronDown className="w-4 h-4 text-stone-400" />}
         </div>
       </div>
+
+      {/* Expanded */}
+      {expanded && (
+        <div className="border-t px-5 pb-5 pt-4 space-y-5" style={{ borderColor: "#F3F2EF" }}>
+
+          {/* Payout Breakdown */}
+          <PayoutBreakdown order={order} showAdminDetail={true} />
+
+          {/* Transfer Instruction Status */}
+          {relevantTI && (
+            <div className="border border-stone-200 rounded-xl p-4 text-sm space-y-1">
+              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-2">Transfer Instruction</p>
+              <div className="flex justify-between text-stone-600">
+                <span>Status</span>
+                <span className="font-medium capitalize">{relevantTI.status?.replace(/_/g, " ")}</span>
+              </div>
+              <div className="flex justify-between text-stone-600">
+                <span>Net Amount</span>
+                <span className="font-bold" style={{ color: NAVY }}>${relevantTI.transfer_amount_net?.toFixed(2)}</span>
+              </div>
+              {relevantTI.stripe_transfer_id && (
+                <div className="flex justify-between text-stone-400 text-xs">
+                  <span>Transfer ID</span>
+                  <span className="font-mono">{relevantTI.stripe_transfer_id}</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* PayoutHold info */}
+          {order.payout_status === "held_first_sale" && (
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200">
+              <Shield className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold text-amber-800">First Sale Hold Active</p>
+                <p className="text-xs text-amber-700 mt-0.5">Payout is held until delivery is confirmed. Use "Confirm Delivery" below to release.</p>
+              </div>
+            </div>
+          )}
+
+          {/* Admin Notes */}
+          <div>
+            <label className="block text-xs font-medium text-stone-600 mb-1">Admin Notes (optional)</label>
+            <textarea
+              rows={2}
+              value={adminNotes}
+              onChange={e => setAdminNotes(e.target.value)}
+              placeholder="Internal notes for this action..."
+              className="w-full border border-stone-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-400 resize-none"
+            />
+          </div>
+
+          {/* Action Result */}
+          {actionResult && (
+            <div className={`flex items-start gap-2 p-3 rounded-lg text-sm border ${
+              actionResult.type === "success"
+                ? "bg-green-50 border-green-200 text-green-800"
+                : "bg-red-50 border-red-200 text-red-700"
+            }`}>
+              {actionResult.type === "success"
+                ? <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                : <XCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              }
+              {actionResult.msg}
+            </div>
+          )}
+
+          {/* Admin Action Buttons */}
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">Admin Actions</p>
+            <div className="flex flex-wrap gap-2">
+
+              {/* Verify Shipment */}
+              {canVerifyShipment && (
+                <>
+                  <button
+                    disabled={processing}
+                    onClick={() => invokeAction("verifyShipment", { orderId: order.id, verified: true, adminNotes }, "Shipment verified.")}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                    style={{ backgroundColor: "#059669" }}
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Verify Shipment
+                  </button>
+                  <button
+                    disabled={processing}
+                    onClick={() => invokeAction("verifyShipment", { orderId: order.id, verified: false, adminNotes }, "Tracking rejected.")}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg border text-red-700 border-red-300 bg-red-50 hover:bg-red-100 transition-colors disabled:opacity-50"
+                  >
+                    <XCircle className="w-3.5 h-3.5" /> Reject Tracking
+                  </button>
+                </>
+              )}
+
+              {/* Confirm Delivery */}
+              {canConfirmDelivery && (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <input
+                    type="date"
+                    value={deliveryDate}
+                    onChange={e => setDeliveryDate(e.target.value)}
+                    className="border border-stone-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:border-indigo-400"
+                  />
+                  <button
+                    disabled={processing}
+                    onClick={() => invokeAction("confirmDelivery", { orderId: order.id, deliveryDate, adminNotes }, "Delivery confirmed. Payout queued.")}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                    style={{ backgroundColor: "#0284C7" }}
+                  >
+                    <Package className="w-3.5 h-3.5" /> Confirm Delivery
+                  </button>
+                </div>
+              )}
+
+              {/* Process Payout */}
+              {canProcessPayout && relevantTI && (
+                <button
+                  disabled={processing}
+                  onClick={() => invokeAction("processTransferInstruction", { transferInstructionId: relevantTI.id }, "Payout transfer initiated.")}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                  style={{ backgroundColor: NAVY }}
+                  onMouseEnter={e => !processing && (e.currentTarget.style.backgroundColor = "#1A2D45")}
+                  onMouseLeave={e => !processing && (e.currentTarget.style.backgroundColor = NAVY)}
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  {processing ? "Processing..." : `Release Payout — $${relevantTI.transfer_amount_net?.toFixed(2)}`}
+                </button>
+              )}
+
+              {/* Status label when no actions available */}
+              {!canVerifyShipment && !canConfirmDelivery && !canProcessPayout && (
+                <p className="text-xs text-stone-400 italic">
+                  {order.payout_status === "fully_released"
+                    ? "✓ Payout complete"
+                    : order.payout_status === "payout_failed"
+                    ? "⚠ Payout failed — check Stripe"
+                    : "No actions available at this stage"}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 const FILTER_OPTIONS = [
   { key: "all", label: "All Orders" },
-  { key: "deposit_ready", label: "Deposit Ready" },
-  { key: "final_payout_ready", label: "Final Payout Ready" },
-  { key: "waiting_final_payment", label: "Waiting Final Payment" },
-  { key: "waiting_tracking", label: "Waiting Tracking" },
-  { key: "waiting_delivery", label: "Waiting Delivery" },
-  { key: "paid", label: "Paid Out" },
+  { key: "stock", label: "Stock Builds Only" },
+  { key: "tracking_submitted", label: "Tracking Submitted" },
+  { key: "awaiting_release", label: "Awaiting Payout Release" },
+  { key: "held_first_sale", label: "Held — First Sale" },
+  { key: "fully_released", label: "Paid Out" },
+  { key: "payout_failed", label: "Payout Failed" },
 ];
 
 export default function AdminPayouts() {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
+  const [transferInstructions, setTransferInstructions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -314,20 +291,23 @@ export default function AdminPayouts() {
       const u = await base44.auth.me();
       setUser(u);
       if (u.role !== "admin") { setLoading(false); return; }
-      const allOrders = await base44.entities.Order.list("-created_date", 300);
-      // Only show paid or in-progress orders (skip pending/cancelled)
-      setOrders(allOrders.filter(o => o.status !== "cancelled"));
+      const [allOrders, allTIs] = await Promise.all([
+        base44.entities.Order.list("-created_date", 300),
+        base44.entities.TransferInstruction.list("-created_date", 300),
+      ]);
+      setOrders(allOrders.filter(o => o.current_status !== "cancelled"));
+      setTransferInstructions(allTIs);
     } catch { base44.auth.redirectToLogin(); }
     setLoading(false);
   }
 
-  function handleUpdate(orderId, fields) {
-    setOrders(prev => prev.map(o => o.id === orderId ? { ...o, ...fields } : o));
-  }
-
   const filtered = orders.filter(o => {
-    const state = getPayoutState(o);
-    const matchesFilter = filter === "all" || state === filter;
+    const matchesFilter =
+      filter === "all" ? true :
+      filter === "stock" ? o.order_type === "stock" :
+      ["pending", "awaiting_release", "held_first_sale", "held_tracking_unverified", "fully_released", "payout_failed"].includes(filter)
+        ? o.payout_status === filter
+        : o.current_status === filter;
     const matchesSearch = !search ||
       o.builder_name?.toLowerCase().includes(search.toLowerCase()) ||
       o.buyer_name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -336,7 +316,11 @@ export default function AdminPayouts() {
     return matchesFilter && matchesSearch;
   });
 
-  const urgentCount = orders.filter(o => ["deposit_ready","final_payout_ready"].includes(getPayoutState(o))).length;
+  const urgentCount = orders.filter(o =>
+    o.current_status === "tracking_submitted" ||
+    o.payout_status === "awaiting_release" ||
+    transferInstructions.some(ti => ti.order_id === o.id && ti.status === "ready_for_transfer")
+  ).length;
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-[60vh]">
@@ -361,12 +345,14 @@ export default function AdminPayouts() {
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
               <h1 className="text-3xl font-bold" style={{ color: "#1A1A1A" }}>Payout Management</h1>
-              <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>Review payout readiness and release builder payouts.</p>
+              <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>
+                Verify shipments, confirm deliveries, and release builder payouts.
+              </p>
             </div>
             {urgentCount > 0 && (
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ backgroundColor: "#FEF3C7", color: "#92400E" }}>
                 <AlertTriangle className="w-4 h-4" />
-                <span className="text-sm font-semibold">{urgentCount} payout{urgentCount !== 1 ? "s" : ""} ready for release</span>
+                <span className="text-sm font-semibold">{urgentCount} order{urgentCount !== 1 ? "s" : ""} need attention</span>
               </div>
             )}
           </div>
@@ -390,25 +376,26 @@ export default function AdminPayouts() {
             onChange={e => setFilter(e.target.value)}
             className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-300"
           >
-            {FILTER_OPTIONS.map(opt => (
-              <option key={opt.key} value={opt.key}>{opt.label}</option>
-            ))}
+            {FILTER_OPTIONS.map(opt => <option key={opt.key} value={opt.key}>{opt.label}</option>)}
           </select>
-          <button onClick={() => loadData()} className="flex items-center gap-1.5 text-xs font-medium px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button onClick={loadData} className="flex items-center gap-1.5 text-xs font-medium px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             <RefreshCw className="w-3.5 h-3.5" /> Refresh
           </button>
         </div>
 
-        {/* Count */}
         <p className="text-xs text-gray-400">{filtered.length} order{filtered.length !== 1 ? "s" : ""} shown</p>
 
-        {/* Order Cards */}
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-gray-400">No orders match this filter.</div>
         ) : (
           <div className="space-y-4">
             {filtered.map(order => (
-              <OrderPayoutCard key={order.id} order={order} onUpdate={handleUpdate} />
+              <AdminOrderCard
+                key={order.id}
+                order={order}
+                transferInstructions={transferInstructions}
+                onUpdate={loadData}
+              />
             ))}
           </div>
         )}

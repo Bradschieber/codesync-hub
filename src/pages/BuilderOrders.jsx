@@ -9,6 +9,8 @@ import FulfillmentStatusBadge, { STOCK_STATUSES, CUSTOM_STATUSES, STATUS_COLORS 
 import OrderProgressTracker from "../components/orders/OrderProgressTracker";
 import BuildUpdateComposer from "../components/orders/BuildUpdateComposer";
 import BuildUpdatesFeed from "../components/orders/BuildUpdatesFeed";
+import TrackingSubmitForm from "../components/orders/TrackingSubmitForm";
+import PayoutBreakdown from "../components/orders/PayoutBreakdown";
 
 export default function BuilderOrders() {
   const [orders, setOrders] = useState([]);
@@ -197,6 +199,21 @@ export default function BuilderOrders() {
 
                     {/* Builder Notes */}
                     <BuilderNotesEditor order={order} onSave={(notes) => saveOrderDates(order, { builder_notes: notes })} saving={updating[order.id]} />
+
+                    {/* Tracking submission — stock builds */}
+                    {order.order_type === "stock" && ["awaiting_shipment", "tracking_submitted", "shipment_verified"].includes(order.current_status) && (
+                      <TrackingSubmitForm
+                        order={order}
+                        onTrackingSubmitted={(updates) => {
+                          setOrders(prev => prev.map(o => o.id === order.id ? { ...o, ...updates } : o));
+                        }}
+                      />
+                    )}
+
+                    {/* Payout breakdown — stock builds */}
+                    {order.order_type === "stock" && order.current_status !== "pending_payment" && (
+                      <PayoutBreakdown order={order} showAdminDetail={false} />
+                    )}
 
                     {/* Build Updates — custom builds only */}
                     {order.order_type === "custom" && (

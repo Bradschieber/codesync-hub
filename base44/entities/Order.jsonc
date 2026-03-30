@@ -48,6 +48,9 @@
       "enum": [
         "pending_payment",
         "payment_succeeded",
+        "awaiting_shipment",
+        "tracking_submitted",
+        "shipment_verified",
         "builder_confirmed",
         "building_in_progress",
         "build_complete_awaiting_final_payment",
@@ -124,6 +127,10 @@
     "stripe_fee_amount": {
       "type": "number",
       "description": "Actual Stripe processing fee, recorded from Stripe webhook"
+    },
+    "stripe_fee_estimated": {
+      "type": "number",
+      "description": "Estimated Stripe fee at time of PaymentIntent creation"
     },
     "builder_net_payout_expected": {
       "type": "number",

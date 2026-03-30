@@ -20,6 +20,13 @@ const NAVY = "#1B2B4B";
 const AMBER = "#C57A1F";
 
 const STATUS_MESSAGES = {
+  // Stock build statuses
+  pending_payment:       { text: "Your order is awaiting payment.", type: "info" },
+  payment_succeeded:     { text: "Payment received! The builder is preparing your instrument for shipment.", type: "info" },
+  awaiting_shipment:     { text: "Payment confirmed. The builder is preparing to ship your instrument.", type: "info" },
+  tracking_submitted:    { text: "The builder has submitted tracking information. Our team is verifying shipment.", type: "info" },
+  shipment_verified:     { text: "Shipment has been verified. Your instrument is on its way!", type: "shipped" },
+  // Fulfillment statuses
   order_received:        { text: "Your order has been received. The builder will confirm it shortly.", type: "info" },
   order_confirmed:       { text: "Your builder has confirmed the order and will begin preparing the instrument.", type: "info" },
   deposit_paid:          { text: "Deposit received. Your builder will schedule your build and begin work soon.", type: "info" },
@@ -30,10 +37,23 @@ const STATUS_MESSAGES = {
   preparing_to_ship:     { text: "The builder is preparing your instrument for shipment.", type: "info" },
   shipped:               { text: "Your instrument has shipped and is on the way.", type: "shipped" },
   received_by_buyer:     { text: "Your instrument has been delivered. Enjoy!", type: "complete" },
+  delivered:             { text: "Your instrument has been delivered. Enjoy!", type: "complete" },
   cancelled:             { text: "This order has been cancelled.", type: "cancelled" },
 };
 
 function getEffectiveStatus(order) {
+  // For stock builds, prefer current_status for up-to-date state
+  if (order.order_type === "stock" && order.current_status) {
+    const stockStatusMap = {
+      pending_payment: "pending_payment",
+      payment_succeeded: "payment_succeeded",
+      awaiting_shipment: "awaiting_shipment",
+      tracking_submitted: "tracking_submitted",
+      shipment_verified: "shipment_verified",
+      delivered: "delivered",
+    };
+    if (stockStatusMap[order.current_status]) return stockStatusMap[order.current_status];
+  }
   if (
     order.order_type === "custom" &&
     order.fulfillment_status === "build_complete" &&
@@ -80,8 +100,16 @@ export default function Orders() {
     setExpanded(e => ({ ...e, [id]: !e[id] }));
   }
 
-  const activeOrders = orders.filter(o => o.fulfillment_status !== "received_by_buyer" && o.status !== "cancelled");
-  const pastOrders   = orders.filter(o => o.fulfillment_status === "received_by_buyer" || o.status === "cancelled");
+  const activeOrders = orders.filter(o =>
+    !["received_by_buyer", "delivered"].includes(o.fulfillment_status) &&
+    !["delivered", "cancelled", "refunded"].includes(o.current_status) &&
+    o.status !== "cancelled"
+  );
+  const pastOrders = orders.filter(o =>
+    ["received_by_buyer", "delivered"].includes(o.fulfillment_status) ||
+    ["delivered", "cancelled", "refunded"].includes(o.current_status) ||
+    o.status === "cancelled"
+  );
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10" style={{ minHeight: "100vh", backgroundColor: "#FAF9F7" }}>
