@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Package, Hammer, MessageSquare, User, Star, ShoppingBag, Plus, ArrowRight, RotateCcw, Users, ShieldCheck, Camera, X, Eye, Rocket, Check, BookOpen } from "lucide-react";
 import StripePayoutStatus from "../components/dashboard/StripePayoutStatus";
+import StripeConnectOnboarding from "../components/builder/StripeConnectOnboarding";
 
 const NAVY = "#1B2B4B";
 
@@ -131,8 +132,16 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stripe Connect Onboarding — shown when not complete */}
+        {profile?.stripe_onboarding_status !== "complete" && (
+          <StripeConnectOnboarding
+            profile={profile}
+            onStatusUpdate={(updates) => setProfile(p => ({ ...p, ...updates }))}
+          />
+        )}
+
         {/* Stripe Payout Status */}
-        <StripePayoutStatus profile={profile} />
+        {profile?.stripe_onboarding_status === "complete" && <StripePayoutStatus profile={profile} />}
 
         {/* Launch Progress Banner */}
         {showLaunchBanner && (

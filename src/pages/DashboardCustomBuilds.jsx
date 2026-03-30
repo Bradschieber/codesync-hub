@@ -72,6 +72,16 @@ export default function DashboardCustomBuilds() {
         <h1 className="text-2xl font-bold text-stone-800">Custom Builds</h1>
       </div>
 
+      {!profile?.stripe_payouts_enabled && (
+        <div className="mb-5 flex items-start gap-3 p-4 border rounded-xl bg-amber-50 border-amber-200">
+          <span className="text-amber-500 text-lg flex-shrink-0">⚠</span>
+          <div>
+            <p className="text-sm font-semibold text-amber-900">Stripe account required to accept custom builds</p>
+            <p className="text-xs text-amber-700 mt-0.5">Connect your Stripe account before activating custom build listings. <a href="/Dashboard" className="underline font-medium">Set up Stripe →</a></p>
+          </div>
+        </div>
+      )}
+
       <div className="border-b border-stone-200 mb-6 flex gap-1">
         {[
           { id: "specs", label: "My Specifications" },

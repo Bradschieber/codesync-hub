@@ -15,6 +15,7 @@ import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
 import LegalLink from "../components/legal/LegalLink";
 import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConfig";
+import StripeConnectOnboarding from "../components/builder/StripeConnectOnboarding";
 
 const NAVY = "#2F3E55";
 
@@ -70,6 +71,7 @@ const STEPS = [
   { id: "business",   label: "Your Business",   icon: Hammer },
   { id: "policies",   label: "Shop Policies",   icon: ShieldCheck },
   { id: "references", label: "References",      icon: Users },
+  { id: "stripe",     label: "Payments",        icon: ShieldCheck },
   { id: "complete",   label: "Next Steps",      icon: Sparkles },
 ];
 
@@ -257,8 +259,9 @@ export default function BuilderOnboarding() {
               {step === 2 && "Visual Identity — Step 3 of 7"}
               {step === 3 && "Your Offering — Step 4 of 7"}
               {step === 4 && "Step 5 of 7 — Shop Policies"}
-              {step === 5 && "Step 6 of 7 — References"}
-              {step === 6 && "Step 7 of 7 — Next Steps"}
+              {step === 5 && "Step 6 of 8 — References"}
+              {step === 6 && "Step 7 of 8 — Connect Stripe"}
+              {step === 7 && "Step 8 of 8 — Next Steps"}
             </p>
 
             {step === 0 && <>
@@ -296,6 +299,10 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional — you can add references now or later from your dashboard.</p>
             </>}
             {step === 6 && <>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Connect your payment account.</h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Set up Stripe to receive payouts from your sales. This is required before you can publish listings.</p>
+            </>}
+            {step === 7 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Your storefront foundation is complete.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
                 You've completed your builder profile, shop details, and policies. To submit your storefront for review, add at least one complete product listing buyers can explore.
@@ -678,8 +685,19 @@ export default function BuilderOnboarding() {
             </div>
           )}
 
-          {/* STEP 7: Complete / Next Steps */}
+          {/* STEP 7: Connect Stripe */}
           {step === 6 && (
+            <div className="space-y-6">
+              <GuidanceCard>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why Stripe is required</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>All payments on Stringed Collective flow through Stripe. Connecting your account is required before you can publish listings or receive payouts. The setup takes about 5 minutes.</p>
+              </GuidanceCard>
+              <StripeConnectOnboarding profile={form} onStatusUpdate={(updates) => setForm(f => ({ ...f, ...updates }))} />
+            </div>
+          )}
+
+          {/* STEP 8: Complete / Next Steps */}
+          {step === 7 && (
             <div className="space-y-6">
 
               {/* What's complete */}

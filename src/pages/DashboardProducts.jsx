@@ -52,6 +52,16 @@ export default function DashboardProducts() {
       </div>
       <p className="text-stone-500 mb-6 ml-8">{products.length} listings</p>
 
+      {!profile?.stripe_payouts_enabled && (
+        <div className="mb-5 flex items-start gap-3 p-4 border rounded-xl bg-amber-50 border-amber-200">
+          <span className="text-amber-500 text-lg flex-shrink-0">⚠</span>
+          <div>
+            <p className="text-sm font-semibold text-amber-900">Stripe account required to publish listings</p>
+            <p className="text-xs text-amber-700 mt-0.5">You can create and edit listings, but they won't be visible to buyers until your Stripe account is connected and verified. <a href="/Dashboard" className="underline font-medium">Set up Stripe →</a></p>
+          </div>
+        </div>
+      )}
+
       {!showForm && (
         <button onClick={() => { setEditing(null); setShowForm(true); }} className="flex items-center gap-2 text-white font-medium px-5 py-2.5 rounded-xl text-sm mb-6" style={{ backgroundColor: "#1B2B4B" }} onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"} onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}>
           <Plus className="w-4 h-4" /> Add New Product
