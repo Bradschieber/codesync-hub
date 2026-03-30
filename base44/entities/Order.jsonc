@@ -51,12 +51,23 @@
         "awaiting_shipment",
         "tracking_submitted",
         "shipment_verified",
+        "agreement_pending",
+        "agreement_accepted",
+        "deposit_pending",
+        "deposit_paid",
+        "deposit_paid_pending_admin_release",
+        "build_authorized",
+        "build_in_progress",
+        "build_complete",
+        "final_payment_pending",
+        "final_payment_paid",
         "builder_confirmed",
         "building_in_progress",
         "build_complete_awaiting_final_payment",
         "fully_paid",
         "shipped",
         "delivered",
+        "buyer_default_review",
         "refunded",
         "disputed",
         "cancelled"
@@ -85,6 +96,7 @@
       "enum": [
         "pending",
         "held_first_sale",
+        "held_first_custom_deposit",
         "held_tracking_unverified",
         "held_dispute",
         "held_admin",
@@ -140,13 +152,46 @@
       "type": "number",
       "description": "Deposit amount required (from policy)"
     },
+    "deposit_platform_fee_amount": {
+      "type": "number",
+      "description": "SC 5% fee on deposit portion"
+    },
+    "deposit_stripe_fee_amount": {
+      "type": "number",
+      "description": "Stripe fee on deposit portion"
+    },
+    "deposit_builder_net": {
+      "type": "number",
+      "description": "Builder net from deposit after fees"
+    },
     "deposit_amount_paid": {
       "type": "number",
       "description": "Actual deposit amount received"
     },
+    "final_balance_amount": {
+      "type": "number",
+      "description": "Remaining balance due from buyer"
+    },
+    "final_balance_platform_fee_amount": {
+      "type": "number",
+      "description": "SC 5% fee on final balance portion"
+    },
+    "final_balance_stripe_fee_amount": {
+      "type": "number",
+      "description": "Stripe fee on final balance portion"
+    },
+    "final_balance_builder_net": {
+      "type": "number",
+      "description": "Builder net from final balance after fees"
+    },
     "final_balance_amount_paid": {
       "type": "number",
       "description": "Actual final balance payment received"
+    },
+    "final_payment_due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date by which buyer must pay final balance"
     },
     "refund_amount": {
       "type": "number",
@@ -155,11 +200,23 @@
     },
     "stripe_payment_intent_id": {
       "type": "string",
-      "description": "Stripe PaymentIntent ID for the primary charge"
+      "description": "Stripe PaymentIntent ID for the primary/deposit charge"
+    },
+    "stripe_deposit_payment_intent_id": {
+      "type": "string",
+      "description": "Stripe PaymentIntent ID specifically for deposit"
+    },
+    "stripe_final_payment_intent_id": {
+      "type": "string",
+      "description": "Stripe PaymentIntent ID for final balance"
     },
     "stripe_charge_id": {
       "type": "string",
-      "description": "Stripe Charge ID associated with primary payment"
+      "description": "Stripe Charge ID for primary/deposit payment"
+    },
+    "stripe_final_charge_id": {
+      "type": "string",
+      "description": "Stripe Charge ID for final balance payment"
     },
     "stripe_account_id_destination": {
       "type": "string",
@@ -176,6 +233,11 @@
     "purchase_agreement_signed": {
       "type": "boolean",
       "default": false
+    },
+    "agreement_accepted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the buyer accepted the purchase agreement"
     },
     "final_payment_paid": {
       "type": "boolean",
@@ -194,6 +256,11 @@
       "default": false,
       "description": "If true, first-sale hold rules apply to this order"
     },
+    "is_first_custom_build": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, first custom build deposit hold rules apply"
+    },
     "delivery_confirmed": {
       "type": "boolean",
       "default": false
@@ -201,7 +268,7 @@
     "delivery_confirmed_date": {
       "type": "string",
       "format": "date",
-      "description": "Date delivery was confirmed (required to release first-sale hold)"
+      "description": "Date delivery was confirmed"
     },
     "tracking_verified": {
       "type": "boolean",
@@ -231,6 +298,10 @@
     },
     "builder_notes": {
       "type": "string"
+    },
+    "custom_build_specs": {
+      "type": "object",
+      "description": "Agreed specifications for this custom build"
     },
     "warranty_snapshot": {
       "type": "object"

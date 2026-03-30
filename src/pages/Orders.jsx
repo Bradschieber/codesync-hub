@@ -15,6 +15,9 @@ import PurchaseAgreementButton from "../components/orders/PurchaseAgreementButto
 import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
 import LegalLink from "../components/legal/LegalLink";
 import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConfig";
+import CustomBuildAgreementReview from "../components/orders/CustomBuildAgreementReview";
+import DepositPaymentForm from "../components/orders/DepositPaymentForm";
+import FinalPaymentForm from "../components/orders/FinalPaymentForm";
 
 const NAVY = "#1B2B4B";
 const AMBER = "#C57A1F";
@@ -175,36 +178,19 @@ export default function Orders() {
 }
 
 function OrderCard({ order, user, expanded, onToggle, onContact }) {
-  const instruments  = order.items || [];
+  const instruments  = currentOrder.items || [];
   const primaryItem  = instruments[0];
-  const effectiveStatus = getEffectiveStatus(order);
+  const effectiveStatus = getEffectiveStatus(currentOrder);
   const statusMsg    = STATUS_MESSAGES[effectiveStatus];
-  const isFinalPaymentDue = effectiveStatus === "awaiting_final_payment";
-  const isShipped    = order.fulfillment_status === "shipped";
-  const remainingBalance = (order.total_amount || 0) - (order.deposit_amount || 0);
+  const isFinalPaymentDue = currentOrder.current_status === "final_payment_pending";
+  const isAgreementPending = currentOrder.current_status === "agreement_pending" && !currentOrder.purchase_agreement_signed;
+  const isDepositPending = ["agreement_accepted", "deposit_pending"].includes(currentOrder.current_status);
+  const isShipped    = ["shipment_verified", "shipped"].includes(currentOrder.current_status) || currentOrder.fulfillment_status === "shipped";
+  const remainingBalance = currentOrder.final_balance_amount || ((currentOrder.total_amount || 0) - (currentOrder.deposit_amount || 0));
 
   // Final payment legal acceptance state (per card instance)
-  const [finalPaymentChecked, setFinalPaymentChecked] = useState({ authorize: false, shipment: false });
-  const [payingFinal, setPayingFinal] = useState(false);
-
-  async function handleFinalPayment() {
-    if (!finalPaymentChecked.authorize) return;
-    setPayingFinal(true);
-    await logLegalAcceptance(base44, {
-      user,
-      agreementType: "final_payment_authorization",
-      checkboxLabels: [
-        "I authorize payment of the final balance for this custom build.",
-        ...(finalPaymentChecked.shipment ? ["I understand that shipment will not occur until final payment is received through Stringed Collective."] : []),
-      ],
-      documentUrls: [LEGAL_URLS.buyer_terms],
-      versions: { buyer_terms: LEGAL_VERSIONS.buyer_terms },
-      sourceScreen: "Orders",
-      orderId: order.id,
-    });
-    alert("Please contact Stringed Collective to complete your final balance payment. Your authorization has been recorded.");
-    setPayingFinal(false);
-  }
+  const [localOrder, setLocalOrder] = useState(order);
+  const currentOrder = localOrder;
 
   return (
     <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
@@ -249,51 +235,31 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
       {expanded && (
         <div className="border-t border-stone-100 px-5 pb-6 pt-4 space-y-5">
 
-          {/* Final Payment Banner with Legal Acceptance */}
+          {/* Custom build agreement review */}
+          {isAgreementPending && (
+            <CustomBuildAgreementReview
+              order={currentOrder}
+              builder={null}
+              onAgreementAccepted={(data) => setLocalOrder(o => ({ ...o, current_status: "agreement_accepted", purchase_agreement_signed: true, deposit_amount: data.depositAmount, final_balance_amount: data.finalBalance }))}
+            />
+          )}
+
+          {/* Deposit payment */}
+          {isDepositPending && (
+            <DepositPaymentForm
+              order={currentOrder}
+              user={user}
+              onDepositPaid={() => setLocalOrder(o => ({ ...o, current_status: "deposit_paid" }))}
+            />
+          )}
+
+          {/* Final payment */}
           {isFinalPaymentDue && (
-            <div className="rounded-xl border-2 p-5 space-y-4" style={{ borderColor: AMBER, backgroundColor: "#FDF8F0" }}>
-              <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: AMBER }} />
-                <div className="flex-1">
-                  <p className="font-bold text-sm mb-1" style={{ color: "#7A4A10" }}>Your instrument is complete</p>
-                  <p className="text-sm mb-2 leading-relaxed" style={{ color: "#8C5E20" }}>
-                    Your builder has marked this custom build complete. Final payment is required before shipment can proceed.
-                  </p>
-                  {order.deposit_amount > 0 && (
-                    <p className="text-sm font-semibold" style={{ color: "#7A4A10" }}>
-                      Final balance: <span style={{ color: AMBER }}>${remainingBalance.toLocaleString()}</span>
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <LegalAcceptanceBlock
-                checkboxes={[
-                  {
-                    id: "authorize",
-                    label: "I authorize payment of the final balance for this custom build.",
-                  },
-                  {
-                    id: "shipment",
-                    required: false,
-                    label: <>I understand that shipment will not occur until final payment is received through Stringed Collective. <span className="text-stone-400 font-normal">(View <LegalLink href={LEGAL_URLS.buyer_terms}>Buyer Terms</LegalLink>)</span></>,
-                  },
-                ]}
-                checked={finalPaymentChecked}
-                onChange={(id, val) => setFinalPaymentChecked(prev => ({ ...prev, [id]: val }))}
-              />
-
-              <button
-                onClick={handleFinalPayment}
-                disabled={!finalPaymentChecked.authorize || payingFinal}
-                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
-                style={{ backgroundColor: AMBER }}
-                onMouseEnter={e => { if (finalPaymentChecked.authorize) e.currentTarget.style.backgroundColor = "#a8661a"; }}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
-              >
-                <CreditCard className="w-4 h-4" /> {payingFinal ? "Processing..." : "Pay Final Balance"}
-              </button>
-            </div>
+            <FinalPaymentForm
+              order={currentOrder}
+              user={user}
+              onFinalPaid={() => setLocalOrder(o => ({ ...o, current_status: "final_payment_paid", final_payment_paid: true }))}
+            />
           )}
 
           {/* Dynamic Status Message (non-payment stages) */}

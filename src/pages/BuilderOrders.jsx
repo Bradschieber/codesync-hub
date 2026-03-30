@@ -11,6 +11,7 @@ import BuildUpdateComposer from "../components/orders/BuildUpdateComposer";
 import BuildUpdatesFeed from "../components/orders/BuildUpdatesFeed";
 import TrackingSubmitForm from "../components/orders/TrackingSubmitForm";
 import PayoutBreakdown from "../components/orders/PayoutBreakdown";
+import BuilderCustomOrderControls from "../components/orders/BuilderCustomOrderControls";
 
 export default function BuilderOrders() {
   const [orders, setOrders] = useState([]);
@@ -213,6 +214,14 @@ export default function BuilderOrders() {
                     {/* Payout breakdown — stock builds */}
                     {order.order_type === "stock" && order.current_status !== "pending_payment" && (
                       <PayoutBreakdown order={order} showAdminDetail={false} />
+                    )}
+
+                    {/* Custom build controls — mark in progress, mark complete */}
+                    {order.order_type === "custom" && (
+                      <BuilderCustomOrderControls
+                        order={order}
+                        onOrderUpdated={(updates) => setOrders(prev => prev.map(o => o.id === order.id ? { ...o, ...updates } : o))}
+                      />
                     )}
 
                     {/* Build Updates — custom builds only */}

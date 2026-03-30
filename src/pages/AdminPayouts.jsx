@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   ShieldCheck, ChevronLeft, CheckCircle2, XCircle, Clock,
   DollarSign, Truck, Package, AlertTriangle, RefreshCw, Search,
-  ChevronDown, ChevronUp, Shield, Send
+  ChevronDown, ChevronUp, Shield, Send, AlertOctagon
 } from "lucide-react";
 import { format } from "date-fns";
 import PayoutBreakdown from "../components/orders/PayoutBreakdown";
@@ -159,6 +159,24 @@ function AdminOrderCard({ order, transferInstructions, onUpdate }) {
               </div>
             </div>
           )}
+          {order.payout_status === "held_first_custom_deposit" && (
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200">
+              <Shield className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold text-amber-800">First Custom Build Deposit Hold</p>
+                <p className="text-xs text-amber-700 mt-0.5">This is the builder's first custom order. Deposit release requires admin approval before build can begin.</p>
+              </div>
+            </div>
+          )}
+          {order.current_status === "buyer_default_review" && (
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 border border-red-200">
+              <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold text-red-800">Buyer Default — Under Review</p>
+                <p className="text-xs text-red-700 mt-0.5">Buyer failed to pay final balance. Admin action required to resolve this order.</p>
+              </div>
+            </div>
+          )}
 
           {/* Admin Notes */}
           <div>
@@ -191,6 +209,38 @@ function AdminOrderCard({ order, transferInstructions, onUpdate }) {
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">Admin Actions</p>
             <div className="flex flex-wrap gap-2">
+
+              {/* Approve / Hold First Custom Build Deposit */}
+              {order.current_status === "deposit_paid_pending_admin_release" && (
+                <>
+                  <button
+                    disabled={processing}
+                    onClick={() => invokeAction("approveDepositRelease", { orderId: order.id, approved: true, adminNotes }, "Deposit release approved. Build authorized.")}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                    style={{ backgroundColor: "#059669" }}
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Approve Deposit Release
+                  </button>
+                  <button
+                    disabled={processing}
+                    onClick={() => invokeAction("approveDepositRelease", { orderId: order.id, approved: false, adminNotes }, "Deposit release held.")}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg border text-amber-700 border-amber-300 bg-amber-50 hover:bg-amber-100 transition-colors disabled:opacity-50"
+                  >
+                    <Shield className="w-3.5 h-3.5" /> Hold Deposit Release
+                  </button>
+                </>
+              )}
+
+              {/* Flag buyer default */}
+              {order.current_status === "final_payment_pending" && order.order_type === "custom" && (
+                <button
+                  disabled={processing}
+                  onClick={() => invokeAction("flagBuyerDefault", { orderId: order.id, adminNotes }, "Order moved to buyer default review.")}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg border text-red-700 border-red-300 bg-red-50 hover:bg-red-100 transition-colors disabled:opacity-50"
+                >
+                  <XCircle className="w-3.5 h-3.5" /> Flag Buyer Default
+                </button>
+              )}
 
               {/* Verify Shipment */}
               {canVerifyShipment && (
@@ -269,9 +319,13 @@ function AdminOrderCard({ order, transferInstructions, onUpdate }) {
 const FILTER_OPTIONS = [
   { key: "all", label: "All Orders" },
   { key: "stock", label: "Stock Builds Only" },
+  { key: "custom", label: "Custom Builds Only" },
+  { key: "deposit_paid_pending_admin_release", label: "⚠ Deposit Awaiting Approval" },
+  { key: "buyer_default_review", label: "⚠ Buyer Default Review" },
   { key: "tracking_submitted", label: "Tracking Submitted" },
   { key: "awaiting_release", label: "Awaiting Payout Release" },
   { key: "held_first_sale", label: "Held — First Sale" },
+  { key: "held_first_custom_deposit", label: "Held — First Custom Deposit" },
   { key: "fully_released", label: "Paid Out" },
   { key: "payout_failed", label: "Payout Failed" },
 ];
@@ -305,7 +359,8 @@ export default function AdminPayouts() {
     const matchesFilter =
       filter === "all" ? true :
       filter === "stock" ? o.order_type === "stock" :
-      ["pending", "awaiting_release", "held_first_sale", "held_tracking_unverified", "fully_released", "payout_failed"].includes(filter)
+      filter === "custom" ? o.order_type === "custom" :
+      ["pending", "awaiting_release", "held_first_sale", "held_first_custom_deposit", "held_tracking_unverified", "fully_released", "payout_failed"].includes(filter)
         ? o.payout_status === filter
         : o.current_status === filter;
     const matchesSearch = !search ||
@@ -318,6 +373,8 @@ export default function AdminPayouts() {
 
   const urgentCount = orders.filter(o =>
     o.current_status === "tracking_submitted" ||
+    o.current_status === "deposit_paid_pending_admin_release" ||
+    o.current_status === "buyer_default_review" ||
     o.payout_status === "awaiting_release" ||
     transferInstructions.some(ti => ti.order_id === o.id && ti.status === "ready_for_transfer")
   ).length;
