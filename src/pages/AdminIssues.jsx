@@ -8,6 +8,7 @@ import {
   DollarSign, Shield, FileText, Send
 } from "lucide-react";
 import { format } from "date-fns";
+import OrderTimeline from "../components/admin/OrderTimeline";
 
 const NAVY = "#2F3E55";
 
@@ -213,19 +214,10 @@ function DisputeCard({ dispute, order, payments, auditLogs, onUpdate }) {
             </div>
           )}
 
-          {/* Audit log */}
-          {disputeLogs.length > 0 && (
+          {/* Full order timeline */}
+          {dispute.order_id && (
             <div className="border border-stone-200 rounded-xl p-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">Audit Trail</p>
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {disputeLogs.slice(-10).reverse().map(log => (
-                  <div key={log.id} className="flex items-start gap-2 text-xs">
-                    <span className="font-mono text-stone-400 flex-shrink-0">{log.created_date ? format(new Date(log.created_date), "MM/dd HH:mm") : "—"}</span>
-                    <span className="font-semibold text-stone-600">{log.event_type?.replace(/_/g, " ")}</span>
-                    <span className="text-stone-400">{log.actor_role}</span>
-                  </div>
-                ))}
-              </div>
+              <OrderTimeline orderId={dispute.order_id} />
             </div>
           )}
 

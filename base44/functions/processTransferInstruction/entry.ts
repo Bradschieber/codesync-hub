@@ -106,6 +106,13 @@ Deno.serve(async (req) => {
       },
     });
 
+    // Fire notification
+    await base44.asServiceRole.functions.invoke('sendOrderNotification', {
+      eventType: 'PAYOUT_RELEASED',
+      orderId: ti.order_id,
+      extra: { amount: ti.transfer_amount_net },
+    }).catch(e => console.error('Notification error:', e.message));
+
     return Response.json({
       success: true,
       stripeTransferId: stripeTransfer.id,

@@ -5,6 +5,7 @@ import { createPageUrl } from "@/utils";
 import {
   ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText
 } from "lucide-react";
+import AdminActionQueue from "../components/admin/AdminActionQueue";
 
 const NAVY = "#2F3E55";
 
@@ -151,6 +152,11 @@ export default function AdminDashboard() {
               {urgent && <p className="text-xs font-semibold mt-1" style={{ color: "#C57A1F" }}>Needs attention</p>}
             </Link>
           ))}
+        </div>
+
+        {/* Action Queue */}
+        <div className="mb-10">
+          <AdminActionQueue />
         </div>
 
         {/* Admin Tools */}

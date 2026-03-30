@@ -38,6 +38,12 @@ Deno.serve(async (req) => {
       tracking_verified: false,
     });
 
+    // Fire notification
+    await base44.asServiceRole.functions.invoke('sendOrderNotification', {
+      eventType: 'TRACKING_SUBMITTED',
+      orderId: order.id,
+    }).catch(e => console.error('Notification error:', e.message));
+
     // Audit log
     await base44.asServiceRole.entities.AuditLog.create({
       event_type: 'TRACKING_SUBMITTED',

@@ -110,6 +110,13 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Fire notification
+    await base44.asServiceRole.functions.invoke('sendOrderNotification', {
+      eventType: 'REFUND_ISSUED',
+      orderId,
+      extra: { amount: refundAmount },
+    }).catch(e => console.error('Notification error:', e.message));
+
     // Audit log
     await base44.asServiceRole.entities.AuditLog.create({
       event_type: 'REFUND_INITIATED',

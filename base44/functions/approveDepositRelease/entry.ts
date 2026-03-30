@@ -95,6 +95,12 @@ Deno.serve(async (req) => {
       },
     });
 
+    // Fire notification
+    await base44.asServiceRole.functions.invoke('sendOrderNotification', {
+      eventType: 'DEPOSIT_APPROVED',
+      orderId: order.id,
+    }).catch(e => console.error('Notification error:', e.message));
+
     return Response.json({
       success: true,
       message: 'Deposit release approved. Build is now authorized. Transfer instruction is ready for processing.',
