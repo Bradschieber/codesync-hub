@@ -143,6 +143,36 @@ export default function BuilderOrders() {
                       ))}
                     </div>
 
+                    {/* Issue / Dispute alert for builder */}
+                    {["issue_review", "dispute_review"].includes(order.current_status) && (
+                      <div className="flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-200">
+                        <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-xs font-semibold text-red-800">
+                            {order.current_status === "dispute_review" ? "Dispute / Chargeback Under Review" : "Buyer Issue Under Review"}
+                          </p>
+                          <p className="text-xs text-red-700 mt-0.5">
+                            This order has an open issue case. Your payout may be on hold pending admin review. You will be contacted if further information is needed.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Refund alert */}
+                    {["refunded", "partially_refunded"].includes(order.current_status) && (
+                      <div className="flex items-start gap-3 p-3 rounded-lg bg-stone-50 border border-stone-200">
+                        <AlertCircle className="w-4 h-4 text-stone-400 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-xs font-semibold text-stone-600">
+                            {order.current_status === "refunded" ? "Order Refunded" : "Partial Refund Issued"}
+                          </p>
+                          {order.refund_amount > 0 && (
+                            <p className="text-xs text-stone-500 mt-0.5">Refund amount: ${order.refund_amount.toFixed(2)}</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Final payment pending banner */}
                     {order.order_type === "custom" && order.payment_stage === "awaiting_final_payment" && (
                       <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200">

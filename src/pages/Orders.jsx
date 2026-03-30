@@ -18,6 +18,8 @@ import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConf
 import CustomBuildAgreementReview from "../components/orders/CustomBuildAgreementReview";
 import DepositPaymentForm from "../components/orders/DepositPaymentForm";
 import FinalPaymentForm from "../components/orders/FinalPaymentForm";
+import ReportIssueModal from "../components/orders/ReportIssueModal";
+import OrderIssueStatus from "../components/orders/OrderIssueStatus";
 
 const NAVY = "#1B2B4B";
 const AMBER = "#C57A1F";
@@ -187,10 +189,26 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
   const isDepositPending = ["agreement_accepted", "deposit_pending"].includes(currentOrder.current_status);
   const isShipped    = ["shipment_verified", "shipped"].includes(currentOrder.current_status) || currentOrder.fulfillment_status === "shipped";
   const remainingBalance = currentOrder.final_balance_amount || ((currentOrder.total_amount || 0) - (currentOrder.deposit_amount || 0));
+  const isUnderIssueReview = ["issue_review", "dispute_review"].includes(currentOrder.current_status);
+  const canReportIssue = !isUnderIssueReview && !activeDispute && !["cancelled", "refunded"].includes(currentOrder.current_status) && ["paid", "shipped", "delivered"].includes(currentOrder.status) || ["payment_succeeded", "awaiting_shipment", "tracking_submitted", "shipment_verified", "shipped", "delivered", "final_payment_paid", "build_in_progress", "deposit_paid"].includes(currentOrder.current_status);
 
   // Final payment legal acceptance state (per card instance)
   const [localOrder, setLocalOrder] = useState(order);
   const currentOrder = localOrder;
+  const [reportIssueOpen, setReportIssueOpen] = useState(false);
+  const [activeDispute, setActiveDispute] = useState(null);
+
+  useEffect(() => {
+    base44.entities.Dispute.filter({ order_id: order.id, status: "open" })
+      .then(d => setActiveDispute(d[0] || null))
+      .catch(() => {});
+    base44.entities.Dispute.filter({ order_id: order.id })
+      .then(d => {
+        const latest = d.sort((a, b) => new Date(b.created_date) - new Date(a.created_date))[0];
+        if (latest) setActiveDispute(latest);
+      })
+      .catch(() => {});
+  }, [order.id]);
 
   return (
     <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
@@ -407,6 +425,9 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </p>
           )}
 
+          {/* Issue Status */}
+          {activeDispute && <OrderIssueStatus dispute={activeDispute} />}
+
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-2 pt-1">
             <button
@@ -420,10 +441,38 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             </button>
 
             <PurchaseAgreementButton orderId={order.id} userRole="buyer" />
+
+            {canReportIssue && !activeDispute && (
+              <button
+                onClick={() => setReportIssueOpen(true)}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
+                style={{ borderColor: "#D97706", color: "#D97706", backgroundColor: "#fff" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#FFFBEB"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
+              >
+                <AlertCircle className="w-4 h-4" /> Report an Issue
+              </button>
+            )}
           </div>
 
           <p className="text-xs text-stone-300">Order #{order.id.slice(-8).toUpperCase()}</p>
         </div>
+      )}
+
+      {reportIssueOpen && (
+        <ReportIssueModal
+          order={currentOrder}
+          user={user}
+          onClose={() => setReportIssueOpen(false)}
+          onSubmitted={() => {
+            setReportIssueOpen(false);
+            base44.entities.Dispute.filter({ order_id: order.id })
+              .then(d => {
+                const latest = d.sort((a, b) => new Date(b.created_date) - new Date(a.created_date))[0];
+                if (latest) setActiveDispute(latest);
+              });
+          }}
+        />
       )}
     </div>
   );

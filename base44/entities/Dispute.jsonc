@@ -31,24 +31,30 @@
     "type": {
       "type": "string",
       "enum": [
-        "buyer_dispute",
+        "buyer_issue",
+        "refund_review",
+        "formal_dispute",
         "chargeback"
       ],
-      "description": "Whether initiated by buyer via platform or by card issuer"
+      "description": "buyer_issue = buyer-reported; refund_review = admin elevated; formal_dispute = platform dispute; chargeback = Stripe chargeback"
     },
     "reason": {
       "type": "string",
-      "description": "Stripe reason code or internal description"
+      "description": "Issue reason code or Stripe dispute reason. E.g. item_not_received, builder_delay, item_not_as_described, payment_problem, return_refund_request, other, fraudulent, etc."
     },
     "status": {
       "type": "string",
       "enum": [
         "open",
         "under_review",
+        "awaiting_buyer",
+        "awaiting_builder",
+        "resolved_buyer_favor",
+        "resolved_builder_favor",
+        "resolved_partial",
+        "closed",
         "won",
-        "lost",
-        "resolved",
-        "closed"
+        "lost"
       ],
       "default": "open"
     },
@@ -75,7 +81,7 @@
     },
     "admin_user_id": {
       "type": "string",
-      "description": "Admin handling this dispute"
+      "description": "Admin handling this case"
     }
   },
   "required": [

@@ -67,8 +67,11 @@
         "fully_paid",
         "shipped",
         "delivered",
+        "issue_review",
+        "dispute_review",
         "buyer_default_review",
         "refunded",
+        "partially_refunded",
         "disputed",
         "cancelled"
       ],
@@ -100,9 +103,12 @@
         "held_tracking_unverified",
         "held_dispute",
         "held_admin",
+        "held_issue_review",
+        "held_chargeback",
         "awaiting_release",
         "partially_released",
         "fully_released",
+        "adjusted_after_refund",
         "payout_failed"
       ],
       "default": "pending",
@@ -129,69 +135,53 @@
     },
     "platform_fee_percent": {
       "type": "number",
-      "default": 0.05,
-      "description": "Platform fee rate (e.g. 0.05 = 5%)"
+      "default": 0.05
     },
     "platform_fee_amount": {
-      "type": "number",
-      "description": "Calculated 5% Stringed Collective marketplace fee"
+      "type": "number"
     },
     "stripe_fee_amount": {
-      "type": "number",
-      "description": "Actual Stripe processing fee, recorded from Stripe webhook"
+      "type": "number"
     },
     "stripe_fee_estimated": {
-      "type": "number",
-      "description": "Estimated Stripe fee at time of PaymentIntent creation"
+      "type": "number"
     },
     "builder_net_payout_expected": {
-      "type": "number",
-      "description": "total_gross_amount - platform_fee_amount - stripe_fee_amount"
+      "type": "number"
     },
     "deposit_amount": {
-      "type": "number",
-      "description": "Deposit amount required (from policy)"
+      "type": "number"
     },
     "deposit_platform_fee_amount": {
-      "type": "number",
-      "description": "SC 5% fee on deposit portion"
+      "type": "number"
     },
     "deposit_stripe_fee_amount": {
-      "type": "number",
-      "description": "Stripe fee on deposit portion"
+      "type": "number"
     },
     "deposit_builder_net": {
-      "type": "number",
-      "description": "Builder net from deposit after fees"
+      "type": "number"
     },
     "deposit_amount_paid": {
-      "type": "number",
-      "description": "Actual deposit amount received"
+      "type": "number"
     },
     "final_balance_amount": {
-      "type": "number",
-      "description": "Remaining balance due from buyer"
+      "type": "number"
     },
     "final_balance_platform_fee_amount": {
-      "type": "number",
-      "description": "SC 5% fee on final balance portion"
+      "type": "number"
     },
     "final_balance_stripe_fee_amount": {
-      "type": "number",
-      "description": "Stripe fee on final balance portion"
+      "type": "number"
     },
     "final_balance_builder_net": {
-      "type": "number",
-      "description": "Builder net from final balance after fees"
+      "type": "number"
     },
     "final_balance_amount_paid": {
-      "type": "number",
-      "description": "Actual final balance payment received"
+      "type": "number"
     },
     "final_payment_due_date": {
       "type": "string",
-      "format": "date",
-      "description": "Date by which buyer must pay final balance"
+      "format": "date"
     },
     "refund_amount": {
       "type": "number",
@@ -199,36 +189,28 @@
       "description": "Total amount refunded on this order"
     },
     "stripe_payment_intent_id": {
-      "type": "string",
-      "description": "Stripe PaymentIntent ID for the primary/deposit charge"
+      "type": "string"
     },
     "stripe_deposit_payment_intent_id": {
-      "type": "string",
-      "description": "Stripe PaymentIntent ID specifically for deposit"
+      "type": "string"
     },
     "stripe_final_payment_intent_id": {
-      "type": "string",
-      "description": "Stripe PaymentIntent ID for final balance"
+      "type": "string"
     },
     "stripe_charge_id": {
-      "type": "string",
-      "description": "Stripe Charge ID for primary/deposit payment"
+      "type": "string"
     },
     "stripe_final_charge_id": {
-      "type": "string",
-      "description": "Stripe Charge ID for final balance payment"
+      "type": "string"
     },
     "stripe_account_id_destination": {
-      "type": "string",
-      "description": "Builder's Stripe Connect account ID for payouts"
+      "type": "string"
     },
     "policy_snapshot_id": {
-      "type": "string",
-      "description": "FK to PolicySnapshot entity"
+      "type": "string"
     },
     "agreement_snapshot_id": {
-      "type": "string",
-      "description": "FK to AgreementSnapshot entity"
+      "type": "string"
     },
     "purchase_agreement_signed": {
       "type": "boolean",
@@ -236,8 +218,7 @@
     },
     "agreement_accepted_at": {
       "type": "string",
-      "format": "date-time",
-      "description": "When the buyer accepted the purchase agreement"
+      "format": "date-time"
     },
     "final_payment_paid": {
       "type": "boolean",
@@ -253,13 +234,11 @@
     },
     "is_first_transaction": {
       "type": "boolean",
-      "default": false,
-      "description": "If true, first-sale hold rules apply to this order"
+      "default": false
     },
     "is_first_custom_build": {
       "type": "boolean",
-      "default": false,
-      "description": "If true, first custom build deposit hold rules apply"
+      "default": false
     },
     "delivery_confirmed": {
       "type": "boolean",
@@ -267,8 +246,7 @@
     },
     "delivery_confirmed_date": {
       "type": "string",
-      "format": "date",
-      "description": "Date delivery was confirmed"
+      "format": "date"
     },
     "tracking_verified": {
       "type": "boolean",
@@ -282,8 +260,7 @@
     },
     "next_payment_due_date": {
       "type": "string",
-      "format": "date",
-      "description": "Due date for final balance payment on custom builds"
+      "format": "date"
     },
     "shipping_address": {
       "type": "object"
@@ -300,8 +277,7 @@
       "type": "string"
     },
     "custom_build_specs": {
-      "type": "object",
-      "description": "Agreed specifications for this custom build"
+      "type": "object"
     },
     "warranty_snapshot": {
       "type": "object"

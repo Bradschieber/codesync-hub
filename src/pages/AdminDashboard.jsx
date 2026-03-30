@@ -101,6 +101,14 @@ export default function AdminDashboard() {
       badge: stats?.pendingRefs > 0 ? `${stats.pendingRefs} pending` : null,
     },
     {
+      title: "Issues & Disputes",
+      description: "Review buyer-reported issues, manage dispute cases, initiate refunds, and handle Stripe chargebacks.",
+      icon: AlertCircle,
+      page: "AdminIssues",
+      badge: null,
+      urgent: false,
+    },
+    {
       title: "Terms & Policies",
       description: "Manage the current versions of your legal terms and policies. Publish new versions and preserve prior versions for acceptance records.",
       icon: FileText,
