@@ -50,13 +50,8 @@ Deno.serve(async (req) => {
     const stripeFeeCents = estimateStripeFee(grossAmountCents);
     const builderNetCents = grossAmountCents - platformFeeCents - stripeFeeCents;
 
-    // Check if this is the builder's first stock sale
-    const existingOrders = await base44.asServiceRole.entities.Order.filter({ builder_id: order.builder_id, order_type: 'stock' });
-    const completedSales = existingOrders.filter(o =>
-      o.id !== order.id &&
-      ['payment_succeeded', 'awaiting_shipment', 'tracking_submitted', 'shipment_verified', 'shipped', 'delivered'].includes(o.current_status)
-    );
-    const isFirstTransaction = completedSales.length === 0;
+    // First-sale protection: active until builder has completed one fully paid-out sale
+    const isFirstTransaction = !builder.is_first_sale_completed;
 
     // Create Stripe PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({

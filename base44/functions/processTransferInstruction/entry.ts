@@ -81,6 +81,17 @@ Deno.serve(async (req) => {
       final_payout_released: true,
     });
 
+    // First-sale protection: mark builder as having completed their first payout
+    if (ti.builder_id) {
+      const builderProfiles = await base44.asServiceRole.entities.UserProfile.filter({ id: ti.builder_id });
+      if (builderProfiles.length && !builderProfiles[0].is_first_sale_completed) {
+        await base44.asServiceRole.entities.UserProfile.update(ti.builder_id, {
+          is_first_sale_completed: true,
+          last_successful_sale_date: new Date().toISOString().split('T')[0],
+        });
+      }
+    }
+
     await base44.asServiceRole.entities.AuditLog.create({
       event_type: 'TRANSFER_SUCCEEDED',
       entity_type: 'TransferInstruction',

@@ -85,9 +85,11 @@ Deno.serve(async (req) => {
         paid_at: new Date().toISOString(),
       });
 
-      // Create TransferInstruction
-      const isFirstTransaction = order.is_first_transaction || false;
-      const tiStatus = isFirstTransaction ? 'pending_hold_resolution' : 'created';
+      // First-sale protection: fetch builder profile to check completion flag
+      const builderProfiles = await base44.asServiceRole.entities.UserProfile.filter({ id: order.builder_id });
+      const builder = builderProfiles[0] || {};
+      const isFirstTransaction = !builder.is_first_sale_completed;
+      const tiStatus = isFirstTransaction ? 'pending_hold_resolution' : 'ready_for_transfer';
 
       const transferInstruction = await base44.asServiceRole.entities.TransferInstruction.create({
         order_id: order.id,
@@ -152,6 +154,18 @@ Deno.serve(async (req) => {
             payout_status: 'fully_released',
             current_status: 'delivered',
           });
+
+          // First-sale protection: mark builder as having completed their first payout
+          if (ti.builder_id) {
+            const builderProfiles = await base44.asServiceRole.entities.UserProfile.filter({ id: ti.builder_id });
+            if (builderProfiles.length && !builderProfiles[0].is_first_sale_completed) {
+              await base44.asServiceRole.entities.UserProfile.update(ti.builder_id, {
+                is_first_sale_completed: true,
+                last_successful_sale_date: new Date().toISOString().split('T')[0],
+              });
+            }
+          }
+
           await base44.asServiceRole.entities.AuditLog.create({
             event_type: 'TRANSFER_SUCCEEDED',
             entity_type: 'TransferInstruction',

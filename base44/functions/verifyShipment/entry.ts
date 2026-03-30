@@ -47,8 +47,10 @@ Deno.serve(async (req) => {
       return Response.json({ success: true, message: 'Tracking rejected. Order returned to awaiting_shipment.' });
     }
 
-    // Verified — determine payout eligibility based on first-sale logic
-    const isFirstTransaction = order.is_first_transaction || false;
+    // First-sale protection: fetch builder profile to check builder-level completion flag
+    const builderProfiles = await base44.asServiceRole.entities.UserProfile.filter({ id: order.builder_id });
+    const builder = builderProfiles[0] || {};
+    const isFirstTransaction = !builder.is_first_sale_completed;
     const newPayoutStatus = isFirstTransaction ? 'held_first_sale' : 'awaiting_release';
     const newTiStatus = isFirstTransaction ? 'pending_hold_resolution' : 'ready_for_transfer';
 

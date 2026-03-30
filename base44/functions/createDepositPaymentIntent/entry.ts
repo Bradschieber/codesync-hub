@@ -39,6 +39,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Builder Stripe account is not ready' }, { status: 400 });
     }
 
+    // First-sale protection: active until builder has completed one fully paid-out sale
+    const isFirstSale = !builder.is_first_sale_completed;
+
     const depositCents = Math.round(order.deposit_amount * 100);
     const platformFeeCents = Math.round(depositCents * 0.05);
     const stripeFeeCents = estimateStripeFee(depositCents);
@@ -66,6 +69,7 @@ Deno.serve(async (req) => {
       deposit_stripe_fee_amount: stripeFeeCents / 100,
       deposit_builder_net: builderNetCents / 100,
       payment_stage: 'awaiting_deposit',
+      is_first_transaction: isFirstSale,
     });
 
     return Response.json({
