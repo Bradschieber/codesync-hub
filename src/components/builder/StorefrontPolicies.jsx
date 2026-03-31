@@ -6,7 +6,7 @@ export default function StorefrontPolicies({ builder }) {
   const hasWarranty = builder.warranty_duration || (builder.warranty_coverage && builder.warranty_coverage.length > 0) || builder.warranty_claim_process;
   const hasReturns = builder.returns_accepted;
   const hasShipping = builder.ships_domestically || builder.ships_internationally || (builder.shipping_carriers && builder.shipping_carriers.length > 0) || builder.shipping_timeline;
-  const hasPayment = builder.payment_schedule || builder.payment_methods;
+  const hasPayment = builder.payment_schedule || builder.pricing_notes;
 
   return (
     <div className="space-y-5">
@@ -60,8 +60,9 @@ export default function StorefrontPolicies({ builder }) {
         <div>
           <h3 className="text-sm font-semibold text-stone-700 mb-1.5">Payment</h3>
           <div className="space-y-1 text-sm text-stone-500">
-            {builder.payment_schedule && <p><span className="font-medium text-stone-600">Schedule:</span> {builder.payment_schedule}</p>}
-            {builder.payment_methods && <p><span className="font-medium text-stone-600">Methods:</span> {builder.payment_methods}</p>}
+            {builder.payment_schedule && (
+              <p><span className="font-medium text-stone-600">Schedule:</span> {{ full_upfront: "Full payment upfront", deposit_then_completion: "Deposit & balance on completion" }[builder.payment_schedule] || builder.payment_schedule}</p>
+            )}
             {builder.pricing_notes && <p><span className="font-medium text-stone-600">Notes:</span> {builder.pricing_notes}</p>}
           </div>
         </div>
