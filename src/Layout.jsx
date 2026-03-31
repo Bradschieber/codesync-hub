@@ -251,9 +251,11 @@ export default function Layout({ children, currentPageName }) {
             </ul>
           </div>
           <div>
-            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Legal</h4>
+            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Legal & Support</h4>
             <ul className="space-y-2.5 text-sm">
               <li><Link to={createPageUrl("Terms")} className="hover:text-indigo-400 transition-colors">Terms of Service</Link></li>
+              <li><Link to="/BuyerFAQ" className="hover:text-indigo-400 transition-colors">Buyer FAQ</Link></li>
+              <li><Link to="/BuilderFAQ" className="hover:text-indigo-400 transition-colors">Builder FAQ</Link></li>
             </ul>
           </div>
         </div>

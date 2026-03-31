@@ -4,7 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import {
   ShoppingBag, Heart, Bookmark, MessageSquare, Save,
-  Bell, Mail, MessageCircle, User, ChevronRight
+  Bell, Mail, MessageCircle, User, ChevronRight, HelpCircle
 } from "lucide-react";
 
 const NAVY = "#1B2B4B";
@@ -19,6 +19,7 @@ export default function BuyerAccountView({ user, profile, form, setForm, saving,
     { label: "Wishlist", sub: "Saved instruments", icon: Heart, page: "Wishlist" },
     { label: "Saved Builders", sub: "Builders you follow", icon: Bookmark, page: "Wishlist" },
     { label: "Messages", sub: "Talk to builders", icon: MessageSquare, page: "Messages" },
+    { label: "Buyer FAQ", sub: "Orders, payments, shipping & more", icon: HelpCircle, page: "BuyerFAQ" },
   ];
 
   const tabs = [
@@ -45,7 +46,7 @@ export default function BuyerAccountView({ user, profile, form, setForm, saving,
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Links */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
           {quickLinks.map(({ label, sub, icon: Icon, page }) => (
             <Link
               key={page + label}
