@@ -16,6 +16,7 @@ import LegalDocumentPublic from './pages/LegalDocumentPublic';
 import BuilderResources from './pages/BuilderResources';
 import BuilderFAQ from './pages/BuilderFAQ';
 import AdminIssues from './pages/AdminIssues';
+import AdminQAChecklist from './pages/AdminQAChecklist';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -72,6 +73,7 @@ const AuthenticatedApp = () => {
       <Route path="/BuilderResources" element={<LayoutWrapper currentPageName="BuilderResources"><BuilderResources /></LayoutWrapper>} />
       <Route path="/BuilderFAQ" element={<LayoutWrapper currentPageName="BuilderFAQ"><BuilderFAQ /></LayoutWrapper>} />
       <Route path="/AdminIssues" element={<LayoutWrapper currentPageName="AdminIssues"><AdminIssues /></LayoutWrapper>} />
+      <Route path="/AdminQAChecklist" element={<LayoutWrapper currentPageName="AdminQAChecklist"><AdminQAChecklist /></LayoutWrapper>} />
       <Route path="/legal/terms-of-use" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
       <Route path="/legal/privacy-policy" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
       <Route path="/legal/builder-terms" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />

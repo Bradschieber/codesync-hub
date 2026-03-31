@@ -1,0 +1,87 @@
+{
+  "name": "QAChecklistItem",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Builder Onboarding / Payout Readiness",
+        "Stock Builds",
+        "Custom Builds",
+        "Payout Holds",
+        "Refunds",
+        "Issues / Disputes",
+        "Audit / Admin Controls",
+        "Regression / Edge Cases"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "default": "High"
+    },
+    "description": {
+      "type": "string"
+    },
+    "preconditions": {
+      "type": "string"
+    },
+    "expected_result": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Not Started",
+        "Pass",
+        "Fail",
+        "Blocked",
+        "Retest Needed"
+      ],
+      "default": "Not Started"
+    },
+    "tester_name": {
+      "type": "string"
+    },
+    "date_run": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "bug_link": {
+      "type": "string"
+    },
+    "retest_status": {
+      "type": "string",
+      "enum": [
+        "Not Needed",
+        "Pending",
+        "Pass",
+        "Fail"
+      ],
+      "default": "Not Needed"
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 99
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "category"
+  ]
+}

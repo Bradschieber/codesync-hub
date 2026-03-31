@@ -116,6 +116,14 @@ export default function AdminDashboard() {
       page: "AdminLegalDocuments",
       badge: null,
     },
+    {
+      title: "Release QA Checklist",
+      description: "Internal UAT tracker for the commercial transaction layer. Track test scenarios, pass/fail status, and pre-pilot readiness.",
+      icon: CheckCircle,
+      page: "AdminQAChecklist",
+      badge: null,
+      urgent: false,
+    },
   ];
 
   return (
