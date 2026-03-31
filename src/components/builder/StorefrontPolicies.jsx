@@ -15,7 +15,12 @@ export default function StorefrontPolicies({ builder }) {
           <h3 className="text-sm font-semibold text-stone-700 mb-1.5">Warranty</h3>
           <div className="space-y-1 text-sm text-stone-500">
             {builder.warranty_duration && <p><span className="font-medium text-stone-600">Duration:</span> {builder.warranty_duration}</p>}
-            {builder.warranty_coverage && builder.warranty_coverage.length > 0 && <p><span className="font-medium text-stone-600">Covers:</span> {builder.warranty_coverage.join(", ")}</p>}
+            {builder.warranty_coverage && builder.warranty_coverage.length > 0 && (
+              <p>
+                <span className="font-medium text-stone-600">Covers:</span>{" "}
+                {builder.warranty_coverage.map(c => typeof c === "object" ? `${c.label}${c.duration ? ` (${c.duration})` : ""}` : c).join(", ")}
+              </p>
+            )}
             {builder.warranty_exclusions && builder.warranty_exclusions.length > 0 && <p><span className="font-medium text-stone-600">Excludes:</span> {builder.warranty_exclusions.join(", ")}</p>}
             {builder.warranty_claim_process && <p><span className="font-medium text-stone-600">Claim process:</span> {builder.warranty_claim_process}</p>}
           </div>
