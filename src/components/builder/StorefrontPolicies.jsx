@@ -18,7 +18,7 @@ export default function StorefrontPolicies({ builder }) {
             {builder.warranty_coverage && builder.warranty_coverage.length > 0 && (
               <p>
                 <span className="font-medium text-stone-600">Covers:</span>{" "}
-                {builder.warranty_coverage.map(c => typeof c === "object" ? `${c.label}${c.duration ? ` (${c.duration})` : ""}` : c).join(", ")}
+                {builder.warranty_coverage.filter(c => typeof c !== "object" || (c.duration && c.duration.toLowerCase() !== "not covered")).map(c => typeof c === "object" ? `${c.label}${c.duration ? ` (${c.duration})` : ""}` : c).join(", ")}
               </p>
             )}
             {builder.warranty_exclusions && builder.warranty_exclusions.length > 0 && <p><span className="font-medium text-stone-600">Excludes:</span> {builder.warranty_exclusions.join(", ")}</p>}
