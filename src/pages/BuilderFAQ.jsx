@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { ChevronDown, ChevronLeft } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -197,6 +199,13 @@ export default function BuilderFAQ() {
       {/* Page Header */}
       <div className="border-b" style={{ borderColor: "#E8E5E0" }}>
         <div className="max-w-3xl mx-auto px-6 py-14">
+          <Link
+            to={createPageUrl("BuilderResources")}
+            className="inline-flex items-center gap-1 text-sm mb-6 transition-opacity opacity-60 hover:opacity-100"
+            style={{ color: NAVY }}
+          >
+            <ChevronLeft className="w-4 h-4" /> Builder Resources
+          </Link>
           <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#8A9BB0" }}>
             Builder FAQ
           </p>
