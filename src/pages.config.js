@@ -71,7 +71,7 @@ import CustomBuilds from './pages/CustomBuilds';
 import Dashboard from './pages/Dashboard';
 import DashboardActiveListings from './pages/DashboardActiveListings';
 import DashboardCustomBuilds from './pages/DashboardCustomBuilds';
-import DashboardProducts from './pages/DashboardProducts';
+import DashboardProducts from './pages/DashboardProducts.jsx';
 import DashboardProfile from './pages/DashboardProfile';
 import DashboardRatings from './pages/DashboardRatings';
 import FounderLetter from './pages/FounderLetter';

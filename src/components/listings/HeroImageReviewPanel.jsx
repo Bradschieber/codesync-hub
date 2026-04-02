@@ -1,0 +1,168 @@
+import { useState } from "react";
+import { CheckCircle2, ImageIcon, RefreshCw, Eye, X, Upload } from "lucide-react";
+import { base44 } from "@/api/base44Client";
+
+const NAVY = "#1B2B4B";
+
+/**
+ * Hero image review screen/panel for builders.
+ * Props:
+ *   product       — the product object
+ *   onApproved    — callback after builder approves; receives updated product
+ *   onKeepLimited — callback when builder chooses to keep live with limited visibility
+ *   onClose       — dismiss
+ */
+export default function HeroImageReviewPanel({ product, onApproved, onKeepLimited, onClose }) {
+  const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [localProcessedUrl, setLocalProcessedUrl] = useState(product.processed_hero_image_url || null);
+  const [approved, setApproved] = useState(false);
+
+  async function handleApprove() {
+    setSaving(true);
+    const updated = await base44.entities.Product.update(product.id, {
+      builder_approved_marketplace_hero: true,
+      hero_processing_status: "approved_by_builder",
+      listing_visibility_state: "full_visibility",
+      marketplace_hero_approved_at: new Date().toISOString(),
+      processed_hero_image_url: localProcessedUrl || product.processed_hero_image_url,
+    });
+    setSaving(false);
+    setApproved(true);
+    setTimeout(() => onApproved(updated), 1800);
+  }
+
+  async function handleUploadNewHero(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    setLocalProcessedUrl(file_url);
+    // Save as processed_hero_image_url and mark preview_ready
+    await base44.entities.Product.update(product.id, {
+      processed_hero_image_url: file_url,
+      hero_processing_status: "preview_ready",
+      builder_approved_marketplace_hero: false,
+      listing_visibility_state: "limited_visibility",
+    });
+    setUploading(false);
+    e.target.value = "";
+  }
+
+  const originalImage = product.image_urls?.[0] || null;
+  const processedImage = localProcessedUrl;
+
+  if (approved) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.45)" }}>
+        <div className="bg-white w-full max-w-md shadow-2xl text-center p-10">
+          <div className="w-14 h-14 flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: "#DCFCE7" }}>
+            <CheckCircle2 className="w-7 h-7" style={{ color: "#16A34A" }} />
+          </div>
+          <h2 className="text-xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Marketplace hero image approved</h2>
+          <p className="text-sm leading-relaxed text-gray-500">
+            Your listing is now eligible for catalog, search, homepage featured sections, and other discovery placements.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+      <div className="bg-white w-full max-w-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 pb-4 border-b" style={{ borderColor: "#E8E5E0" }}>
+          <div>
+            <h2 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Review marketplace hero image</h2>
+            <p className="text-xs mt-1" style={{ color: "#7A7A7A" }}>
+              Review the processed marketplace version of your hero image. Only the background and presentation are standardized. The instrument itself is not altered.
+            </p>
+          </div>
+          <button onClick={onClose} className="p-1.5 text-gray-400 hover:text-gray-700 flex-shrink-0 ml-4">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Preview comparison */}
+        <div className="p-6 border-b" style={{ borderColor: "#E8E5E0" }}>
+          <div className="grid sm:grid-cols-2 gap-4">
+
+            {/* Original */}
+            <div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <Eye className="w-3.5 h-3.5" style={{ color: "#7A7A7A" }} />
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#7A7A7A" }}>Original</p>
+              </div>
+              <div className="overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#F0EDE8" }}>
+                {originalImage ? (
+                  <img src={originalImage} alt="Original" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+                    <ImageIcon className="w-8 h-8" style={{ color: "#C8C4BC" }} />
+                    <p className="text-xs" style={{ color: "#9A9A9A" }}>No image uploaded</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Marketplace version */}
+            <div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <Eye className="w-3.5 h-3.5" style={{ color: NAVY }} />
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: NAVY }}>Marketplace version</p>
+              </div>
+              <div className="overflow-hidden relative" style={{ aspectRatio: "4/3", backgroundColor: "#EEF1F7" }}>
+                {processedImage ? (
+                  <img src={processedImage} alt="Marketplace version" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <ImageIcon className="w-8 h-8" style={{ color: "#8A9BB0" }} />
+                    <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
+                      No processed version yet. Upload a marketplace hero image below.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="p-6 space-y-3">
+          {/* Upload new hero */}
+          <label className={`flex items-center justify-center gap-2 w-full py-3 border-2 border-dashed cursor-pointer text-sm font-medium transition-colors ${uploading ? "border-blue-300 bg-blue-50 text-blue-600" : "border-stone-300 text-stone-500 hover:border-stone-400 hover:bg-stone-50"}`}>
+            <input type="file" accept="image/*" className="hidden" onChange={handleUploadNewHero} disabled={uploading} />
+            {uploading ? (
+              <><div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" /> Uploading...</>
+            ) : (
+              <><Upload className="w-4 h-4" /> Try a different hero image</>
+            )}
+          </label>
+
+          {/* Primary: approve */}
+          <button
+            onClick={handleApprove}
+            disabled={saving || !processedImage}
+            className="w-full font-semibold py-3 text-sm text-white transition-colors disabled:opacity-40"
+            style={{ backgroundColor: NAVY }}
+            onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = "#152038")}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = NAVY)}
+          >
+            {saving ? "Saving..." : "Approve marketplace version"}
+          </button>
+
+          {/* Secondary: keep limited */}
+          <button
+            onClick={onKeepLimited}
+            className="w-full font-medium py-2.5 text-sm transition-opacity hover:opacity-70"
+            style={{ color: "#7A7A7A" }}
+          >
+            Keep listing live with limited visibility
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,420 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "about_this_build": {
+      "type": "string",
+      "description": "Editorial story about this specific instrument \u2014 materials, inspiration, craftsmanship details"
+    },
+    "price": {
+      "type": "number"
+    },
+    "image_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_available": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "sold",
+        "reserved"
+      ],
+      "default": "available"
+    },
+    "listing_visibility_state": {
+      "type": "string",
+      "enum": [
+        "full_visibility",
+        "limited_visibility"
+      ],
+      "default": "limited_visibility",
+      "description": "Controls discovery surface eligibility. full_visibility = eligible for catalog/search/featured. limited_visibility = listing detail and storefront only."
+    },
+    "processed_hero_image_url": {
+      "type": "string",
+      "description": "URL of the processed/standardized marketplace hero image"
+    },
+    "hero_processing_status": {
+      "type": "string",
+      "enum": [
+        "unprocessed",
+        "processing",
+        "preview_ready",
+        "approved_by_builder",
+        "rejected_by_builder",
+        "failed"
+      ],
+      "default": "unprocessed",
+      "description": "Status of the marketplace hero image processing pipeline"
+    },
+    "builder_approved_marketplace_hero": {
+      "type": "boolean",
+      "default": false,
+      "description": "True when the builder has explicitly approved the processed marketplace hero image"
+    },
+    "marketplace_hero_approved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the builder approved the processed marketplace hero image"
+    },
+    "specifications": {
+      "type": "object",
+      "properties": {
+        "instrumentCategory": {
+          "type": "string",
+          "enum": [
+            "Electric Guitars",
+            "Electric Bass Guitar",
+            "Acoustic Guitar",
+            "Acoustic Bass Guitar",
+            "Other"
+          ]
+        },
+        "otherInstrumentCategory": {
+          "type": "string"
+        },
+        "handedness": {
+          "type": "string",
+          "enum": [
+            "Right-Handed",
+            "Left-Handed"
+          ]
+        },
+        "numberOfStrings": {
+          "type": "string",
+          "enum": [
+            "4 String",
+            "5 String",
+            "6 String",
+            "8 String",
+            "12 String",
+            "Other"
+          ]
+        },
+        "otherNumberOfStrings": {
+          "type": "string"
+        },
+        "bodyType": {
+          "type": "string",
+          "enum": [
+            "Solid",
+            "Semi-Hollow",
+            "Hollow",
+            "Archtop",
+            "Other"
+          ]
+        },
+        "otherBodyType": {
+          "type": "string"
+        },
+        "bodyShape": {
+          "type": "string",
+          "enum": [
+            "Dreadnought",
+            "Parlor",
+            "Concert",
+            "Auditorium",
+            "Jumbo",
+            "Classical",
+            "Other"
+          ]
+        },
+        "otherBodyShape": {
+          "type": "string"
+        },
+        "bodyConstruction": {
+          "type": "string",
+          "enum": [
+            "One Piece",
+            "Two Piece",
+            "Three Piece",
+            "Other"
+          ]
+        },
+        "otherBodyConstruction": {
+          "type": "string"
+        },
+        "topWood": {
+          "type": "string",
+          "enum": [
+            "Alder",
+            "Ash",
+            "Basswood",
+            "Bubinga",
+            "Koa",
+            "Mahogany",
+            "Maple",
+            "Pine",
+            "Poplar",
+            "Rosewood",
+            "Walnut",
+            "Other"
+          ]
+        },
+        "otherTopWood": {
+          "type": "string"
+        },
+        "topBookMatched": {
+          "type": "string",
+          "enum": [
+            "N/A",
+            "Yes",
+            "No"
+          ]
+        },
+        "sideWood": {
+          "type": "string",
+          "enum": [
+            "Alder",
+            "Ash",
+            "Basswood",
+            "Bubinga",
+            "Koa",
+            "Mahogany",
+            "Maple",
+            "Pine",
+            "Poplar",
+            "Rosewood",
+            "Walnut",
+            "Other"
+          ]
+        },
+        "otherSideWood": {
+          "type": "string"
+        },
+        "backWood": {
+          "type": "string",
+          "enum": [
+            "Alder",
+            "Ash",
+            "Basswood",
+            "Bubinga",
+            "Koa",
+            "Mahogany",
+            "Maple",
+            "Pine",
+            "Poplar",
+            "Rosewood",
+            "Walnut",
+            "Other"
+          ]
+        },
+        "otherBackWood": {
+          "type": "string"
+        },
+        "backBookMatched": {
+          "type": "string",
+          "enum": [
+            "N/A",
+            "Yes",
+            "No"
+          ]
+        },
+        "middleWood": {
+          "type": "string",
+          "enum": [
+            "Alder",
+            "Ash",
+            "Basswood",
+            "Bubinga",
+            "Koa",
+            "Mahogany",
+            "Maple",
+            "Pine",
+            "Poplar",
+            "Rosewood",
+            "Walnut",
+            "Other"
+          ]
+        },
+        "otherMiddleWood": {
+          "type": "string"
+        },
+        "bodyConstructionDescription": {
+          "type": "string"
+        },
+        "bracingDescription": {
+          "type": "string"
+        },
+        "bodyDescription": {
+          "type": "string"
+        },
+        "topGrainDetails": {
+          "type": "string",
+          "enum": [
+            "Birdseye",
+            "Burled",
+            "Flamed",
+            "Plain",
+            "Quilted",
+            "Spalted",
+            "Other"
+          ]
+        },
+        "otherTopGrainDetails": {
+          "type": "string"
+        },
+        "finishMaterialsDescription": {
+          "type": "string"
+        },
+        "finishPattern": {
+          "type": "string",
+          "enum": [
+            "Solid",
+            "Sunburst",
+            "Fade",
+            "Other"
+          ]
+        },
+        "otherFinishPattern": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string",
+          "enum": [
+            "Natural",
+            "Blue",
+            "Brown",
+            "Black",
+            "Red",
+            "Purple",
+            "Pink",
+            "Gold/Yellow",
+            "Green",
+            "Silver",
+            "Gray",
+            "Other"
+          ]
+        },
+        "otherColor": {
+          "type": "string"
+        },
+        "frets": {
+          "type": "string",
+          "enum": [
+            "Fretless",
+            "Medium",
+            "Tall",
+            "Jumbo",
+            "Other"
+          ]
+        },
+        "otherFrets": {
+          "type": "string"
+        },
+        "fretMaterial": {
+          "type": "string"
+        },
+        "fretDetails": {
+          "type": "string"
+        },
+        "neckConstruction": {
+          "type": "string"
+        },
+        "neckMaterials": {
+          "type": "string"
+        },
+        "scaleLength": {
+          "type": "number"
+        },
+        "nutWidth": {
+          "type": "number"
+        },
+        "nutMaterial": {
+          "type": "string"
+        },
+        "fretboardRadius": {
+          "type": "string",
+          "enum": [
+            "N/A",
+            "7.25\"",
+            "9.5\"",
+            "10\"",
+            "12\"",
+            "13.78\"",
+            "14\"",
+            "15\"",
+            "16\"",
+            "17\"",
+            "20\"",
+            "Other"
+          ]
+        },
+        "otherFretboardRadius": {
+          "type": "string"
+        },
+        "activePassivePickups": {
+          "type": "string",
+          "enum": [
+            "Active",
+            "Passive"
+          ]
+        },
+        "pickupConfiguration": {
+          "type": "string"
+        },
+        "preamp": {
+          "type": "string",
+          "enum": [
+            "Yes",
+            "No"
+          ]
+        },
+        "caseIncludes": {
+          "type": "string",
+          "enum": [
+            "Yes",
+            "No"
+          ]
+        },
+        "caseDescription": {
+          "type": "string"
+        }
+      }
+    },
+    "offers_local_pickup": {
+      "type": "boolean",
+      "default": false
+    },
+    "local_pickup_details": {
+      "type": "string"
+    },
+    "weight_oz": {
+      "type": "number"
+    },
+    "average_rating": {
+      "type": "number"
+    },
+    "review_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "name",
+    "price"
+  ]
+}
