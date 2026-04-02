@@ -1,0 +1,77 @@
+{
+  "name": "MarketplaceImageConfig",
+  "type": "object",
+  "properties": {
+    "config_key": {
+      "type": "string",
+      "description": "Unique identifier for this config record. Use 'default' for the singleton config.",
+      "default": "default"
+    },
+    "processing_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Master switch. If false, no new processing jobs will be submitted to Photoroom."
+    },
+    "background_color": {
+      "type": "string",
+      "default": "#F7F5F0",
+      "description": "Hex color for the standard marketplace background. Warm off-white. Allowed: solid neutrals only \u2014 no gradients, no environment scenes."
+    },
+    "shadow_mode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "soft",
+        "medium"
+      ],
+      "default": "soft",
+      "description": "Shadow intensity applied to the instrument subject. 'soft' is the standard."
+    },
+    "padding_preset": {
+      "type": "string",
+      "enum": [
+        "tight",
+        "balanced",
+        "generous"
+      ],
+      "default": "balanced",
+      "description": "Subject padding within the frame. 'balanced' targets ~15% breathing room on each side."
+    },
+    "output_size": {
+      "type": "number",
+      "default": 2000,
+      "description": "Output dimension in pixels. Square output (WxH). Master asset. Default: 2000."
+    },
+    "output_format": {
+      "type": "string",
+      "enum": [
+        "png",
+        "jpg"
+      ],
+      "default": "png",
+      "description": "File format for the processed marketplace hero image. PNG preferred for quality."
+    },
+    "enabled_for_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "listing_hero"
+      ],
+      "description": "Which image roles are eligible for marketplace processing. MVP: listing_hero only."
+    },
+    "min_input_px": {
+      "type": "number",
+      "default": 1200,
+      "description": "Minimum pixel dimension (longest side) to accept for processing without a quality warning."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal admin notes about this configuration."
+    }
+  },
+  "required": [
+    "config_key"
+  ]
+}
