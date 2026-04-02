@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText
+  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText, Settings
 } from "lucide-react";
 import AdminActionQueue from "../components/admin/AdminActionQueue";
 
@@ -115,6 +115,14 @@ export default function AdminDashboard() {
       icon: FileText,
       page: "AdminLegalDocuments",
       badge: null,
+    },
+    {
+      title: "Marketplace Image Settings",
+      description: "Configure the global Photoroom processing pipeline for standardized marketplace hero images — background color, shadow, padding, output size, and format.",
+      icon: Settings,
+      page: "AdminMarketplaceImageSettings",
+      badge: null,
+      urgent: false,
     },
     {
       title: "Release QA Checklist",
