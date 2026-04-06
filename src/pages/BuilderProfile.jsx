@@ -119,8 +119,8 @@ export default function BuilderProfile() {
             </div>
             <div className="flex flex-col sm:flex-row gap-0">
               <div className="sm:w-1/2 bg-stone-100 overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                {featuredProduct.image_urls?.[0] ? (
-                  <img src={featuredProduct.image_urls[0]} alt={featuredProduct.name} className="w-full h-full object-cover" />
+                {(featuredProduct.processed_hero_image_url || featuredProduct.image_urls?.[0]) ? (
+                  <img src={featuredProduct.processed_hero_image_url || featuredProduct.image_urls[0]} alt={featuredProduct.name} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <Guitar className="w-12 h-12 text-stone-300" />
@@ -164,8 +164,8 @@ export default function BuilderProfile() {
                   className="group block bg-white rounded-xl border border-stone-200 overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
                 >
                   <div className="relative overflow-hidden bg-stone-100" style={{ aspectRatio: "4/3" }}>
-                    {p.image_urls?.[0] ? (
-                      <img src={p.image_urls[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    {(p.processed_hero_image_url || p.image_urls?.[0]) ? (
+                      <img src={p.processed_hero_image_url || p.image_urls[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center"><Guitar className="w-10 h-10 text-stone-300" /></div>
                     )}

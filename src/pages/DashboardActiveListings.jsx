@@ -70,8 +70,8 @@ export default function DashboardActiveListings() {
               {/* Row */}
               <div className="p-4 flex gap-4 items-center">
                 <div className="w-16 h-16 bg-stone-100 rounded-xl overflow-hidden flex-shrink-0">
-                  {product.image_urls?.[0] ? (
-                    <img src={product.image_urls[0]} className="w-full h-full object-cover" />
+                  {(product.processed_hero_image_url || product.image_urls?.[0]) ? (
+                    <img src={product.processed_hero_image_url || product.image_urls[0]} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center"><Guitar className="w-6 h-6 text-stone-300" /></div>
                   )}

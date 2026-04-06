@@ -279,9 +279,9 @@ function InstrumentCard({ product }) {
     >
       {/* Image */}
       <div className="relative overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
-        {product.image_urls?.[0] ? (
+        {(product.processed_hero_image_url || product.image_urls?.[0]) ? (
           <img
-            src={product.image_urls[0]}
+            src={product.processed_hero_image_url || product.image_urls[0]}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
           />
