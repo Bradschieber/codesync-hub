@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
     const configs = await base44.asServiceRole.entities.MarketplaceImageConfig.filter({ config_key: 'default' });
     const config = configs[0] || {};
 
-    const bgColor = (config.background_color || '#F7F5F0').replace('#', '');
+    const bgColor = config.background_color || '#F7F5F0';
     const paddingPreset = config.padding_preset || 'balanced';
     const shadowMode = config.shadow_mode || 'soft';
     const outputSize = config.output_size || 2000;
@@ -99,7 +99,8 @@ Deno.serve(async (req) => {
     const uploadFormData = new FormData();
     uploadFormData.append('file', processedBlob, `processed_hero_${product_id}.${outputFormat}`);
 
-    const { file_url } = await base44.asServiceRole.integrations.Core.UploadFile({ file: processedBlob });
+    const uploadFile = new File([processedBlob], `processed_hero_${product_id}.${outputFormat}`, { type: processedBlob.type });
+    const { file_url } = await base44.asServiceRole.integrations.Core.UploadFile({ file: uploadFile });
 
     // Update product with processed image
     await base44.asServiceRole.entities.Product.update(product_id, {
