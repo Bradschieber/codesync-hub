@@ -171,26 +171,39 @@ export default function DashboardProducts() {
     await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
   }
 
+  async function openHeroReviewPanel(product) {
+    setHeroReviewProduct(product);
+    setShowHeroReviewPanel(true);
+    // Trigger Photoroom processing if not already done
+    if (!product.processed_hero_image_url || product.hero_processing_status === "unprocessed" || product.hero_processing_status === "failed") {
+      try {
+        const result = await base44.functions.invoke('processMarketplaceHero', { product_id: product.id });
+        if (result?.data?.processed_hero_image_url) {
+          setHeroReviewProduct(p => ({ ...p, processed_hero_image_url: result.data.processed_hero_image_url, hero_processing_status: "preview_ready" }));
+        }
+      } catch (err) {
+        console.error("Photoroom processing failed:", err);
+      }
+    }
+  }
+
   async function handleReviewHeroFromModal() {
     setShowHeroPublishModal(false);
     setShowHeroConfirmModal(false);
     if (editingProduct) {
-      setHeroReviewProduct(editingProduct);
-      setShowHeroReviewPanel(true);
+      await openHeroReviewPanel(editingProduct);
     } else {
       // For new products: save first, then immediately open the review panel
       const savedProduct = await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
       if (savedProduct) {
-        setHeroReviewProduct(savedProduct);
-        setShowHeroReviewPanel(true);
+        await openHeroReviewPanel(savedProduct);
       }
     }
   }
 
   function handleReviewHeroFromBanner() {
     if (editingProduct) {
-      setHeroReviewProduct(editingProduct);
-      setShowHeroReviewPanel(true);
+      openHeroReviewPanel(editingProduct);
     }
   }
 
@@ -503,7 +516,7 @@ export default function DashboardProducts() {
                     !product.builder_approved_marketplace_hero &&
                     product.hero_processing_status !== "approved_by_builder" && (
                     <button
-                      onClick={() => { setHeroReviewProduct(product); setShowHeroReviewPanel(true); }}
+                      onClick={() => openHeroReviewPanel(product)}
                       className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 border transition-colors"
                       style={{ borderColor: "#D97706", color: "#92400E", backgroundColor: "#FFFBEB" }}
                     >

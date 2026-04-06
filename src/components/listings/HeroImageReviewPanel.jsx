@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { CheckCircle2, ImageIcon, Eye, X, Upload } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle2, ImageIcon, Eye, X, Upload, Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
 const NAVY = "#1B2B4B";
@@ -17,6 +17,13 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
   const [uploading, setUploading] = useState(false);
   const [localProcessedUrl, setLocalProcessedUrl] = useState(product.processed_hero_image_url || null);
   const [approved, setApproved] = useState(false);
+
+  // Keep localProcessedUrl in sync if parent updates the product prop (after processing completes)
+  useEffect(() => {
+    if (product.processed_hero_image_url && !localProcessedUrl) {
+      setLocalProcessedUrl(product.processed_hero_image_url);
+    }
+  }, [product.processed_hero_image_url]);
 
   async function handleApprove() {
     setSaving(true);
@@ -48,8 +55,9 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
     e.target.value = "";
   }
 
-  const originalImage = product.image_urls?.[0] || null;
+  const originalImage = product.original_hero_image_url || product.image_urls?.[0] || null;
   const processedImage = localProcessedUrl;
+  const isProcessing = !processedImage && (product.hero_processing_status === "processing" || product.hero_processing_status === "queued");
 
   if (approved) {
     return (
@@ -115,11 +123,18 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
               <div className="overflow-hidden relative" style={{ aspectRatio: "4/3", backgroundColor: "#EEF1F7" }}>
                 {processedImage ? (
                   <img src={processedImage} alt="Clean marketplace version" className="w-full h-full object-cover" />
+                ) : isProcessing ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-4 text-center">
+                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#8A9BB0" }} />
+                    <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
+                      Generating clean marketplace version…
+                    </p>
+                  </div>
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
-                    <ImageIcon className="w-8 h-8" style={{ color: "#8A9BB0" }} />
+                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#8A9BB0" }} />
                     <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
-                      No clean version yet. Upload a primary listing photo below.
+                      Generating clean marketplace version…
                     </p>
                   </div>
                 )}
