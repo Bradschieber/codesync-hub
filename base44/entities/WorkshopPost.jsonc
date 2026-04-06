@@ -1,0 +1,43 @@
+{
+  "name": "WorkshopPost",
+  "type": "object",
+  "properties": {
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string",
+      "description": "Optional caption, max 200 characters"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Wood Selection",
+          "Neck Carving",
+          "Body Shaping",
+          "Electronics",
+          "Finishing",
+          "Setup",
+          "Sound Test"
+        ]
+      }
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true,
+      "description": "If true, also appears in the public From The Bench feed"
+    }
+  },
+  "required": [
+    "builder_id",
+    "photo_url"
+  ]
+}

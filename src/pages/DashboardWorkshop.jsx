@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import { ChevronLeft, Plus, Pencil, Trash2, Upload, X, Loader2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
-const TAGS = ["Stock Build", "Custom Build", "Shop Work", "Materials", "Finishing"];
+const TAGS = ["Wood Selection", "Neck Carving", "Body Shaping", "Electronics", "Finishing", "Setup", "Sound Test"];
 const NAVY = "#1B2B4B";
 
 export default function DashboardWorkshop() {
