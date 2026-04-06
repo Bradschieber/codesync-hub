@@ -133,14 +133,16 @@ export default function DashboardProducts() {
       builder_id: profile.id,
       builder_name: profile.business_name || user.full_name,
     };
+    let savedProduct;
     if (editingProduct) {
-      await base44.entities.Product.update(editingProduct.id, payload);
+      savedProduct = await base44.entities.Product.update(editingProduct.id, payload);
     } else {
-      await base44.entities.Product.create(payload);
+      savedProduct = await base44.entities.Product.create(payload);
     }
     setSaving(false);
     cancelEdit();
     loadData();
+    return savedProduct;
   }
 
   async function handleSave() {
@@ -169,18 +171,19 @@ export default function DashboardProducts() {
     await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
   }
 
-  function handleReviewHeroFromModal() {
+  async function handleReviewHeroFromModal() {
     setShowHeroPublishModal(false);
     setShowHeroConfirmModal(false);
-    // Save as draft first, then open review panel
     if (editingProduct) {
       setHeroReviewProduct(editingProduct);
       setShowHeroReviewPanel(true);
     } else {
-      // For new products, just save with limited visibility then open review
-      executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" }).then(() => {
-        // After save, load again and user can then click "Review hero image" from listing
-      });
+      // For new products: save first, then immediately open the review panel
+      const savedProduct = await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
+      if (savedProduct) {
+        setHeroReviewProduct(savedProduct);
+        setShowHeroReviewPanel(true);
+      }
     }
   }
 
