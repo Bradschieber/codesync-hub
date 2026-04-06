@@ -50,6 +50,7 @@ export default function DashboardProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(INITIAL_FORM);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -80,9 +81,11 @@ export default function DashboardProducts() {
   function startNew() {
     setEditingProduct(null);
     setForm(INITIAL_FORM);
+    setShowForm(true);
   }
 
   function startEdit(product) {
+    setShowForm(true);
     setEditingProduct(product);
     setForm({
       name: product.name || "",
@@ -104,6 +107,7 @@ export default function DashboardProducts() {
   function cancelEdit() {
     setEditingProduct(null);
     setForm(INITIAL_FORM);
+    setShowForm(false);
   }
 
   async function handleUploadImage(e) {
@@ -247,7 +251,7 @@ export default function DashboardProducts() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8">
 
         {/* New / Edit Form */}
-        {(editingProduct !== null || form !== INITIAL_FORM) && (
+        {showForm && (
           <div className="bg-white border p-6" style={{ borderColor: "#E0DDD8" }}>
             <h2 className="text-base font-bold mb-5" style={{ color: "#1A1A1A" }}>
               {editingProduct ? `Editing: ${editingProduct.name}` : "New Listing"}
