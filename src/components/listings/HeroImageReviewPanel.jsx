@@ -84,7 +84,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
           <div>
             <h2 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Review your clean marketplace version</h2>
             <p className="text-xs mt-1 leading-relaxed" style={{ color: "#7A7A7A" }}>
-              We use your primary listing photo to create a cleaner, more consistent version for catalog, search, homepage features, and other marketplace browsing areas. Only the background and presentation are standardized — your instrument itself is not altered.
+              We create a clean marketplace version so listings across Stringed Collective look polished, consistent, and professional wherever shoppers browse multiple instruments. Nothing about your instrument is changed — we only standardize the background and presentation.
             </p>
           </div>
           <button onClick={onClose} className="p-1.5 text-gray-400 hover:text-gray-700 flex-shrink-0 ml-4">

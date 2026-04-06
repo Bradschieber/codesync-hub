@@ -330,7 +330,7 @@ export default function DashboardProducts() {
             <div className="mb-4">
               <label className="block text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "#6B6B6B" }}>Photos</label>
               <p className="text-xs leading-relaxed mb-3" style={{ color: "#7A7A7A" }}>
-                Add your listing photos here. Your <strong>first photo</strong> is your <strong>primary listing photo</strong> — we use it to create a <strong>clean marketplace version</strong> for catalog, search, homepage features, and other browsing areas across Stringed Collective. Your additional photos appear in your listing gallery, where you can show close-up details, shop context, and your own visual style.
+                Add your listing photos here. Your <strong>first photo</strong> is your <strong>primary listing photo</strong> — we use it to create a <strong>clean marketplace version</strong> for catalog, search, homepage features, and other browsing areas across Stringed Collective. This helps every listing look polished, consistent, and professional wherever shoppers browse multiple instruments side by side. Your additional photos appear in your listing gallery, where you can show close-up details, shop context, and your own visual style.
               </p>
 
               {/* Primary photo guidance */}
@@ -344,7 +344,7 @@ export default function DashboardProducts() {
                   <li>· Use a simple background</li>
                   <li>· Avoid angled shots or tight crops</li>
                 </ul>
-                <p style={{ color: "#6B5A4A" }}>Only the background and presentation are standardized. The instrument itself is not altered.</p>
+                <p style={{ color: "#6B5A4A" }}>Only the background and presentation are standardized — your instrument itself is never altered. This helps your listing look its cleanest and most professional in browsing areas where shoppers are comparing multiple instruments.</p>
               </div>
 
               <div className="flex flex-wrap gap-3 mb-3">
