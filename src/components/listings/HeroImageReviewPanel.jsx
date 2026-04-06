@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, ImageIcon, RefreshCw, Eye, X, Upload } from "lucide-react";
+import { CheckCircle2, ImageIcon, Eye, X, Upload } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
 const NAVY = "#1B2B4B";
@@ -38,7 +38,6 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
     setUploading(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
     setLocalProcessedUrl(file_url);
-    // Save as processed_hero_image_url and mark preview_ready
     await base44.entities.Product.update(product.id, {
       processed_hero_image_url: file_url,
       hero_processing_status: "preview_ready",
@@ -59,9 +58,9 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
           <div className="w-14 h-14 flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: "#DCFCE7" }}>
             <CheckCircle2 className="w-7 h-7" style={{ color: "#16A34A" }} />
           </div>
-          <h2 className="text-xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Marketplace hero image approved</h2>
+          <h2 className="text-xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Clean marketplace version approved</h2>
           <p className="text-sm leading-relaxed text-gray-500">
-            Your listing is now eligible for catalog, search, homepage featured sections, and other discovery placements.
+            Your listing is now eligible for catalog, search, homepage features, and other marketplace browsing areas.
           </p>
         </div>
       </div>
@@ -75,9 +74,9 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
         {/* Header */}
         <div className="flex items-center justify-between p-6 pb-4 border-b" style={{ borderColor: "#E8E5E0" }}>
           <div>
-            <h2 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Review marketplace hero image</h2>
-            <p className="text-xs mt-1" style={{ color: "#7A7A7A" }}>
-              Review the processed marketplace version of your hero image. Only the background and presentation are standardized. The instrument itself is not altered.
+            <h2 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Review your clean marketplace version</h2>
+            <p className="text-xs mt-1 leading-relaxed" style={{ color: "#7A7A7A" }}>
+              We use your primary listing photo to create a cleaner, more consistent version for catalog, search, homepage features, and other marketplace browsing areas. Only the background and presentation are standardized — your instrument itself is not altered.
             </p>
           </div>
           <button onClick={onClose} className="p-1.5 text-gray-400 hover:text-gray-700 flex-shrink-0 ml-4">
@@ -93,7 +92,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
             <div>
               <div className="flex items-center gap-1.5 mb-2">
                 <Eye className="w-3.5 h-3.5" style={{ color: "#7A7A7A" }} />
-                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#7A7A7A" }}>Original</p>
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#7A7A7A" }}>Original photo</p>
               </div>
               <div className="overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#F0EDE8" }}>
                 {originalImage ? (
@@ -101,26 +100,26 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2">
                     <ImageIcon className="w-8 h-8" style={{ color: "#C8C4BC" }} />
-                    <p className="text-xs" style={{ color: "#9A9A9A" }}>No image uploaded</p>
+                    <p className="text-xs" style={{ color: "#9A9A9A" }}>No photo uploaded</p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Marketplace version */}
+            {/* Clean marketplace version */}
             <div>
               <div className="flex items-center gap-1.5 mb-2">
                 <Eye className="w-3.5 h-3.5" style={{ color: NAVY }} />
-                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: NAVY }}>Marketplace version</p>
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: NAVY }}>Clean marketplace version</p>
               </div>
               <div className="overflow-hidden relative" style={{ aspectRatio: "4/3", backgroundColor: "#EEF1F7" }}>
                 {processedImage ? (
-                  <img src={processedImage} alt="Marketplace version" className="w-full h-full object-cover" />
+                  <img src={processedImage} alt="Clean marketplace version" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
                     <ImageIcon className="w-8 h-8" style={{ color: "#8A9BB0" }} />
                     <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
-                      No processed version yet. Upload a marketplace hero image below.
+                      No clean version yet. Upload a primary listing photo below.
                     </p>
                   </div>
                 )}
@@ -131,13 +130,13 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
 
         {/* Actions */}
         <div className="p-6 space-y-3">
-          {/* Upload new hero */}
+          {/* Upload new primary photo */}
           <label className={`flex items-center justify-center gap-2 w-full py-3 border-2 border-dashed cursor-pointer text-sm font-medium transition-colors ${uploading ? "border-blue-300 bg-blue-50 text-blue-600" : "border-stone-300 text-stone-500 hover:border-stone-400 hover:bg-stone-50"}`}>
             <input type="file" accept="image/*" className="hidden" onChange={handleUploadNewHero} disabled={uploading} />
             {uploading ? (
               <><div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" /> Uploading...</>
             ) : (
-              <><Upload className="w-4 h-4" /> Try a different hero image</>
+              <><Upload className="w-4 h-4" /> Try a different primary photo</>
             )}
           </label>
 
@@ -150,7 +149,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
             onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = "#152038")}
             onMouseLeave={e => (e.currentTarget.style.backgroundColor = NAVY)}
           >
-            {saving ? "Saving..." : "Approve marketplace version"}
+            {saving ? "Saving..." : "Approve clean marketplace version"}
           </button>
 
           {/* Secondary: keep limited */}

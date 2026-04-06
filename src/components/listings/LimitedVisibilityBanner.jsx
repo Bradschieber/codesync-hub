@@ -23,7 +23,7 @@ export default function LimitedVisibilityBanner({ onReviewHero }) {
             This listing is live with limited visibility
           </p>
           <p className="text-xs leading-relaxed mb-3" style={{ color: "#92400E" }}>
-            It is not currently eligible for catalog, search, or featured marketplace placements because you have not yet approved a processed marketplace hero image.
+            It is not currently eligible for catalog, search, homepage features, or other marketplace browsing areas because you have not yet approved a clean marketplace version of your primary listing photo.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <button
@@ -33,7 +33,7 @@ export default function LimitedVisibilityBanner({ onReviewHero }) {
               onMouseEnter={e => e.currentTarget.style.backgroundColor = "#78350F"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = "#92400E"}
             >
-              Review hero image
+              Review photo
             </button>
             <button
               onClick={() => setShowLearnMore(true)}
@@ -61,10 +61,10 @@ export default function LimitedVisibilityBanner({ onReviewHero }) {
             </div>
             <div className="p-6 text-sm leading-relaxed text-gray-600 space-y-3">
               <p>
-                Stringed Collective uses a standardized marketplace hero image format for catalog, search, homepage, and other multi-listing placements. This helps the marketplace look polished, consistent, and easy for buyers to browse.
+                Stringed Collective uses a clean, consistent format for catalog, search, homepage features, and other marketplace browsing areas. This helps buyers compare and discover instruments more easily.
               </p>
               <p>
-                Your original photos are still used on your listing page and can continue to reflect your brand, shop, and process. Only the marketplace hero image must follow the standardized format.
+                Your original photos still appear on your listing page and can reflect your brand and shop style. Only the background and presentation are standardized — your instrument itself is not altered.
               </p>
             </div>
             <div className="px-6 pb-6">

@@ -315,7 +315,25 @@ export default function DashboardProducts() {
 
             {/* Photos */}
             <div className="mb-4">
-              <label className="block text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "#6B6B6B" }}>Photos</label>
+              <label className="block text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "#6B6B6B" }}>Photos</label>
+              <p className="text-xs leading-relaxed mb-3" style={{ color: "#7A7A7A" }}>
+                Add your listing photos here. Your <strong>first photo</strong> is your <strong>primary listing photo</strong> — we use it to create a <strong>clean marketplace version</strong> for catalog, search, homepage features, and other browsing areas across Stringed Collective. Your additional photos appear in your listing gallery, where you can show close-up details, shop context, and your own visual style.
+              </p>
+
+              {/* Primary photo guidance */}
+              <div className="mb-3 p-3 text-xs leading-relaxed" style={{ backgroundColor: "#F5F3F0", borderLeft: "3px solid #D4A96A" }}>
+                <p className="font-semibold mb-1" style={{ color: "#4A3A2A" }}>Primary listing photo</p>
+                <p className="mb-2" style={{ color: "#6B5A4A" }}>Your first photo should be a straight-on image of the full instrument, from the top of the headstock to the bottom of the body. For best results:</p>
+                <ul className="space-y-0.5 mb-2" style={{ color: "#6B5A4A" }}>
+                  <li>· Center the instrument in the frame</li>
+                  <li>· Include the full instrument</li>
+                  <li>· Leave a little space around the edges</li>
+                  <li>· Use a simple background</li>
+                  <li>· Avoid angled shots or tight crops</li>
+                </ul>
+                <p style={{ color: "#6B5A4A" }}>Only the background and presentation are standardized. The instrument itself is not altered.</p>
+              </div>
+
               <div className="flex flex-wrap gap-3 mb-3">
                 {form.image_urls.map((url, i) => (
                   <div key={i} className="relative w-24 h-24 border" style={{ borderColor: "#DEDBD6" }}>
@@ -325,7 +343,7 @@ export default function DashboardProducts() {
                       className="absolute top-1 right-1 w-5 h-5 bg-black bg-opacity-60 text-white flex items-center justify-center text-xs rounded-full hover:bg-opacity-80"
                     >×</button>
                     {i === 0 && (
-                      <span className="absolute bottom-1 left-1 text-xs bg-black bg-opacity-60 text-white px-1 rounded">Hero</span>
+                      <span className="absolute bottom-1 left-1 text-xs bg-black bg-opacity-60 text-white px-1 rounded">Primary</span>
                     )}
                   </div>
                 ))}
@@ -489,7 +507,7 @@ export default function DashboardProducts() {
                       className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 border transition-colors"
                       style={{ borderColor: "#D97706", color: "#92400E", backgroundColor: "#FFFBEB" }}
                     >
-                      <ImageIcon className="w-3.5 h-3.5" /> Review Hero
+                      <ImageIcon className="w-3.5 h-3.5" /> Review Photo
                     </button>
                   )}
                   <button

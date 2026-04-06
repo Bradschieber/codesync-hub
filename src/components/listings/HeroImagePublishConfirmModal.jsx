@@ -3,7 +3,7 @@ import { AlertTriangle } from "lucide-react";
 const NAVY = "#1B2B4B";
 
 /**
- * Secondary confirmation modal shown when builder clicks "Publish anyway".
+ * Secondary confirmation modal shown when builder clicks "Publish with limited visibility".
  * Props:
  *   onConfirm — execute the publish action
  *   onGoBack  — return to primary modal
@@ -26,13 +26,13 @@ export default function HeroImagePublishConfirmModal({ onConfirm, onGoBack }) {
         <div className="p-6">
           <div className="text-sm leading-relaxed text-gray-600 space-y-3 mb-6">
             <p>
-              This listing will be live, but it will not appear in catalog, search, or featured marketplace placements until you approve a processed marketplace hero image.
+              This listing will be live, but it will not appear in catalog, search, homepage features, or other marketplace browsing areas until you approve a clean marketplace version of your primary listing photo.
             </p>
             <p>
-              Buyers will still be able to view it from your storefront or through a direct link.
+              Buyers can still view it from your storefront or through a direct link.
             </p>
             <p>
-              You can review and approve a marketplace hero image at any time from the listing editor.
+              You can review and approve a clean marketplace version at any time from the listing editor.
             </p>
           </div>
 

@@ -3,9 +3,9 @@ import { X, ImageIcon } from "lucide-react";
 const NAVY = "#1B2B4B";
 
 /**
- * Primary modal shown when builder tries to publish without a builder-approved marketplace hero image.
+ * Primary modal shown when builder tries to publish without a builder-approved marketplace photo.
  * Props:
- *   onReviewHero   — navigate to hero review flow
+ *   onReviewHero    — navigate to hero review flow
  *   onPublishAnyway — open secondary confirmation modal
  *   onClose         — dismiss
  */
@@ -20,7 +20,7 @@ export default function HeroImagePublishModal({ onReviewHero, onPublishAnyway, o
               <ImageIcon className="w-4 h-4" style={{ color: "#92400E" }} />
             </div>
             <h2 className="text-base font-bold leading-snug pr-4" style={{ color: "#1A1A1A" }}>
-              Marketplace hero image not yet approved by you
+              Review your primary listing photo for marketplace browsing
             </h2>
           </div>
           <button onClick={onClose} className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-700 transition-colors">
@@ -32,13 +32,13 @@ export default function HeroImagePublishModal({ onReviewHero, onPublishAnyway, o
         <div className="px-6 pb-6">
           <div className="text-sm leading-relaxed text-gray-600 space-y-3 mb-6">
             <p>
-              Your listing can still be published, but it will not appear in catalog, search, homepage featured sections, or other discovery placements until you review and approve a processed marketplace hero image.
+              Your listing can still be published, but it will not appear in catalog, search, homepage featured sections, or other marketplace browsing areas until you review and approve a <strong>clean marketplace version</strong> of your primary listing photo.
             </p>
             <p>
-              Your original photos will still appear on the listing page and can still reflect your brand and shop style.
+              This clean marketplace version helps keep Stringed Collective polished and consistent wherever buyers browse multiple instruments.
             </p>
             <p>
-              To make this listing eligible for discovery, upload a clearer hero image or create a new marketplace version to review.
+              It standardizes the background and presentation only. Your instrument itself is not changed, and your original photos will still appear on your listing page.
             </p>
           </div>
 
@@ -50,7 +50,7 @@ export default function HeroImagePublishModal({ onReviewHero, onPublishAnyway, o
               onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
             >
-              Review hero image now
+              Review photo now
             </button>
             <button
               onClick={onPublishAnyway}
@@ -59,7 +59,7 @@ export default function HeroImagePublishModal({ onReviewHero, onPublishAnyway, o
               onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#F7F6F3"; }}
               onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; }}
             >
-              Publish anyway
+              Publish with limited visibility
             </button>
           </div>
         </div>
