@@ -231,7 +231,7 @@ export default function DashboardProducts() {
               <h1 className="text-3xl font-bold" style={{ color: "#1A1A1A" }}>Stock Listings</h1>
               <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>Manage your available instruments for sale.</p>
             </div>
-            {!editingProduct && form === INITIAL_FORM && (
+            {!editingProduct && (
               <button
                 onClick={startNew}
                 className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white"
