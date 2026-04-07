@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import SpecificationsDisplay from "../components/marketplace/SpecificationsDisplay";
 import BuilderBadges from "../components/builder/BuilderBadges";
+import ImageLightbox from "../components/marketplace/ImageLightbox";
 
 const AMBER = "#C57A1F";
 const SLATE = "#2F3E55";
@@ -22,6 +23,7 @@ export default function ProductDetail() {
   const [activeImg, setActiveImg] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
@@ -107,7 +109,11 @@ export default function ProductDetail() {
 
           {/* Left — Image gallery */}
           <div>
-            <div className="rounded-2xl overflow-hidden bg-stone-100 mb-3" style={{ aspectRatio: "1/1" }}>
+            <div
+              className="rounded-2xl overflow-hidden bg-stone-100 mb-3 cursor-zoom-in"
+              style={{ aspectRatio: "1/1" }}
+              onClick={() => galleryImages[activeImg] && setLightboxIndex(activeImg)}
+            >
               {galleryImages[activeImg] ? (
                 <img src={galleryImages[activeImg]} alt={product.name} className="w-full h-full object-cover" />
               ) : (
@@ -359,6 +365,13 @@ export default function ProductDetail() {
 
       {showContact && builder && (
         <ContactModal builder={builder} user={user} onClose={() => setShowContact(false)} />
+      )}
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={galleryImages}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
       )}
     </div>
   );
