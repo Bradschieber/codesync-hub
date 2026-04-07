@@ -148,7 +148,7 @@ export default function Home() {
                   />
                 ) : (
                   <img
-                    src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80"
+                    src="https://images.unsplash.com/photo-1559863438-e69c0d3a5a8a?auto=format&fit=crop&q=80&w=800"
                     alt="Handcrafted instrument"
                     className="w-full h-full object-cover"
                   />
