@@ -182,35 +182,6 @@ function CheckoutForm({ cartItems, user, shippingForm, legalChecked, onLegalChan
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Shipping */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-6">
-        <h2 className="font-bold text-stone-800 mb-4 flex items-center gap-2">
-          <Truck className="w-5 h-5 text-amber-600" /> Shipping Information
-        </h2>
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="sm:col-span-2">
-            <label className="block text-xs font-medium text-stone-600 mb-1">Full Name *</label>
-            <input disabled value={shippingForm.full_name} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-stone-50" />
-          </div>
-          <div className="sm:col-span-2">
-            <label className="block text-xs font-medium text-stone-600 mb-1">Street Address *</label>
-            <input disabled value={shippingForm.address} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-stone-50" />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">City *</label>
-            <input disabled value={shippingForm.city} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-stone-50" />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">State *</label>
-            <input disabled value={shippingForm.state} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-stone-50" />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">ZIP Code *</label>
-            <input disabled value={shippingForm.zip} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-stone-50" />
-          </div>
-        </div>
-      </div>
-
       {/* Payment */}
       <div className="bg-white rounded-2xl border border-stone-200 p-6">
         <h2 className="font-bold text-stone-800 mb-4 flex items-center gap-2">
