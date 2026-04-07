@@ -256,10 +256,7 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           <SpecInput label="Specify Frets" value={specs.otherFrets} onChange={v => update("otherFrets", v)} placeholder="Enter fret type..." />
         )}
         <SpecTextarea label="Nut Material" value={specs.nutMaterial} onChange={v => update("nutMaterial", v)} placeholder={bn("nutMaterial") || "Describe nut material..."} builderNotes={bn("nutMaterial")} />
-        <SpecTextarea label="Neck Construction" value={specs.neckConstruction} onChange={v => update("neckConstruction", v)} placeholder={bn("neckConstruction") || "Describe neck construction..."} builderNotes={bn("neckConstruction")} />
-        <div className="col-span-full">
-          <SpecTextarea label="Neck Materials" value={specs.neckMaterials} onChange={v => update("neckMaterials", v)} placeholder={bn("neckMaterials") || "Describe neck materials..."} builderNotes={bn("neckMaterials")} />
-        </div>
+        <SpecTextarea label="Neck Construction" value={specs.neckConstruction} onChange={v => update("neckConstruction", v)} placeholder={bn("neckConstruction") || "Describe neck construction and materials (e.g. 3-piece maple neck, quartersawn, scarf joint headstock)..."} builderNotes={bn("neckConstruction")} />
       </div>
 
       {/* ── Hardware ── */}
