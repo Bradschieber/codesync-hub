@@ -82,7 +82,12 @@ export default function ProductDetail() {
     </div>
   );
 
-  const images = product.image_urls || [];
+  // Build gallery: processed hero first (if available), then all original photos/videos
+  const originalImages = product.image_urls || [];
+  const processedHero = product.processed_hero_image_url || null;
+  const galleryImages = processedHero
+    ? [processedHero, ...originalImages]
+    : originalImages;
   const storyContent = product.about_this_build || product.description;
   const specs = product.specifications || {};
   const hasSpecs = Object.keys(specs).length > 0;
@@ -103,17 +108,17 @@ export default function ProductDetail() {
           {/* Left — Image gallery */}
           <div>
             <div className="rounded-2xl overflow-hidden bg-stone-100 mb-3" style={{ aspectRatio: "1/1" }}>
-              {images[activeImg] ? (
-                <img src={images[activeImg]} alt={product.name} className="w-full h-full object-cover" />
+              {galleryImages[activeImg] ? (
+                <img src={galleryImages[activeImg]} alt={product.name} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <Guitar className="w-24 h-24 text-stone-300" />
                 </div>
               )}
             </div>
-            {images.length > 1 && (
+            {galleryImages.length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1">
-                {images.map((img, i) => (
+                {galleryImages.map((img, i) => (
                   <button key={i} onClick={() => setActiveImg(i)}
                     className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all"
                     style={{ borderColor: activeImg === i ? AMBER : "transparent" }}>
