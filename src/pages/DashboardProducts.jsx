@@ -10,6 +10,7 @@ import HeroImagePublishModal from "@/components/listings/HeroImagePublishModal";
 import HeroImagePublishConfirmModal from "@/components/listings/HeroImagePublishConfirmModal";
 import HeroImageReviewPanel from "@/components/listings/HeroImageReviewPanel";
 import LimitedVisibilityBanner from "@/components/listings/LimitedVisibilityBanner";
+import SpecificationsForm from "@/components/dashboard/SpecificationsForm";
 
 const NAVY = "#1B2B4B";
 
@@ -421,6 +422,15 @@ export default function DashboardProducts() {
                 />
               </div>
             )}
+
+            {/* Specifications */}
+            <div className="mb-4">
+              <label className="block text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#6B6B6B" }}>Specifications</label>
+              <SpecificationsForm
+                specs={form.specifications}
+                onChange={specs => setForm(f => ({ ...f, specifications: specs }))}
+              />
+            </div>
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3 pt-2">
