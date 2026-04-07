@@ -125,7 +125,7 @@ export default function ProductDetail() {
             {galleryImages.length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1">
                 {galleryImages.map((img, i) => (
-                  <button key={i} onClick={() => setActiveImg(i)}
+                  <button key={i} onClick={() => { setActiveImg(i); setLightboxIndex(i); }}
                     className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all"
                     style={{ borderColor: activeImg === i ? AMBER : "transparent" }}>
                     <img src={img} className="w-full h-full object-cover" />
