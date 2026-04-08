@@ -278,7 +278,7 @@ function InstrumentCard({ product }) {
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+      <div className="relative overflow-hidden" style={{ aspectRatio: "4/5", backgroundColor: "#EBEBEB" }}>
         {(product.processed_hero_image_url || product.image_urls?.[0]) ? (
           <img
             src={product.processed_hero_image_url || product.image_urls[0]}
