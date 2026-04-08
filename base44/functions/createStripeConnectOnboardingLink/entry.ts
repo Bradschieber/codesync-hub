@@ -11,8 +11,8 @@ Deno.serve(async (req) => {
   const { return_url } = await req.json();
   const baseUrl = return_url || 'https://app.base44.com';
 
-  // Look up the builder's UserProfile
-  const profiles = await base44.entities.UserProfile.filter({ user_id: user.id });
+  // Look up the builder's UserProfile (using service role to bypass user-level validation)
+  const profiles = await base44.asServiceRole.entities.UserProfile.filter({ user_id: user.id });
   if (!profiles.length) return Response.json({ error: 'UserProfile not found' }, { status: 404 });
   const profile = profiles[0];
 
@@ -33,7 +33,8 @@ Deno.serve(async (req) => {
     });
     stripeAccountId = account.id;
 
-    await base44.entities.UserProfile.update(profile.id, {
+    // Use asServiceRole to avoid validation issues with existing profile data
+    await base44.asServiceRole.entities.UserProfile.update(profile.id, {
       stripe_account_id: stripeAccountId,
       stripe_onboarding_status: 'in_progress',
     });
