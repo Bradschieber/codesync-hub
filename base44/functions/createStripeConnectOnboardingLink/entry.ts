@@ -33,11 +33,15 @@ Deno.serve(async (req) => {
     });
     stripeAccountId = account.id;
 
-    // Use asServiceRole to avoid validation issues with existing profile data
-    await base44.asServiceRole.entities.UserProfile.update(profile.id, {
+    // Sanitize warranty_coverage if it contains plain strings instead of objects
+    const updateData = {
       stripe_account_id: stripeAccountId,
       stripe_onboarding_status: 'in_progress',
-    });
+    };
+    if (Array.isArray(profile.warranty_coverage) && profile.warranty_coverage.length > 0 && typeof profile.warranty_coverage[0] === 'string') {
+      updateData.warranty_coverage = profile.warranty_coverage.map(label => ({ label, duration: '' }));
+    }
+    await base44.asServiceRole.entities.UserProfile.update(profile.id, updateData);
   }
 
   // Create account link for onboarding
