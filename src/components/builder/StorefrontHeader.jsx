@@ -97,7 +97,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
             onClick={onContact}
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-semibold transition-colors backdrop-blur-sm bg-black/30 border border-white/30 hover:bg-black/50"
           >
-            <MessageSquare className="w-4 h-4" /> Message
+            <MessageSquare className="w-4 h-4" /> <span className="hidden sm:inline">Message {name}</span><span className="sm:hidden">Message</span>
           </button>
         </div>
 
@@ -140,49 +140,46 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-3">
-            {builder.offers_custom_builds ? (
-              <>
-                <button
-                  onClick={onRequestQuote}
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-                  style={{ backgroundColor: "#C57A1F" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-                >
-                  <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-                  Request Custom Build
-                </button>
-                {builder.offers_stock_builds && (
-                  <button
-                    onClick={() => scrollToSection("instruments-section")}
-                    className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors backdrop-blur-sm bg-white/20 border border-white/30 hover:bg-white/30"
-                  >
-                    <Guitar className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-                    View Available Instruments
-                  </button>
-                )}
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => scrollToSection("instruments-section")}
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-                  style={{ backgroundColor: "#C57A1F" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
-                >
-                  <Guitar className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-                  View Available Instruments
-                </button>
-                <button
-                  onClick={onContact}
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors backdrop-blur-sm bg-white/20 border border-white/30 hover:bg-white/30"
-                >
-                  <MessageSquare className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-                  Message Builder
-                </button>
-              </>
+            {builder.offers_custom_builds && (
+              <button
+                onClick={onRequestQuote}
+                className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
+                style={{ backgroundColor: "#C57A1F" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+              >
+                <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                Request Custom Build
+              </button>
             )}
+            {!builder.offers_custom_builds && (
+              <button
+                onClick={() => scrollToSection("instruments-section")}
+                className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
+                style={{ backgroundColor: "#C57A1F" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+              >
+                <Guitar className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                View Available Instruments
+              </button>
+            )}
+            {builder.offers_custom_builds && builder.offers_stock_builds && (
+              <button
+                onClick={() => scrollToSection("instruments-section")}
+                className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors backdrop-blur-sm bg-white/20 border border-white/30 hover:bg-white/30"
+              >
+                <Guitar className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                View Available Instruments
+              </button>
+            )}
+            <button
+              onClick={onContact}
+              className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors backdrop-blur-sm bg-white/20 border border-white/30 hover:bg-white/30"
+            >
+              <MessageSquare className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Message {name}
+            </button>
           </div>
         </div>
 
