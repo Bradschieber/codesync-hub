@@ -51,6 +51,8 @@
         "awaiting_shipment",
         "tracking_submitted",
         "shipment_verified",
+        "in_transit",
+        "out_for_delivery",
         "agreement_pending",
         "agreement_accepted",
         "deposit_pending",
@@ -105,6 +107,8 @@
         "held_admin",
         "held_issue_review",
         "held_chargeback",
+        "awaiting_shipment_verification",
+        "awaiting_delivery_confirmation",
         "awaiting_release",
         "partially_released",
         "fully_released",
@@ -126,12 +130,10 @@
       "description": "Tracks the payment milestone stage for the order"
     },
     "total_amount": {
-      "type": "number",
-      "description": "Legacy total \u2014 retained for backwards compatibility"
+      "type": "number"
     },
     "total_gross_amount": {
-      "type": "number",
-      "description": "Original full gross amount charged to buyer"
+      "type": "number"
     },
     "platform_fee_percent": {
       "type": "number",
@@ -185,8 +187,7 @@
     },
     "refund_amount": {
       "type": "number",
-      "default": 0,
-      "description": "Total amount refunded on this order"
+      "default": 0
     },
     "stripe_payment_intent_id": {
       "type": "string"
@@ -257,6 +258,66 @@
     },
     "tracking_carrier": {
       "type": "string"
+    },
+    "ship_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date builder shipped the order"
+    },
+    "shipping_service": {
+      "type": "string",
+      "description": "Shipping service level / method"
+    },
+    "signature_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "insurance_included": {
+      "type": "boolean",
+      "default": false
+    },
+    "builder_shipping_notes": {
+      "type": "string"
+    },
+    "shippo_tracker_id": {
+      "type": "string",
+      "description": "Shippo tracking object ID"
+    },
+    "shippo_tracking_status": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PRE_TRANSIT",
+        "TRANSIT",
+        "DELIVERED",
+        "RETURNED",
+        "FAILURE"
+      ],
+      "description": "Latest status code from Shippo"
+    },
+    "shippo_tracking_url_provider": {
+      "type": "string",
+      "description": "Carrier tracking URL from Shippo"
+    },
+    "shippo_latest_event": {
+      "type": "string",
+      "description": "Human-readable latest tracking event message"
+    },
+    "shippo_latest_event_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tracking_submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "shipment_verified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "delivered_at": {
+      "type": "string",
+      "format": "date-time"
     },
     "next_payment_due_date": {
       "type": "string",
