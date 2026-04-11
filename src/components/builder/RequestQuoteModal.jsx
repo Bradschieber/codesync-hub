@@ -142,14 +142,33 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
             <div>
               <h4 className="text-sm font-semibold text-stone-700 mb-1">Specifications <span className="text-stone-400 font-normal">(optional)</span></h4>
               <p className="text-xs text-stone-400 mb-3">Fill in as much or as little as you know. The builder can help you decide on anything you're unsure about.</p>
+              <div className="mb-3">
+                <label className="block text-xs font-medium text-stone-600 mb-1">Instrument Category <span className="text-red-500">*</span></label>
+                <select
+                  required
+                  value={form.specifications.instrumentCategory || ""}
+                  onChange={e => setForm({ ...form, specifications: { ...form.specifications, instrumentCategory: e.target.value } })}
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white"
+                >
+                  <option value="">Select a category...</option>
+                  {(builderSpecOptions?.["instrumentCategory"]?.options?.length > 0
+                    ? builderSpecOptions["instrumentCategory"].options
+                    : ["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"]
+                  ).map(o => <option key={o} value={o}>{o}</option>)}
+                </select>
+                <p className="text-xs text-stone-400 mt-1">Required — unlocks relevant spec fields below (body type, wood options, etc.)</p>
+              </div>
               {builderSpecOptions === null ? (
                 <div className="text-xs text-stone-400 py-4 text-center">Loading builder's available options...</div>
-              ) : (
+              ) : form.specifications.instrumentCategory ? (
                 <SpecificationsForm
                   specs={form.specifications}
                   onChange={specs => setForm({ ...form, specifications: specs })}
                   builderSpecOptions={builderSpecOptions}
+                  hideInstrumentCategory={true}
                 />
+              ) : (
+                <div className="text-xs text-stone-400 py-4 text-center bg-stone-50 rounded-xl border border-stone-200">Select an instrument category above to see relevant specification options.</div>
               )}
             </div>
 

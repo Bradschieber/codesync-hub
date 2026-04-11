@@ -61,7 +61,7 @@ function SectionHeader({ title }) {
   );
 }
 
-export default function SpecificationsForm({ specs = {}, onChange, builderSpecOptions = {} }) {
+export default function SpecificationsForm({ specs = {}, onChange, builderSpecOptions = {}, hideInstrumentCategory = false }) {
   function update(key, val) {
     onChange({ ...specs, [key]: val });
   }
@@ -81,17 +81,21 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
       {/* ── General ── */}
       <div className="grid sm:grid-cols-2 gap-4">
         <SectionHeader title="General" />
-        <SpecSelect
-          label="Instrument Category"
-          value={specs.instrumentCategory}
-          onChange={v => update("instrumentCategory", v)}
-          options={["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"]}
-          builderOptions={bo("instrumentCategory")} builderNotes={bn("instrumentCategory")}
-        />
-        {specs.instrumentCategory === "Other"
-          ? <SpecInput label="Specify Category" value={specs.otherInstrumentCategory} onChange={v => update("otherInstrumentCategory", v)} placeholder="Enter instrument category..." />
-          : <div />
-        }
+        {!hideInstrumentCategory && (
+          <>
+            <SpecSelect
+              label="Instrument Category"
+              value={specs.instrumentCategory}
+              onChange={v => update("instrumentCategory", v)}
+              options={["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"]}
+              builderOptions={bo("instrumentCategory")} builderNotes={bn("instrumentCategory")}
+            />
+            {specs.instrumentCategory === "Other"
+              ? <SpecInput label="Specify Category" value={specs.otherInstrumentCategory} onChange={v => update("otherInstrumentCategory", v)} placeholder="Enter instrument category..." />
+              : <div />
+            }
+          </>
+        )}
         <SpecSelect
           label="Handedness"
           value={specs.handedness}
