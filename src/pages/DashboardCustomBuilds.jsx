@@ -37,6 +37,7 @@ export default function DashboardCustomBuilds() {
   const [declineTarget, setDeclineTarget] = useState(null);
   const [messageTarget, setMessageTarget] = useState(null);
   const [expandedRequest, setExpandedRequest] = useState(null);
+  const [draftFormsByRequest, setDraftFormsByRequest] = useState({});
 
   useEffect(() => { loadData(); }, []);
 
@@ -57,6 +58,11 @@ export default function DashboardCustomBuilds() {
           setSpecOptions(listings[0].available_spec_options || {});
         }
         setRequests(rs);
+        // Load existing draft/sent order forms for this builder
+        const forms = await base44.entities.CustomBuildOrderForm.filter({ builder_id: p.id }, "-created_date", 200);
+        const byRequest = {};
+        forms.forEach(f => { if (f.custom_build_request_id) byRequest[f.custom_build_request_id] = f; });
+        setDraftFormsByRequest(byRequest);
       }
     } catch { base44.auth.redirectToLogin(); }
     setLoading(false);
@@ -212,12 +218,12 @@ export default function DashboardCustomBuilds() {
                               <MessageSquare className="w-3.5 h-3.5" /> Message Buyer
                             </button>
                             {!["converted_to_order", "order_form_declined_by_buyer"].includes(r.status) && (
-                              <button onClick={() => navigate(`/OrderFormEditor?requestId=${r.id}`)}
+                              <button onClick={() => navigate(`/OrderFormEditor?requestId=${r.id}${draftFormsByRequest[r.id] ? `&formId=${draftFormsByRequest[r.id].id}` : ""}`)}
                                 className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white"
                                 style={{ backgroundColor: "#C57A1F" }}
                                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
                                 onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>
-                                <FileText className="w-3.5 h-3.5" /> Create Order Form
+                                <FileText className="w-3.5 h-3.5" /> {draftFormsByRequest[r.id] ? "Edit Order Form Draft" : "Create Order Form"}
                               </button>
                             )}
                             {!["declined_by_builder", "converted_to_order"].includes(r.status) && (
