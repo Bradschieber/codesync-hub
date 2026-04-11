@@ -21,6 +21,9 @@ import BuilderGuideArticle from './pages/BuilderGuideArticle';
 import BuyerFAQ from './pages/BuyerFAQ';
 import AdminMarketplaceImageSettings from './pages/AdminMarketplaceImageSettings';
 import ImageRatioExperiment from './pages/ImageRatioExperiment';
+import OrderFormEditor from './pages/OrderFormEditor';
+import OrderFormReview from './pages/OrderFormReview';
+import BuyerCustomBuildRequests from './pages/BuyerCustomBuildRequests';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -82,6 +85,9 @@ const AuthenticatedApp = () => {
       <Route path="/BuyerFAQ" element={<LayoutWrapper currentPageName="BuyerFAQ"><BuyerFAQ /></LayoutWrapper>} />
       <Route path="/AdminMarketplaceImageSettings" element={<LayoutWrapper currentPageName="AdminMarketplaceImageSettings"><AdminMarketplaceImageSettings /></LayoutWrapper>} />
       <Route path="/ImageRatioExperiment" element={<LayoutWrapper currentPageName="ImageRatioExperiment"><ImageRatioExperiment /></LayoutWrapper>} />
+      <Route path="/OrderFormEditor" element={<LayoutWrapper currentPageName="OrderFormEditor"><OrderFormEditor /></LayoutWrapper>} />
+      <Route path="/OrderFormReview" element={<LayoutWrapper currentPageName="OrderFormReview"><OrderFormReview /></LayoutWrapper>} />
+      <Route path="/BuyerCustomBuildRequests" element={<LayoutWrapper currentPageName="BuyerCustomBuildRequests"><BuyerCustomBuildRequests /></LayoutWrapper>} />
       <Route path="/legal/terms-of-use" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
       <Route path="/legal/privacy-policy" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
       <Route path="/legal/builder-terms" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />

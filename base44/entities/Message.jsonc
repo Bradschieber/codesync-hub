@@ -1,0 +1,50 @@
+{
+  "name": "Message",
+  "type": "object",
+  "properties": {
+    "sender_id": {
+      "type": "string"
+    },
+    "sender_name": {
+      "type": "string"
+    },
+    "recipient_id": {
+      "type": "string"
+    },
+    "recipient_name": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "thread_id": {
+      "type": "string"
+    },
+    "thread_type": {
+      "type": "string",
+      "enum": [
+        "general",
+        "custom_build_request",
+        "custom_order",
+        "support"
+      ],
+      "default": "general"
+    },
+    "linked_request_id": {
+      "type": "string",
+      "description": "FK to CustomBuildRequest if this message is part of a custom build discussion"
+    },
+    "linked_order_id": {
+      "type": "string",
+      "description": "FK to Order if this message is related to an active order"
+    }
+  },
+  "required": []
+}

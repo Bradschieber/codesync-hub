@@ -1,0 +1,211 @@
+{
+  "name": "CustomBuildRequest",
+  "type": "object",
+  "properties": {
+    "builder_id": {
+      "type": "string"
+    },
+    "buyer_user_id": {
+      "type": "string",
+      "description": "user.id of the buyer who submitted the request"
+    },
+    "listing_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "customer_phone": {
+      "type": "string"
+    },
+    "build_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "budget_range": {
+      "type": "string"
+    },
+    "customization_selections": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_discussion",
+        "order_form_sent",
+        "order_form_declined_by_buyer",
+        "declined_by_builder",
+        "converted_to_order",
+        "accepted",
+        "reviewed",
+        "quoted",
+        "declined",
+        "completed"
+      ],
+      "default": "pending"
+    },
+    "builder_response": {
+      "type": "string"
+    },
+    "quoted_price": {
+      "type": "number"
+    },
+    "estimated_completion": {
+      "type": "string"
+    },
+    "specifications": {
+      "type": "object",
+      "properties": {
+        "instrumentCategory": {
+          "type": "string",
+          "enum": [
+            "Electric Guitars",
+            "Electric Bass Guitar",
+            "Acoustic Guitar",
+            "Acoustic Bass Guitar",
+            "Other"
+          ]
+        },
+        "otherInstrumentCategory": {
+          "type": "string"
+        },
+        "handedness": {
+          "type": "string",
+          "enum": [
+            "Right-Handed",
+            "Left-Handed"
+          ]
+        },
+        "numberOfStrings": {
+          "type": "string",
+          "enum": [
+            "4 String",
+            "5 String",
+            "6 String",
+            "8 String",
+            "12 String",
+            "Other"
+          ]
+        },
+        "otherNumberOfStrings": {
+          "type": "string"
+        },
+        "bodyConstruction": {
+          "type": "string",
+          "enum": [
+            "One Piece",
+            "Two Piece",
+            "Three Piece",
+            "Other"
+          ]
+        },
+        "otherBodyConstruction": {
+          "type": "string"
+        },
+        "topWood": {
+          "type": "string"
+        },
+        "otherTopWood": {
+          "type": "string"
+        },
+        "topBookMatched": {
+          "type": "string"
+        },
+        "backWood": {
+          "type": "string"
+        },
+        "otherBackWood": {
+          "type": "string"
+        },
+        "backBookMatched": {
+          "type": "string"
+        },
+        "middleWood": {
+          "type": "string"
+        },
+        "otherMiddleWood": {
+          "type": "string"
+        },
+        "bodyConstructionDescription": {
+          "type": "string"
+        },
+        "topGrainDetails": {
+          "type": "string"
+        },
+        "otherTopGrainDetails": {
+          "type": "string"
+        },
+        "finishMaterialsDescription": {
+          "type": "string"
+        },
+        "finishPattern": {
+          "type": "string"
+        },
+        "otherFinishPattern": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "otherColor": {
+          "type": "string"
+        },
+        "frets": {
+          "type": "string"
+        },
+        "otherFrets": {
+          "type": "string"
+        },
+        "fretMaterial": {
+          "type": "string"
+        },
+        "fretDetails": {
+          "type": "string"
+        },
+        "neckConstruction": {
+          "type": "string"
+        },
+        "neckMaterials": {
+          "type": "string"
+        },
+        "scaleLength": {
+          "type": "number"
+        },
+        "nutWidth": {
+          "type": "number"
+        },
+        "nutMaterial": {
+          "type": "string"
+        },
+        "fretboardRadius": {
+          "type": "string"
+        },
+        "otherFretboardRadius": {
+          "type": "string"
+        },
+        "activePassivePickups": {
+          "type": "string"
+        },
+        "pickupConfiguration": {
+          "type": "string"
+        },
+        "preamp": {
+          "type": "string"
+        },
+        "caseIncludes": {
+          "type": "string"
+        },
+        "caseDescription": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,112 @@
+{
+  "name": "CustomBuildOrderForm",
+  "type": "object",
+  "properties": {
+    "custom_build_request_id": {
+      "type": "string"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string",
+      "description": "buyer's user.id"
+    },
+    "buyer_name": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "accepted",
+        "declined",
+        "superseded"
+      ],
+      "default": "draft"
+    },
+    "version_number": {
+      "type": "number",
+      "default": 1
+    },
+    "title": {
+      "type": "string"
+    },
+    "builder_note": {
+      "type": "string"
+    },
+    "build_summary": {
+      "type": "string"
+    },
+    "included_items": {
+      "type": "string"
+    },
+    "exclusions_assumptions": {
+      "type": "string"
+    },
+    "specifications": {
+      "type": "object"
+    },
+    "total_price": {
+      "type": "number"
+    },
+    "deposit_amount": {
+      "type": "number"
+    },
+    "final_balance": {
+      "type": "number"
+    },
+    "estimated_build_timeline": {
+      "type": "string"
+    },
+    "payment_due_window_days": {
+      "type": "number",
+      "default": 7
+    },
+    "shipping_notes": {
+      "type": "string"
+    },
+    "policy_deposit_summary": {
+      "type": "string"
+    },
+    "policy_return_summary": {
+      "type": "string"
+    },
+    "policy_warranty_summary": {
+      "type": "string"
+    },
+    "pdf_url": {
+      "type": "string"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "declined_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "buyer_decline_reason": {
+      "type": "string"
+    },
+    "linked_order_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "custom_build_request_id",
+    "builder_id",
+    "buyer_id"
+  ]
+}
