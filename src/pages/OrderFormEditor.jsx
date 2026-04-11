@@ -312,7 +312,7 @@ export default function OrderFormEditor() {
           <Field label="Also Included" hint="Extras beyond the core build — case, professional setup, certificate of authenticity, strap locks, shipping insurance, etc.">
             <Textarea value={form.included_items} onChange={v => update("included_items", v)} placeholder="e.g. Professional setup and fret leveling, hardshell case, certificate of authenticity, insured shipping" rows={3} />
           </Field>
-          <Field label="Build Scope Notes & Assumptions" hint="What is not included, pricing assumptions, or scope clarifications the buyer should know about this build.">
+          <Field label="Build Scope Notes & Assumptions" hint="Use this for build-specific scope clarifications — what's not included in this build, material assumptions, or pricing conditions. This is not for warranty exclusions, which are covered separately under Policy Terms.">
             <Textarea value={form.exclusions_assumptions} onChange={v => update("exclusions_assumptions", v)} placeholder="Anything not included, assumptions about materials, or conditions that apply..." rows={3} />
           </Field>
         </div>
