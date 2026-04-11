@@ -223,7 +223,7 @@ export default function DashboardCustomBuilds() {
                                 style={{ backgroundColor: "#C57A1F" }}
                                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
                                 onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>
-                                <FileText className="w-3.5 h-3.5" /> {draftFormsByRequest[r.id] ? "Edit Order Form Draft" : "Create Order Form"}
+                                <FileText className="w-3.5 h-3.5" /> {draftFormsByRequest[r.id] ? "Edit Order Form" : "Create Order Form"}
                               </button>
                             )}
                             {!["declined_by_builder", "converted_to_order"].includes(r.status) && (
