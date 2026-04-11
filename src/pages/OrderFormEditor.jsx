@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ChevronLeft, Save, Send, ChevronDown, ChevronUp, Loader2, CheckCircle } from "lucide-react";
+import { ChevronLeft, Save, Send, ChevronDown, ChevronUp, Loader2, CheckCircle, ImagePlus } from "lucide-react";
 import SpecificationsForm from "../components/dashboard/SpecificationsForm";
 
 const NAVY = "#1B2B4B";
@@ -64,6 +64,8 @@ export default function OrderFormEditor() {
   const [sending, setSending] = useState(false);
   const [savedFormId, setSavedFormId] = useState(formId || null);
   const [result, setResult] = useState(null);
+  const [confirmed, setConfirmed] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const [form, setForm] = useState({
     title: "",
@@ -81,6 +83,7 @@ export default function OrderFormEditor() {
     policy_deposit_summary: "",
     policy_return_summary: "",
     policy_warranty_summary: "",
+    reference_images: [],
   });
 
   useEffect(() => { loadData(); }, [requestId, formId]);
@@ -138,6 +141,7 @@ export default function OrderFormEditor() {
             policy_deposit_summary: f.policy_deposit_summary || buildDepositSummary(p),
             policy_return_summary: f.policy_return_summary || buildReturnSummary(p),
             policy_warranty_summary: f.policy_warranty_summary || buildWarrantySummary(p),
+            reference_images: f.reference_images || [],
           });
         }
       }
@@ -175,6 +179,30 @@ export default function OrderFormEditor() {
     if (p.warranty_policy) parts.push(p.warranty_policy);
     if (p.warranty_claim_process) parts.push(`Claims: ${p.warranty_claim_process}`);
     return parts.join(" ") || "";
+  }
+
+  function updateImage(idx, key, val) {
+    const imgs = [...(form.reference_images || [])];
+    imgs[idx] = { ...imgs[idx], [key]: val };
+    update("reference_images", imgs);
+  }
+  function moveImage(idx, dir) {
+    const imgs = [...(form.reference_images || [])];
+    const newIdx = idx + dir;
+    [imgs[idx], imgs[newIdx]] = [imgs[newIdx], imgs[idx]];
+    update("reference_images", imgs);
+  }
+  function removeImage(idx) {
+    update("reference_images", (form.reference_images || []).filter((_, i) => i !== idx));
+  }
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingImage(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    update("reference_images", [...(form.reference_images || []), { image_url: file_url, caption: "" }]);
+    setUploadingImage(false);
+    e.target.value = "";
   }
 
   function update(key, val) {
@@ -230,6 +258,7 @@ export default function OrderFormEditor() {
     setResult(null);
     // Save first (or update)
     const payload = await buildPayload("draft");
+    payload.builder_confirmed_at = new Date().toISOString();
     let fId = savedFormId;
     if (fId) {
       await base44.entities.CustomBuildOrderForm.update(fId, payload);
@@ -276,7 +305,7 @@ export default function OrderFormEditor() {
           <Save className="w-4 h-4" />
           {saving ? "Saving..." : "Save Draft"}
         </button>
-        <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent"}
+        <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent" || !confirmed}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors disabled:opacity-50"
           style={{ backgroundColor: result?.type === "sent" ? "#27AE60" : AMBER }}
           onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#a8661a"; }}
@@ -306,13 +335,13 @@ export default function OrderFormEditor() {
           <Field label="Builder Note" hint="Personal note to the buyer about this build offer">
             <Textarea value={form.builder_note} onChange={v => update("builder_note", v)} placeholder="Share your excitement, approach, or anything you want the buyer to know upfront..." rows={3} />
           </Field>
-          <Field label="Build Summary" hint="Overview of what you're building and why">
+          <Field label="Build Summary" hint="Summarize the build in plain language so the buyer can quickly understand what you are offering.">
             <Textarea value={form.build_summary} onChange={v => update("build_summary", v)} placeholder="Describe the instrument you're proposing to build..." rows={4} />
           </Field>
-          <Field label="Also Included" hint="Extras beyond the core build — case, professional setup, certificate of authenticity, strap locks, shipping insurance, etc.">
+          <Field label="Also Included" hint="Use this section for services, extras, or items included beyond the core build specifications.">
             <Textarea value={form.included_items} onChange={v => update("included_items", v)} placeholder="e.g. Professional setup and fret leveling, hardshell case, certificate of authenticity, insured shipping" rows={3} />
           </Field>
-          <Field label="Build Scope Notes & Assumptions" hint="Use this for build-specific scope clarifications — what's not included in this build, material assumptions, or pricing conditions. This is not for warranty exclusions, which are covered separately under Policy Terms.">
+          <Field label="Build Scope Notes & Assumptions" hint="Use this section for build-specific notes, assumptions, or scope clarifications related to this custom build. Standard return and warranty terms are covered in the Policy Terms section.">
             <Textarea value={form.exclusions_assumptions} onChange={v => update("exclusions_assumptions", v)} placeholder="Anything not included, assumptions about materials, or conditions that apply..." rows={3} />
           </Field>
         </div>
@@ -400,6 +429,45 @@ export default function OrderFormEditor() {
         </div>
       </Zone>
 
+      {/* Build Reference Images */}
+      <Zone title="Build Reference Images" collapsible={true} defaultOpen={true}>
+        <p className="text-xs text-stone-400 mb-4">Upload up to 4 supporting reference images to help the buyer visualize the build. These are illustrative only — use captions to clarify context (e.g. "Body shape reference", "Burst finish example"). The official build definition comes from the specifications, summary, and pricing above.</p>
+        <div className="space-y-3">
+          {(form.reference_images || []).map((img, idx) => (
+            <div key={idx} className="flex gap-3 items-start bg-white border border-stone-200 rounded-xl p-3">
+              <img src={img.image_url} alt={img.caption || "Reference"} className="w-20 h-20 object-cover rounded-lg flex-shrink-0 border border-stone-200" />
+              <div className="flex-1 min-w-0">
+                <input
+                  value={img.caption || ""}
+                  onChange={e => updateImage(idx, "caption", e.target.value)}
+                  placeholder="Optional caption (e.g. 'Body shape reference', 'Burst finish example', 'Illustrative only — wood figure will vary')"
+                  className="w-full border border-stone-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400 mb-2"
+                />
+                <div className="flex items-center gap-1.5">
+                  {idx > 0 && (
+                    <button type="button" onClick={() => moveImage(idx, -1)} className="text-xs px-2.5 py-1 border border-stone-300 rounded-lg text-stone-500 hover:bg-stone-50">↑ Up</button>
+                  )}
+                  {idx < (form.reference_images.length - 1) && (
+                    <button type="button" onClick={() => moveImage(idx, 1)} className="text-xs px-2.5 py-1 border border-stone-300 rounded-lg text-stone-500 hover:bg-stone-50">↓ Down</button>
+                  )}
+                  <button type="button" onClick={() => removeImage(idx)} className="text-xs px-2.5 py-1 border border-red-200 rounded-lg text-red-500 hover:bg-red-50 ml-auto">Remove</button>
+                </div>
+              </div>
+            </div>
+          ))}
+          {(form.reference_images || []).length < 4 && (
+            <label className="flex items-center justify-center gap-2 cursor-pointer w-full px-4 py-3 border-2 border-dashed border-stone-300 rounded-xl text-sm text-stone-500 hover:border-amber-400 hover:text-amber-700 transition-colors">
+              {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImagePlus className="w-4 h-4" />}
+              {uploadingImage ? "Uploading..." : `Add Reference Image (${(form.reference_images || []).length}/4 uploaded)`}
+              <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
+            </label>
+          )}
+          {(form.reference_images || []).length === 0 && (
+            <p className="text-xs text-stone-400 text-center">No images added. This section will not appear on the buyer-facing Order Form if left empty.</p>
+          )}
+        </div>
+      </Zone>
+
       {/* Section 5: Original Buyer Request — Reference Only, collapsed */}
       {request && (
         <Zone title="Original Buyer Request" collapsible={true} defaultOpen={false}>
@@ -434,6 +502,24 @@ export default function OrderFormEditor() {
         </Zone>
       )}
 
+      {/* Builder Confirmation */}
+      <div className="bg-white rounded-2xl border border-amber-200 p-5 mb-4">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={confirmed}
+            onChange={e => setConfirmed(e.target.checked)}
+            className="mt-0.5 w-4 h-4 accent-amber-600 flex-shrink-0"
+          />
+          <span className="text-sm text-stone-700 leading-relaxed">
+            <strong>I confirm</strong> that this Order Form accurately reflects the build specifications, pricing, timing, and any important notes for this custom build.
+          </span>
+        </label>
+        {!confirmed && (
+          <p className="text-xs text-stone-400 mt-2 ml-7">Required before sending — does not affect saving a draft.</p>
+        )}
+      </div>
+
       {/* Bottom Actions */}
       <div className="flex flex-wrap gap-3 py-4">
         <button onClick={handleSaveDraft} disabled={saving || sending}
@@ -441,7 +527,7 @@ export default function OrderFormEditor() {
           <Save className="w-4 h-4" />
           {saving ? "Saving..." : "Save Draft"}
         </button>
-        <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent"}
+        <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent" || !confirmed}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors disabled:opacity-50"
           style={{ backgroundColor: result?.type === "sent" ? "#27AE60" : AMBER }}
           onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#a8661a"; }}

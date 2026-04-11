@@ -134,8 +134,17 @@ Deno.serve(async (req) => {
 
     // Exclusions
     if (form.exclusions_assumptions) {
-      addSection('Exclusions & Assumptions');
+      addSection('Build Scope Notes & Assumptions');
       addLine(form.exclusions_assumptions, 10, 'normal', [60, 60, 60]);
+    }
+
+    // Reference Images (listed by caption — full images viewable on platform)
+    if (form.reference_images?.length > 0) {
+      addSection('Build Reference Images');
+      addLine(`${form.reference_images.length} reference image(s) are included with this Order Form and viewable on the Stringed Collective platform. These are supporting visuals only.`, 9, 'italic', [80, 80, 80]);
+      for (const [i, img] of form.reference_images.entries()) {
+        if (img.caption) addField(`Image ${i + 1}`, img.caption);
+      }
     }
 
     // Policy Summary

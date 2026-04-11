@@ -54,6 +54,21 @@
     "specifications": {
       "type": "object"
     },
+    "reference_images": {
+      "type": "array",
+      "description": "Optional builder-uploaded reference images for the order form (max 4)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "image_url": {
+            "type": "string"
+          },
+          "caption": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "total_price": {
       "type": "number"
     },
@@ -81,6 +96,11 @@
     },
     "policy_warranty_summary": {
       "type": "string"
+    },
+    "builder_confirmed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when builder confirmed the order form before sending"
     },
     "pdf_url": {
       "type": "string"
