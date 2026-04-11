@@ -135,9 +135,9 @@ export default function OrderFormEditor() {
             estimated_build_timeline: f.estimated_build_timeline || "",
             payment_due_window_days: f.payment_due_window_days || 7,
             shipping_notes: f.shipping_notes || "",
-            policy_deposit_summary: f.policy_deposit_summary || "",
-            policy_return_summary: f.policy_return_summary || "",
-            policy_warranty_summary: f.policy_warranty_summary || "",
+            policy_deposit_summary: f.policy_deposit_summary || buildDepositSummary(p),
+            policy_return_summary: f.policy_return_summary || buildReturnSummary(p),
+            policy_warranty_summary: f.policy_warranty_summary || buildWarrantySummary(p),
           });
         }
       }
@@ -152,6 +152,29 @@ export default function OrderFormEditor() {
       : p.deposit_fixed_amount ? `$${p.deposit_fixed_amount.toLocaleString()}` : "Required";
     const refundable = p.deposit_refundable === "yes" ? "Refundable" : p.deposit_refundable === "partial" ? "Partially refundable" : "Non-refundable";
     return `${amount} deposit required. ${refundable}.${p.payment_schedule ? " " + p.payment_schedule : ""}`;
+  }
+
+  function buildReturnSummary(p) {
+    if (!p.return_policy && p.returns_accepted === undefined) return "";
+    const parts = [];
+    if (p.returns_accepted === "yes") parts.push("Returns accepted.");
+    else if (p.returns_accepted === "no") parts.push("No returns accepted on custom builds.");
+    else if (p.returns_accepted === "case_by_case") parts.push("Returns considered on a case-by-case basis.");
+    if (p.return_window_days) parts.push(`Return window: ${p.return_window_days} days from delivery.`);
+    if (p.return_condition) parts.push(`Condition: ${p.return_condition}`);
+    if (p.return_restocking_fee_percent) parts.push(`Restocking fee: ${p.return_restocking_fee_percent}%.`);
+    if (p.return_shipping_paid_by) parts.push(`Return shipping paid by: ${p.return_shipping_paid_by}.`);
+    if (p.return_policy) parts.push(p.return_policy);
+    return parts.join(" ") || "";
+  }
+
+  function buildWarrantySummary(p) {
+    if (!p.warranty_policy && !p.warranty_duration) return "";
+    const parts = [];
+    if (p.warranty_duration) parts.push(`Warranty duration: ${p.warranty_duration}.`);
+    if (p.warranty_policy) parts.push(p.warranty_policy);
+    if (p.warranty_claim_process) parts.push(`Claims: ${p.warranty_claim_process}`);
+    return parts.join(" ") || "";
   }
 
   function update(key, val) {
@@ -274,42 +297,8 @@ export default function OrderFormEditor() {
         </div>
       )}
 
-      {/* Zone 1: Buyer Request Reference */}
-      {request && (
-        <Zone title="Zone 1 — Original Buyer Request (Reference Only)" collapsible={true} defaultOpen={true}>
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
-            <p className="text-xs font-semibold text-amber-800 mb-1">📋 Reference only — not editable. This is what the buyer submitted.</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4 text-sm">
-            <div><span className="text-xs font-semibold text-stone-400 block">Name</span><span className="text-stone-800">{request.customer_name}</span></div>
-            <div><span className="text-xs font-semibold text-stone-400 block">Email</span><span className="text-stone-800">{request.customer_email}</span></div>
-            {request.customer_phone && <div><span className="text-xs font-semibold text-stone-400 block">Phone</span><span className="text-stone-800">{request.customer_phone}</span></div>}
-            {request.budget_range && <div><span className="text-xs font-semibold text-stone-400 block">Budget Range</span><span className="text-stone-800">{request.budget_range}</span></div>}
-            {request.created_date && <div><span className="text-xs font-semibold text-stone-400 block">Submitted</span><span className="text-stone-800">{new Date(request.created_date).toLocaleDateString()}</span></div>}
-          </div>
-          {request.description && (
-            <div className="mt-4">
-              <span className="text-xs font-semibold text-stone-400 block mb-1">Vision</span>
-              <p className="text-sm text-stone-700 leading-relaxed bg-stone-50 rounded-xl p-3">{request.description}</p>
-            </div>
-          )}
-          {request.specifications && Object.keys(request.specifications).filter(k => request.specifications[k]).length > 0 && (
-            <div className="mt-4">
-              <span className="text-xs font-semibold text-stone-400 block mb-2">Requested Specs</span>
-              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
-                {Object.entries(request.specifications).filter(([, v]) => v).map(([k, v]) => (
-                  <div key={k} className="text-xs text-stone-600">
-                    <span className="font-medium capitalize">{k.replace(/([A-Z])/g, ' $1').trim()}:</span> {String(v)}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </Zone>
-      )}
-
-      {/* Zone 2: Order Form Overview */}
-      <Zone title="Zone 2 — Order Form Overview">
+      {/* Section 1: Order Form Overview */}
+      <Zone title="Order Form Overview">
         <div className="space-y-4">
           <Field label="Order Form Title" hint="e.g. '6-String Electric Guitar Build — Ash Body, Maple Neck'">
             <Input value={form.title} onChange={v => update("title", v)} placeholder="Descriptive title for this order form" />
@@ -320,17 +309,17 @@ export default function OrderFormEditor() {
           <Field label="Build Summary" hint="Overview of what you're building and why">
             <Textarea value={form.build_summary} onChange={v => update("build_summary", v)} placeholder="Describe the instrument you're proposing to build..." rows={4} />
           </Field>
-          <Field label="Included Items">
-            <Textarea value={form.included_items} onChange={v => update("included_items", v)} placeholder="List what's included: case, setup, specific hardware, setup and fret leveling, etc." rows={3} />
+          <Field label="Also Included" hint="Extras beyond the core build — case, professional setup, certificate of authenticity, strap locks, shipping insurance, etc.">
+            <Textarea value={form.included_items} onChange={v => update("included_items", v)} placeholder="e.g. Professional setup and fret leveling, hardshell case, certificate of authenticity, insured shipping" rows={3} />
           </Field>
-          <Field label="Exclusions & Assumptions">
+          <Field label="Build Scope Notes & Assumptions" hint="What is not included, pricing assumptions, or scope clarifications the buyer should know about this build.">
             <Textarea value={form.exclusions_assumptions} onChange={v => update("exclusions_assumptions", v)} placeholder="Anything not included, assumptions about materials, or conditions that apply..." rows={3} />
           </Field>
         </div>
       </Zone>
 
-      {/* Zone 3: Final Build Specifications */}
-      <Zone title="Zone 3 — Final Build Specifications">
+      {/* Section 2: Build Specifications */}
+      <Zone title="Build Specifications">
         <p className="text-xs text-stone-400 mb-4">Pre-filled from the buyer's request where available. These are your final confirmed spec values.</p>
         <SpecificationsForm
           specs={form.specifications}
@@ -339,8 +328,8 @@ export default function OrderFormEditor() {
         />
       </Zone>
 
-      {/* Zone 4: Commercial Terms */}
-      <Zone title="Zone 4 — Commercial Terms">
+      {/* Section 3: Pricing & Timing */}
+      <Zone title="Pricing & Timing">
         <div className="grid sm:grid-cols-2 gap-5">
           <Field label="Total Price *">
             <div className="relative">
@@ -390,21 +379,60 @@ export default function OrderFormEditor() {
         </div>
       </Zone>
 
-      {/* Zone 5: Policy Summary */}
-      <Zone title="Zone 5 — Policy Summary" collapsible={true}>
-        <p className="text-xs text-stone-400 mb-4">Pre-filled from your builder profile policies. Edit as needed for this specific build.</p>
+      {/* Section 4: Policy Terms */}
+      <Zone title="Policy Terms">
+        <p className="text-xs text-stone-400 mb-4">Auto-populated from your builder profile policies. You may edit these for this specific order form.</p>
+        {(!form.policy_return_summary || !form.policy_warranty_summary) && (
+          <div className="mb-4 px-4 py-3 rounded-xl text-sm border bg-amber-50 border-amber-200 text-amber-800">
+            ⚠ Some policy terms appear blank. Please ensure your <a href="/DashboardProfile" className="underline font-semibold">builder profile policies</a> are filled in to auto-populate these fields.
+          </div>
+        )}
         <div className="space-y-4">
-          <Field label="Deposit & Cancellation Policy">
+          <Field label="Deposit & Cancellation Terms">
             <Textarea value={form.policy_deposit_summary} onChange={v => update("policy_deposit_summary", v)} rows={2} placeholder="Describe your deposit and cancellation terms..." />
           </Field>
-          <Field label="Return Policy">
+          <Field label="Return Terms">
             <Textarea value={form.policy_return_summary} onChange={v => update("policy_return_summary", v)} rows={2} placeholder="Describe your return policy for custom builds..." />
           </Field>
-          <Field label="Warranty Summary">
+          <Field label="Warranty Terms">
             <Textarea value={form.policy_warranty_summary} onChange={v => update("policy_warranty_summary", v)} rows={2} placeholder="Summarize your warranty coverage..." />
           </Field>
         </div>
       </Zone>
+
+      {/* Section 5: Original Buyer Request — Reference Only, collapsed */}
+      {request && (
+        <Zone title="Original Buyer Request" collapsible={true} defaultOpen={false}>
+          <div className="bg-stone-50 border border-stone-200 rounded-xl p-3 mb-4">
+            <p className="text-xs text-stone-500">Reference only — this is what the buyer originally submitted. Not editable.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 text-sm mb-4">
+            <div><span className="text-xs font-semibold text-stone-400 block">Name</span><span className="text-stone-700">{request.customer_name}</span></div>
+            <div><span className="text-xs font-semibold text-stone-400 block">Email</span><span className="text-stone-700">{request.customer_email}</span></div>
+            {request.customer_phone && <div><span className="text-xs font-semibold text-stone-400 block">Phone</span><span className="text-stone-700">{request.customer_phone}</span></div>}
+            {request.budget_range && <div><span className="text-xs font-semibold text-stone-400 block">Budget Range</span><span className="text-stone-700">{request.budget_range}</span></div>}
+            {request.created_date && <div><span className="text-xs font-semibold text-stone-400 block">Submitted</span><span className="text-stone-700">{new Date(request.created_date).toLocaleDateString()}</span></div>}
+          </div>
+          {request.description && (
+            <div className="mb-4">
+              <span className="text-xs font-semibold text-stone-400 block mb-1">Vision</span>
+              <p className="text-sm text-stone-600 leading-relaxed bg-white rounded-xl border border-stone-200 p-3">{request.description}</p>
+            </div>
+          )}
+          {request.specifications && Object.keys(request.specifications).filter(k => request.specifications[k]).length > 0 && (
+            <div>
+              <span className="text-xs font-semibold text-stone-400 block mb-2">Originally Requested Specs</span>
+              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
+                {Object.entries(request.specifications).filter(([, v]) => v).map(([k, v]) => (
+                  <div key={k} className="text-xs text-stone-500">
+                    <span className="font-medium capitalize">{k.replace(/([A-Z])/g, ' $1').trim()}:</span> {String(v)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </Zone>
+      )}
 
       {/* Bottom Actions */}
       <div className="flex flex-wrap gap-3 py-4">
