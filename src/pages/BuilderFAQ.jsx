@@ -36,7 +36,7 @@ const faqSections = [
       },
       {
         question: "Are my builder policies part of the transaction?",
-        answer: "Yes. Your builder-defined policies are incorporated into the applicable transaction agreement. That means the policies attached to the order become part of the buyer's transaction.",
+        answer: "Yes. Your builder-defined policies are incorporated into the applicable transaction agreement. That means the policies attached to the order become part of the transaction terms.",
       },
     ],
   },
@@ -49,7 +49,7 @@ const faqSections = [
       },
       {
         question: "What can I sell on Stringed Collective?",
-        answer: "Builders can offer completed instruments that are ready to ship, and they can also work with buyers on custom builds through the platform.",
+        answer: "Builders may list handcrafted instruments and related items they directly build, design, or otherwise accurately describe in a manner approved by Stringed Collective. Mass-produced, drop-shipped, counterfeit, infringing, or deceptively described products are not allowed unless expressly approved in writing.",
       },
       {
         question: "What is the difference between a stock build and a custom build?",
@@ -66,7 +66,7 @@ const faqSections = [
     items: [
       {
         question: "How are payments handled?",
-        answer: "All payments are processed through Stringed Collective. Depending on the order type and stage of the transaction, the platform may collect buyer payments, hold funds temporarily, verify shipment information, and release payouts according to platform rules.",
+        answer: "All payments are processed through Stringed Collective. Depending on the order type and stage of the transaction, the platform may collect buyer payments, hold funds temporarily, verify shipment information, release payouts according to platform rules, and deduct applicable fees, chargebacks, refund costs, or other permitted amounts.",
       },
       {
         question: "What does \"guaranteed transactions\" mean?",
@@ -78,11 +78,11 @@ const faqSections = [
       },
       {
         question: "How do custom-build deposits work?",
-        answer: "For custom builds, the buyer pays the deposit required by the builder's policy. The deposit confirms the buyer's commitment to the project. Under platform rules, the deposit may be released to the builder so work can begin and materials can be purchased, subject to applicable transaction protections and platform controls.",
+        answer: "For custom builds, the buyer pays the deposit required by the builder's policy. The deposit confirms the buyer's commitment to the project. Under platform rules, the deposit may be released promptly to the builder so materials can be purchased and work can begin. Receiving a deposit does not remove the builder's obligation to complete the order under the transaction terms and platform rules.",
       },
       {
         question: "When is the final payment released for a custom build?",
-        answer: "When the builder marks the build complete, the buyer is prompted to make the final payment. Shipment cannot happen until final payment has been received through the platform. After the builder ships the order and provides valid tracking information, Stringed Collective may verify shipment before releasing the final payout.",
+        answer: "When the builder marks the build complete, the buyer may be notified that final payment is required. Shipment cannot happen until final payment has been received through the platform. After the builder ships the order and provides valid tracking information, Stringed Collective may verify shipment before releasing the final payout.",
       },
       {
         question: "What is shipment verification?",
@@ -104,6 +104,10 @@ const faqSections = [
       {
         question: "What is the builder responsible for during fulfillment?",
         answer: "Builders are responsible for accurate listings, product quality, fulfillment, packaging, shipment, delivery, and compliance with their return and warranty commitments.",
+      },
+      {
+        question: "When does risk of loss shift?",
+        answer: "Unless otherwise required by law or expressly stated in the applicable transaction agreement, risk of loss remains with the builder until the order is shipped in accordance with platform requirements and carrier acceptance is confirmed.",
       },
       {
         question: "How do returns work?",
@@ -134,6 +138,10 @@ const faqSections = [
         question: "Do I need to communicate with buyers through the platform?",
         answer: "Yes. Transaction-related communications should take place through Stringed Collective's in-platform tools when available. This helps protect both parties and provides a clear record if a dispute, delay, or change in specifications needs to be reviewed.",
       },
+      {
+        question: "Can Stringed Collective recover money from future payouts if something goes wrong?",
+        answer: "Yes. If Stringed Collective has to refund, credit, or otherwise compensate a buyer because of a builder-caused transaction failure, the platform may recover those amounts through offsets, deductions from future payouts, direct reimbursement requests, withheld funds, or other lawful collection methods.",
+      },
     ],
   },
   {
@@ -145,7 +153,7 @@ const faqSections = [
       },
       {
         question: "What happens if a buyer does not pay the final balance?",
-        answer: "If a buyer does not pay the final balance after a custom build is marked complete, Stringed Collective may apply platform rules. That can include a limited payment window, cancellation of the order, application of the builder's published deposit or cancellation policy where permitted, and other steps needed to resolve the transaction.",
+        answer: "If a buyer does not pay the final balance after a custom build is marked complete, Stringed Collective may apply platform buyer default rules. That can include a limited payment window, cancellation of the order, application of the builder's published deposit or cancellation policy where permitted, and other steps needed to resolve the transaction.",
       },
       {
         question: "What happens if a builder cannot complete an order?",
