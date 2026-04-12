@@ -49,7 +49,7 @@ const faqSections = [
     items: [
       {
         question: "How are payments handled?",
-        answer: "Payments are processed through Stringed Collective. Depending on the order type and stage of the transaction, the platform may collect payment, hold funds temporarily, verify shipment information, and release payout according to platform rules.",
+        answer: "Payments are processed through Stringed Collective. By placing an order, you authorize Stringed Collective and its payment service providers to charge your selected payment method for deposits, full purchase amounts, final balances, shipping charges, taxes, and other disclosed charges associated with your order.",
       },
       {
         question: "How do deposits work on a custom build?",
@@ -61,7 +61,7 @@ const faqSections = [
       },
       {
         question: "When is final payment due?",
-        answer: "When the builder marks a custom build as complete, the buyer is notified that final payment is required. Under the current transaction rules, the buyer is expected to pay the final balance within the required payment window before shipment can move forward.",
+        answer: "When the builder marks a custom build as complete, the buyer is notified that final payment is required. Under the current transaction rules, final payment must be submitted within five (5) calendar days after notice is sent through the platform.",
       },
       {
         question: "Can a builder ship before I make the final payment?",
@@ -103,7 +103,7 @@ const faqSections = [
       },
       {
         question: "Can I cancel an order?",
-        answer: "Cancellation rights depend on the type of order, the builder's policy, the transaction terms, platform rules, and applicable law. Stock build cancellations may be possible before shipment. Custom build cancellations are usually more limited once work has started or materials have been purchased.",
+        answer: "Cancellation rights depend on the type of order, the builder's policy, the transaction terms, platform rules, and applicable law. Buyers may not cancel outside the cancellation rights provided by those terms. Stock build cancellations may be possible before shipment. Custom build cancellations are usually more limited once work has started or materials have been purchased.",
       },
       {
         question: "What happens if a builder cannot complete the order?",
@@ -111,7 +111,7 @@ const faqSections = [
       },
       {
         question: "What happens if I do not pay the final balance on time?",
-        answer: "If final payment is not made within the required payment window after a custom build is marked complete, the platform may cancel the order, apply the builder's cancellation or deposit policy where permitted, restrict account privileges, or take other steps needed to resolve the transaction.",
+        answer: "If final payment is not made within the required payment window after a custom build is marked complete, the platform may cancel the order, apply the builder's cancellation or deposit policy where permitted, restrict account privileges, limit future purchasing privileges, or take other steps needed to resolve the transaction.",
       },
     ],
   },
@@ -120,7 +120,7 @@ const faqSections = [
     items: [
       {
         question: "What does Stringed Collective do if there is a dispute or transaction problem?",
-        answer: "Stringed Collective may review records from the platform, including messages, order details, and tracking information. Depending on the situation, the platform may pause or review the transaction, issue a refund or credit, deny a claim, or take other protective action consistent with platform rules and applicable law.",
+        answer: "Stringed Collective may review records from the platform, including messages, order details, and tracking information. Depending on the situation, the platform may pause or review the transaction, issue a refund, partial refund, or credit, cancel an order, deny a claim, or take other protective action consistent with platform rules and applicable law.",
       },
       {
         question: "Why does Stringed Collective ask buyers and builders to keep transaction-related communication on the platform?",
@@ -129,6 +129,10 @@ const faqSections = [
       {
         question: "Should I use the platform instead of paying or arranging the deal off-platform?",
         answer: "Yes. Moving a transaction off-platform removes the protections, oversight, and transaction record that Stringed Collective provides. Buyers should complete payments and transaction-related communication through the platform whenever those tools are available.",
+      },
+      {
+        question: "What if I want to dispute a charge with my payment provider?",
+        answer: "Before initiating a chargeback or external payment dispute, buyers are expected to first contact Stringed Collective through the platform's support or dispute process, unless prohibited by law. Misusing the chargeback process or making false payment claims may lead to account restrictions, recovery of losses, or denial of future use of the platform.",
       },
       {
         question: "How do I get help?",
