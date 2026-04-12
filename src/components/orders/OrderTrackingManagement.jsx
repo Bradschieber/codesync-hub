@@ -23,6 +23,7 @@ const SHIPPO_STATUS_LABELS = {
  */
 export default function OrderTrackingManagement({ order, onTrackingUpdated, saving: externalSaving }) {
   const hasShippoTracker = !!order.shippo_tracker_id;
+  const isTerminal = ['cancelled', 'refunded', 'partially_refunded', 'disputed', 'pending_payment'].includes(order.current_status);
 
   const [carrier, setCarrier] = useState(order.tracking_carrier || "");
   const [trackingNumber, setTrackingNumber] = useState(order.tracking_number || "");
@@ -38,6 +39,8 @@ export default function OrderTrackingManagement({ order, onTrackingUpdated, savi
   const [savedNotes, setSavedNotes] = useState(false);
 
   const statusInfo = order.shippo_tracking_status ? SHIPPO_STATUS_LABELS[order.shippo_tracking_status] : null;
+
+  if (isTerminal && !hasShippoTracker) return null;
 
   // Has the user changed the core tracking fields vs what's registered in Shippo?
   const trackingChanged = hasShippoTracker && (
