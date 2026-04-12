@@ -56,9 +56,9 @@ Deno.serve(async (req) => {
       regenerate: false,
     });
 
-    console.log("Purchase Agreement generation result:", JSON.stringify(result));
+    console.log("Purchase Agreement generation result:", JSON.stringify(result?.data ?? result));
 
-    return Response.json({ success: true, reason, result });
+    return Response.json({ success: true, reason, result: result?.data ?? null });
 
   } catch (error) {
     console.error("onOrderCreated automation error:", error);
