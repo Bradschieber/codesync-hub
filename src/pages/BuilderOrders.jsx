@@ -62,9 +62,15 @@ export default function BuilderOrders() {
 
   async function saveOrderDates(order, dates) {
     setUpdating(u => ({ ...u, [order.id]: true }));
-    await base44.entities.Order.update(order.id, dates);
-    setOrders(prev => prev.map(o => o.id === order.id ? { ...o, ...dates } : o));
-    setUpdating(u => ({ ...u, [order.id]: false }));
+    try {
+      await base44.entities.Order.update(order.id, dates);
+      setOrders(prev => prev.map(o => o.id === order.id ? { ...o, ...dates } : o));
+    } catch (err) {
+      console.error("Failed to save order data:", err);
+      alert("Failed to save: " + (err?.message || "Unknown error"));
+    } finally {
+      setUpdating(u => ({ ...u, [order.id]: false }));
+    }
   }
 
   function toggleExpand(id) {
