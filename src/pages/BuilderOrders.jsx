@@ -304,6 +304,13 @@ export default function BuilderOrders() {
 function CustomBuildDates({ order, onSave, saving }) {
   const [buildStart, setBuildStart] = useState(order.build_start_date || "");
   const [estComplete, setEstComplete] = useState(order.estimated_build_completion_date || "");
+  const [saved, setSaved] = useState(false);
+
+  async function handleSave() {
+    await onSave({ build_start_date: buildStart, estimated_build_completion_date: estComplete });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  }
 
   return (
     <div>
@@ -321,11 +328,12 @@ function CustomBuildDates({ order, onSave, saving }) {
         </div>
         <button
           disabled={saving}
-          onClick={() => onSave({ build_start_date: buildStart, estimated_build_completion_date: estComplete })}
+          onClick={handleSave}
           className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg text-white transition-colors"
-          style={{ backgroundColor: "#1B2B4B" }}
+          style={{ backgroundColor: saved ? "#16a34a" : "#1B2B4B" }}
         >
-          <Save className="w-3.5 h-3.5" /> Save Dates
+          {saved ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
+          {saved ? "Saved!" : "Save Dates"}
         </button>
       </div>
     </div>
@@ -335,6 +343,13 @@ function CustomBuildDates({ order, onSave, saving }) {
 function TrackingEditor({ order, onSave, saving }) {
   const [tracking, setTracking] = useState(order.tracking_number || "");
   const [carrier, setCarrier] = useState(order.tracking_carrier || "");
+  const [saved, setSaved] = useState(false);
+
+  async function handleSave() {
+    await onSave({ tracking_number: tracking, tracking_carrier: carrier });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  }
 
   return (
     <div>
@@ -352,11 +367,12 @@ function TrackingEditor({ order, onSave, saving }) {
         </div>
         <button
           disabled={saving}
-          onClick={() => onSave({ tracking_number: tracking, tracking_carrier: carrier })}
+          onClick={handleSave}
           className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg text-white transition-colors"
-          style={{ backgroundColor: "#1B2B4B" }}
+          style={{ backgroundColor: saved ? "#16a34a" : "#1B2B4B" }}
         >
-          <Save className="w-3.5 h-3.5" /> Save
+          {saved ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
+          {saved ? "Saved!" : "Save"}
         </button>
       </div>
     </div>
@@ -365,6 +381,13 @@ function TrackingEditor({ order, onSave, saving }) {
 
 function BuilderNotesEditor({ order, onSave, saving }) {
   const [notes, setNotes] = useState(order.builder_notes || "");
+  const [saved, setSaved] = useState(false);
+
+  async function handleSave() {
+    await onSave(notes);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  }
 
   return (
     <div>
@@ -374,11 +397,12 @@ function BuilderNotesEditor({ order, onSave, saving }) {
           className="flex-1 border border-stone-200 rounded-lg px-3 py-2 text-sm text-stone-700 focus:outline-none focus:border-indigo-400 resize-none" />
         <button
           disabled={saving}
-          onClick={() => onSave(notes)}
+          onClick={handleSave}
           className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg text-white transition-colors"
-          style={{ backgroundColor: "#1B2B4B" }}
+          style={{ backgroundColor: saved ? "#16a34a" : "#1B2B4B" }}
         >
-          <Save className="w-3.5 h-3.5" /> Save
+          {saved ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
+          {saved ? "Saved!" : "Save"}
         </button>
       </div>
     </div>
