@@ -340,6 +340,15 @@ function CustomBuildDates({ order, onSave, saving }) {
   );
 }
 
+const SHIPPO_STATUS_LABELS = {
+  UNKNOWN: { label: "Pending", color: "#7A7A7A" },
+  PRE_TRANSIT: { label: "Pre-Transit", color: "#B45309" },
+  TRANSIT: { label: "In Transit", color: "#1D4ED8" },
+  DELIVERED: { label: "Delivered", color: "#16A34A" },
+  RETURNED: { label: "Returned", color: "#EA580C" },
+  FAILURE: { label: "Exception", color: "#DC2626" },
+};
+
 function TrackingEditor({ order, onSave, saving }) {
   const [tracking, setTracking] = useState(order.tracking_number || "");
   const [carrier, setCarrier] = useState(order.tracking_carrier || "");
@@ -350,6 +359,8 @@ function TrackingEditor({ order, onSave, saving }) {
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
   }
+
+  const statusInfo = order.shippo_tracking_status ? SHIPPO_STATUS_LABELS[order.shippo_tracking_status] : null;
 
   return (
     <div>
@@ -375,6 +386,38 @@ function TrackingEditor({ order, onSave, saving }) {
           {saved ? "Saved!" : "Save"}
         </button>
       </div>
+
+      {/* Shipment details — shown when data is available */}
+      {(order.ship_date || statusInfo || order.shippo_latest_event || order.shippo_tracking_url_provider) && (
+        <div className="mt-3 p-3 rounded-lg bg-stone-50 border border-stone-100 space-y-1.5">
+          {order.ship_date && (
+            <p className="text-xs text-stone-500">
+              <span className="font-medium text-stone-600">Ship Date:</span>{" "}
+              {new Date(order.ship_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            </p>
+          )}
+          {statusInfo && (
+            <p className="text-xs">
+              <span className="font-medium text-stone-600">Status:</span>{" "}
+              <span className="font-semibold" style={{ color: statusInfo.color }}>{statusInfo.label}</span>
+            </p>
+          )}
+          {order.shippo_latest_event && (
+            <p className="text-xs text-stone-500 italic">{order.shippo_latest_event}</p>
+          )}
+          {order.shippo_tracking_url_provider && (
+            <a
+              href={order.shippo_tracking_url_provider}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold underline"
+              style={{ color: "#1B2B4B" }}
+            >
+              Track on carrier website →
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
