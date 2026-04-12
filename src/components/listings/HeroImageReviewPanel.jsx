@@ -20,9 +20,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
 
   // Keep localProcessedUrl in sync if parent updates the product prop (after processing completes)
   useEffect(() => {
-    if (product.processed_hero_image_url && !localProcessedUrl) {
-      setLocalProcessedUrl(product.processed_hero_image_url);
-    }
+    setLocalProcessedUrl(product.processed_hero_image_url || null);
   }, [product.processed_hero_image_url]);
 
   async function handleApprove() {
