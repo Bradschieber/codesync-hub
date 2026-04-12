@@ -40,9 +40,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Not authorized to update this order' }, { status: 403 });
     }
 
-    const allowedStatuses = ['awaiting_shipment', 'build_complete', 'fully_paid', 'final_payment_paid'];
-    if (!allowedStatuses.includes(order.current_status)) {
-      return Response.json({ error: `Order is not ready for shipment submission (status: ${order.current_status})` }, { status: 400 });
+    const blockedStatuses = ['pending_payment', 'cancelled', 'refunded', 'partially_refunded', 'disputed'];
+    if (blockedStatuses.includes(order.current_status)) {
+      return Response.json({ error: `Cannot submit tracking for an order with status: ${order.current_status}` }, { status: 400 });
     }
 
     // Resolve Shippo carrier token
