@@ -47,27 +47,33 @@ export default function BuilderOrders() {
   async function updateOrderStatus(order, field, value) {
     // Gate: prevent shipping statuses until final payment received on custom builds
     if (
-      order.order_type === "custom" &&
-      ["preparing_to_ship", "shipped"].includes(value) &&
+      order.order_type === 'custom' &&
+      ['preparing_to_ship', 'shipped'].includes(value) &&
       !order.final_payment_paid
     ) {
-      alert("Final payment has not been received yet. You cannot move this order to shipping until the buyer completes their final payment.");
+      alert('Final payment has not been received yet. You cannot move this order to shipping until the buyer completes their final payment.');
       return;
     }
     setUpdating(u => ({ ...u, [order.id]: true }));
-    await base44.entities.Order.update(order.id, { [field]: value });
-    setOrders(prev => prev.map(o => o.id === order.id ? { ...o, [field]: value } : o));
-    setUpdating(u => ({ ...u, [order.id]: false }));
+    try {
+      await base44.functions.invoke('updateOrderByBuilder', { order_id: order.id, updates: { [field]: value } });
+      setOrders(prev => prev.map(o => o.id === order.id ? { ...o, [field]: value } : o));
+    } catch (err) {
+      console.error('Failed to update status:', err);
+      alert('Failed to update: ' + (err?.message || 'Unknown error'));
+    } finally {
+      setUpdating(u => ({ ...u, [order.id]: false }));
+    }
   }
 
   async function saveOrderDates(order, dates) {
     setUpdating(u => ({ ...u, [order.id]: true }));
     try {
-      await base44.entities.Order.update(order.id, dates);
+      await base44.functions.invoke('updateOrderByBuilder', { order_id: order.id, updates: dates });
       setOrders(prev => prev.map(o => o.id === order.id ? { ...o, ...dates } : o));
     } catch (err) {
-      console.error("Failed to save order data:", err);
-      alert("Failed to save: " + (err?.message || "Unknown error"));
+      console.error('Failed to save order data:', err);
+      alert('Failed to save: ' + (err?.message || 'Unknown error'));
     } finally {
       setUpdating(u => ({ ...u, [order.id]: false }));
     }
