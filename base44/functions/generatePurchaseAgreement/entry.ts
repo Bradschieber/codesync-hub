@@ -425,7 +425,8 @@ Deno.serve(async (req) => {
     const formData = new FormData();
     formData.append("file", blob, `purchase-agreement-${agreementNumber}.pdf`);
 
-    const uploadResult = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+    const file = new File([pdfBytes], `purchase-agreement-${agreementNumber}.pdf`, { type: "application/pdf" });
+    const uploadResult = await base44.asServiceRole.integrations.Core.UploadFile({ file });
     const pdfUrl = uploadResult.file_url;
 
     // Save or update PurchaseAgreement entity
