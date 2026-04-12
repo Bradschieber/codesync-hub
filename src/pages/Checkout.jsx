@@ -136,7 +136,8 @@ function CheckoutForm({ cartItems, user, shippingForm, legalChecked, onLegalChan
       clientSecret = piResponse.data?.clientSecret;
       if (!clientSecret) throw new Error(piResponse.data?.error || "Failed to create payment intent");
     } catch (err) {
-      setSetupError(err.message || "Could not initiate payment. Please try again.");
+      const errMsg = err?.response?.data?.error || err?.message || "Could not initiate payment. Please try again.";
+      setSetupError(errMsg);
       // Clean up the created order
       await base44.entities.Order.update(order.id, { current_status: "cancelled" });
       setPlacing(false);
