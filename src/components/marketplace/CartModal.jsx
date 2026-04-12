@@ -20,8 +20,12 @@ export default function CartModal({ user, onClose }) {
   }
 
   async function removeItem(id) {
-    await base44.entities.CartItem.delete(id);
     setItems(prev => prev.filter(i => i.id !== id));
+    try {
+      await base44.entities.CartItem.delete(id);
+    } catch {
+      // Item already removed or not found — safe to ignore
+    }
   }
 
   const total = items.reduce((sum, i) => sum + (i.product_price * i.quantity), 0);
