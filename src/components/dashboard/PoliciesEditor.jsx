@@ -380,7 +380,7 @@ export default function PoliciesEditor({ form, setForm }) {
                 <input
                   type="number" min="0" max="100"
                   value={form.return_restocking_fee_percent || ""}
-                  onChange={e => set("return_restocking_fee_percent", e.target.value ? Number(e.target.value) : "")}
+                  onChange={e => set("return_restocking_fee_percent", e.target.value ? Number(e.target.value) : null)}
                   placeholder="0 = no fee"
                   className={FIELD_STYLE}
                   style={BORDER}
