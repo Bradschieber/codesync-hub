@@ -24,7 +24,10 @@ Deno.serve(async (req) => {
     }
 
     // Only the product owner or admin can trigger processing
-    if (product.builder_id !== user.id && user.role !== 'admin') {
+    // builder_id is the UserProfile ID, so we check against the profile
+    const profiles = await base44.asServiceRole.entities.UserProfile.filter({ user_id: user.id });
+    const userProfileId = profiles[0]?.id;
+    if (product.builder_id !== userProfileId && user.role !== 'admin') {
       return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
 
