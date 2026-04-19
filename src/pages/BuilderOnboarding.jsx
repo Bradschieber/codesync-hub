@@ -109,18 +109,17 @@ export default function BuilderOnboarding() {
     try {
       const u = await base44.auth.me();
       setUser(u);
-      const existing = await base44.entities.UserProfile.filter({ user_id: u.id });
-      if (existing.length > 0) {
-        setProfile(existing[0]);
-        setForm(existing[0]);
-      } else {
-        setForm(f => ({
-          ...f,
-          user_id: u.id,
-          email: u.email,
-          display_name: u.full_name,
-        }));
-      }
+      // Always start with a clean form — never pre-fill from an existing profile.
+      // Setting profile to null ensures saveProfile always creates a new record.
+      setProfile(null);
+      setForm({
+        is_seller: true,
+        account: "seller",
+        ships_domestically: true,
+        user_id: u.id,
+        email: u.email,
+        display_name: u.full_name,
+      });
     } catch {
       base44.auth.redirectToLogin(window.location.href);
     }
