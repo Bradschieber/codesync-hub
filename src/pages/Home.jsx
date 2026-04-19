@@ -20,24 +20,29 @@ export default function Home() {
   useEffect(() => { loadData(); }, []);
 
   async function loadData() {
-    let prods = [], bldrs = [], buildUpdates = [], workshopPosts = [];
+    let prods = [], bldrs = [], buildUpdates = [], workshopPosts = [], approvedBuilders = [];
     try {
-      [prods, bldrs, buildUpdates, workshopPosts] = await Promise.all([
+      [prods, bldrs, buildUpdates, workshopPosts, approvedBuilders] = await Promise.all([
         base44.entities.Product.filter({ status: "available" }, "-created_date", 30),
-        base44.entities.UserProfile.filter({ is_seller: true, is_featured: true }, "-created_date", 4),
+        base44.entities.UserProfile.filter({ is_seller: true, is_featured: true, is_approved: true }, "-created_date", 4),
         base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 50),
         base44.entities.WorkshopPost.filter({ is_public: true }, "-created_date", 50),
+        base44.entities.UserProfile.filter({ is_seller: true, is_approved: true }, "-created_date", 200),
       ]);
     } catch {
       setLoading(false);
       return;
     }
 
+    // Only show products from approved builders
+    const approvedBuilderIds = new Set(approvedBuilders.map(b => b.id));
     // Enforce limited visibility rule: only show listings eligible for discovery surfaces
     const discoverable = prods.filter(p =>
-      p.builder_approved_marketplace_hero === true ||
-      p.hero_processing_status === "approved_by_builder" ||
-      p.listing_visibility_state === "full_visibility"
+      approvedBuilderIds.has(p.builder_id) && (
+        p.builder_approved_marketplace_hero === true ||
+        p.hero_processing_status === "approved_by_builder" ||
+        p.listing_visibility_state === "full_visibility"
+      )
     );
 
     // Featured or most recent instruments

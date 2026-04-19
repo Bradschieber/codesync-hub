@@ -42,11 +42,15 @@ export default function Catalog() {
       base44.entities.Product.filter({ status: "available" }, "-created_date", 200),
       base44.entities.UserProfile.filter({ is_seller: true, is_approved: true }, "-created_date", 200),
     ]);
+    // Only show products from approved builders
+    const approvedBuilderIds = new Set(bldrs.map(b => b.id));
     // Enforce limited visibility rule: only show listings with a builder-approved marketplace hero image
     const eligible = prods.filter(p =>
-      p.builder_approved_marketplace_hero === true ||
-      p.hero_processing_status === "approved_by_builder" ||
-      p.listing_visibility_state === "full_visibility"
+      approvedBuilderIds.has(p.builder_id) && (
+        p.builder_approved_marketplace_hero === true ||
+        p.hero_processing_status === "approved_by_builder" ||
+        p.listing_visibility_state === "full_visibility"
+      )
     );
     setProducts(eligible);
     setBuilders(bldrs);

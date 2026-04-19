@@ -40,7 +40,7 @@ export default function BuilderProfile() {
       base44.entities.BuilderReference.filter({ builder_id: builderId, status: "verified" }),
       base44.entities.Order.filter({ builder_id: builderId, status: "delivered" }),
     ]);
-    if (bldrs.length > 0) setBuilder(bldrs[0]);
+    if (bldrs.length > 0 && bldrs[0].is_approved) setBuilder(bldrs[0]);
     setProducts(prods);
     setReviews(revs);
     setReferences(refs);
