@@ -33,10 +33,14 @@ export default function AdminAllBuilders() {
   async function deleteBuilder(builder) {
     setUpdating(builder.id);
     try {
-      await base44.functions.invoke("deleteBuilderAccount", { builder_id: builder.id });
-      setBuilders(prev => prev.filter(b => b.id !== builder.id));
+      const result = await base44.functions.invoke("deleteBuilderAccount", { builder_id: builder.id });
+      if (result?.data?.error) {
+        alert("Failed to delete builder: " + result.data.error);
+      } else {
+        setBuilders(prev => prev.filter(b => b.id !== builder.id));
+      }
     } catch (e) {
-      alert("Failed to delete builder: " + e.message);
+      alert("Failed to delete builder: " + (e?.response?.data?.error || e.message));
     }
     setUpdating(null);
     setConfirmDelete(null);
