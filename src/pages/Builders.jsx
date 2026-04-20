@@ -71,14 +71,20 @@ export default function Builders() {
       base44.entities.Product.filter({ status: "available" }, "-created_date", 500),
     ]);
 
-    // Build image map: only include products from approved builders
+    // Build image map: only include products from approved builders, prefer processed/cleaned hero image
     const approvedBuilderIds = new Set(data.map(b => b.id));
     const imgMap = {};
     [...products].reverse().forEach(p => {
-      if (p.image_urls?.[0] && approvedBuilderIds.has(p.builder_id)) imgMap[p.builder_id] = p.image_urls[0];
+      if (!approvedBuilderIds.has(p.builder_id)) return;
+      const img = p.processed_hero_image_url || null;
+      if (img) imgMap[p.builder_id] = img;
     });
+    // For builders without a processed image, use no image (show placeholder)
+    // Featured products override if they have a processed image
     products.forEach(p => {
-      if (p.is_featured && p.image_urls?.[0] && approvedBuilderIds.has(p.builder_id)) imgMap[p.builder_id] = p.image_urls[0];
+      if (p.is_featured && p.processed_hero_image_url && approvedBuilderIds.has(p.builder_id)) {
+        imgMap[p.builder_id] = p.processed_hero_image_url;
+      }
     });
 
     setProductImageMap(imgMap);
@@ -244,7 +250,7 @@ export default function Builders() {
                 <BuilderCard
                   key={builder.id}
                   builder={builder}
-                  heroImage={productImageMap[builder.id] || builder.media_urls?.[0] || builder.logo_url || builder.avatar_url || null}
+                  heroImage={productImageMap[builder.id] || null}
                 />
               ))}
             </div>
