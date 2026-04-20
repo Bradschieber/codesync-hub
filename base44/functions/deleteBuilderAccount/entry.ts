@@ -16,14 +16,25 @@ Deno.serve(async (req) => {
 
     const sr = base44.asServiceRole;
 
-    // Fetch and delete all associated data in parallel
-    const [products, listings, posts, reviews, references] = await Promise.all([
+    // Fetch the builder profile first to get their name for cross-referencing
+    const builderProfiles = await sr.entities.UserProfile.filter({ id: builder_id });
+    const builderProfile = builderProfiles[0];
+    const builderName = builderProfile?.business_name || builderProfile?.display_name;
+
+    // Fetch all associated data - use both builder_id and builder_name to catch any mismatched records
+    const [productsByBuilderId, productsByBuilderName, listings, posts, reviews, references] = await Promise.all([
       sr.entities.Product.filter({ builder_id }),
+      builderName ? sr.entities.Product.filter({ builder_name: builderName }) : Promise.resolve([]),
       sr.entities.CustomBuildListing.filter({ builder_id }),
       sr.entities.WorkshopPost.filter({ builder_id }),
       sr.entities.BuilderReview.filter({ builder_id }),
       sr.entities.BuilderReference.filter({ builder_id }),
     ]);
+
+    // Deduplicate products by id
+    const productMap = new Map();
+    [...productsByBuilderId, ...productsByBuilderName].forEach(p => productMap.set(p.id, p));
+    const products = Array.from(productMap.values());
 
     await Promise.all([
       ...products.map(r => sr.entities.Product.delete(r.id)),
