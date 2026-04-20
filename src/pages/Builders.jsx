@@ -58,7 +58,12 @@ export default function Builders() {
   const [customBuildsOnly, setCustomBuildsOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  useEffect(() => { loadBuilders(); }, []);
+  useEffect(() => {
+    loadBuilders();
+    const onFocus = () => loadBuilders();
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, []);
 
   async function loadBuilders() {
     const [data, products] = await Promise.all([
