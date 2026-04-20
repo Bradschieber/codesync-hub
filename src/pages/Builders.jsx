@@ -66,13 +66,14 @@ export default function Builders() {
       base44.entities.Product.filter({ status: "available" }, "-created_date", 500),
     ]);
 
-    // Build image map: most recent product image per builder, featured product overrides
+    // Build image map: only include products from approved builders
+    const approvedBuilderIds = new Set(data.map(b => b.id));
     const imgMap = {};
     [...products].reverse().forEach(p => {
-      if (p.image_urls?.[0]) imgMap[p.builder_id] = p.image_urls[0];
+      if (p.image_urls?.[0] && approvedBuilderIds.has(p.builder_id)) imgMap[p.builder_id] = p.image_urls[0];
     });
     products.forEach(p => {
-      if (p.is_featured && p.image_urls?.[0]) imgMap[p.builder_id] = p.image_urls[0];
+      if (p.is_featured && p.image_urls?.[0] && approvedBuilderIds.has(p.builder_id)) imgMap[p.builder_id] = p.image_urls[0];
     });
 
     setProductImageMap(imgMap);
