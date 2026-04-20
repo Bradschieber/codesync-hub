@@ -21,13 +21,22 @@ const INITIAL_FORM = {
   specifications: {},
 };
 
-function VisibilityChip({ product }) {
+function VisibilityChip({ product, builderApproved }) {
+  if (!product.is_available) return null;
+
+  if (!builderApproved) {
+    return (
+      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full"
+        style={{ backgroundColor: "#EDE9FE", color: "#5B21B6" }}>
+        <Clock className="w-3 h-3" /> Pending Admin Approval
+      </span>
+    );
+  }
+
   const isLimited =
     !product.builder_approved_marketplace_hero &&
     product.hero_processing_status !== "approved_by_builder" &&
     product.listing_visibility_state !== "full_visibility";
-
-  if (!product.is_available) return null;
 
   if (isLimited) {
     return (
@@ -486,7 +495,7 @@ export default function DashboardProducts() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
                     <h3 className="font-bold text-sm" style={{ color: "#1A1A1A" }}>{product.name}</h3>
-                    <VisibilityChip product={product} />
+                    <VisibilityChip product={product} builderApproved={profile?.is_approved} />
                     {!product.is_available && (
                       <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F3F4F6", color: "#6B7280" }}>
                         Unlisted
