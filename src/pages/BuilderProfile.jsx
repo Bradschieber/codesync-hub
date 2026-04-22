@@ -294,7 +294,7 @@ export default function BuilderProfile() {
             </AccordionItem>
           )}
 
-          {builder.is_verified && references.length > 0 && (
+          {references.length > 0 && (
             <AccordionItem value="references" className="bg-white border border-stone-200 rounded-2xl px-6 overflow-hidden">
               <AccordionTrigger className="text-base font-bold text-stone-800 py-5 hover:no-underline">Verified Buyer References</AccordionTrigger>
               <AccordionContent className="pb-6">
