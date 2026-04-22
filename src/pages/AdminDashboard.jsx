@@ -125,6 +125,14 @@ export default function AdminDashboard() {
       urgent: false,
     },
     {
+      title: "Acceptance Audit Trail",
+      description: "Immutable log of every legal agreement accepted by builders and buyers — agreement type, version, timestamp, and source screen.",
+      icon: FileText,
+      page: "AdminAcceptanceAuditTrail",
+      badge: null,
+      urgent: false,
+    },
+    {
       title: "Release QA Checklist",
       description: "Internal UAT tracker for the commercial transaction layer. Track test scenarios, pass/fail status, and pre-pilot readiness.",
       icon: CheckCircle,

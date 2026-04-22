@@ -1,0 +1,102 @@
+{
+  "name": "LegalAcceptanceEvent",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "email_at_acceptance": {
+      "type": "string"
+    },
+    "role_at_acceptance": {
+      "type": "string",
+      "enum": [
+        "user",
+        "seller",
+        "admin",
+        "guest"
+      ]
+    },
+    "agreement_type": {
+      "type": "string",
+      "enum": [
+        "terms_of_use",
+        "privacy_policy",
+        "builder_terms",
+        "builder_policy_confirmation",
+        "buyer_terms",
+        "stock_order_terms",
+        "custom_build_agreement",
+        "deposit_authorization",
+        "final_payment_authorization"
+      ]
+    },
+    "agreement_title": {
+      "type": "string"
+    },
+    "agreement_version": {
+      "type": "string"
+    },
+    "accepted_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "acceptance_method": {
+      "type": "string",
+      "enum": [
+        "click_checkbox",
+        "e_signature",
+        "system_generated"
+      ]
+    },
+    "source_flow": {
+      "type": "string",
+      "description": "e.g., signup, builder_onboarding, checkout, custom_build_negotiation"
+    },
+    "source_screen": {
+      "type": "string",
+      "description": "e.g., BuilderAccountForm, CheckoutPage, OrderFormReview"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string",
+      "description": "Relevant transaction ID if applicable (e.g., Stripe charge ID)"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Relevant order ID if applicable"
+    },
+    "snapshot_url_or_id": {
+      "type": "string",
+      "description": "URL or ID pointing to a snapshot of the exact legal document/content accepted"
+    },
+    "is_current_version": {
+      "type": "boolean",
+      "default": true,
+      "description": "True if this acceptance was for the currently active version of the agreement at that time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "email_at_acceptance",
+    "role_at_acceptance",
+    "agreement_type",
+    "agreement_title",
+    "agreement_version",
+    "accepted_at_utc",
+    "acceptance_method",
+    "source_flow",
+    "source_screen"
+  ]
+}
