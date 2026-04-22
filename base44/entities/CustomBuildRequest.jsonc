@@ -189,6 +189,21 @@
         "otherFretboardRadius": {
           "type": "string"
         },
+        "tuners": {
+          "type": "string"
+        },
+        "bridge": {
+          "type": "string"
+        },
+        "tailpiece": {
+          "type": "string"
+        },
+        "knobs": {
+          "type": "string"
+        },
+        "otherHardware": {
+          "type": "string"
+        },
         "activePassivePickups": {
           "type": "string"
         },
