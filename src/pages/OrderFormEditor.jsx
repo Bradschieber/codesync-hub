@@ -159,7 +159,6 @@ export default function OrderFormEditor() {
   }
 
   function buildReturnSummary(p) {
-    if (!p.return_policy && p.returns_accepted === undefined) return "";
     const parts = [];
     if (p.returns_accepted === "yes") parts.push("Returns accepted.");
     else if (p.returns_accepted === "no") parts.push("No returns accepted on custom builds.");
@@ -173,10 +172,14 @@ export default function OrderFormEditor() {
   }
 
   function buildWarrantySummary(p) {
-    if (!p.warranty_policy && !p.warranty_duration) return "";
     const parts = [];
     if (p.warranty_duration) parts.push(`Warranty duration: ${p.warranty_duration}.`);
+    if (p.warranty_coverage?.length > 0) {
+      const coverageText = p.warranty_coverage.map(c => `${c.label}${c.duration ? ` (${c.duration})` : ""}`).join(", ");
+      parts.push(`Coverage: ${coverageText}.`);
+    }
     if (p.warranty_policy) parts.push(p.warranty_policy);
+    if (p.warranty_exclusions?.length > 0) parts.push(`Exclusions: ${p.warranty_exclusions.join(", ")}.`);
     if (p.warranty_claim_process) parts.push(`Claims: ${p.warranty_claim_process}`);
     return parts.join(" ") || "";
   }
