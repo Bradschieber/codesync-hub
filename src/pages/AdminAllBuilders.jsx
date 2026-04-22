@@ -2,7 +2,28 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2 } from "lucide-react";
+import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle } from "lucide-react";
+
+function StripeStatusBadge({ builder }) {
+  const status = builder.stripe_onboarding_status;
+  const payoutsEnabled = builder.stripe_payouts_enabled;
+  const chargesEnabled = builder.stripe_charges_enabled;
+  const hasAccount = !!builder.stripe_account_id;
+
+  if (!hasAccount || !status || status === "not_started") {
+    return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#F5F5F5", color: "#9A9A9A", border: "1px solid #E0E0E0" }}>Not Connected</span>;
+  }
+  if (payoutsEnabled && chargesEnabled) {
+    return <span className="text-xs px-2 py-0.5 font-semibold" style={{ backgroundColor: "#E8F5E9", color: "#27AE60", border: "1px solid #A5D6A7" }}>✓ Active</span>;
+  }
+  if (status === "pending_verification") {
+    return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#FFF8E1", color: "#F59E0B", border: "1px solid #FDE68A" }}>Pending Verification</span>;
+  }
+  if (status === "in_progress") {
+    return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#EFF6FF", color: "#3B82F6", border: "1px solid #BFDBFE" }}>In Progress</span>;
+  }
+  return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#FEF3E2", color: "#C57A1F", border: "1px solid #FDE68A" }}>{status}</span>;
+}
 
 const NAVY = "#2F3E55";
 
@@ -123,9 +144,10 @@ export default function AdminAllBuilders() {
         {/* Table */}
         <div className="bg-white border" style={{ borderColor: "#E0DDD8" }}>
           <div className="grid grid-cols-12 px-4 py-2 border-b text-xs font-semibold uppercase tracking-wide" style={{ borderColor: "#E0DDD8", color: "#7A7A7A", backgroundColor: "#F5F3F0" }}>
-            <div className="col-span-4">Builder</div>
-            <div className="col-span-3">Location</div>
-            <div className="col-span-2">Status</div>
+            <div className="col-span-3">Builder</div>
+            <div className="col-span-2">Location</div>
+            <div className="col-span-2">Badges</div>
+            <div className="col-span-2">Stripe</div>
             <div className="col-span-3 text-right">Approval</div>
           </div>
           {filtered.length === 0 ? (
@@ -133,20 +155,23 @@ export default function AdminAllBuilders() {
           ) : (
             filtered.map(b => (
               <div key={b.id} className="grid grid-cols-12 px-4 py-4 border-b items-center" style={{ borderColor: "#F0EDE8" }}>
-                <div className="col-span-4">
+                <div className="col-span-3">
                   <Link to={createPageUrl("BuilderProfile?id=" + b.id)} className="font-semibold text-sm hover:underline" style={{ color: "#1A1A1A" }}>
                     {b.business_name || b.display_name}
                   </Link>
                   <p className="text-xs mt-0.5" style={{ color: "#9A9A9A" }}>{b.email}</p>
                 </div>
-                <div className="col-span-3 text-sm flex items-center gap-1" style={{ color: "#5A5A5A" }}>
-                  {b.location && <><MapPin className="w-3 h-3 flex-shrink-0" />{b.location}</>}
+                <div className="col-span-2 text-sm flex items-center gap-1" style={{ color: "#5A5A5A" }}>
+                  {b.location && <><MapPin className="w-3 h-3 flex-shrink-0" /><span className="truncate">{b.location}</span></>}
                 </div>
                 <div className="col-span-2">
                   <div className="flex flex-col gap-1">
                     {b.is_verified && <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#E8F5E9", color: "#27AE60" }}>Verified</span>}
                     {b.founding_builder && <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#FDF3E3", color: "#6B4C2A" }}>Founding</span>}
                   </div>
+                </div>
+                <div className="col-span-2">
+                  <StripeStatusBadge builder={b} />
                 </div>
                 <div className="col-span-3 flex justify-end gap-2">
                   <button
