@@ -125,13 +125,23 @@ export default function OrderFormEditor() {
         const forms = await base44.entities.CustomBuildOrderForm.filter({ id: formId });
         if (forms.length) {
           const f = forms[0];
+          // Merge request specs into draft specs so any fields added after the draft was saved still populate
+          let mergedSpecs = f.specifications || {};
+          if (requestId) {
+            const reqs2 = await base44.entities.CustomBuildRequest.filter({ id: requestId });
+            if (reqs2.length) {
+              const reqSpecs = reqs2[0].specifications || {};
+              // Only fill in missing fields — don't override what the builder has already set
+              mergedSpecs = { ...reqSpecs, ...mergedSpecs };
+            }
+          }
           setForm({
             title: f.title || "",
             builder_note: f.builder_note || "",
             build_summary: f.build_summary || "",
             included_items: f.included_items || "",
             exclusions_assumptions: f.exclusions_assumptions || "",
-            specifications: f.specifications || {},
+            specifications: mergedSpecs,
             total_price: f.total_price || "",
             deposit_amount: f.deposit_amount || "",
             final_balance: f.final_balance || "",
