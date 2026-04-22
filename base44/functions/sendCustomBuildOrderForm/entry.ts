@@ -170,15 +170,11 @@ Deno.serve(async (req) => {
     );
     doc.text(noticeLines, margin, y);
 
-    // Write PDF to /tmp then read back as Uint8Array for upload
+    // Upload PDF using File object (same pattern as generatePurchaseAgreement)
     const pdfArrayBuffer = doc.output('arraybuffer');
-    const tmpPath = `/tmp/order-form-${orderFormId}.pdf`;
-    await Deno.writeFile(tmpPath, new Uint8Array(pdfArrayBuffer));
-    const pdfBytes = await Deno.readFile(tmpPath);
-    const pdfFile = new File([pdfBytes], 'order-form.pdf', { type: 'application/pdf' });
-    const { file_url: pdfUrl } = await sb.integrations.Core.UploadFile({ file: pdfFile });
-    // Cleanup temp file
-    try { await Deno.remove(tmpPath); } catch {}
+    const pdfFile = new File([pdfArrayBuffer], 'order-form.pdf', { type: 'application/pdf' });
+    const uploadResult = await sb.integrations.Core.UploadFile({ file: pdfFile });
+    const pdfUrl = uploadResult.file_url;
 
     // Update form
     await sb.entities.CustomBuildOrderForm.update(orderFormId, {
