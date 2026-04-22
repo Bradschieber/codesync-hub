@@ -113,8 +113,8 @@ export default function OrderFormEditor() {
               specifications: req.specifications || {},
               // Pre-fill policy summaries from builder profile
               policy_deposit_summary: buildDepositSummary(p),
-              policy_return_summary: p.return_policy || "",
-              policy_warranty_summary: p.warranty_policy || "",
+              policy_return_summary: buildReturnSummary(p),
+              policy_warranty_summary: buildWarrantySummary(p),
             }));
           }
         }
