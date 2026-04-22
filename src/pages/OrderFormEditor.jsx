@@ -281,7 +281,14 @@ export default function OrderFormEditor() {
       setSavedFormId(fId);
     }
     // Send
-    const res = await base44.functions.invoke("sendCustomBuildOrderForm", { orderFormId: fId });
+    let res;
+    try {
+      res = await base44.functions.invoke("sendCustomBuildOrderForm", { orderFormId: fId });
+    } catch (err) {
+      setResult({ type: "error", msg: err?.response?.data?.error || err?.message || "Failed to send Order Form." });
+      setSending(false);
+      return;
+    }
     if (res.data?.success) {
       setResult({ type: "sent", msg: "Order Form sent! The buyer will receive an email notification." });
     } else {
