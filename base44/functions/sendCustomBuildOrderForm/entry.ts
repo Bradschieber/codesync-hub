@@ -170,9 +170,8 @@ Deno.serve(async (req) => {
     );
     doc.text(noticeLines, margin, y);
 
-    const pdfBytes = doc.output('arraybuffer');
-    const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
-    const { file_url: pdfUrl } = await sb.integrations.Core.UploadFile({ file: pdfBlob });
+    const pdfBase64 = doc.output('datauristring');
+    const { file_url: pdfUrl } = await sb.integrations.Core.UploadFile({ file: pdfBase64 });
 
     // Update form
     await sb.entities.CustomBuildOrderForm.update(orderFormId, {
