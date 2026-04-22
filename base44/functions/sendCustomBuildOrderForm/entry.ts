@@ -1,7 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 import { jsPDF } from 'npm:jspdf@4.0.0';
 
-const APP_URL = "https://app.base44.com";
+const APP_URL = "https://preview-sandbox--699b4908ac9a3afade5feb65.base44.app";
 
 Deno.serve(async (req) => {
   try {
