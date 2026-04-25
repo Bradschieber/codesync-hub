@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ChevronLeft, ChevronDown, Save, Sparkles, User, Hammer, Music, Clock, Store, Camera, Shield, Heart, CheckCircle2 } from "lucide-react";
+import { ChevronLeft, ChevronDown, Save, Sparkles, User, Hammer, Music, Clock, Store, Camera, Shield, Heart, CheckCircle2, Eye } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
 import StorefrontCustomizer from "../components/dashboard/StorefrontCustomizer";
@@ -135,7 +135,19 @@ export default function DashboardProfile() {
         <Link to={createPageUrl("Dashboard")} className="text-gray-400 hover:text-gray-700"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-2xl font-bold text-gray-900">Builder Profile</h1>
       </div>
-      <p className="text-gray-400 text-sm mb-6 ml-8">Build your storefront — tell your story, show your craft, earn trust.</p>
+      <div className="flex items-center justify-between mb-6 ml-8">
+        <p className="text-gray-400 text-sm">Build your storefront — tell your story, show your craft, earn trust.</p>
+        {profile?.id && (
+          <a
+            href={createPageUrl("BuilderProfile") + `?id=${profile.id}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 border rounded-lg transition-colors text-gray-600 border-gray-300 hover:border-gray-500 hover:text-gray-800"
+          >
+            <Eye className="w-3.5 h-3.5" /> View Storefront
+          </a>
+        )}
+      </div>
 
       <StorefrontProgressTracker
         form={form}
