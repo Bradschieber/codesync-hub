@@ -1,76 +1,51 @@
 import { base44 } from "@/api/base44Client";
-import { Palette, Layout } from "lucide-react";
-
-const LAYOUT_THUMBNAILS = {
-  classic: (
-    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="70" fill="#f5f5f4"/>
-      {/* banner */}
-      <rect x="0" y="0" width="120" height="18" fill="#a8a29e"/>
-      {/* avatar */}
-      <circle cx="18" cy="22" r="7" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
-      {/* name line */}
-      <rect x="30" y="18" width="40" height="4" rx="2" fill="#d6d3d1"/>
-      <rect x="30" y="25" width="25" height="3" rx="1.5" fill="#e7e5e4"/>
-      {/* 3-col grid */}
-      <rect x="4" y="34" width="34" height="28" rx="2" fill="#d6d3d1"/>
-      <rect x="43" y="34" width="34" height="28" rx="2" fill="#d6d3d1"/>
-      <rect x="82" y="34" width="34" height="28" rx="2" fill="#d6d3d1"/>
-    </svg>
-  ),
-  bold: (
-    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="70" fill="#f5f5f4"/>
-      {/* tall banner */}
-      <rect x="0" y="0" width="120" height="28" fill="#a8a29e"/>
-      {/* avatar */}
-      <circle cx="18" cy="32" r="7" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
-      {/* name */}
-      <rect x="30" y="28" width="45" height="4" rx="2" fill="#d6d3d1"/>
-      <rect x="30" y="35" width="28" height="3" rx="1.5" fill="#e7e5e4"/>
-      {/* hero image */}
-      <rect x="4" y="44" width="112" height="22" rx="2" fill="#d6d3d1"/>
-    </svg>
-  ),
-  editorial: (
-    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="70" fill="#f5f5f4"/>
-      {/* tall banner */}
-      <rect x="0" y="0" width="120" height="34" fill="#a8a29e"/>
-      {/* name overlaid on banner */}
-      <rect x="8" y="20" width="55" height="5" rx="2" fill="#fff" fillOpacity="0.85"/>
-      <rect x="8" y="28" width="32" height="3" rx="1.5" fill="#fff" fillOpacity="0.6"/>
-      {/* avatar */}
-      <circle cx="18" cy="38" r="7" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
-      {/* 2-col grid */}
-      <rect x="4" y="50" width="54" height="16" rx="2" fill="#d6d3d1"/>
-      <rect x="62" y="50" width="54" height="16" rx="2" fill="#d6d3d1"/>
-    </svg>
-  ),
-  minimal: (
-    <svg viewBox="0 0 120 70" className="w-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="70" fill="#f5f5f4"/>
-      {/* thin banner */}
-      <rect x="0" y="0" width="120" height="12" fill="#a8a29e"/>
-      {/* avatar */}
-      <circle cx="18" cy="16" r="6" fill="#fff" stroke="#d6d3d1" strokeWidth="1"/>
-      {/* name */}
-      <rect x="28" y="13" width="40" height="4" rx="2" fill="#d6d3d1"/>
-      <rect x="28" y="20" width="22" height="2.5" rx="1.25" fill="#e7e5e4"/>
-      {/* horizontal scroll row */}
-      <rect x="4" y="30" width="28" height="34" rx="2" fill="#d6d3d1"/>
-      <rect x="36" y="30" width="28" height="34" rx="2" fill="#d6d3d1"/>
-      <rect x="68" y="30" width="28" height="34" rx="2" fill="#d6d3d1"/>
-      <rect x="100" y="30" width="16" height="34" rx="2" fill="#e7e5e4"/>
-    </svg>
-  ),
-};
+import { Palette } from "lucide-react";
 
 const LAYOUTS = [
-  { id: "classic", label: "Classic", description: "Standard header with 3-col media grid" },
-  { id: "bold", label: "Bold", description: "Tall banner, featured hero image" },
-  { id: "editorial", label: "Editorial", description: "Magazine-style with name overlaid on banner" },
-  { id: "minimal", label: "Minimal", description: "Clean, scrollable horizontal gallery" },
+  {
+    id: "classic",
+    label: "Text-Forward",
+    description: "Strong text overlay covers most of the banner — works great without a banner image.",
+    preview: (
+      <svg viewBox="0 0 160 80" className="w-full" xmlns="http://www.w3.org/2000/svg">
+        <rect width="160" height="80" fill="#57534e"/>
+        {/* heavy dark overlay on left 2/3 */}
+        <rect x="0" y="0" width="160" height="80" fill="rgba(0,0,0,0.55)"/>
+        {/* text lines near top */}
+        <rect x="10" y="14" width="70" height="7" rx="3" fill="rgba(255,255,255,0.9)"/>
+        <rect x="10" y="25" width="48" height="4" rx="2" fill="rgba(255,255,255,0.55)"/>
+        <rect x="10" y="33" width="36" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/>
+        {/* CTA buttons */}
+        <rect x="10" y="44" width="44" height="12" rx="3" fill="#C57A1F"/>
+        <rect x="58" y="44" width="44" height="12" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5"/>
+        {/* avatar at bottom */}
+        <circle cx="22" cy="80" r="10" fill="#fff" stroke="#d6d3d1" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  {
+    id: "showcase",
+    label: "Banner Showcase",
+    description: "Taller banner with text anchored at the bottom — lets a great banner image take center stage.",
+    preview: (
+      <svg viewBox="0 0 160 80" className="w-full" xmlns="http://www.w3.org/2000/svg">
+        <rect width="160" height="80" fill="#57534e"/>
+        {/* gradient from bottom */}
+        <defs>
+          <linearGradient id="showcaseGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(0,0,0,0.0)"/>
+            <stop offset="100%" stopColor="rgba(0,0,0,0.75)"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="160" height="80" fill="url(#showcaseGrad)"/>
+        {/* text lines near bottom */}
+        <rect x="10" y="48" width="70" height="7" rx="3" fill="rgba(255,255,255,0.9)"/>
+        <rect x="10" y="59" width="48" height="4" rx="2" fill="rgba(255,255,255,0.55)"/>
+        {/* avatar at bottom */}
+        <circle cx="22" cy="80" r="10" fill="#fff" stroke="#d6d3d1" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
 ];
 
 const COLOR_SCHEMES = [
@@ -82,15 +57,8 @@ const COLOR_SCHEMES = [
 ];
 
 export default function StorefrontCustomizer({ form, setForm }) {
-  async function handleBannerUpload(e) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    setForm(f => ({ ...f, banner_image_url: file_url }));
-  }
-
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 p-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex items-start gap-3">
         <div className="w-9 h-9 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0">
           <Palette className="w-4 h-4 text-purple-600" />
@@ -137,54 +105,48 @@ export default function StorefrontCustomizer({ form, setForm }) {
         <div className="flex gap-2 items-center">
           <label className="cursor-pointer border border-stone-300 rounded-xl px-3 py-2 text-sm text-stone-600 hover:bg-stone-50 transition-colors">
             {form.banner_image_url ? "Change Banner" : "Upload Banner"}
-            <input type="file" accept="image/*" className="hidden" onChange={handleBannerUpload} />
+            <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+              const { file_url } = await base44.integrations.Core.UploadFile({ file });
+              setForm(f => ({ ...f, banner_image_url: file_url }));
+            }} />
           </label>
           {form.banner_image_url && (
             <button type="button" onClick={() => setForm(f => ({ ...f, banner_image_url: "" }))} className="text-xs text-red-400 hover:text-red-600">Remove</button>
           )}
         </div>
-        <p className="text-xs text-stone-400 mt-1">Recommended: 1600×400px or wider. This displays behind your profile name.</p>
+        <p className="text-xs text-stone-400 mt-1">Recommended: 1600×400px or wider.</p>
       </div>
 
-      {/* Tag Line */}
+      {/* Layout Picker */}
       <div>
-        <label className="block text-xs font-medium text-stone-600 mb-1">Tag Line <span className="text-stone-400 font-normal">(optional)</span></label>
-        <input
-          type="text"
-          value={form.tag_line || ""}
-          onChange={e => setForm(f => ({ ...f, tag_line: e.target.value }))}
-          placeholder='e.g. "Handcrafted in the Appalachians since 2003"'
-          className="w-full border border-stone-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-300"
-        />
-        <p className="text-xs text-stone-400 mt-1">A short phrase that appears beneath your name on your storefront.</p>
-      </div>
-
-      {/* Layout */}
-      <div>
-        <label className="block text-xs font-medium text-stone-600 mb-2 flex items-center gap-1">
-          <Layout className="w-3 h-3" /> Layout Template
-        </label>
-        <div className="grid grid-cols-2 gap-2">
+        <label className="block text-xs font-medium text-stone-600 mb-3">Banner Layout</label>
+        <div className="grid grid-cols-2 gap-3">
           {LAYOUTS.map(l => (
             <button
               key={l.id}
               type="button"
               onClick={() => setForm(f => ({ ...f, storefront_layout: l.id }))}
-              className={`text-left p-3 rounded-xl border-2 transition-colors ${form.storefront_layout === l.id ? "border-amber-500 bg-amber-50" : "border-stone-200 hover:border-stone-300"}`}
+              className={`text-left p-3 rounded-xl border-2 transition-colors ${(form.storefront_layout || "classic") === l.id ? "border-amber-500 bg-amber-50" : "border-stone-200 hover:border-stone-300"}`}
             >
               <div className="rounded-lg overflow-hidden border border-stone-200 mb-2">
-                {LAYOUT_THUMBNAILS[l.id]}
+                {l.preview}
               </div>
               <p className="font-semibold text-stone-800 text-sm">{l.label}</p>
-              <p className="text-xs text-stone-400 mt-0.5">{l.description}</p>
+              <p className="text-xs text-stone-400 mt-0.5 leading-snug">{l.description}</p>
             </button>
           ))}
         </div>
+        {!form.banner_image_url && (form.storefront_layout === "showcase" || !form.storefront_layout) && (
+          <p className="text-xs text-amber-600 mt-2">💡 "Banner Showcase" works best with a banner image uploaded above.</p>
+        )}
       </div>
 
       {/* Color Scheme */}
       <div>
         <label className="block text-xs font-medium text-stone-600 mb-2">Color Scheme</label>
+        <p className="text-xs text-stone-400 mb-2">Sets the banner background color when no banner image is uploaded.</p>
         <div className="flex flex-wrap gap-2">
           {COLOR_SCHEMES.map(c => (
             <button

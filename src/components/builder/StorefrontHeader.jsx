@@ -12,8 +12,26 @@ export function getScheme(key) {
   return COLOR_SCHEMES[key] || COLOR_SCHEMES["earthy"];
 }
 
+// "classic" = text covers most of the banner (good for no/weak banner image)
+// "showcase" = taller banner with text at the bottom, banner image can breathe
+const LAYOUT_CONFIG = {
+  classic: {
+    bannerMinHeight: "180px",
+    overlayStyle: { background: "linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 100%)" },
+    contentPadding: { paddingTop: "48px", paddingBottom: "52px" },
+    avatarOffset: "-bottom-9",
+  },
+  showcase: {
+    bannerMinHeight: "340px",
+    overlayStyle: { background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.65) 100%)" },
+    contentPadding: { paddingTop: "220px", paddingBottom: "32px" },
+    avatarOffset: "-bottom-9",
+  },
+};
+
 export default function StorefrontHeader({ builder, avgRating, reviewCount, orderCount = 0, saved, onToggleSave, onContact, onRequestQuote }) {
   const scheme = getScheme(builder.storefront_color_scheme);
+  const layout = LAYOUT_CONFIG[builder.storefront_layout] || LAYOUT_CONFIG["classic"];
   const name = builder.business_name || builder.display_name || "Builder";
 
   function scrollToSection(id) {
@@ -21,24 +39,16 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Build the trust facts (max 5, in priority order)
   const facts = [];
-
-  // Instrument types first
   const instrumentTypes = builder.instrument_types_built || [];
   if (instrumentTypes.length > 0) {
     const labels = instrumentTypes.map(i => i.type === "Other" && i.other_description ? i.other_description : i.type);
     facts.push({ icon: Guitar, label: labels.join(", ") });
   }
-
-  if (builder.years_experience > 0) {
-    facts.push({ icon: Star, label: `${builder.years_experience}+ Years Building` });
-  }
+  if (builder.years_experience > 0) facts.push({ icon: Star, label: `${builder.years_experience}+ Years Building` });
   if (builder.offers_custom_builds) {
     facts.push({ icon: Hammer, label: "Custom Builds Available" });
-    if (builder.typical_build_time) {
-      facts.push({ icon: Clock, label: `Typical Custom Build Time: ${builder.typical_build_time}` });
-    }
+    if (builder.typical_build_time) facts.push({ icon: Clock, label: `Typical Custom Build Time: ${builder.typical_build_time}` });
     if (builder.deposit_required) {
       const depositVal = builder.deposit_type === "percent" && builder.deposit_percent
         ? `${builder.deposit_percent}%`
@@ -48,43 +58,36 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
       facts.push({ icon: DollarSign, label: `Custom Build Deposit: ${depositVal}` });
     }
   }
-
   const shipsLabel =
-    builder.ships_domestically && builder.ships_internationally
-      ? "Ships Domestic & International"
-      : builder.ships_internationally
-      ? "Ships Internationally"
-      : builder.ships_domestically
-      ? "Ships Domestically"
-      : null;
-  if (shipsLabel) {
-    facts.push({ icon: Package, label: shipsLabel });
-  }
+    builder.ships_domestically && builder.ships_internationally ? "Ships Domestic & International"
+    : builder.ships_internationally ? "Ships Internationally"
+    : builder.ships_domestically ? "Ships Domestically"
+    : null;
+  if (shipsLabel) facts.push({ icon: Package, label: shipsLabel });
 
   return (
     <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden mb-6">
 
-      {/* ── BANNER HERO ── */}
-      <div className={`relative bg-gradient-to-r ${scheme.banner}`} style={{ minHeight: "240px" }}>
-
-        {/* Background image */}
+      {/* ── BANNER ── */}
+      <div
+        className={`relative bg-gradient-to-r ${scheme.banner}`}
+        style={{ minHeight: layout.bannerMinHeight }}
+      >
         {builder.banner_image_url ? (
           <img src={builder.banner_image_url} alt="Banner" className="absolute inset-0 w-full h-full object-cover" />
         ) : (
           <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800')] bg-cover bg-center" />
         )}
 
-        {/* Dark gradient overlay for readability */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15))" }} />
+        {/* Overlay — heavier on left for "classic", gradient-from-bottom for "showcase" */}
+        <div className="absolute inset-0" style={layout.overlayStyle} />
 
-        {/* Featured badge */}
         {builder.is_featured && (
           <span className="absolute top-4 left-4 bg-amber-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 z-10">
             <Award className="w-3 h-3" /> Featured Builder
           </span>
         )}
 
-        {/* Right-side actions (Save + Message) */}
         <div className="absolute top-4 right-4 flex gap-2 z-10">
           <button
             onClick={onToggleSave}
@@ -101,24 +104,18 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
           </button>
         </div>
 
-        {/* Hero text content */}
-        <div className="relative z-10 px-6 sm:px-8" style={{ paddingTop: "80px", paddingBottom: "80px" }}>
+        {/* Hero text */}
+        <div className="relative z-10 px-6 sm:px-8" style={layout.contentPadding}>
           <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-md mb-1">{name}</h1>
-
-          {/* Tagline */}
           {builder.tag_line && (
             <p className="text-white/80 text-base mb-2 max-w-xl">{builder.tag_line}</p>
           )}
-
-          {/* Location */}
           {builder.location && (
             <p className="text-white/70 text-sm flex items-center gap-1.5 mb-2">
               <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
               {builder.location}
             </p>
           )}
-
-          {/* Badges */}
           <div className="flex items-center gap-2 flex-wrap mb-6">
             {builder.is_verified && (
               <span className="flex items-center gap-1 text-xs font-semibold text-white bg-white/20 border border-white/30 px-2.5 py-0.5 rounded-full backdrop-blur-sm">
@@ -137,8 +134,6 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
               </span>
             )}
           </div>
-
-          {/* CTAs */}
           <div className="flex flex-wrap gap-3">
             {builder.offers_custom_builds && (
               <button
@@ -183,8 +178,8 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
           </div>
         </div>
 
-        {/* Avatar overlapping bottom of banner */}
-        <div className="absolute -bottom-9 left-6 z-20">
+        {/* Avatar */}
+        <div className={`absolute ${layout.avatarOffset} left-6 z-20`}>
           {builder.avatar_url ? (
             <img src={builder.avatar_url} className="rounded-full object-cover border-4 border-white shadow-md" style={{ width: 72, height: 72 }} />
           ) : (
@@ -195,10 +190,8 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
         </div>
       </div>
 
-      {/* ── BELOW BANNER: rating, social, trust facts ── */}
+      {/* ── BELOW BANNER ── */}
       <div className="px-6 pb-6" style={{ paddingTop: "52px" }}>
-
-        {/* Rating + social links */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500 mb-5">
           {avgRating > 0 && (
             <span className="flex items-center gap-1">
@@ -228,7 +221,6 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
           )}
         </div>
 
-        {/* Trust Facts Row */}
         {facts.length > 0 && (
           <div className="border-t border-stone-100 pt-4 flex flex-wrap" style={{ gap: "12px 24px" }}>
             {facts.slice(0, 5).map(({ icon: Icon, label }) => (
@@ -240,7 +232,6 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
           </div>
         )}
 
-        {/* Platform trust line */}
         {(reviewCount === 0 || orderCount < 3) && (
           <div className="mt-3 flex items-center gap-1.5 text-xs text-stone-500">
             <Check className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
