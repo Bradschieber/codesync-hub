@@ -9,6 +9,7 @@ import StorefrontCustomizer from "../components/dashboard/StorefrontCustomizer";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 import StorefrontProgressTracker from "../components/dashboard/StorefrontProgressTracker";
+import LocationFields from "../components/onboarding/LocationFields";
 
 const STORY_PROMPTS = [
   { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?", example: "I'm a builder based in Asheville, North Carolina, focused on handbuilt electric guitars and basses." },
@@ -149,30 +150,37 @@ export default function DashboardProfile() {
         <div ref={sectionRefs.basics}>
           <AccordionSection id="basics" title="The Basics" isOpen={openSection === "basics"} onToggle={toggleSection} complete={sectionComplete("basics", form, productCount)}>
             <p className="text-gray-400 text-xs mb-5">Your public storefront identity — how buyers find and recognize you.</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="space-y-4">
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Business / Brand Name</label>
                 <input value={form.business_name || ""} onChange={e => setForm({...form, business_name: e.target.value})} placeholder="e.g. Hartman Guitars" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Location (public)</label>
-                <input value={form.location || ""} onChange={e => setForm({...form, location: e.target.value})} placeholder="City, State" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                <label className="block text-xs font-medium text-gray-600 mb-1">Tagline <span className="text-gray-400 font-normal">(optional)</span></label>
+                <input value={form.tag_line || ""} onChange={e => setForm({...form, tag_line: e.target.value})} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                <p className="text-xs text-gray-400 mt-1">A short phrase displayed beneath your name on your storefront.</p>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Website</label>
-                <input value={form.website_url || ""} onChange={e => setForm({...form, website_url: e.target.value})} placeholder="https://..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                <label className="block text-xs font-medium text-gray-600 mb-2">Location</label>
+                <LocationFields form={form} setForm={setForm} />
               </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Facebook</label>
-                <input value={form.facebook_url || ""} onChange={e => setForm({...form, facebook_url: e.target.value})} placeholder="https://facebook.com/..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Instagram</label>
-                <input value={form.instagram_url || ""} onChange={e => setForm({...form, instagram_url: e.target.value})} placeholder="https://instagram.com/..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">X (Twitter)</label>
-                <input value={form.x_url || ""} onChange={e => setForm({...form, x_url: e.target.value})} placeholder="https://x.com/..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+              <div className="grid sm:grid-cols-2 gap-4 pt-2">
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Website</label>
+                  <input value={form.website_url || ""} onChange={e => setForm({...form, website_url: e.target.value})} placeholder="https://..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Facebook</label>
+                  <input value={form.facebook_url || ""} onChange={e => setForm({...form, facebook_url: e.target.value})} placeholder="https://facebook.com/..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Instagram</label>
+                  <input value={form.instagram_url || ""} onChange={e => setForm({...form, instagram_url: e.target.value})} placeholder="https://instagram.com/..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">X (Twitter)</label>
+                  <input value={form.x_url || ""} onChange={e => setForm({...form, x_url: e.target.value})} placeholder="https://x.com/..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                </div>
               </div>
             </div>
             <p className="text-xs text-gray-400 mt-4">To update your name, phone, or personal details, visit <a href="/account" className="text-gray-600 hover:underline">My Account</a>.</p>
@@ -219,6 +227,18 @@ export default function DashboardProfile() {
               className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none leading-relaxed"
             />
             <p className="text-xs text-gray-400 mt-2">Tip: Longer, more personal stories build significantly more trust with buyers.</p>
+
+            <div className="mt-5 pt-5 border-t border-gray-100">
+              <label className="block text-xs font-medium text-gray-600 mb-1">Short Bio <span className="text-gray-400 font-normal">(optional)</span></label>
+              <p className="text-xs text-gray-400 mb-2">A brief public-facing introduction — shown on profile cards, in search results, and preview areas. Your full story lives on your storefront.</p>
+              <textarea
+                rows={2}
+                value={form.bio || ""}
+                onChange={e => setForm({...form, bio: e.target.value})}
+                placeholder="e.g. Builder of hand-carved electric guitars from Portland, OR. 15 years, ~120 instruments."
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
+              />
+            </div>
           </AccordionSection>
         </div>
 
