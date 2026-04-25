@@ -257,26 +257,46 @@ export default function DashboardProfile() {
         {/* 4. Show Buyers Your Craft */}
         <div ref={sectionRefs.photos}>
           <AccordionSection id="photos" title="Show Buyers Your Craft" isOpen={openSection === "photos"} onToggle={toggleSection} complete={sectionComplete("photos", form, productCount)}>
+            <div className="mb-5">
+              <p className="text-xs font-semibold text-gray-700 mb-1">
+                {form.business_name ? `Your ${form.business_name} gallery` : "Your craft gallery"}
+              </p>
+              <p className="text-xs leading-relaxed text-gray-500 mb-4">
+                Workshop and process photos are what make buyers feel confident before they ever send a message. Show your bench, a build in progress, your materials — not just finished results. Start with 4–8 images. You can always add more.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
+                {[
+                  { label: "Workshop", sub: "Where you work" },
+                  { label: "In Progress", sub: "Builds underway" },
+                  { label: "Materials", sub: "Tonewoods, grain" },
+                  { label: "Details", sub: "Craft up close" },
+                ].map(({ label, sub }) => (
+                  <div key={label} className="flex flex-col items-center justify-center py-3 px-2 text-center bg-stone-50 border border-stone-200 rounded-lg">
+                    <span className="text-xs font-semibold text-stone-700 mb-0.5">{label}</span>
+                    <span className="text-xs text-stone-400">{sub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             <MediaUploader
               mediaUrls={form.media_urls || []}
               onChange={urls => setForm({ ...form, media_urls: urls })}
             />
+            {(form.media_urls || []).length > 0 && (
+              <p className="text-xs mt-3 font-medium text-green-600">
+                {(form.media_urls || []).length} photo{(form.media_urls || []).length !== 1 ? "s" : ""} added — your storefront is taking shape ✓
+              </p>
+            )}
             <div className="mt-6 pt-6 border-t border-gray-100">
-              <h3 className="text-sm font-semibold text-gray-800 mb-1">Introduction Video</h3>
-              <p className="text-xs text-gray-400 mb-1">A short shop or intro video can help buyers connect with your process and workspace.</p>
-              <div className="mb-4 text-xs text-stone-500 space-y-0.5">
-                <p className="font-medium text-stone-600">Great video ideas:</p>
-                {["Workshop walkthrough","You talking about your builds","Process footage","Tools or in-progress work"].map(v => (
-                  <p key={v} className="flex items-center gap-1"><span className="text-stone-300">•</span> {v}</p>
-                ))}
-              </div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-1">Introduction Video <span className="normal-case font-normal">(optional)</span></p>
+              <p className="text-xs text-gray-400 mb-4">A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link — it embeds directly on your builder page.</p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Video URL</label>
                   <input value={form.introduction_video_url || ""} onChange={e => setForm({...form, introduction_video_url: e.target.value})} placeholder="https://youtube.com/watch?v=..." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600 mb-1">Video Title / Caption (optional)</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Video Caption</label>
                   <input value={form.introduction_video_title || ""} onChange={e => setForm({...form, introduction_video_title: e.target.value})} placeholder='e.g. "A day in my shop"' className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
                 </div>
               </div>
