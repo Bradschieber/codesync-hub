@@ -11,15 +11,15 @@ const faqSections = [
     items: [
       {
         question: "What is Stringed Collective?",
-        answer: "Stringed Collective is a marketplace built for independent instrument builders. It gives builders a professional place to present their work, connect with buyers, manage transactions, and sell through a platform designed around trust and craftsmanship.",
+        answer: "Stringed Collective is a marketplace built for independent instrument builders. It gives builders a professional place to present their work, connect with buyers, and sell through a platform built around trust, craftsmanship, and a better buying experience.",
       },
       {
         question: "Who is the platform for?",
-        answer: "Stringed Collective is designed for independent builders, makers, and small shops creating handcrafted or boutique instruments. It is meant for builders who want a more professional way to showcase their work and manage sales online.",
+        answer: "Stringed Collective is designed for independent builders, makers, and small shops creating handcrafted or boutique instruments. It is for builders who want a stronger way to showcase their work, reach new buyers, and manage sales through a more professional platform.",
       },
       {
         question: "What does Stringed Collective handle for builders?",
-        answer: "Stringed Collective supports the transaction side of the business so builders can stay focused on the work. That includes storefront tools, listings, buyer discovery, payment processing, shipment verification, and transaction support.",
+        answer: "Stringed Collective helps with the parts of selling that are often harder to manage alone. That includes storefront tools, listings, buyer discovery, payment processing, shipment verification, and transaction support.\n\nThe goal is to let builders stay focused on the work while the platform supports the business side of the sale.",
       },
     ],
   },
@@ -28,15 +28,15 @@ const faqSections = [
     items: [
       {
         question: "How do I get started as a builder?",
-        answer: "Builders start by creating an account, setting up their profile, adding their builder policies, and creating listings. Your profile is where buyers begin to get a feel for who you are, what you build, and what kind of work you do.",
+        answer: "Builders get started by creating an account, setting up their profile, adding their builder policies, and creating listings.\n\nYour profile is where buyers begin to understand who you are, what you build, and what kind of care you bring to the work.",
       },
       {
         question: "What builder policies do I need to set up?",
-        answer: "Builders set up their builder policies through the platform. These include your custom-build deposit amount, expected build time, return policy, and warranty policy.",
+        answer: "Builders set up their builder policies through the platform. These include your custom-build deposit amount, expected build time, return policy, and warranty policy.\n\nThese policies help set clear expectations before an order begins.",
       },
       {
         question: "Are my builder policies part of the transaction?",
-        answer: "Yes. Your builder-defined policies become part of the transaction terms for the order. That helps both sides understand the expectations before work begins.",
+        answer: "Yes. Your builder-defined policies become part of the transaction terms for the order.\n\nThat means the buyer sees and agrees to those terms as part of the transaction, which helps keep expectations clear on both sides.",
       },
     ],
   },
@@ -45,19 +45,19 @@ const faqSections = [
     items: [
       {
         question: "How do I list instruments?",
-        answer: "Builders create listings through their builder tools. A listing should clearly describe the instrument, including photos, specifications, pricing, availability, shipping details, condition, and any important limitations or delays.",
+        answer: "Builders create listings through their builder tools. A good listing should clearly describe the instrument, including photos, specifications, pricing, availability, shipping details, condition, and any important limitations or delays.\n\nThe clearer the listing, the easier it is for a buyer to understand what you are offering and move forward with confidence.",
       },
       {
         question: "What can I sell on Stringed Collective?",
-        answer: "Builders can list handcrafted instruments and related items they directly build, design, or accurately describe in a way approved by Stringed Collective. Mass-produced, drop-shipped, counterfeit, infringing, or deceptively described products are not allowed.",
+        answer: "Builders can list handcrafted instruments and related items they directly build, design, or accurately describe in a way approved by Stringed Collective.\n\nMass-produced, drop-shipped, counterfeit, infringing, or deceptively described products are not allowed.",
       },
       {
         question: "What is the difference between a stock build and a custom build?",
-        answer: "A stock build is a completed instrument listed for sale and ready to ship. A custom build is created after the builder and buyer agree on specifications. Custom builds usually involve a deposit, a build timeline, and a final payment before shipment.",
+        answer: "A stock build is a completed instrument listed for sale and ready to ship.\n\nA custom build starts after the builder and buyer agree on the specifications. Custom builds usually involve a deposit, a build timeline, and a final payment before shipment.",
       },
       {
         question: "Can I list an instrument as ready to ship?",
-        answer: "Yes, but only if the instrument is actually completed, available, and ready to ship as described. Buyers should be able to rely on that label with confidence.",
+        answer: "Yes, but only if the instrument is actually completed, available, and ready to ship as described.\n\nBuyers should be able to rely on that label with confidence.",
       },
       {
         question: "What are buyer references and builder badges?",
