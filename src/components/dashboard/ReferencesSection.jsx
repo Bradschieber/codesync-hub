@@ -139,7 +139,7 @@ export default function ReferencesSection({ profile }) {
 
       {/* Add reference form */}
       {showForm && (
-        <form onSubmit={handleAdd} className="mt-5 border p-5 space-y-4" style={{ borderColor: "#E8D9B8", backgroundColor: "#FFFAF2" }}>
+        <div className="mt-5 border p-5 space-y-4" style={{ borderColor: "#E8D9B8", backgroundColor: "#FFFAF2" }}>
           <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "#9A8060" }}>Add a reference</p>
           <div>
             <label className="block text-xs font-medium mb-1" style={{ color: "#5A5A5A" }}>Buyer name *</label>
@@ -199,15 +199,16 @@ export default function ReferencesSection({ profile }) {
               Cancel
             </button>
             <button
-              type="submit"
-              disabled={saving || (!form.contact_email && !form.contact_phone)}
+              type="button"
+              onClick={handleAdd}
+              disabled={saving || (!form.buyer_name || !form.quote) || (!form.contact_email && !form.contact_phone)}
               className="flex-1 py-2 text-sm font-medium text-white transition-colors disabled:opacity-50"
               style={{ backgroundColor: saving ? "#AAAAAA" : NAVY }}
             >
               {saving ? "Saving..." : "Submit reference"}
             </button>
           </div>
-        </form>
+        </div>
       )}
     </div>
   );

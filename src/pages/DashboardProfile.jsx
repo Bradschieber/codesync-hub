@@ -415,6 +415,25 @@ export default function DashboardProfile() {
           </AccordionSection>
         </div>
 
+        {/* 7. Buyer References */}
+        <div ref={sectionRefs.references}>
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <button
+              type="button"
+              onClick={() => toggleSection("references")}
+              className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+            >
+              <span className="text-sm font-semibold text-gray-800">Buyer References</span>
+              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${openSection === "references" ? "rotate-180" : ""}`} />
+            </button>
+            {openSection === "references" && (
+              <div className="border-t border-gray-100">
+                <ReferencesSection profile={profile} />
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Workshop Activity onboarding nudge */}
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
           <div className="flex items-start gap-3">
@@ -440,25 +459,6 @@ export default function DashboardProfile() {
           {saving ? "Saving..." : saved ? "Saved!" : "Save Profile"}
         </button>
       </form>
-
-      {/* Buyer References — outside the <form> to avoid nested form conflict */}
-      <div ref={sectionRefs.references} className="mt-3">
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <button
-            type="button"
-            onClick={() => toggleSection("references")}
-            className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
-          >
-            <span className="text-sm font-semibold text-gray-800">Buyer References</span>
-            <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${openSection === "references" ? "rotate-180" : ""}`} />
-          </button>
-          {openSection === "references" && (
-            <div className="border-t border-gray-100">
-              <ReferencesSection profile={profile} />
-            </div>
-          )}
-        </div>
-      </div>
 
     </div>
   );
