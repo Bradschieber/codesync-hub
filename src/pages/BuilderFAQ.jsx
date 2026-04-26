@@ -110,7 +110,7 @@ const faqSections = [
         answer: "Builders are responsible for accurate listings, product quality, fulfillment, packaging, shipment, delivery, and following through on their return and warranty commitments.",
       },
       {
-        question: "When does risk of loss shift?",
+        question: "Who is responsible if a shipment is lost or damaged?",
         answer: "Unless a transaction states otherwise, risk of loss stays with the builder until the order has been shipped in accordance with platform requirements and accepted by the carrier.",
       },
       {
