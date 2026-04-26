@@ -19,7 +19,7 @@ const faqSections = [
       },
       {
         question: "What does Stringed Collective handle for builders?",
-        answer: "Stringed Collective helps with storefront tools, listings, buyer discovery, payment processing, transaction oversight, shipment verification, and marketplace protections. The goal is to let builders stay focused on the work while the platform helps support the business side of the transaction.",
+        answer: "Stringed Collective supports the transaction side of the business so builders can stay focused on the work. That includes storefront tools, listings, buyer discovery, payment processing, shipment verification, and transaction support.",
       },
     ],
   },
@@ -32,11 +32,11 @@ const faqSections = [
       },
       {
         question: "What builder policies do I need to set up?",
-        answer: "Builders are expected to set up and maintain their builder policies through the platform. These may include your custom-build deposit amount, expected build time, return policy, and warranty policy.",
+        answer: "Builders set up their builder policies through the platform. These include your custom-build deposit amount, expected build time, return policy, and warranty policy.",
       },
       {
         question: "Are my builder policies part of the transaction?",
-        answer: "Yes. Your builder-defined policies are incorporated into the applicable transaction agreement. That means the policies attached to the order become part of the transaction terms.",
+        answer: "Yes. Your builder-defined policies become part of the transaction terms for the order. That helps both sides understand the expectations before work begins.",
       },
     ],
   },
@@ -45,11 +45,11 @@ const faqSections = [
     items: [
       {
         question: "How do I list instruments?",
-        answer: "Builders can create listings through their builder tools. Listings should clearly describe the instrument, including photos, specifications, pricing, availability, shipping details, condition, and any important limitations or delays.",
+        answer: "Builders create listings through their builder tools. A listing should clearly describe the instrument, including photos, specifications, pricing, availability, shipping details, condition, and any important limitations or delays.",
       },
       {
         question: "What can I sell on Stringed Collective?",
-        answer: "Builders may list handcrafted instruments and related items they directly build, design, or otherwise accurately describe in a manner approved by Stringed Collective. Mass-produced, drop-shipped, counterfeit, infringing, or deceptively described products are not allowed unless expressly approved in writing.",
+        answer: "Builders can list handcrafted instruments and related items they directly build, design, or accurately describe in a way approved by Stringed Collective. Mass-produced, drop-shipped, counterfeit, infringing, or deceptively described products are not allowed.",
       },
       {
         question: "What is the difference between a stock build and a custom build?",
@@ -57,7 +57,7 @@ const faqSections = [
       },
       {
         question: "Can I list an instrument as ready to ship?",
-        answer: "Yes, but only if the instrument is actually completed, available, and ready to ship as described. Builders are responsible for making sure listing information is accurate.",
+        answer: "Yes, but only if the instrument is actually completed, available, and ready to ship as described. Buyers should be able to rely on that label with confidence.",
       },
       {
         question: "What are buyer references and builder badges?",
@@ -70,31 +70,31 @@ const faqSections = [
     items: [
       {
         question: "How are payments handled?",
-        answer: "All payments are processed through Stringed Collective. Depending on the order type and stage of the transaction, the platform may collect buyer payments, hold funds temporarily, verify shipment information, release payouts according to platform rules, and deduct applicable fees, chargebacks, refund costs, or other permitted amounts.",
+        answer: "All payments are processed through Stringed Collective. We collect buyer payments, hold funds when needed, verify shipment, and release payouts based on the stage of the order.\n\nThat structure helps protect both builders and buyers, and it keeps the transaction clear from start to finish.",
       },
       {
         question: "What does \"guaranteed transactions\" mean?",
-        answer: "Stringed Collective acts as a trusted broker between builders and buyers. The platform helps reduce risk by administering payments, verifying shipment information where required, and stepping in if a transaction fails or one side does not fulfill its obligations.",
+        answer: "Stringed Collective acts as the trusted broker between builders and buyers. We manage payments, verify shipment information, and step in if a transaction breaks down or one side does not follow through.\n\nThe goal is to make high-trust, high-value instrument sales feel safer for everyone involved.",
       },
       {
         question: "When do builders get paid for stock builds?",
-        answer: "For stock builds, Stringed Collective collects the buyer's payment and the builder ships the instrument. Once valid tracking is provided and the shipment is verified, payout may be released according to platform rules. For a builder's first transaction or early transactions, additional protection may apply and payout may be delayed until delivery confirmation.",
+        answer: "For stock builds, the buyer pays through the platform and the builder ships the instrument. Once valid tracking is uploaded and the shipment is verified, Stringed Collective releases the payout.\n\nFor a builder's first transaction, payout is released after delivery confirmation as part of first-transaction protection.",
       },
       {
         question: "How do custom-build deposits work?",
-        answer: "For custom builds, the buyer pays the deposit required by the builder's policy. The deposit confirms the buyer's commitment to the project. Under platform rules, the deposit may be released promptly to the builder so materials can be purchased and work can begin. Receiving a deposit does not remove the builder's obligation to complete the order under the transaction terms and platform rules.",
+        answer: "For custom builds, the buyer pays the deposit set by the builder's policy. That deposit confirms the buyer's commitment to the project.\n\nOnce the deposit is received, it is released to the builder so materials can be purchased and work can begin. Receiving the deposit does not change the builder's responsibility to complete the order according to the agreed terms.",
       },
       {
         question: "When is the final payment released for a custom build?",
-        answer: "When the builder marks the build complete, the buyer may be notified that final payment is required. Shipment cannot happen until final payment has been received through the platform. After the builder ships the order and provides valid tracking information, Stringed Collective may verify shipment before releasing the final payout.",
+        answer: "When the builder marks the build complete, the buyer is prompted to make the final payment. The instrument should not ship until that payment has been received through the platform.\n\nAfter the builder ships the order and uploads valid tracking, Stringed Collective verifies the shipment and then releases the final payout.",
       },
       {
         question: "What is shipment verification?",
-        answer: "Shipment verification is the process Stringed Collective uses before releasing certain payouts. This may include confirming that the tracking number exists and that the shipment is active with the carrier.",
+        answer: "Shipment verification is the step where Stringed Collective confirms that the tracking number is valid and that the shipment is active with the carrier before releasing payout.\n\nThis helps protect both sides of the transaction and keeps the payout process tied to real shipment activity.",
       },
       {
         question: "What is first-transaction protection?",
-        answer: "For a builder's first transaction, or in some early transactions, Stringed Collective may apply additional risk controls. This can include delaying payout until delivery confirmation instead of releasing funds immediately after shipment verification.",
+        answer: "For a builder's first transaction on the platform, payout is released after delivery confirmation rather than immediately after shipment verification.\n\nThis extra step helps protect the marketplace early in a builder's selling history and builds trust for future transactions.",
       },
     ],
   },
@@ -107,23 +107,23 @@ const faqSections = [
       },
       {
         question: "What is the builder responsible for during fulfillment?",
-        answer: "Builders are responsible for accurate listings, product quality, fulfillment, packaging, shipment, delivery, and compliance with their return and warranty commitments.",
+        answer: "Builders are responsible for accurate listings, product quality, fulfillment, packaging, shipment, delivery, and following through on their return and warranty commitments.",
       },
       {
         question: "When does risk of loss shift?",
-        answer: "Unless otherwise required by law or expressly stated in the applicable transaction agreement, risk of loss remains with the builder until the order is shipped in accordance with platform requirements and carrier acceptance is confirmed.",
+        answer: "Unless a transaction states otherwise, risk of loss stays with the builder until the order has been shipped in accordance with platform requirements and accepted by the carrier.",
       },
       {
         question: "How do returns work?",
-        answer: "Each builder defines their own return policy through the platform. That policy is incorporated into the applicable transaction agreement and governs the order, subject to platform rules and applicable law.",
+        answer: "Each builder sets their own return policy through the platform. That policy becomes part of the transaction and governs the order, along with platform rules and applicable law.",
       },
       {
         question: "When does the return window begin?",
-        answer: "Unless otherwise stated in the applicable transaction terms, the return period begins when the shipment is marked delivered.",
+        answer: "Unless the transaction states otherwise, the return period begins when the shipment is marked delivered.",
       },
       {
         question: "How do warranties work?",
-        answer: "Builders define their own warranty policy. Warranty terms are incorporated into the applicable transaction agreement, and warranty coverage generally begins when the instrument is delivered to the buyer.",
+        answer: "Builders set their own warranty policy. Warranty terms become part of the transaction, and coverage generally begins when the instrument is delivered to the buyer.",
       },
     ],
   },
@@ -132,19 +132,19 @@ const faqSections = [
     items: [
       {
         question: "What does Stringed Collective cost?",
-        answer: "Builders can join Stringed Collective without listing fees or monthly subscription fees. The platform currently collects a 5% transaction fee on completed sales, subject to any promotional or founding-builder programs that may apply.",
+        answer: "Builders can join Stringed Collective without listing fees or monthly subscription fees. The platform collects a 5% transaction fee on completed sales, subject to any approved founding-builder or promotional program.",
       },
       {
         question: "Can I complete a transaction outside the platform with a buyer I met on Stringed Collective?",
-        answer: "No. Builders may not move platform transactions off-platform to avoid fees, oversight, or marketplace protections. Violations may result in enforcement action, including listing removal, payout holds, suspension, or account termination.",
+        answer: "No. If a buyer comes through Stringed Collective, the transaction needs to stay on the platform. That protects both sides and preserves the payment flow, transaction record, and marketplace protections.",
       },
       {
         question: "Do I need to communicate with buyers through the platform?",
-        answer: "Yes. Transaction-related communications should take place through Stringed Collective's in-platform tools when available. This helps protect both parties and provides a clear record if a dispute, delay, or change in specifications needs to be reviewed.",
+        answer: "Yes. Transaction-related communication should stay on the platform whenever those tools are available. That keeps the details clear and creates a record if timing, specifications, or disputes ever need to be reviewed.",
       },
       {
         question: "Can Stringed Collective recover money from future payouts if something goes wrong?",
-        answer: "Yes. If Stringed Collective has to refund, credit, or otherwise compensate a buyer because of a builder-caused transaction failure, the platform may recover those amounts through offsets, deductions from future payouts, direct reimbursement requests, withheld funds, or other lawful collection methods.",
+        answer: "Yes. If Stringed Collective has to refund or compensate a buyer because of a builder-caused transaction failure, those amounts can be recovered through future payout deductions, offsets, withheld funds, or direct reimbursement.",
       },
     ],
   },
@@ -153,23 +153,23 @@ const faqSections = [
     items: [
       {
         question: "What happens if I am delayed on a custom build?",
-        answer: "Builders are expected to provide a good-faith expected build time and communicate promptly if a material delay comes up. If a custom build is not completed or shipped within the expected build time plus seven calendar days, and no approved extension or documented buyer agreement exists, Stringed Collective may allow cancellation or provide another remedy under platform rules.",
+        answer: "Builders are expected to give a good-faith build timeline and communicate promptly if a meaningful delay comes up.\n\nIf a custom build is not completed or shipped within the expected build time plus seven calendar days, and there is no approved extension or documented agreement with the buyer, Stringed Collective can step in to review the order and determine the next step.",
       },
       {
         question: "What happens if a buyer does not pay the final balance?",
-        answer: "If a buyer does not pay the final balance after a custom build is marked complete, Stringed Collective may apply platform buyer default rules. That can include a limited payment window, cancellation of the order, application of the builder's published deposit or cancellation policy where permitted, and other steps needed to resolve the transaction.",
+        answer: "If a buyer does not pay the final balance after a custom build is marked complete, Stringed Collective applies the platform's buyer default process. That can include a limited payment window, cancellation of the order, and application of the builder's published deposit or cancellation policy where permitted.",
       },
       {
         question: "What happens if a builder cannot complete an order?",
-        answer: "If a builder fails to fulfill an order, fails to ship, materially delays performance, or materially misrepresents the item, Stringed Collective may intervene and may issue a refund, reversal, credit, or other remedy according to platform rules and applicable law.",
+        answer: "If a builder does not fulfill an order, does not ship, materially delays performance, or materially misrepresents the item, Stringed Collective steps in and reviews the transaction. That can lead to a refund, credit, reversal, or other corrective action depending on the situation.",
       },
       {
         question: "How does Stringed Collective handle disputes or transaction issues?",
-        answer: "Stringed Collective may review supporting information from either party, rely on in-platform communications and tracking records, pause or review a transaction, issue a refund or credit where appropriate, deny a claim, or take other protective action consistent with platform rules and applicable law.",
+        answer: "When there is a transaction problem, Stringed Collective reviews the platform record, including messages, order details, and tracking information. We then determine the appropriate next step based on the transaction terms, platform rules, and the facts of the situation.",
       },
       {
         question: "How do I get help?",
-        answer: "If you need help with your storefront, listings, orders, payouts, or transaction issues, contact Stringed Collective support through the platform's builder support tools.",
+        answer: "If you need help with your storefront, listings, orders, payouts, or a transaction issue, contact Stringed Collective support through the platform's builder support tools.",
       },
     ],
   },
