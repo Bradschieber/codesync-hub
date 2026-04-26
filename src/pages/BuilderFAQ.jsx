@@ -140,7 +140,7 @@ const faqSections = [
       },
       {
         question: "Do I need to communicate with buyers through the platform?",
-        answer: "Yes. Transaction-related communication should stay on the platform whenever those tools are available. That keeps the details clear and creates a record if timing, specifications, or disputes ever need to be reviewed.",
+        answer: "Yes. All transaction-related communication should happen through the platform. This is important: if a dispute or issue ever needs to be reviewed, Stringed Collective can only consider what is documented in the platform record. Messages, agreements, or commitments made outside the platform — by phone, text, email, or any other channel — cannot be taken into account when we step in to help resolve a problem.\n\nKeeping communication on the platform protects you as a builder. It creates a clear, reviewable record of what was agreed, when it was said, and what each side committed to.",
       },
       {
         question: "Can Stringed Collective recover money from future payouts if something goes wrong?",
