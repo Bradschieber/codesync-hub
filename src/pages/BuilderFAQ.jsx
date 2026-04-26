@@ -59,6 +59,10 @@ const faqSections = [
         question: "Can I list an instrument as ready to ship?",
         answer: "Yes, but only if the instrument is actually completed, available, and ready to ship as described. Builders are responsible for making sure listing information is accurate.",
       },
+      {
+        question: "What are buyer references and builder badges?",
+        answer: "Buyer References & Verified Builder Badge\n\nThe \"Verified Builder\" badge is a trust signal awarded to builders who successfully verify past buyer references.\n\nHow it Works: Builders submit contact information (email or phone) for up to two past buyers along with a short quote from them. Stringed Collective's team then reaches out to these references to confirm their authenticity.\n\nBenefits: Once enough references are verified (typically two), the builder earns the \"Verified Builder\" badge. This badge appears on their storefront, signaling to potential buyers that the builder has a track record of satisfied customers and has been vetted by the platform. This helps new buyers feel more confident engaging with the builder.\n\nOther Badge Options\n\nStringed Collective also features other badges to highlight builders:\n\nFounding Builder Badge: An exclusive, admin-assigned recognition for early builders who played a significant role in launching the marketplace. It distinguishes pioneers of the platform.\n\nFeatured Builder Badge: Admin-assigned to builders whose storefronts are actively promoted and showcased on the platform. This typically highlights builders with exceptional profiles, unique offerings, or strong engagement.",
+      },
     ],
   },
   {
