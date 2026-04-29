@@ -65,7 +65,7 @@ import BuilderProfile from './pages/BuilderProfile';
 import BuilderReturnsWarranty from './pages/BuilderReturnsWarranty';
 import Builders from './pages/Builders';
 import Catalog from './pages/Catalog';
-import Checkout from './pages/Checkout.jsx';
+import Checkout from './pages/Checkout';
 import Contact from './pages/Contact';
 import CustomBuilds from './pages/CustomBuilds';
 import Dashboard from './pages/Dashboard';
