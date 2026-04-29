@@ -51,34 +51,53 @@
         "limited_visibility"
       ],
       "default": "limited_visibility",
-      "description": "Controls discovery surface eligibility. full_visibility = eligible for catalog/search/featured. limited_visibility = listing detail and storefront only."
+      "description": "Controls discovery surface eligibility."
+    },
+    "original_hero_image_url": {
+      "type": "string"
     },
     "processed_hero_image_url": {
-      "type": "string",
-      "description": "URL of the processed/standardized marketplace hero image"
+      "type": "string"
+    },
+    "processed_web_image_url": {
+      "type": "string"
     },
     "hero_processing_status": {
       "type": "string",
       "enum": [
         "unprocessed",
+        "queued",
         "processing",
         "preview_ready",
         "approved_by_builder",
         "rejected_by_builder",
         "failed"
       ],
-      "default": "unprocessed",
-      "description": "Status of the marketplace hero image processing pipeline"
+      "default": "unprocessed"
     },
     "builder_approved_marketplace_hero": {
       "type": "boolean",
-      "default": false,
-      "description": "True when the builder has explicitly approved the processed marketplace hero image"
+      "default": false
     },
     "marketplace_hero_approved_at": {
       "type": "string",
-      "format": "date-time",
-      "description": "Timestamp when the builder approved the processed marketplace hero image"
+      "format": "date-time"
+    },
+    "processing_template_version": {
+      "type": "string"
+    },
+    "processing_error_message": {
+      "type": "string"
+    },
+    "processed_generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "processed_width": {
+      "type": "number"
+    },
+    "processed_height": {
+      "type": "number"
     },
     "specifications": {
       "type": "object",
@@ -411,6 +430,43 @@
     "review_count": {
       "type": "number",
       "default": 0
+    },
+    "shipping_option_type": {
+      "type": "string",
+      "enum": [
+        "dynamic_rates",
+        "flat_rate"
+      ],
+      "default": "flat_rate",
+      "description": "Whether to use Shippo dynamic rates or a builder-defined flat rate"
+    },
+    "package_length_in": {
+      "type": "number",
+      "description": "Package length in inches (for dynamic Shippo rates)"
+    },
+    "package_width_in": {
+      "type": "number",
+      "description": "Package width in inches (for dynamic Shippo rates)"
+    },
+    "package_height_in": {
+      "type": "number",
+      "description": "Package height in inches (for dynamic Shippo rates)"
+    },
+    "package_weight_lb": {
+      "type": "number",
+      "description": "Package weight in pounds (for dynamic Shippo rates)"
+    },
+    "customs_description": {
+      "type": "string",
+      "description": "Item description for customs (e.g. 'Handcrafted Electric Guitar')"
+    },
+    "declared_value": {
+      "type": "number",
+      "description": "Declared value for customs/insurance (defaults to product price)"
+    },
+    "flat_shipping_amount": {
+      "type": "number",
+      "description": "Flat rate shipping cost in USD (for flat_rate option)"
     }
   },
   "required": [

@@ -11,6 +11,7 @@ import HeroImagePublishConfirmModal from "@/components/listings/HeroImagePublish
 import HeroImageReviewPanel from "@/components/listings/HeroImageReviewPanel";
 import LimitedVisibilityBanner from "@/components/listings/LimitedVisibilityBanner";
 import SpecificationsForm from "@/components/dashboard/SpecificationsForm";
+import ProductShippingForm from "@/components/listings/ProductShippingForm";
 
 const NAVY = "#1B2B4B";
 
@@ -19,6 +20,10 @@ const INITIAL_FORM = {
   status: "available", is_available: true, is_featured: false,
   image_urls: [], weight_oz: "", offers_local_pickup: false, local_pickup_details: "",
   specifications: {},
+  shipping_option_type: "flat_rate",
+  flat_shipping_amount: "",
+  package_length_in: "", package_width_in: "", package_height_in: "", package_weight_lb: "",
+  customs_description: "",
 };
 
 function VisibilityChip({ product, builderApproved }) {
@@ -110,6 +115,13 @@ export default function DashboardProducts() {
       offers_local_pickup: product.offers_local_pickup || false,
       local_pickup_details: product.local_pickup_details || "",
       specifications: product.specifications || {},
+      shipping_option_type: product.shipping_option_type || "flat_rate",
+      flat_shipping_amount: product.flat_shipping_amount || "",
+      package_length_in: product.package_length_in || "",
+      package_width_in: product.package_width_in || "",
+      package_height_in: product.package_height_in || "",
+      package_weight_lb: product.package_weight_lb || "",
+      customs_description: product.customs_description || "",
     });
     // Show limited visibility banner if applicable
   }
@@ -431,6 +443,12 @@ export default function DashboardProducts() {
                 />
               </div>
             )}
+
+            {/* Shipping */}
+            <div className="mb-4">
+              <label className="block text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#6B6B6B" }}>Shipping</label>
+              <ProductShippingForm form={form} setForm={setForm} />
+            </div>
 
             {/* Specifications */}
             <div className="mb-4">

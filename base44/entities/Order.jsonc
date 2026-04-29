@@ -115,8 +115,7 @@
         "adjusted_after_refund",
         "payout_failed"
       ],
-      "default": "pending",
-      "description": "Tracks where builder payout stands for this order"
+      "default": "pending"
     },
     "payment_stage": {
       "type": "string",
@@ -126,14 +125,64 @@
         "awaiting_final_payment",
         "final_payment_received",
         "fully_paid"
-      ],
-      "description": "Tracks the payment milestone stage for the order"
+      ]
     },
     "total_amount": {
       "type": "number"
     },
     "total_gross_amount": {
       "type": "number"
+    },
+    "subtotal_amount": {
+      "type": "number",
+      "description": "Item price(s) before shipping and tax"
+    },
+    "shipping_amount": {
+      "type": "number",
+      "description": "Shipping cost added to this order"
+    },
+    "shipping_currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "shipping_carrier": {
+      "type": "string",
+      "description": "Carrier name (e.g. UPS, FedEx, or Builder's Choice)"
+    },
+    "shipping_service": {
+      "type": "string",
+      "description": "Service level (e.g. Ground, Priority)"
+    },
+    "shipping_estimated_days": {
+      "type": "number"
+    },
+    "shippo_rate_object_id": {
+      "type": "string",
+      "description": "Shippo rate object ID if dynamic rates were used"
+    },
+    "tax_amount": {
+      "type": "number",
+      "description": "Total tax charged on this order"
+    },
+    "tax_amount_deposit": {
+      "type": "number",
+      "description": "Tax charged on the deposit payment"
+    },
+    "tax_amount_final": {
+      "type": "number",
+      "description": "Tax charged on the final balance payment"
+    },
+    "stripe_tax_calculation_id": {
+      "type": "string",
+      "description": "Stripe Tax calculation ID for stock orders"
+    },
+    "stripe_tax_calculation_id_deposit": {
+      "type": "string",
+      "description": "Stripe Tax calculation ID for deposit payment"
+    },
+    "stripe_tax_calculation_id_final": {
+      "type": "string",
+      "description": "Stripe Tax calculation ID for final payment"
     },
     "platform_fee_percent": {
       "type": "number",
@@ -261,12 +310,7 @@
     },
     "ship_date": {
       "type": "string",
-      "format": "date",
-      "description": "Date builder shipped the order"
-    },
-    "shipping_service": {
-      "type": "string",
-      "description": "Shipping service level / method"
+      "format": "date"
     },
     "signature_required": {
       "type": "boolean",
@@ -280,8 +324,7 @@
       "type": "string"
     },
     "shippo_tracker_id": {
-      "type": "string",
-      "description": "Shippo tracking object ID"
+      "type": "string"
     },
     "shippo_tracking_status": {
       "type": "string",
@@ -292,16 +335,13 @@
         "DELIVERED",
         "RETURNED",
         "FAILURE"
-      ],
-      "description": "Latest status code from Shippo"
+      ]
     },
     "shippo_tracking_url_provider": {
-      "type": "string",
-      "description": "Carrier tracking URL from Shippo"
+      "type": "string"
     },
     "shippo_latest_event": {
-      "type": "string",
-      "description": "Human-readable latest tracking event message"
+      "type": "string"
     },
     "shippo_latest_event_at": {
       "type": "string",

@@ -44,13 +44,40 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Builder Stripe account is not ready' }, { status: 400 });
     }
 
+    // Calculate tax on final balance using Stripe Tax
+    let taxAmountCents = 0;
+    let taxCalculationId = null;
+    if (order.shipping_address) {
+      try {
+        const taxCalc = await stripe.tax.calculations.create({
+          currency: 'usd',
+          line_items: [{ amount: Math.round(finalBalance * 100), reference: 'final_balance', tax_behavior: 'exclusive', tax_code: 'txcd_99999999' }],
+          customer_details: {
+            address: {
+              line1: order.shipping_address.line1 || '',
+              city: order.shipping_address.city || '',
+              state: order.shipping_address.state || '',
+              postal_code: order.shipping_address.postal_code || '',
+              country: order.shipping_address.country || 'US',
+            },
+            address_source: 'shipping',
+          },
+        });
+        taxAmountCents = taxCalc.tax_amount_exclusive;
+        taxCalculationId = taxCalc.id;
+      } catch (taxErr) {
+        console.error('Tax calculation failed for final payment, proceeding without tax:', taxErr.message);
+      }
+    }
+
     const finalCents = Math.round(finalBalance * 100);
+    const totalFinalCents = finalCents + taxAmountCents;
     const platformFeeCents = Math.round(finalCents * 0.05);
-    const stripeFeeCents = estimateStripeFee(finalCents);
+    const stripeFeeCents = estimateStripeFee(totalFinalCents);
     const builderNetCents = finalCents - platformFeeCents - stripeFeeCents;
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: finalCents,
+      amount: totalFinalCents,
       currency: 'usd',
       application_fee_amount: platformFeeCents,
       transfer_data: { destination: builder.stripe_account_id },
@@ -68,6 +95,8 @@ Deno.serve(async (req) => {
       final_balance_platform_fee_amount: platformFeeCents / 100,
       final_balance_stripe_fee_amount: stripeFeeCents / 100,
       final_balance_builder_net: builderNetCents / 100,
+      tax_amount_final: taxAmountCents / 100,
+      stripe_tax_calculation_id_final: taxCalculationId,
     });
 
     return Response.json({
@@ -75,6 +104,8 @@ Deno.serve(async (req) => {
       paymentIntentId: paymentIntent.id,
       feeBreakdown: {
         finalBalance,
+        taxAmount: taxAmountCents / 100,
+        totalCharged: totalFinalCents / 100,
         platformFee: platformFeeCents / 100,
         estimatedStripeFee: stripeFeeCents / 100,
         estimatedBuilderNet: builderNetCents / 100,

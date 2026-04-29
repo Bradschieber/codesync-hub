@@ -42,13 +42,40 @@ Deno.serve(async (req) => {
     // First-sale protection: active until builder has completed one fully paid-out sale
     const isFirstSale = !builder.is_first_sale_completed;
 
+    // Calculate tax on deposit amount using Stripe Tax
+    let taxAmountCents = 0;
+    let taxCalculationId = null;
+    if (order.shipping_address) {
+      try {
+        const taxCalc = await stripe.tax.calculations.create({
+          currency: 'usd',
+          line_items: [{ amount: Math.round(order.deposit_amount * 100), reference: 'deposit', tax_behavior: 'exclusive', tax_code: 'txcd_99999999' }],
+          customer_details: {
+            address: {
+              line1: order.shipping_address.line1 || '',
+              city: order.shipping_address.city || '',
+              state: order.shipping_address.state || '',
+              postal_code: order.shipping_address.postal_code || '',
+              country: order.shipping_address.country || 'US',
+            },
+            address_source: 'shipping',
+          },
+        });
+        taxAmountCents = taxCalc.tax_amount_exclusive;
+        taxCalculationId = taxCalc.id;
+      } catch (taxErr) {
+        console.error('Tax calculation failed for deposit, proceeding without tax:', taxErr.message);
+      }
+    }
+
     const depositCents = Math.round(order.deposit_amount * 100);
+    const totalDepositCents = depositCents + taxAmountCents;
     const platformFeeCents = Math.round(depositCents * 0.05);
-    const stripeFeeCents = estimateStripeFee(depositCents);
+    const stripeFeeCents = estimateStripeFee(totalDepositCents);
     const builderNetCents = depositCents - platformFeeCents - stripeFeeCents;
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: depositCents,
+      amount: totalDepositCents,
       currency: 'usd',
       application_fee_amount: platformFeeCents,
       transfer_data: { destination: builder.stripe_account_id },
@@ -68,6 +95,8 @@ Deno.serve(async (req) => {
       deposit_platform_fee_amount: platformFeeCents / 100,
       deposit_stripe_fee_amount: stripeFeeCents / 100,
       deposit_builder_net: builderNetCents / 100,
+      tax_amount_deposit: taxAmountCents / 100,
+      stripe_tax_calculation_id_deposit: taxCalculationId,
       payment_stage: 'awaiting_deposit',
       is_first_transaction: isFirstSale,
     });
@@ -77,6 +106,8 @@ Deno.serve(async (req) => {
       paymentIntentId: paymentIntent.id,
       feeBreakdown: {
         depositAmount: order.deposit_amount,
+        taxAmount: taxAmountCents / 100,
+        totalCharged: totalDepositCents / 100,
         platformFee: platformFeeCents / 100,
         estimatedStripeFee: stripeFeeCents / 100,
         estimatedBuilderNet: builderNetCents / 100,
