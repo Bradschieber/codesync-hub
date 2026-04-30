@@ -132,10 +132,10 @@ export default function Home() {
                   How It Works <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
-                {["Independent Builders", "Ready-to-Ship Instruments", "Custom Builds Available", "Secure Checkout"].map((signal, i) => (
+              <div className="flex flex-wrap gap-x-8 gap-y-2">
+                {["Independent Builders", "Ready-to-Ship Instruments", "Custom Builds Available", "Secure Checkout"].map(signal => (
                   <div key={signal} className="flex items-center gap-1.5 text-xs font-medium" style={{ color: "#4A5566" }}>
-                    {i > 0 && <span className="hidden sm:inline mr-1" style={{ color: "#C8C4BC" }}>·</span>}
+                    <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#27AE60" }} />
                     {signal}
                   </div>
                 ))}
