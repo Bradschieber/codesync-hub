@@ -112,7 +112,7 @@ export default function Home() {
                 Play Something<br />Different.
               </h1>
               <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
-                A protected way to buy directly from independent builders.
+                Discover exceptional handcrafted instruments from independent builders — in a modern marketplace that brings instrument lovers and makers together around a shared passion for craft.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
                 <Link
@@ -132,10 +132,10 @@ export default function Home() {
                   How It Works <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="flex flex-wrap gap-x-8 gap-y-2">
-                {["Verified Builders", "Secure Payments", "Buyer Protection", "Custom Builds Available"].map(signal => (
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {["Independent Builders", "Ready-to-Ship Instruments", "Custom Builds Available", "Secure Checkout"].map((signal, i) => (
                   <div key={signal} className="flex items-center gap-1.5 text-xs font-medium" style={{ color: "#4A5566" }}>
-                    <Check className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#27AE60" }} />
+                    {i > 0 && <span className="hidden sm:inline mr-1" style={{ color: "#C8C4BC" }}>·</span>}
                     {signal}
                   </div>
                 ))}
