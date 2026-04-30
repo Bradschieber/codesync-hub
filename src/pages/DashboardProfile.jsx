@@ -415,7 +415,52 @@ export default function DashboardProfile() {
           </AccordionSection>
         </div>
 
-        {/* 7. Buyer References */}
+        {/* 7. Musical Influences */}
+        <AccordionSection id="influences" title="Musical Influences" isOpen={openSection === "influences"} onToggle={toggleSection} complete={!!(form.musical_influences_loves || form.musical_influences_artists || form.musical_influences_in_builds)}>
+          <div className="mb-5 p-4 bg-stone-50 border border-stone-200 rounded-xl">
+            <p className="text-xs font-semibold text-stone-700 mb-1">Optional — but worth a few minutes.</p>
+            <p className="text-xs text-stone-500 leading-relaxed">
+              These questions help us understand some of the musical perspective behind your work. They may help us tell your story more clearly across the site and support more thoughtful discovery, recommendations, or marketing over time. They are not meant to narrowly define your instruments by genre or box your work into one category.
+            </p>
+          </div>
+          <div className="space-y-5">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">What kinds of music do you love most? <span className="text-gray-400 font-normal">(optional)</span></label>
+              <p className="text-xs text-gray-400 mb-2">Share the styles, sounds, or musical worlds that stay with you and continue to inspire your work.</p>
+              <textarea
+                rows={3}
+                value={form.musical_influences_loves || ""}
+                onChange={e => setForm({...form, musical_influences_loves: e.target.value})}
+                placeholder="Example: I've always been drawn to soul, jazz, classic rock, and anything with strong melody, texture, and feel."
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Are there artists, records, or players that have shaped your ear? <span className="text-gray-400 font-normal">(optional)</span></label>
+              <p className="text-xs text-gray-400 mb-2">You do not need a complete list — just a few names or records that have influenced how you hear instruments and sound.</p>
+              <textarea
+                rows={3}
+                value={form.musical_influences_artists || ""}
+                onChange={e => setForm({...form, musical_influences_artists: e.target.value})}
+                placeholder="Example: Players like Pino Palladino, Bill Frisell, and recordings by Joni Mitchell have all shaped the way I think about feel, tone, and musical space."
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">How do those influences show up in the instruments you build? <span className="text-gray-400 font-normal">(optional)</span></label>
+              <p className="text-xs text-gray-400 mb-2">Connect your musical taste to your work — what kinds of sounds, feel, or design choices do those influences lead you toward?</p>
+              <textarea
+                rows={3}
+                value={form.musical_influences_in_builds || ""}
+                onChange={e => setForm({...form, musical_influences_in_builds: e.target.value})}
+                placeholder="Example: I'm drawn to instruments that feel expressive and open rather than overly polished, so I tend to build toward warmth, responsiveness, and a strong sense of touch."
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
+              />
+            </div>
+          </div>
+        </AccordionSection>
+
+        {/* 8. Buyer References */}
         <div ref={sectionRefs.references}>
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
             <button
