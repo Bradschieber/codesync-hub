@@ -224,7 +224,7 @@ export default function Home() {
               A Better Way to Buy and Build.
             </h2>
             <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
-              Stringed Collective gives you the trusted online shopping experience you expect from major retailers, with access to unique instruments from boutique builders around the world — supported by clear order details, organized communication, and platform support behind every purchase.
+              Stringed Collective gives you the trusted online shopping experience you expect from major online retailers, with access to unique instruments from boutique builders around the world — supported by clear order details, organized communication, and platform support behind every purchase.
             </p>
           </div>
 
