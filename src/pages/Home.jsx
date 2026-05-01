@@ -176,13 +176,14 @@ export default function Home() {
       {/* ── 2. FEATURED BUILDS ── */}
       <section className="py-16 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-start justify-between mb-8">
             <div>
               <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Instruments Available Now</p>
-              <h2 className="text-2xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Ready to play. Ready to ship.</h2>
+              <h2 className="text-2xl font-bold tracking-tight mb-2" style={{ color: "#1A1A1A" }}>Ready to ship. Ready to play.</h2>
+              <p className="text-sm" style={{ color: "#5A5A5A" }}>Completed instruments from independent builders, available for purchase today.</p>
             </div>
-            <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity hidden sm:flex" style={{ color: NAVY }}>
-              View all <ArrowRight className="w-4 h-4" />
+            <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1 hover:opacity-70 transition-opacity hidden sm:flex flex-shrink-0 ml-8 mt-1" style={{ color: NAVY }}>
+              Browse all instruments <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -209,7 +210,7 @@ export default function Home() {
 
           <div className="mt-6 sm:hidden">
             <Link to={createPageUrl("Catalog")} className="text-sm font-semibold flex items-center gap-1" style={{ color: NAVY }}>
-              View all instruments <ArrowRight className="w-4 h-4" />
+              Browse all instruments <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
