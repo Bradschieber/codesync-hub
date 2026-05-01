@@ -226,36 +226,46 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 mt-20 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-5 gap-10">
           <div>
             <div className="flex flex-col mb-4" style={{ gap: "1px", lineHeight: 1.15 }}>
               <span className="logo-wordmark" style={{ fontWeight: 500, fontSize: "0.9rem", color: "#7A90AA", letterSpacing: "0.01em" }}>Stringed</span>
               <span className="logo-wordmark" style={{ fontWeight: 400, fontSize: "0.9rem", color: "#7A90AA", letterSpacing: "0.08em" }}>Collective</span>
             </div>
-            <p className="text-sm leading-relaxed text-gray-500">Connecting independent builders with players around the world who appreciate the craft and story behind every instrument.</p>
+            <p className="text-sm leading-relaxed text-gray-500">Stringed Collective is a modern marketplace for handcrafted instruments from independent builders — connecting instrument lovers with boutique makers around the world.</p>
           </div>
           <div>
-            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Marketplace</h4>
+            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Shop</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link to={createPageUrl("Catalog")} className="hover:text-indigo-400 transition-colors">Browse Guitars</Link></li>
-              <li><Link to={createPageUrl("Builders")} className="hover:text-indigo-400 transition-colors">Explore Our Builders</Link></li>
-              <li><Link to={createPageUrl("Builders")} className="hover:text-indigo-400 transition-colors">Find a Custom Builder</Link></li>
+              <li><Link to={createPageUrl("Catalog")} className="hover:text-indigo-400 transition-colors">Browse Instruments</Link></li>
+              <li><Link to={createPageUrl("Builders")} className="hover:text-indigo-400 transition-colors">Featured Builders</Link></li>
+              <li><Link to={createPageUrl("FromTheBench")} className="hover:text-indigo-400 transition-colors">From The Bench</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Company</h4>
+            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Builders</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link to={createPageUrl("About")} className="hover:text-indigo-400 transition-colors">About</Link></li>
-              <li><button onClick={() => setBuilderModalOpen(true)} className="hover:text-indigo-400 transition-colors">Join as Builder</button></li>
+              <li><button onClick={() => setBuilderModalOpen(true)} className="hover:text-indigo-400 transition-colors text-left">Become a Founding Builder</button></li>
+              <li><button onClick={() => base44.auth.redirectToLogin()} className="hover:text-indigo-400 transition-colors text-left">Builder Login</button></li>
+              <li><Link to={createPageUrl("About")} className="hover:text-indigo-400 transition-colors">How It Works</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Support</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li><Link to="/BuyerFAQ" className="hover:text-indigo-400 transition-colors">FAQ</Link></li>
               <li><Link to={createPageUrl("Contact")} className="hover:text-indigo-400 transition-colors">Contact</Link></li>
+              <li><Link to="/BuyerFAQ" className="hover:text-indigo-400 transition-colors">Shipping & Returns</Link></li>
+              <li><Link to={createPageUrl("Orders")} className="hover:text-indigo-400 transition-colors">Order Support</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Legal & Support</h4>
+            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Legal</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link to={createPageUrl("Terms")} className="hover:text-indigo-400 transition-colors">Terms of Service</Link></li>
-              <li><Link to="/BuyerFAQ" className="hover:text-indigo-400 transition-colors">Buyer FAQ</Link></li>
-              <li><Link to="/BuilderFAQ" className="hover:text-indigo-400 transition-colors">Builder FAQ</Link></li>
+              <li><Link to="/legal/terms-of-use" className="hover:text-indigo-400 transition-colors">Terms of Use</Link></li>
+              <li><Link to="/legal/buyer-terms" className="hover:text-indigo-400 transition-colors">Buyer Terms</Link></li>
+              <li><Link to="/legal/builder-terms" className="hover:text-indigo-400 transition-colors">Builder Terms</Link></li>
+              <li><Link to="/legal/privacy-policy" className="hover:text-indigo-400 transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
