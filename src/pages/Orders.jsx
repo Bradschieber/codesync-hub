@@ -461,7 +461,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
 
       {reportIssueOpen && (
         <ReportIssueModal
-          order={currentOrder}
+          order={order}
           user={user}
           onClose={() => setReportIssueOpen(false)}
           onSubmitted={() => {
