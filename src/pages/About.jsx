@@ -15,10 +15,10 @@ export default function About() {
             About Stringed Collective.
           </h1>
           <p className="text-lg leading-relaxed mb-4" style={{ color: "#3D3D3D" }}>
-            Stringed Collective connects independent instrument builders with players around the world who value craftsmanship and individuality.
+            Stringed Collective is a modern marketplace for handcrafted instruments from independent builders.
           </p>
           <p className="text-lg leading-relaxed" style={{ color: "#3D3D3D" }}>
-            Our marketplace makes it easier to discover exceptional instruments and purchase them through a secure, structured platform that protects both buyer and builder.
+            We bring instrument lovers and boutique makers together through a polished online shopping experience — making it easier to discover, purchase, and commission exceptional instruments from builders around the world.
           </p>
         </div>
       </div>
@@ -29,33 +29,17 @@ export default function About() {
           <div>
             <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
             <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
-              Stringed Collective was created to solve a real problem.
+              Independent builders create some of the most inspiring instruments in the world — but their work is often difficult to discover.
             </p>
             <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
-              Remarkable instrument builders exist all over the world, but many struggle to reach the players who would value their work most. Independent builders often rely on personal websites, social media, or word of mouth — which makes discovery difficult and transactions uncertain.
-            </p>
-            <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
-              At the same time, players who want something truly unique often hesitate to purchase directly from someone they've never met.
+              Many builders rely on personal websites, social media, word of mouth, and small communities to reach buyers. At the same time, instrument lovers are used to the convenience and structure of major online retailers, even when those retailers do not carry the kind of unique, handcrafted instruments they are looking for.
             </p>
             <p className="text-base leading-relaxed mb-5 font-medium" style={{ color: NAVY }}>
-              Stringed Collective bridges that gap.
+              Stringed Collective was created to bridge that gap.
             </p>
             <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
-              We provide a professional marketplace where builders can showcase their work and where transactions are structured and protected so both sides can move forward with confidence.
+              We give builders a professional marketplace to showcase their work, and we give buyers a trusted place to discover distinctive instruments, connect with makers, and complete purchases through a clear, organized process.
             </p>
-          </div>
-          <div className="grid grid-cols-2 gap-5">
-            {[
-              { value: "150+", label: "Verified Builders" },
-              { value: "2,000+", label: "Instruments Sold" },
-              { value: "4.9", label: "Average Rating" },
-              { value: "50+", label: "States Reached" },
-            ].map(({ value, label }) => (
-              <div key={label} className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
-                <p className="text-3xl font-bold mb-1" style={{ color: NAVY, fontFamily: "'DM Sans', system-ui, sans-serif" }}>{value}</p>
-                <p className="text-sm" style={{ color: "#6B6B6B" }}>{label}</p>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -67,18 +51,18 @@ export default function About() {
             {[
               {
                 step: "01",
-                title: "Discover Independent Builders",
-                text: "Browse instruments from independent builders around the world. Each builder has their own storefront where you can explore available instruments, learn about their craft, and request custom builds.",
+                title: "Discover independent builders",
+                text: "Explore ready-to-ship instruments, builder storefronts, and shop updates from independent makers around the world.",
               },
               {
                 step: "02",
-                title: "Purchase Through the Platform",
-                text: "When you're ready to buy, the transaction happens through Stringed Collective. Payments are handled securely and the purchase agreement clearly documents the instrument, pricing, and terms.",
+                title: "Shop through a modern marketplace",
+                text: "Review listings, compare details, ask questions, and purchase through an organized platform built for boutique instrument sales.",
               },
               {
                 step: "03",
-                title: "Receive Your Instrument",
-                text: "Builders ship instruments directly to buyers. Stringed Collective verifies the shipment and releases payment according to the agreed terms so both parties are protected.",
+                title: "Follow the order from purchase to delivery",
+                text: "Stringed Collective helps manage order records, payment milestones, shipment steps, and support if questions come up.",
               },
             ].map(({ step, title, text }) => (
               <div key={step} className="p-7 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
@@ -97,18 +81,18 @@ export default function About() {
             {[
               {
                 icon: CheckCircle,
-                title: "Builder-First Standards",
-                text: "Every builder is reviewed before listing. We focus on independent makers who take exceptional care in their craft and in their relationships with players."
+                title: "Independent craft",
+                text: "We believe independent builders deserve a professional place to share their work without losing the individuality that makes it special."
               },
               {
                 icon: Users,
-                title: "Direct Relationships",
-                text: "Stringed Collective facilitates the connection between builder and player without replacing it. Buyers and builders communicate directly throughout the process."
+                title: "Better discovery",
+                text: "Exceptional instruments should not only be found by chance, through scattered posts, private groups, or word of mouth."
               },
               {
                 icon: Lock,
-                title: "Guaranteed Transactions",
-                text: "Stringed Collective stands between buyer and builder to guarantee the transaction. Payments are held securely and released according to the agreed terms so neither side carries the risk alone."
+                title: "A more complete buying experience",
+                text: "We combine boutique builder access with the structure buyers expect from a modern online marketplace."
               },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="p-7 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
@@ -125,7 +109,7 @@ export default function About() {
         {/* CTA */}
         <div className="py-16 px-10 text-center" style={{ backgroundColor: NAVY }}>
           <h2 className="text-2xl font-bold text-white mb-3 tracking-tight" style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>Ready to find your next instrument?</h2>
-          <p className="mb-8 text-base" style={{ color: "#A8B8D0" }}>Explore instruments from independent builders around the world.</p>
+          <p className="mb-8 text-base" style={{ color: "#A8B8D0" }}>Explore handcrafted instruments from independent builders around the world.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to={createPageUrl("Catalog")}
@@ -137,13 +121,13 @@ export default function About() {
               Browse Instruments <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              to={createPageUrl("JoinBuilders")}
+              to={createPageUrl("BuilderLanding")}
               className="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 text-sm border transition-colors text-white"
               style={{ borderColor: "rgba(255,255,255,0.3)" }}
               onMouseEnter={e => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = "transparent"}
             >
-              Join as Builder
+              Become a Founding Builder
             </Link>
           </div>
         </div>
