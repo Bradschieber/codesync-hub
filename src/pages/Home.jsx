@@ -345,7 +345,7 @@ export default function Home() {
       </section>
 
       {/* ── 6. LIVE CRAFT FEED ── */}
-      {(benchPosts.length > 0 || loading) && (
+      {false && (benchPosts.length > 0 || loading) && (
         <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#F2F0EA" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-3">
