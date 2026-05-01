@@ -388,9 +388,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Sell with confidence.</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Bring your work to Stringed Collective.</h2>
               <p className="text-base leading-relaxed" style={{ color: "#C8D4E4" }}>
-                We protect every transaction so you can focus on building. Get paid reliably. Reach serious players.
+                Showcase your instruments, reach new buyers, and manage sales through a marketplace built around independent craft.
               </p>
             </div>
             <div className="sm:text-right">
@@ -401,7 +401,7 @@ export default function Home() {
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#EEF1F7"; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
               >
-                Apply as a Founding Builder
+                Become a Founding Builder
               </button>
             </div>
           </div>
