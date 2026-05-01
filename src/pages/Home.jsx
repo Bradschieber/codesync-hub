@@ -249,7 +249,8 @@ export default function Home() {
       </section>
 
       {/* ── 4. BUILD STORY FROM THE BENCH ── */}
-      <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAF9F7" }}>
+      {/* HIDDEN: Re-enable when live build content is available. Remove `false &&` to restore. */}
+      {false && <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAF9F7" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#8A8A8A" }}>From The Bench</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12" style={{ color: "#1A1A1A" }}>
@@ -311,7 +312,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </section>
+      </section>}
 
       {/* ── 5. FEATURED BUILDERS ── */}
       <section className="py-20 border-t" style={{ backgroundColor: "#FFFFFF", borderColor: "#E3E0D8" }}>
@@ -345,7 +346,8 @@ export default function Home() {
       </section>
 
       {/* ── 6. LIVE CRAFT FEED ── */}
-      {(benchPosts.length > 0 || loading) && (
+      {/* HIDDEN: Re-enable when live bench posts are available. Restore original condition: (benchPosts.length > 0 || loading) */}
+      {false && (
         <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#F2F0EA" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-3">
