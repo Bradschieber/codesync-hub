@@ -221,20 +221,18 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-5 tracking-tight" style={{ color: NAVY }}>
-              Buy and build with confidence.
+              A Better Way to Buy and Build.
             </h2>
             <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
-              Every transaction on Stringed Collective is protected.<br />
-              Funds are secured. Builders are paid.<br />
-              No one carries the risk alone.
+              Stringed Collective gives you the trusted online shopping experience you expect from major retailers, with access to unique instruments from boutique builders around the world — supported by clear order details, organized communication, and platform support behind every purchase.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
-              { icon: Lock, title: "Buyer funds protected", text: "Your payment is held securely and only released when your instrument is confirmed received." },
-              { icon: CreditCard, title: "Builder payments guaranteed", text: "Builders receive payment reliably — no chargebacks, no surprises, no platform delays." },
-              { icon: CheckCircle, title: "Secure, transparent checkout", text: "Every step of the transaction is visible to both parties from purchase to delivery." },
+              { icon: Lock, title: "A modern marketplace experience", text: "Browse listings, review details, place orders, manage payments, and follow shipment steps through one organized platform." },
+              { icon: CreditCard, title: "Access to independent builders", text: "Discover ready-to-ship and custom instruments from boutique makers whose work is often found through word of mouth, social media, or small communities." },
+              { icon: CheckCircle, title: "Support behind every order", text: "Stringed Collective provides the marketplace layer between buyer and builder, helping manage order records, payment milestones, shipping steps, and issue resolution when needed." },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="flex flex-col gap-4">
                 <div className="w-8 h-8 flex items-center justify-center" style={{ color: NAVY }}>
