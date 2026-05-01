@@ -230,9 +230,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
-              { icon: Lock, title: "A modern marketplace experience", text: "Browse listings, review details, place orders, manage payments, and follow shipment steps through one organized platform." },
-              { icon: CreditCard, title: "Access to independent builders", text: "Discover ready-to-ship and custom instruments from boutique makers whose work is often found through word of mouth, social media, or small communities." },
-              { icon: CheckCircle, title: "Support behind every order", text: "Stringed Collective provides the marketplace layer between buyer and builder, helping manage order records, payment milestones, shipping steps, and issue resolution when needed." },
+              { icon: Lock, title: "A modern marketplace experience", text: "Browse listings, review details, place orders, and track progress through one organized platform." },
+              { icon: CreditCard, title: "Access to boutique builders", text: "Discover ready-to-ship and custom instruments from independent makers around the world." },
+              { icon: CheckCircle, title: "Support behind every order", text: "Stringed Collective helps manage order details, payment milestones, shipping steps, and issue resolution when needed." },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="flex flex-col gap-4">
                 <div className="w-8 h-8 flex items-center justify-center" style={{ color: NAVY }}>
