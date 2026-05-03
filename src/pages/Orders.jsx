@@ -180,6 +180,12 @@ export default function Orders() {
 }
 
 function OrderCard({ order, user, expanded, onToggle, onContact }) {
+  // Hooks must come first
+  const [localOrder, setLocalOrder] = useState(order);
+  const [reportIssueOpen, setReportIssueOpen] = useState(false);
+  const [activeDispute, setActiveDispute] = useState(null);
+
+  const currentOrder = localOrder;
   const instruments  = currentOrder.items || [];
   const primaryItem  = instruments[0];
   const effectiveStatus = getEffectiveStatus(currentOrder);
@@ -191,12 +197,6 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
   const remainingBalance = currentOrder.final_balance_amount || ((currentOrder.total_amount || 0) - (currentOrder.deposit_amount || 0));
   const isUnderIssueReview = ["issue_review", "dispute_review"].includes(currentOrder.current_status);
   const canReportIssue = !isUnderIssueReview && !activeDispute && !["cancelled", "refunded"].includes(currentOrder.current_status) && ["paid", "shipped", "delivered"].includes(currentOrder.status) || ["payment_succeeded", "awaiting_shipment", "tracking_submitted", "shipment_verified", "shipped", "delivered", "final_payment_paid", "build_in_progress", "deposit_paid"].includes(currentOrder.current_status);
-
-  // Final payment legal acceptance state (per card instance)
-  const [localOrder, setLocalOrder] = useState(order);
-  const currentOrder = localOrder;
-  const [reportIssueOpen, setReportIssueOpen] = useState(false);
-  const [activeDispute, setActiveDispute] = useState(null);
 
   useEffect(() => {
     base44.entities.Dispute.filter({ order_id: order.id, status: "open" })
