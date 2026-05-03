@@ -15,10 +15,10 @@ Deno.serve(async (req) => {
       return Response.json({ skipped: true });
     }
 
-    // Find the recipient's profile
-    const profiles = await base44.asServiceRole.entities.UserProfile.filter({ id: message.recipient_id });
+    // Find the recipient's profile — recipient_id is a User.id, so filter by user_id
+    const profiles = await base44.asServiceRole.entities.UserProfile.filter({ user_id: message.recipient_id });
     if (!profiles || profiles.length === 0) {
-      return Response.json({ error: 'Recipient profile not found' }, { status: 404 });
+      return Response.json({ skipped: true, reason: 'Recipient profile not found' });
     }
     const profile = profiles[0];
 
