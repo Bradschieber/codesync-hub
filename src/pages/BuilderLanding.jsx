@@ -18,10 +18,10 @@ export default function BuilderLanding() {
           Built for Independent Instrument Builders
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
-          Connect your instruments with players around the world.
+          Help players discover the instruments only independent builders can make.
         </h1>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">
-          Stringed Collective gives independent builders a professional storefront where players can discover their instruments — with guaranteed transactions that make buying easier and safer for everyone.
+          Stringed Collective is a new marketplace built for independent instrument builders — giving you a professional storefront, safer transaction tools, and a better way for players to discover your work.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <button
@@ -43,7 +43,7 @@ export default function BuilderLanding() {
 
         {/* Trust indicators */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
-          {["Guaranteed transactions", "Professional storefronts", "Built for independent builders"].map(item => (
+          {["Safer transactions", "Professional storefronts", "Built for independent builders"].map(item => (
             <span key={item} className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" strokeWidth={2} />
               {item}
@@ -80,26 +80,26 @@ export default function BuilderLanding() {
       {/* ── Why Builders Win ── */}
       <section className="bg-[#F5F3EF] border-y border-[#E8E4DE]">
         <div className="max-w-5xl mx-auto px-6 py-20">
-          <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Win With Stringed Collective</p>
+          <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Join Stringed Collective</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: NAVY }}>
-            What you get as a builder
+            A better way to present your work, reach players, and manage sales
           </h2>
           <div className="grid sm:grid-cols-2 gap-8">
             {[
               {
                 icon: Shield,
-                title: "Guaranteed transactions",
-                body: "Stringed Collective stands between the builder and buyer to guarantee every transaction. Payments are handled through the platform so both sides know the deal is secure. If either party fails to follow through, Stringed Collective makes the other whole."
+                title: "Safer transactions",
+                body: "Stringed Collective helps reduce risk for both sides by handling payments through the platform, documenting the order, and supporting clear transaction steps from purchase through shipment."
               },
               {
                 icon: Store,
                 title: "Professional storefronts",
-                body: "Showcase your instruments in a clean, trusted retail environment where players can explore your builds and learn your story."
+                body: "Showcase your instruments in a clean, trusted marketplace environment where players can explore your builds, learn your story, and understand what makes your work different."
               },
               {
                 icon: Globe,
-                title: "Reach players everywhere",
-                body: "Stringed Collective brings your instruments to players beyond your local network. We handle the marketing — from search visibility to advertising and promotion — so the right players can discover your work."
+                title: "Reach beyond your existing network",
+                body: "Bring your instruments to players who may not already follow you on social media, visit the same forums, or know where to find independent builders."
               },
               {
                 icon: Fingerprint,
@@ -129,9 +129,9 @@ export default function BuilderLanding() {
         </h2>
         <div className="grid sm:grid-cols-3 gap-8 mb-8">
           {[
-            { step: "01", title: "Create your builder profile", body: "Tell us about your craft, your experience, and the instruments you build." },
-            { step: "02", title: "Build your storefront and add instruments", body: "List instruments with photos and specs, or offer custom builds through your storefront." },
-            { step: "03", title: "Start connecting with players", body: "Players discover your work through the platform, and Stringed Collective handles the transaction so the sale is secure." },
+            { step: "01", title: "Create your builder profile", body: "Tell players about your craft, your experience, your shop, and the instruments you build." },
+            { step: "02", title: "Add your storefront and instruments", body: "List available instruments, describe your custom-build options, upload photos, and define your shop policies." },
+            { step: "03", title: "Sell through a more trusted process", body: "Players can discover your work, ask questions, purchase stock builds, or start a custom-build conversation — with payments and order details handled through the platform." },
           ].map(({ step, title, body }) => (
             <div key={step} className="border-t-2 border-[#1B2B4B] pt-5">
               <p className="text-xs font-bold tracking-widest text-gray-300 mb-3">{step}</p>
@@ -140,7 +140,7 @@ export default function BuilderLanding() {
             </div>
           ))}
         </div>
-        <p className="text-sm text-gray-400 text-center">Setting up your storefront takes just a few minutes.</p>
+        <p className="text-sm text-gray-400 text-center">We'll help founding builders get set up before launch.</p>
       </section>
 
       {/* ── Founding Builders ── */}
@@ -191,16 +191,20 @@ export default function BuilderLanding() {
               Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <div className="border-t border-blue-900 pt-8 max-w-xl">
-            <p className="text-sm text-blue-200 leading-relaxed">
-              Have questions before you get started?{" "}
+          <div className="border-t border-blue-900 pt-8 max-w-xl space-y-2">
+            <p className="text-sm text-blue-200 font-medium">Have questions before you get started?</p>
+            <p className="text-sm text-blue-200">
+              Email us anytime at{" "}
               <a
                 href="mailto:support@stringedcollective.com?subject=Founding%20Builder%20Question%20or%20Call%20Request"
                 className="text-blue-300 underline hover:text-white transition-colors"
               >
-                Email us anytime at support@stringedcollective.com
+                support@stringedcollective.com
               </a>
-              . We're happy to answer questions, talk through whether Stringed Collective is a good fit for your shop, or set up a short call if you'd like to discuss it in more detail.
+              .
+            </p>
+            <p className="text-sm text-blue-300 leading-relaxed">
+              We're happy to answer questions, talk through whether Stringed Collective is a good fit for your shop, or set up a short call if you'd like to discuss it in more detail.
             </p>
           </div>
         </div>
