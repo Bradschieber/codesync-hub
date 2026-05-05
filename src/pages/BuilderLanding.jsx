@@ -210,33 +210,6 @@ export default function BuilderLanding() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY }}>
-          Ready to help launch the Collective?
-        </h2>
-        <p className="text-gray-500 text-base mb-10 leading-relaxed">
-          Create your builder profile, tell us about your work, and we'll help you get your storefront ready for the first group of players.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button
-            onClick={() => setModalOpen(true)}
-            className="px-8 py-3.5 text-sm font-semibold text-white transition-colors"
-            style={{ backgroundColor: NAVY }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
-          >
-            Become a Founding Builder
-          </button>
-          <Link
-            to={createPageUrl("FounderLetter")}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors"
-          >
-            Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      </section>
-
       {modalOpen && <BuilderAccountFormModal onClose={() => setModalOpen(false)} />}
     </div>
   );
