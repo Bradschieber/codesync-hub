@@ -31,7 +31,7 @@ export default function BuilderLanding() {
             onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
           >
-            Create Your Builder Profile
+            Become a Founding Builder
           </button>
           <Link
             to={createPageUrl("FounderLetter")}
@@ -59,20 +59,20 @@ export default function BuilderLanding() {
       <section className="max-w-3xl mx-auto px-6 py-20">
         <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Need a Better Way to Sell</p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: NAVY }}>
-          Why selling custom instruments is harder than it should be
+          A storefront alone doesn't solve the real problem
         </h2>
         <div className="text-gray-500 text-base leading-relaxed space-y-4">
           <p>
-            Independent builders often rely on personal websites, social media, and word of mouth to sell their work. While that can work, it can also make it difficult for new players to discover your instruments.
+            Many independent builders already have a website, a social media following, or a storefront on a larger marketplace. Those tools can help, but they still leave builders doing most of the work to attract the right buyers.
           </p>
           <p>
-            Even when someone is ready to buy, the transaction itself can feel uncertain. Sending thousands of dollars to someone you've never met — or committing weeks of work to a build without secure payment — creates risk on both sides.
+            Stringed Collective is different because independent instrument builders are not just another category on the site — they are the reason the marketplace exists.
           </p>
           <p>
-            Stringed Collective was created to remove that friction.
+            We're building a platform focused on bringing serious players to handmade instruments, helping builders present their work professionally, and making transactions safer for both sides.
           </p>
           <p>
-            By acting as a trusted marketplace between builder and buyer, Stringed Collective provides a professional storefront where players can discover your work — while the platform guarantees the transaction so neither side carries the risk alone.
+            A listing gives you a place to sell. Stringed Collective is being built to help the right buyers discover what you make.
           </p>
         </div>
       </section>
@@ -145,20 +145,27 @@ export default function BuilderLanding() {
 
       {/* ── Founding Builders ── */}
       <section className="bg-[#1B2B4B]">
-        <div className="max-w-3xl mx-auto px-6 py-20 text-center">
+        <div className="max-w-3xl mx-auto px-6 py-20">
           <p className="text-xs font-semibold tracking-widest uppercase text-blue-300 mb-4">Founding Builders</p>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-            Founding builders wanted
+            Help shape the first version of Stringed Collective
           </h2>
-          <p className="text-blue-100 text-base leading-relaxed mb-10">
-            We're personally inviting a small group of independent builders whose work we respect to help launch Stringed Collective. Our goal is to bring together the first 10 founding builders before opening the marketplace more broadly.
-          </p>
-          <p className="text-blue-200 text-sm mb-6">As a founding builder, you'll get:</p>
-          <div className="grid sm:grid-cols-2 gap-4 text-left mb-10 max-w-xl mx-auto">
+          <div className="text-blue-100 text-base leading-relaxed space-y-4 mb-10">
+            <p>
+              We're personally inviting a small group of independent builders to help launch Stringed Collective. The goal is to start with a focused founding group whose work reflects the quality, character, and craft we want this marketplace to stand for.
+            </p>
+            <p>
+              Before opening the platform more broadly, we want feedback from real builders — people who understand the challenges of selling handmade instruments online and care about creating a better experience for both makers and players.
+            </p>
+          </div>
+          <p className="text-blue-200 text-sm font-medium mb-5">As a founding builder, you'll get:</p>
+          <div className="grid sm:grid-cols-2 gap-3 mb-10 max-w-xl">
             {[
               "Free early access to the platform",
-              "Featured placement at launch",
-              "Direct input on platform features",
+              "Simple 5% platform fee — no listing fees",
+              "Help setting up your storefront",
+              "Featured placement during launch",
+              "Direct input on builder tools and workflows",
               "Early visibility as the marketplace grows",
             ].map(item => (
               <div key={item} className="flex items-start gap-2.5">
@@ -167,15 +174,15 @@ export default function BuilderLanding() {
               </div>
             ))}
           </div>
-          <p className="text-blue-300 text-sm mb-8">
-            This isn't an exclusive club — it's an early group.<br />If you build instruments seriously, you belong here.
+          <p className="text-blue-300 text-sm leading-relaxed mb-10 max-w-xl">
+            This isn't about gatekeeping. It's about starting carefully — with builders who care deeply about their craft and want to help create something better.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
             <button
               onClick={() => setModalOpen(true)}
               className="px-8 py-3.5 text-sm font-semibold text-[#1B2B4B] bg-white transition-colors hover:bg-gray-100"
             >
-              Create Your Builder Profile
+              Become a Founding Builder
             </button>
             <Link
               to={createPageUrl("FounderLetter")}
@@ -184,16 +191,28 @@ export default function BuilderLanding() {
               Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
+          <div className="border-t border-blue-900 pt-8 max-w-xl">
+            <p className="text-sm text-blue-200 leading-relaxed">
+              Have questions before you get started?{" "}
+              <a
+                href="mailto:support@stringedcollective.com?subject=Founding%20Builder%20Question%20or%20Call%20Request"
+                className="text-blue-300 underline hover:text-white transition-colors"
+              >
+                Email us anytime at support@stringedcollective.com
+              </a>
+              . We're happy to answer questions, talk through whether Stringed Collective is a good fit for your shop, or set up a short call if you'd like to discuss it in more detail.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ── Final CTA ── */}
       <section className="max-w-3xl mx-auto px-6 py-24 text-center">
         <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY }}>
-          Start your storefront today
+          Ready to help launch the Collective?
         </h2>
         <p className="text-gray-500 text-base mb-10 leading-relaxed">
-          Join Stringed Collective and get your instruments in front of players looking for something different.
+          Create your builder profile, tell us about your work, and we'll help you get your storefront ready for the first group of players.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
@@ -203,7 +222,7 @@ export default function BuilderLanding() {
             onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
           >
-            Create Your Builder Profile
+            Become a Founding Builder
           </button>
           <Link
             to={createPageUrl("FounderLetter")}
