@@ -1,102 +1,105 @@
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CheckCircle } from "lucide-react";
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
 import { useState } from "react";
 
 const NAVY = "#1B2B4B";
-
-// max-w-[680px] ≈ custom width for comfortable long-form reading
 const COL = "max-w-[680px] mx-auto px-6";
 
 const sections = [
   {
     id: "opening",
+    label: null,
     body: `Music has always been about people.
 
-At a time when technology is accelerating faster than ever, a lot of people worry about where that leads. But I believe something amazing can happen if we choose it.
+At a time when technology is moving faster than ever, a lot of people are wondering what that means for work, creativity, and human connection.
 
-I think the future can create more opportunities for humans to be deeply human. In fact, I think we more people will actively seek these opportunities out.
+I believe something important can happen if we choose it.
 
-We're going to see a renaissance of people doing human things — making things with their hands, creating art, building communities, and coming together around music.
+I think more people will start seeking out things that feel deeply human: things made by hand, art with a story behind it, communities built around shared passion, and music created between real people in real rooms.
 
-And few things represent that better than an instrument — something built by one human being so another human being can make music with it.
+Few things represent that better than an instrument.
 
-That idea is the North Star for Stringed Collective.`,
+An instrument is not just a product. It is something one person builds so another person can make music with it.
+
+That idea is the north star for Stringed Collective.`,
   },
   {
     id: "my-story",
-    heading: "My Story",
+    label: "MY STORY",
     body: `I've loved instruments for as long as I can remember.
 
-When I was a kid I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me — the shape, the smell of the wood, the way it felt in your hands.
+When I was a kid, I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me — the shape, the smell of the wood, the way it felt in my hands.
 
-Eventually I learned how to play.
+Eventually, I learned how to play.
 
-For more than 30 years I've played in working bands, and many of the best experiences of my life — and many of my closest friendships — have happened because of music.
+For more than 30 years, I've played in working bands, and many of the best experiences of my life — and many of my closest friendships — have happened because of music.
 
-A few years ago I started building guitars myself.
+A few years ago, I started building guitars myself.
 
-I've been building seriously for about five years now. I'm not at the level of many of the incredible builders out there yet, but I'm working on it every day. Like every builder, I'm chasing that next improvement — the next better instrument.
+I've been building seriously for about five years now. I'm not at the level of many of the incredible builders out there, but I'm working on it every day. Like every builder, I'm chasing the next improvement — the next better instrument.
 
-And being part of that community has been inspiring.`,
+Being part of that community has been inspiring.`,
   },
   {
     id: "builder-community",
-    heading: "The Builder Community",
-    body: `If you spend time in the online builder communities, you see something remarkable.
+    label: "THE BUILDER COMMUNITY",
+    body: `If you spend time in online builder communities, you see something remarkable.
 
-There is an incredible amount of creativity and craftsmanship happening all over the world. Builders are experimenting, learning, helping each other, and pushing the craft forward.
+There is an incredible amount of creativity, craftsmanship, experimentation, and generosity happening all over the world. Builders are learning from each other, helping each other, and pushing the craft forward.
 
 The work being produced is extraordinary.
 
-But I kept hearing the same question over and over again:
+But I kept hearing the same question again and again:
 
-"How do I sell these?"
+How do I sell these?
 
-For some builders, it's about funding the next build.
+For some builders, that question is about funding the next build.
 
-For others, it's about turning a passion into a business.
+For others, it is about turning a serious passion into a sustainable business.
 
-And for more established builders, it's about something even simpler:
+And for more established builders, it is often about something even simpler:
 
 How do I reach more players who would love these instruments?
 
-Most builders today rely on personal websites, social media, word of mouth or even music gear listing sites. Those tools can work, but they make discovery difficult and transactions uncertain. And let's be honest, none of those tools are actively promoting your work.  If anyone is finding you, it's because you made it happen.
+Most builders today rely on personal websites, social media, word of mouth, forums, or music gear listing sites. Those tools can help, but they still leave builders doing most of the work to create demand and attract the right buyers.
 
-Meanwhile, many players go straight to the large online retailers because those platforms feel easy, familiar, and safe.
+A storefront is useful. But a storefront alone does not solve the discovery problem.
 
-That means many musicians never even realize that a handmade instrument from an independent builder is an option.`,
+Meanwhile, many players go straight to large online retailers because those platforms feel familiar, easy, and safe.
+
+That means many musicians may never realize that a handmade instrument from an independent builder is a real option.`,
   },
   {
     id: "changing-discovery",
-    heading: "Changing the Way Musicians Discover Instruments",
+    label: "CHANGING THE WAY MUSICIANS DISCOVER INSTRUMENTS",
     body: `Part of the mission of Stringed Collective is to change that.
 
 We want more musicians to see boutique instruments as a real option when they're searching for their next instrument.
 
-Right now, large retailers offer something independent builders often don't have access to: a professional platform that makes discovery easy and transactions feel safe.
+Large retailers have something independent builders often do not: a professional platform that makes discovery easy and transactions feel safe.
 
-Stringed Collective is designed to give boutique builders that same level of platform.
+Stringed Collective is designed to give independent builders that kind of platform — built specifically around their work.
 
-A place where builders can present their work professionally, tell the story behind their instruments, and reach players who are actively searching for something different.
+A place where builders can present their instruments professionally, tell the story behind their craft, reach players who are actively looking for something different, and manage transactions through a more structured process.
 
 When musicians discover what independent builders are creating, it opens up an entirely new world of instruments.`,
   },
   {
     id: "why-exists",
-    heading: "Why Stringed Collective Exists",
+    label: "WHY STRINGED COLLECTIVE EXISTS",
     body: `Stringed Collective is a marketplace designed specifically for independent instrument builders.
 
 It provides the structure and trust that both builders and buyers need.
 
 Builders can showcase their work through professional storefronts.
 
-Players can explore instruments and collaborate on custom builds.
+Players can explore instruments, learn about builders, purchase stock builds, and start conversations about custom builds.
 
-And transactions happen through a secure platform that protects both sides.
+Transactions happen through the platform, so payments, terms, order details, and shipment steps are documented more clearly.
 
-Payments are handled through the platform, terms are documented clearly, and the process is structured so neither side carries the risk alone.
+The goal is simple:
 
 Builders should be able to focus on building great instruments.
 
@@ -104,13 +107,14 @@ Players should be able to focus on making music.`,
   },
   {
     id: "the-beginning",
-    heading: "The Beginning",
+    label: "THE BEGINNING",
     dividerBefore: true,
+    dividerLabel: "WHERE WE ARE NOW",
     body: `Right now, Stringed Collective is just getting started.
 
 We're inviting a small group of founding builders to help shape the platform and launch the marketplace.
 
-If you're one of the builders reading this, thank you for reading this far and thank you for the work you're doing and the craft you're pushing forward.
+If you're one of the builders reading this, thank you for taking the time to learn more. More importantly, thank you for the work you're doing and the craft you're helping push forward.
 
 My goal with Stringed Collective is simple:
 
@@ -122,38 +126,45 @@ And more music made by humans.`,
   },
   {
     id: "invitation",
-    heading: "A Personal Invitation",
+    label: "A PERSONAL INVITATION",
     body: `If you're a builder who cares deeply about the craft, I'd love for you to be part of what we're building.
 
 Stringed Collective exists to support this community and help bring your instruments to a wider audience.
 
-But I believe something incredible can happen if we choose it.`,
+We're starting carefully, with a small group of founding builders who can help us build the platform the right way.
+
+Thank you for considering being part of it.`,
   },
 ];
 
-const emphasisStarts = ['"', "Help more", "How do I", "Builders should", "Players should", "Because", "And more"];
-const boldStarts = ["Help more", "Because", "And more"];
+const emphasisLines = [
+  "How do I sell these?",
+  "How do I reach more players who would love these instruments?",
+  "Help more players discover your work.",
+  "Builders should be able to focus on building great instruments.",
+  "Players should be able to focus on making music.",
+  "The goal is simple:",
+  "My goal with Stringed Collective is simple:",
+  "Because the world needs more human connection.",
+  "And more music made by humans.",
+];
 
 function LetterSection({ section }) {
   return (
     <div>
-      {section.heading && (
+      {section.label && (
         <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "#8A9BB0" }}>
-          {section.heading}
+          {section.label}
         </p>
       )}
       <div className="space-y-4">
         {section.body.split("\n\n").map((para, j) => {
-          const isEmphasis = emphasisStarts.some(s => para.startsWith(s));
-          const isBold = boldStarts.some(s => para.startsWith(s));
+          const isEmphasis = emphasisLines.includes(para.trim());
           return (
             <p
               key={j}
-              className="text-base leading-[1.8]"
-              style={{
-                color: isEmphasis ? NAVY : "#3D3D3D",
-                fontWeight: isBold ? 500 : 400,
-              }}
+              className={`leading-[1.8] ${isEmphasis ? "text-base font-medium" : "text-base"}`}
+              style={{ color: isEmphasis ? NAVY : "#3D3D3D" }}
             >
               {para}
             </p>
@@ -194,9 +205,9 @@ export default function FounderLetter() {
           <div className="space-y-3">
             {[
               "Stringed Collective was created to help independent instrument builders reach a wider audience and make boutique instruments easier for players to discover and purchase.",
-              "We're building a marketplace that gives independent builders the same kind of professional platform large retailers have — while preserving the direct relationship between builder and player.",
-              "The platform handles transactions securely so both sides can move forward with confidence.",
-              "We're currently inviting a small group of founding builders to help launch the marketplace and shape how it evolves.",
+              "We're building a marketplace that gives independent builders a professional platform to present their work, manage transactions, and connect with serious players — while preserving the direct relationship between builder and musician.",
+              "The platform is designed to make transactions safer and more structured for both sides, so builders and buyers can move forward with greater confidence.",
+              "Right now, we're inviting a small group of founding builders to help launch the marketplace and shape how it evolves.",
             ].map((text, i) => (
               <p key={i} className="text-sm leading-relaxed" style={{ color: "#4A5566" }}>{text}</p>
             ))}
@@ -207,14 +218,13 @@ export default function FounderLetter() {
       {/* Letter Body */}
       <div className={`${COL} py-16`}>
         <div className="space-y-16">
-          {sections.map((section, i) => (
+          {sections.map((section) => (
             <div key={section.id}>
 
-              {/* Section divider before "The Beginning" */}
               {section.dividerBefore && (
                 <div className="mb-16">
                   <p className="text-xs font-semibold tracking-widest uppercase mb-4 text-center" style={{ color: "#8A9BB0" }}>
-                    Where we are now
+                    {section.dividerLabel}
                   </p>
                   <hr style={{ borderColor: "#E0DDD8" }} />
                 </div>
@@ -222,14 +232,14 @@ export default function FounderLetter() {
 
               <LetterSection section={section} />
 
-              {/* Pull quote after "Changing the Way..." section */}
+              {/* Pull quote after "changing-discovery" */}
               {section.id === "changing-discovery" && (
                 <div className="my-16 py-12 text-center border-t border-b" style={{ borderColor: "#E8E5E0" }}>
                   <p
                     className="text-2xl sm:text-3xl font-semibold leading-snug mb-5"
                     style={{ color: NAVY, letterSpacing: "-0.01em" }}
                   >
-                    "Help more players discover your work."
+                    Help more players discover your work.
                   </p>
                   <p className="text-sm leading-relaxed" style={{ color: "#7A8A9E" }}>
                     The mission of Stringed Collective is simple:<br />
@@ -265,13 +275,15 @@ export default function FounderLetter() {
           </p>
           <ul className="space-y-3">
             {[
-              "0% platform fees on your first three instruments sold within your first six months",
+              "Free early access to the platform",
+              "Simple 5% platform fee — no listing fees",
+              "Help setting up your storefront",
               "Featured placement as the marketplace launches",
               "Direct input on platform improvements and builder tools",
               "Early visibility as we grow the audience for independent builders",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: NAVY }} />
+                <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#4A7FA5" }} strokeWidth={1.5} />
                 <p className="text-sm leading-relaxed" style={{ color: "#3D3D3D" }}>{item}</p>
               </li>
             ))}
@@ -296,7 +308,7 @@ export default function FounderLetter() {
               onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
             >
-              Create Your Builder Profile
+              Become a Founding Builder
             </button>
             <Link
               to={createPageUrl("BuilderLanding")}
