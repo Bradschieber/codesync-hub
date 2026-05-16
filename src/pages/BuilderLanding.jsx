@@ -28,27 +28,27 @@ export default function BuilderLanding() {
             onClick={() => setModalOpen(true)}
             className="px-8 py-3.5 text-sm font-semibold text-white transition-colors"
             style={{ backgroundColor: NAVY }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
-          >
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#152038"}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = NAVY}>
+            
             Become a Founding Builder
           </button>
           <Link
             to={createPageUrl("FounderLetter")}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors"
-          >
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors">
+            
             Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         {/* Trust indicators */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
-          {["Safer transactions", "Professional storefronts", "Built for independent builders"].map(item => (
-            <span key={item} className="flex items-center gap-1.5">
+          {["Safer transactions", "Professional storefronts", "Built for independent builders"].map((item) =>
+          <span key={item} className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" strokeWidth={2} />
               {item}
             </span>
-          ))}
+          )}
         </div>
       </section>
 
@@ -86,28 +86,28 @@ export default function BuilderLanding() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-8">
             {[
-              {
-                icon: Shield,
-                title: "Safer transactions",
-                body: "Stringed Collective helps reduce risk for both sides by handling payments through the platform, documenting the order, and supporting clear transaction steps from purchase through shipment."
-              },
-              {
-                icon: Store,
-                title: "Professional storefronts",
-                body: "Showcase your instruments in a clean, trusted marketplace environment where players can explore your builds, learn your story, and understand what makes your work different."
-              },
-              {
-                icon: Globe,
-                title: "Reach beyond your existing network",
-                body: "Bring your instruments to players who may not already follow you on social media, visit the same forums, or know where to find independent builders."
-              },
-              {
-                icon: Fingerprint,
-                title: "Your brand stays yours",
-                body: "Your storefront highlights your work, your builds, and your voice. Stringed Collective provides the platform — you keep your identity."
-              },
-            ].map(({ icon: Icon, title, body }) => (
-              <div key={title} className="flex gap-4">
+            {
+              icon: Shield,
+              title: "Safer transactions",
+              body: "Stringed Collective helps reduce risk for both sides by handling payments through the platform, documenting the order, and supporting clear transaction steps from purchase through shipment."
+            },
+            {
+              icon: Store,
+              title: "Professional storefronts",
+              body: "Showcase your instruments in a clean, trusted marketplace environment where players can explore your builds, learn your story, and understand what makes your work different."
+            },
+            {
+              icon: Globe,
+              title: "Reach beyond your existing network",
+              body: "Bring your instruments to players who may not already follow you on social media, visit the same forums, or know where to find independent builders."
+            },
+            {
+              icon: Fingerprint,
+              title: "Your brand stays yours",
+              body: "Your storefront highlights your work, your builds, and your voice. Stringed Collective provides the platform — you keep your identity."
+            }].
+            map(({ icon: Icon, title, body }) =>
+            <div key={title} className="flex gap-4">
                 <div className="flex-shrink-0 w-10 h-10 border border-[#D8D4CE] bg-white flex items-center justify-center">
                   <Icon className="w-4 h-4" style={{ color: NAVY }} strokeWidth={1.5} />
                 </div>
@@ -116,7 +116,7 @@ export default function BuilderLanding() {
                   <p className="text-sm text-gray-500 leading-relaxed">{body}</p>
                 </div>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -129,16 +129,16 @@ export default function BuilderLanding() {
         </h2>
         <div className="grid sm:grid-cols-3 gap-8 mb-8">
           {[
-            { step: "01", title: "Create your builder profile", body: "Tell players about your craft, your experience, your shop, and the instruments you build." },
-            { step: "02", title: "Add your storefront and instruments", body: "List available instruments, describe your custom-build options, upload photos, and define your shop policies." },
-            { step: "03", title: "Sell through a more trusted process", body: "Players can discover your work, ask questions, purchase stock builds, or start a custom-build conversation — with payments and order details handled through the platform." },
-          ].map(({ step, title, body }) => (
-            <div key={step} className="border-t-2 border-[#1B2B4B] pt-5">
+          { step: "01", title: "Create your builder profile", body: "Tell players about your craft, your experience, your shop, and the instruments you build." },
+          { step: "02", title: "Add your storefront and instruments", body: "List available instruments, describe your custom-build options, upload photos, and define your shop policies." },
+          { step: "03", title: "Sell through a more trusted process", body: "Players can discover your work, ask questions, purchase stock builds, or start a custom-build conversation — with payments and order details handled through the platform." }].
+          map(({ step, title, body }) =>
+          <div key={step} className="border-t-2 border-[#1B2B4B] pt-5">
               <p className="text-xs font-bold tracking-widest text-gray-300 mb-3">{step}</p>
               <h3 className="font-semibold text-sm mb-2" style={{ color: NAVY }}>{title}</h3>
               <p className="text-sm text-gray-500 leading-relaxed">{body}</p>
             </div>
-          ))}
+          )}
         </div>
         <p className="text-sm text-gray-400 text-center">We'll help founding builders get set up before launch.</p>
       </section>
@@ -161,33 +161,33 @@ export default function BuilderLanding() {
           <p className="text-blue-200 text-sm font-medium mb-5">As a founding builder, you'll get:</p>
           <div className="grid sm:grid-cols-2 gap-3 mb-10 max-w-xl">
             {[
-              "Free early access to the platform",
-              "Simple 5% platform fee — no listing fees",
-              "Help setting up your storefront",
-              "Featured placement during launch",
-              "Direct input on builder tools and workflows",
-              "Early visibility as the marketplace grows",
-            ].map(item => (
-              <div key={item} className="flex items-start gap-2.5">
+            "Free early access to the platform",
+            "Simple 5% platform fee — no listing fees",
+            "Help setting up your storefront",
+            "Featured placement during launch",
+            "Direct input on builder tools and workflows",
+            "Early visibility as the marketplace grows"].
+            map((item) =>
+            <div key={item} className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                 <p className="text-sm text-blue-100 leading-relaxed">{item}</p>
               </div>
-            ))}
+            )}
           </div>
-          <p className="text-blue-300 text-sm leading-relaxed mb-10 max-w-xl">
-            This isn't about gatekeeping. It's about starting carefully — with builders who care deeply about their craft and want to help create something better.
+          <p className="text-blue-300 text-sm leading-relaxed mb-10 max-w-xl">We are starting with a small group of builders, but this isn't about gatekeeping. It's about starting carefully — with builders who care deeply about their craft and want to help create something better.
+
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
             <button
               onClick={() => setModalOpen(true)}
-              className="px-8 py-3.5 text-sm font-semibold text-[#1B2B4B] bg-white transition-colors hover:bg-gray-100"
-            >
+              className="px-8 py-3.5 text-sm font-semibold text-[#1B2B4B] bg-white transition-colors hover:bg-gray-100">
+              
               Become a Founding Builder
             </button>
             <Link
               to={createPageUrl("FounderLetter")}
-              className="flex items-center gap-1.5 text-sm font-medium text-blue-300 hover:text-white transition-colors"
-            >
+              className="flex items-center gap-1.5 text-sm font-medium text-blue-300 hover:text-white transition-colors">
+              
               Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -197,8 +197,8 @@ export default function BuilderLanding() {
               Email us anytime at{" "}
               <a
                 href="mailto:support@stringedcollective.com?subject=Founding%20Builder%20Question%20or%20Call%20Request"
-                className="text-blue-300 underline hover:text-white transition-colors"
-              >
+                className="text-blue-300 underline hover:text-white transition-colors">
+                
                 support@stringedcollective.com
               </a>
               .
@@ -211,6 +211,6 @@ export default function BuilderLanding() {
       </section>
 
       {modalOpen && <BuilderAccountFormModal onClose={() => setModalOpen(false)} />}
-    </div>
-  );
+    </div>);
+
 }
