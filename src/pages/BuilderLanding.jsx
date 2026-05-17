@@ -18,10 +18,10 @@ export default function BuilderLanding() {
           Built for Independent Instrument Builders
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
-          Help players discover the instruments only independent builders can make.
+          A marketplace built to help independent builders get discovered.
         </h1>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">
-          Stringed Collective is a new marketplace built for independent instrument builders — giving you a professional storefront, safer transaction tools, and a better way for the right kind of players to discover your work.
+          Stringed Collective gives independent instrument builders a professional storefront, safer transaction tools, and active marketplace promotion designed to help the right kind of players discover their work.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <button
@@ -41,7 +41,7 @@ export default function BuilderLanding() {
 
         {/* Trust indicators */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
-          {["Safer transactions", "Professional storefronts", "Built for independent builders"].map((item) =>
+          {["Active marketplace promotion", "Professional storefronts", "Safer transactions"].map((item) =>
             <span key={item} className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" strokeWidth={2} />
               {item}
