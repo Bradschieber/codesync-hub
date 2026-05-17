@@ -263,7 +263,6 @@ export default function Layout({ children, currentPageName }) {
             <ul className="space-y-2.5 text-sm">
               <li><Link to="/legal/terms-of-use" className="hover:text-indigo-400 transition-colors">Terms of Use</Link></li>
               <li><Link to="/legal/buyer-terms" className="hover:text-indigo-400 transition-colors">Buyer Terms</Link></li>
-              <li><Link to="/legal/builder-terms" className="hover:text-indigo-400 transition-colors">Builder Terms</Link></li>
               <li><Link to="/legal/privacy-policy" className="hover:text-indigo-400 transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
