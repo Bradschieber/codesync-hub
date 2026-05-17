@@ -112,7 +112,7 @@ export default function Home() {
                 Play Something<br />Different.
               </h1>
               <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
-                Discover exceptional handcrafted instruments from independent builders — in a modern marketplace that brings instrument lovers and makers together around a shared passion for craft.
+                Discover handcrafted instruments from independent builders — all in one modern marketplace.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
                 <Link
