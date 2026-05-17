@@ -205,7 +205,7 @@ export default function FounderLetter() {
           <div className="space-y-3">
             {[
               "Stringed Collective was created to help independent instrument builders reach a wider audience and make boutique instruments easier for players to discover and purchase.",
-              "We're building a marketplace that gives independent builders a professional platform to present their work, manage transactions, and connect with serious players — while preserving the direct relationship between builder and musician.",
+              "We're building a marketplace that gives independent builders a professional platform to present their work, manage transactions, and connect with the right players — while preserving the direct relationship between builder and musician.",
               "The platform is designed to make transactions safer and more structured for both sides, so builders and buyers can move forward with greater confidence.",
               "Right now, we're inviting a small group of founding builders to help launch the marketplace and shape how it evolves.",
             ].map((text, i) => (

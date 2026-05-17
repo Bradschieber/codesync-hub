@@ -69,7 +69,7 @@ export default function BuilderLanding() {
             Stringed Collective is different because independent instrument builders are not just another category on the site — they are the reason the marketplace exists.
           </p>
           <p>
-            We're building a platform focused on bringing serious players to handmade instruments, helping builders present their work professionally, and making transactions safer for both sides.
+            We're building a platform focused on bringing the right players to handmade instruments, helping builders present their work professionally, and making transactions safer for both sides.
           </p>
           <p>
             A listing gives you a place to sell. Stringed Collective is being built to help the right buyers discover what you make.
