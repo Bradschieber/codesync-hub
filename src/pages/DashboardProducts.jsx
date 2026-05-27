@@ -193,19 +193,18 @@ export default function DashboardProducts() {
     await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
   }
 
-  async function openHeroReviewPanel(product) {
+  function openHeroReviewPanel(product) {
     setHeroReviewProduct(product);
     setShowHeroReviewPanel(true);
-    // Trigger Photoroom processing if not already done
+    // Trigger Photoroom processing if not already done — fire and forget, don't block UI
     if (!product.processed_hero_image_url || product.hero_processing_status === "unprocessed" || product.hero_processing_status === "failed") {
-      try {
-        const result = await base44.functions.invoke('processMarketplaceHero', { product_id: product.id });
-        if (result?.data?.processed_hero_image_url) {
-          setHeroReviewProduct(p => ({ ...p, processed_hero_image_url: result.data.processed_hero_image_url, hero_processing_status: "preview_ready" }));
-        }
-      } catch (err) {
-        console.error("Photoroom processing failed:", err);
-      }
+      base44.functions.invoke('processMarketplaceHero', { product_id: product.id })
+        .then(result => {
+          if (result?.data?.processed_hero_image_url) {
+            setHeroReviewProduct(p => ({ ...p, processed_hero_image_url: result.data.processed_hero_image_url, hero_processing_status: "preview_ready" }));
+          }
+        })
+        .catch(err => console.error("Photoroom processing failed:", err));
     }
   }
 
@@ -218,7 +217,7 @@ export default function DashboardProducts() {
       // For new products: save first, then immediately open the review panel
       const savedProduct = await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
       if (savedProduct) {
-        await openHeroReviewPanel(savedProduct);
+        openHeroReviewPanel(savedProduct);
       }
     }
   }
