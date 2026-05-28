@@ -146,7 +146,7 @@ export default function DashboardProducts() {
     setForm(f => ({ ...f, image_urls: f.image_urls.filter((_, i) => i !== idx) }));
   }
 
-  async function executeSave(data) {
+  async function executeSave(data, { skipCancelEdit = false } = {}) {
     setSaving(true);
     try {
       const payload = {
@@ -163,8 +163,10 @@ export default function DashboardProducts() {
         savedProduct = await base44.entities.Product.create(payload);
       }
       setSaving(false);
-      cancelEdit();
-      loadData();
+      if (!skipCancelEdit) {
+        cancelEdit();
+        loadData();
+      }
       return savedProduct;
     } catch (err) {
       setSaving(false);
@@ -218,11 +220,16 @@ export default function DashboardProducts() {
     setShowHeroPublishModal(false);
     setShowHeroConfirmModal(false);
     if (editingProduct) {
-      await openHeroReviewPanel(editingProduct);
+      openHeroReviewPanel(editingProduct);
     } else {
-      // For new products: save first, then immediately open the review panel
-      const savedProduct = await executeSave({ ...pendingPublishData, listing_visibility_state: "limited_visibility" });
+      // For new products: save first (without closing form), then open review panel
+      const savedProduct = await executeSave(
+        { ...pendingPublishData, listing_visibility_state: "limited_visibility" },
+        { skipCancelEdit: true }
+      );
       if (savedProduct) {
+        cancelEdit();
+        loadData();
         openHeroReviewPanel(savedProduct);
       }
     }
