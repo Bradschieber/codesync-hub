@@ -149,6 +149,7 @@ export default function DashboardProducts() {
   async function executeSave(data, { skipCancelEdit = false } = {}) {
     setSaving(true);
     try {
+      const numericFields = ["package_length_in", "package_width_in", "package_height_in", "package_weight_lb", "flat_shipping_amount"];
       const payload = {
         ...data,
         price: parseFloat(data.price) || 0,
@@ -156,6 +157,14 @@ export default function DashboardProducts() {
         builder_id: profile.id,
         builder_name: profile.business_name || user.full_name,
       };
+      // Convert empty string numeric fields to undefined so they don't fail validation
+      for (const field of numericFields) {
+        if (payload[field] === "" || payload[field] === null) {
+          payload[field] = undefined;
+        } else if (payload[field] !== undefined) {
+          payload[field] = parseFloat(payload[field]) || undefined;
+        }
+      }
       let savedProduct;
       if (editingProduct) {
         savedProduct = await base44.entities.Product.update(editingProduct.id, payload);
