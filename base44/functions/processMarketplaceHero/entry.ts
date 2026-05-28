@@ -75,9 +75,6 @@ Deno.serve(async (req) => {
     const formData = new FormData();
     formData.append('imageFile', imageBlob, 'hero.jpg');
     formData.append('background.color', bgColor);
-    if (shadow) {
-      formData.append('shadow.mode', shadowMode === 'medium' ? 'hard' : 'soft');
-    }
     formData.append('outputSize', `${outputSize}x${outputSize}`);
     formData.append('format', outputFormat);
     formData.append('padding', String(padding));
