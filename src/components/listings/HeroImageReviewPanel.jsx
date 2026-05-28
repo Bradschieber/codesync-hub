@@ -41,8 +41,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
       }
       attempts++;
       try {
-        const products = await base44.entities.Product.filter({ id: product.id });
-        const p = products[0];
+        const p = await base44.entities.Product.get(product.id);
         if (p?.processed_hero_image_url) {
           if (!cancelled) setLocalProcessedUrl(p.processed_hero_image_url);
           return;
