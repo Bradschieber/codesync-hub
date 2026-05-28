@@ -148,23 +148,29 @@ export default function DashboardProducts() {
 
   async function executeSave(data) {
     setSaving(true);
-    const payload = {
-      ...data,
-      price: parseFloat(data.price) || 0,
-      weight_oz: data.weight_oz ? parseFloat(data.weight_oz) : undefined,
-      builder_id: profile.id,
-      builder_name: profile.business_name || user.full_name,
-    };
-    let savedProduct;
-    if (editingProduct) {
-      savedProduct = await base44.entities.Product.update(editingProduct.id, payload);
-    } else {
-      savedProduct = await base44.entities.Product.create(payload);
+    try {
+      const payload = {
+        ...data,
+        price: parseFloat(data.price) || 0,
+        weight_oz: data.weight_oz ? parseFloat(data.weight_oz) : undefined,
+        builder_id: profile.id,
+        builder_name: profile.business_name || user.full_name,
+      };
+      let savedProduct;
+      if (editingProduct) {
+        savedProduct = await base44.entities.Product.update(editingProduct.id, payload);
+      } else {
+        savedProduct = await base44.entities.Product.create(payload);
+      }
+      setSaving(false);
+      cancelEdit();
+      loadData();
+      return savedProduct;
+    } catch (err) {
+      setSaving(false);
+      console.error("Save failed:", err);
+      throw err;
     }
-    setSaving(false);
-    cancelEdit();
-    loadData();
-    return savedProduct;
   }
 
   async function handleSave() {

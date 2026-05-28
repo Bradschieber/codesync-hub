@@ -17,11 +17,48 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
   const [uploading, setUploading] = useState(false);
   const [localProcessedUrl, setLocalProcessedUrl] = useState(product.processed_hero_image_url || null);
   const [approved, setApproved] = useState(false);
+  const [processingError, setProcessingError] = useState(null);
 
   // Keep localProcessedUrl in sync if parent updates the product prop (after processing completes)
   useEffect(() => {
-    setLocalProcessedUrl(product.processed_hero_image_url || null);
+    if (product.processed_hero_image_url) {
+      setLocalProcessedUrl(product.processed_hero_image_url);
+    }
   }, [product.processed_hero_image_url]);
+
+  // Poll for processed image if not yet available
+  useEffect(() => {
+    if (localProcessedUrl) return; // already have it
+
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 20; // ~40 seconds
+
+    async function poll() {
+      if (cancelled || attempts >= maxAttempts) {
+        if (!cancelled) setProcessingError("Image processing timed out. Please try uploading a different photo.");
+        return;
+      }
+      attempts++;
+      try {
+        const products = await base44.entities.Product.filter({ id: product.id });
+        const p = products[0];
+        if (p?.processed_hero_image_url) {
+          if (!cancelled) setLocalProcessedUrl(p.processed_hero_image_url);
+          return;
+        }
+        if (p?.hero_processing_status === 'failed') {
+          if (!cancelled) setProcessingError(p.processing_error_message || "Image processing failed. Please try uploading a different photo.");
+          return;
+        }
+      } catch {}
+      setTimeout(poll, 2000);
+    }
+
+    // Start polling after a short delay
+    const timer = setTimeout(poll, 2000);
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [product.id, localProcessedUrl]);
 
   async function handleApprove() {
     setSaving(true);
@@ -55,7 +92,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
 
   const originalImage = product.original_hero_image_url || product.image_urls?.[0] || null;
   const processedImage = localProcessedUrl;
-  const isProcessing = !processedImage && (product.hero_processing_status === "processing" || product.hero_processing_status === "queued");
+  const isProcessing = !processedImage && !processingError;
 
   if (approved) {
     return (
@@ -121,15 +158,13 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
               <div className="overflow-hidden relative" style={{ aspectRatio: "4/3", backgroundColor: "#EEF1F7" }}>
                 {processedImage ? (
                   <img src={processedImage} alt="Clean marketplace version" className="w-full h-full object-cover" />
-                ) : isProcessing ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-4 text-center">
-                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#8A9BB0" }} />
-                    <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
-                      Generating clean marketplace version…
-                    </p>
+                ) : processingError ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <ImageIcon className="w-8 h-8" style={{ color: "#C8C4BC" }} />
+                    <p className="text-xs leading-relaxed" style={{ color: "#9A6A6A" }}>{processingError}</p>
                   </div>
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-4 text-center">
                     <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#8A9BB0" }} />
                     <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
                       Generating clean marketplace version…
