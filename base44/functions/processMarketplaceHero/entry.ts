@@ -71,19 +71,18 @@ Deno.serve(async (req) => {
     }
     const imageBlob = await imageResponse.blob();
 
-    // Build Photoroom request
+    // Build Photoroom v2 request
     const formData = new FormData();
-    formData.append('image_file', imageBlob, 'hero.jpg');
-    formData.append('bg_color', bgColor);
-    formData.append('output_type', 'rgba');
-    formData.append('padding', String(padding));
+    formData.append('imageFile', imageBlob, 'hero.jpg');
+    formData.append('background.color', bgColor);
     if (shadow) {
-      formData.append('shadow_mode', shadowMode === 'medium' ? 'ai.hard' : 'ai.soft');
+      formData.append('shadow.mode', shadowMode === 'medium' ? 'hard' : 'soft');
     }
-    formData.append('size', `${outputSize}x${outputSize}`);
+    formData.append('outputSize', `${outputSize}x${outputSize}`);
     formData.append('format', outputFormat);
+    formData.append('padding', String(padding));
 
-    const photoroomRes = await fetch('https://sdk.photoroom.com/v1/segment', {
+    const photoroomRes = await fetch('https://image-api.photoroom.com/v2/edit', {
       method: 'POST',
       headers: {
         'x-api-key': photoroomApiKey,
