@@ -66,10 +66,16 @@ export default function Builders() {
   }, []);
 
   async function loadBuilders() {
-    const [data, products] = await Promise.all([
-      base44.entities.UserProfile.filter({ is_seller: true, is_approved: true }, "-created_date", 200),
-      base44.entities.Product.filter({ status: "available" }, "-created_date", 500),
-    ]);
+    let data, products;
+    try {
+      [data, products] = await Promise.all([
+        base44.entities.UserProfile.filter({ is_seller: true, is_approved: true }, "-created_date", 200),
+        base44.entities.Product.filter({ status: "available" }, "-created_date", 500),
+      ]);
+    } catch (e) {
+      setLoading(false);
+      return;
+    }
 
     // Build image map: only include products from approved builders, prefer processed/cleaned hero image
     const approvedBuilderIds = new Set(data.map(b => b.id));
