@@ -223,13 +223,27 @@ export default function DashboardProducts() {
       openHeroReviewPanel(editingProduct);
     } else {
       // For new products: save first (without closing form), then open review panel
-      const savedProduct = await executeSave(
-        { ...pendingPublishData, listing_visibility_state: "limited_visibility" },
-        { skipCancelEdit: true }
-      );
-      if (savedProduct) {
-        cancelEdit();
+      let savedProduct;
+      try {
+        savedProduct = await executeSave(
+          { ...pendingPublishData, listing_visibility_state: "limited_visibility" },
+          { skipCancelEdit: true }
+        );
+      } catch (err) {
+        console.error("Save failed in handleReviewHeroFromModal:", err);
+        return;
+      }
+      cancelEdit();
+      // If create() didn't return the product, fetch it from the list
+      if (!savedProduct?.id) {
+        await loadData();
+        // Try to get the most recently created product for this builder
+        const prods = await base44.entities.Product.filter({ builder_id: profile.id }, "-created_date", 1);
+        savedProduct = prods[0];
+      } else {
         loadData();
+      }
+      if (savedProduct?.id) {
         openHeroReviewPanel(savedProduct);
       }
     }
