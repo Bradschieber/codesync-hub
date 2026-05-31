@@ -227,7 +227,7 @@ export default function PoliciesEditor({ form, setForm }) {
         </div>
 
         <div className="mt-4">
-          <label className={LABEL_STYLE} style={LABEL_COLOR}>Additional pricing notes</label>
+          <label className={LABEL_STYLE} style={LABEL_COLOR}>Additional pricing notes <span className="font-normal" style={{ color: "#AAAAAA" }}>(optional)</span></label>
           <textarea
             rows={2}
             value={form.pricing_notes || ""}
