@@ -101,6 +101,8 @@ export default function BuilderOnboarding() {
   const [loading, setLoading] = useState(true);
   const [activePrompt, setActivePrompt] = useState(null);
   const [policyConfirmed, setPolicyConfirmed] = useState(false);
+  const [legalChecked, setLegalChecked] = useState({ terms_privacy: false, builder_terms: false });
+  const [legalAcceptanceLogged, setLegalAcceptanceLogged] = useState(false);
 
 
   useEffect(() => { loadUser(); }, []);
@@ -114,6 +116,9 @@ export default function BuilderOnboarding() {
         const p = profiles[0];
         setProfile(p);
         setForm({ ...p, is_seller: true, account: "seller" });
+        // Returning builders have already accepted terms — pre-check and mark as logged
+        setLegalChecked({ terms_privacy: true, builder_terms: true });
+        setLegalAcceptanceLogged(true);
       } else {
         setProfile(null);
         setForm({
@@ -154,6 +159,25 @@ export default function BuilderOnboarding() {
   }
 
   async function handleNext() {
+    // On step 0, log legal acceptance (only once)
+    if (step === 0 && !legalAcceptanceLogged) {
+      await logLegalAcceptance(base44, {
+        user,
+        agreementType: "builder_account_creation",
+        checkboxLabels: [
+          "I agree to the Terms of Use and Privacy Policy.",
+          "I agree to the Builder Terms.",
+        ],
+        documentUrls: [LEGAL_URLS.terms_of_use, LEGAL_URLS.privacy_policy, LEGAL_URLS.builder_terms],
+        versions: {
+          terms_of_use: LEGAL_VERSIONS.terms_of_use,
+          privacy_policy: LEGAL_VERSIONS.privacy_policy,
+          builder_terms: LEGAL_VERSIONS.builder_terms,
+        },
+        sourceScreen: "BuilderOnboarding/Step1",
+      });
+      setLegalAcceptanceLogged(true);
+    }
     // On policies step, log acceptance if confirmed
     if (step === 4 && policyConfirmed) {
       const snapshotVersion = new Date().toISOString().slice(0, 10);
@@ -384,6 +408,27 @@ export default function BuilderOnboarding() {
                     <input value={form.x_url || ""} onChange={e => setForm(f => ({ ...f, x_url: e.target.value }))} placeholder="https://x.com/..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
                   </Field>
                 </div>
+              </div>
+
+              {/* Legal acceptance */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Before you continue</p>
+                <p className="text-xs mb-4 leading-relaxed" style={{ color: "#7A7A7A" }}>Please review and accept the following agreements to create your builder profile.</p>
+                <LegalAcceptanceBlock
+                  checkboxes={[
+                    {
+                      id: "terms_privacy",
+                      label: <>I agree to the <LegalLink href={LEGAL_URLS.terms_of_use}>Terms of Use</LegalLink> and <LegalLink href={LEGAL_URLS.privacy_policy}>Privacy Policy</LegalLink>.</>,
+                    },
+                    {
+                      id: "builder_terms",
+                      label: <>I agree to the <LegalLink href={LEGAL_URLS.builder_terms}>Builder Terms</LegalLink>.</>,
+                    },
+                  ]}
+                  checked={legalChecked}
+                  onChange={(id, val) => setLegalChecked(prev => ({ ...prev, [id]: val }))}
+                  smallPrint='By continuing, you agree to the Terms of Use, Privacy Policy, and Builder Terms.'
+                />
               </div>
             </div>
           )}
@@ -793,11 +838,11 @@ export default function BuilderOnboarding() {
               <button
                 type="button"
                 onClick={handleNext}
-                disabled={saving || (step === 4 && !policyConfirmed)}
+                disabled={saving || (step === 4 && !policyConfirmed) || (step === 0 && (!legalChecked.terms_privacy || !legalChecked.builder_terms))}
                 className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-all"
-                style={{ backgroundColor: (saving || (step === 4 && !policyConfirmed)) ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
+                style={{ backgroundColor: (saving || (step === 4 && !policyConfirmed) || (step === 0 && (!legalChecked.terms_privacy || !legalChecked.builder_terms))) ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
               >
-                {saving ? "Saving..." : "Save Policies & Continue"} <ArrowRight className="w-4 h-4" />
+                {saving ? "Saving..." : step === 0 ? "Save & Continue" : step === 4 ? "Save Policies & Continue" : "Save & Continue"} <ArrowRight className="w-4 h-4" />
               </button>
             ) : (
               <div className="flex items-center gap-3">
