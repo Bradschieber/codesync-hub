@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import {
   Check, ArrowRight, ArrowLeft, Store, BookOpen, Camera, Hammer,
   ShieldCheck, Users, Sparkles, Globe,
-  Instagram, Facebook, X as XIcon
+  Instagram, Facebook, X as XIcon, ChevronDown, ChevronUp, Lock, DollarSign, Building2
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import LocationFields from "../components/onboarding/LocationFields";
@@ -84,6 +84,63 @@ const STORY_PROMPTS = [
   { label: "Your Journey", hint: "How long have you been building? How has your craft evolved?" },
   { label: "Your Shop", hint: "Tell us about where the magic happens — your setup, your tools, your process." },
 ];
+
+// ── Stripe FAQ Accordion ─────────────────────────────────────────────
+
+const STRIPE_FAQ = [
+  {
+    q: "What is Stripe?",
+    a: "Stripe is the payment platform used by millions of businesses worldwide — including marketplaces like Stringed Collective. It's the same technology behind checkout at companies like Shopify, Lyft, and Amazon. When you connect your Stripe account, you're setting up a secure way for us to send you your earnings."
+  },
+  {
+    q: "Is there any risk to connecting my bank account?",
+    a: "No. Stripe is a regulated financial service and one of the most trusted payment processors in the world. Connecting your account does not give Stringed Collective access to your bank — it only allows us to send you money. Your banking details are encrypted and managed entirely by Stripe."
+  },
+  {
+    q: "Do I need an existing Stripe account?",
+    a: "No. If you don't have one, Stripe will guide you through creating a free account as part of the setup process. It takes about 5 minutes. You'll need a bank account and a government-issued ID for identity verification."
+  },
+  {
+    q: "When do I actually get paid?",
+    a: "Once an order ships and the buyer confirms receipt, your payout is released. For first-time sales there's a short hold period while we verify everything went smoothly — this is standard practice and protects both buyers and builders. After that, funds typically arrive in your bank within 2–3 business days."
+  },
+  {
+    q: "What does Stringed Collective charge?",
+    a: "We charge a 5% marketplace fee on completed sales. Stripe also applies standard processing fees (typically 2.9% + 30¢ per transaction). These are deducted before your payout is sent — you'll always see a clear breakdown of what you earned."
+  },
+];
+
+function StripeExplainerFAQ() {
+  const [openIndex, setOpenIndex] = useState(null);
+  return (
+    <div className="border" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E3E0D8" }}>
+        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#5A5A5A" }}>Questions about Stripe?</p>
+      </div>
+      {STRIPE_FAQ.map((item, i) => (
+        <div key={i} style={{ borderTop: i > 0 ? "1px solid #F0EDE8" : "none" }}>
+          <button
+            type="button"
+            onClick={() => setOpenIndex(openIndex === i ? null : i)}
+            className="w-full flex items-center justify-between px-5 py-3.5 text-left transition-colors"
+            style={{ backgroundColor: openIndex === i ? "#F7F5F0" : "transparent" }}
+          >
+            <span className="text-sm font-medium" style={{ color: "#1A1A1A" }}>{item.q}</span>
+            {openIndex === i
+              ? <ChevronUp className="w-4 h-4 flex-shrink-0" style={{ color: "#9A9A9A" }} />
+              : <ChevronDown className="w-4 h-4 flex-shrink-0" style={{ color: "#C0C0C0" }} />
+            }
+          </button>
+          {openIndex === i && (
+            <div className="px-5 pb-4">
+              <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>{item.a}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 // ── Main Component ───────────────────────────────────────────────────
 
@@ -335,8 +392,8 @@ export default function BuilderOnboarding() {
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional — you can add references now or later from your dashboard.</p>
             </>}
             {step === 6 && <>
-              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Connect your payment account.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Set up Stripe to receive payouts from your sales. This is required before you can publish listings.</p>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Set up how you get paid.</h1>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Stringed Collective uses Stripe to send your earnings directly to your bank account. It's secure, straightforward, and takes about 5 minutes to set up.</p>
             </>}
             {step === 7 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Your storefront foundation is complete.</h1>
@@ -745,11 +802,34 @@ export default function BuilderOnboarding() {
           {/* STEP 7: Connect Stripe */}
           {step === 6 && (
             <div className="space-y-6">
-              <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why Stripe is required</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>All payments on Stringed Collective flow through Stripe. Connecting your account is required before you can publish listings or receive payouts. The setup takes about 5 minutes.</p>
-              </GuidanceCard>
+
+              {/* How it works — three simple steps */}
+              <div className="border p-5 space-y-4" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#2F3E55" }}>How payouts work</p>
+                <div className="space-y-3">
+                  {[
+                    { icon: Building2, label: "Buyer pays on Stringed Collective", sub: "Payment is processed securely at checkout — just like any trusted online store." },
+                    { icon: Lock,      label: "Funds are held safely by Stripe", sub: "Stringed Collective holds the payment on your behalf until the order is confirmed and shipped." },
+                    { icon: DollarSign, label: "Your earnings go straight to your bank", sub: "Once the order is complete, your payout is transferred directly to the bank account you connect during setup." },
+                  ].map(({ icon: Icon, label, sub }) => (
+                    <div key={label} className="flex items-start gap-3">
+                      <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full" style={{ backgroundColor: "#F0F4FA" }}>
+                        <Icon className="w-4 h-4" style={{ color: "#2F3E55" }} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>{label}</p>
+                        <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "#7A7A7A" }}>{sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stripe connect widget */}
               <StripeConnectOnboarding profile={form} onStatusUpdate={(updates) => setForm(f => ({ ...f, ...updates }))} />
+
+              {/* Collapsible FAQ */}
+              <StripeExplainerFAQ />
             </div>
           )}
 
