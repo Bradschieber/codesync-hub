@@ -19,7 +19,7 @@ const PRESET_EXCLUSIONS = [
   "Electronics or hardware made by third parties beyond their manufacturer warranty",
   "Changes in tone, preference, feel, or setup taste",
 ];
-const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL"];
+const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL", "Other"];
 
 const FIELD_STYLE = "w-full border px-3 py-2 text-sm focus:outline-none bg-white";
 const BORDER = { borderColor: "#DEDBD6" };
@@ -455,6 +455,15 @@ export default function PoliciesEditor({ form, setForm }) {
           options={SHIPPING_CARRIERS}
           onChange={v => set("shipping_carriers", v)}
         />
+        {(form.shipping_carriers || []).includes("Other") && (
+          <input
+            className={`${FIELD_STYLE} mt-2`}
+            style={BORDER}
+            placeholder="Describe other carriers you use..."
+            value={form.shipping_carriers_other || ""}
+            onChange={e => set("shipping_carriers_other", e.target.value)}
+          />
+        )}
 
         <div className="mt-4">
           <label className={LABEL_STYLE} style={LABEL_COLOR}>Packaging description</label>
