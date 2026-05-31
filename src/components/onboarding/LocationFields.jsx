@@ -22,15 +22,20 @@ const CA_PROVINCES = [
   "Quebec","Saskatchewan","Yukon"
 ];
 
-const SELECT_STYLE = {
+const INPUT_STYLE = {
   borderColor: "#DEDBD6",
   backgroundColor: "#FFFFFF",
 };
+
+function Label({ children }) {
+  return <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>{children}</label>;
+}
 
 export default function LocationFields({ form, setForm }) {
   const country = form.business_country || "";
   const showStateDropdown = country === "United States" || country === "Canada";
   const stateOptions = country === "Canada" ? CA_PROVINCES : US_STATES;
+  const stateLabel = country === "Canada" ? "Province / Territory" : "State / Region";
 
   function updateLocation(updates) {
     const next = { ...form, ...updates };
@@ -44,57 +49,91 @@ export default function LocationFields({ form, setForm }) {
   }
 
   return (
-    <div className="grid sm:grid-cols-3 gap-4">
-      {/* City — free text is fine */}
+    <div className="space-y-4">
+      {/* Row 1: Country */}
       <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>City</label>
-        <input
-          value={form.business_city || ""}
-          onChange={e => updateLocation({ business_city: e.target.value })}
-          placeholder="e.g. Asheville"
-          className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-          style={SELECT_STYLE}
-        />
-      </div>
-
-      {/* State / Province */}
-      <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>
-          {country === "Canada" ? "Province / Territory" : "State / Region"}
-        </label>
-        {showStateDropdown ? (
-          <select
-            value={form.business_state || ""}
-            onChange={e => updateLocation({ business_state: e.target.value })}
-            className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-            style={SELECT_STYLE}
-          >
-            <option value="">Select…</option>
-            {stateOptions.map(s => <option key={s} value={s}>{s}</option>)}
-          </select>
-        ) : (
-          <input
-            value={form.business_state || ""}
-            onChange={e => updateLocation({ business_state: e.target.value })}
-            placeholder="e.g. Bavaria"
-            className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-            style={SELECT_STYLE}
-          />
-        )}
-      </div>
-
-      {/* Country */}
-      <div>
-        <label className="block text-xs font-semibold mb-1" style={{ color: "#5A5A5A" }}>Country</label>
+        <Label>Country</Label>
         <select
           value={form.business_country || ""}
           onChange={e => handleCountryChange(e.target.value)}
           className="w-full border px-3 py-2.5 text-sm focus:outline-none"
-          style={SELECT_STYLE}
+          style={INPUT_STYLE}
         >
-          <option value="">Select…</option>
+          <option value="">Select country…</option>
           {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
+      </div>
+
+      {/* Row 2: Street Address 1 */}
+      <div>
+        <Label>Street Address</Label>
+        <input
+          value={form.business_address_1 || ""}
+          onChange={e => setForm(f => ({ ...f, business_address_1: e.target.value }))}
+          placeholder="e.g. 123 Maple Street"
+          className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+          style={INPUT_STYLE}
+        />
+      </div>
+
+      {/* Row 3: Street Address 2 */}
+      <div>
+        <Label>Suite / Unit / Apt <span className="font-normal" style={{ color: "#AAAAAA" }}>(optional)</span></Label>
+        <input
+          value={form.business_address_2 || ""}
+          onChange={e => setForm(f => ({ ...f, business_address_2: e.target.value }))}
+          placeholder="e.g. Suite 4B"
+          className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+          style={INPUT_STYLE}
+        />
+      </div>
+
+      {/* Row 4: City / State / Postal */}
+      <div className="grid sm:grid-cols-3 gap-4">
+        <div>
+          <Label>City</Label>
+          <input
+            value={form.business_city || ""}
+            onChange={e => updateLocation({ business_city: e.target.value })}
+            placeholder="e.g. Asheville"
+            className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+            style={INPUT_STYLE}
+          />
+        </div>
+
+        <div>
+          <Label>{stateLabel}</Label>
+          {showStateDropdown ? (
+            <select
+              value={form.business_state || ""}
+              onChange={e => updateLocation({ business_state: e.target.value })}
+              className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+              style={INPUT_STYLE}
+            >
+              <option value="">Select…</option>
+              {stateOptions.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          ) : (
+            <input
+              value={form.business_state || ""}
+              onChange={e => updateLocation({ business_state: e.target.value })}
+              placeholder="e.g. Bavaria"
+              className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+              style={INPUT_STYLE}
+            />
+          )}
+        </div>
+
+        <div>
+          <Label>Zip / Postal Code</Label>
+          <input
+            value={form.business_postal_code || ""}
+            onChange={e => setForm(f => ({ ...f, business_postal_code: e.target.value }))}
+            placeholder="e.g. 28801"
+            className="w-full border px-3 py-2.5 text-sm focus:outline-none"
+            style={INPUT_STYLE}
+          />
+        </div>
       </div>
     </div>
   );
