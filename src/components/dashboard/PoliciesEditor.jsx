@@ -7,8 +7,17 @@ const PRESET_COVERAGE = [
   "Structural defects", "Workmanship", "Electronics", "Hardware", "Finish defects", "Fretwork"
 ];
 const PRESET_EXCLUSIONS = [
-  "Normal wear and tear", "Abuse or neglect", "Unauthorized modifications",
-  "Accidental damage", "Environmental damage (humidity, heat)", "Strings & consumables"
+  "Normal wear and tear",
+  "Strings, frets, nuts, saddles, batteries, tubes, and other consumables",
+  "Setup adjustments after delivery",
+  "Damage from improper humidity or temperature",
+  "Damage from misuse, abuse, neglect, accidents, drops, or impacts",
+  "Shipping damage",
+  "Unauthorized repairs or modifications",
+  "Finish checking, discoloration, aging, or wear",
+  "Damage from exposure to moisture, dryness, heat, cold, sunlight, or rapid climate change",
+  "Electronics or hardware made by third parties beyond their manufacturer warranty",
+  "Changes in tone, preference, feel, or setup taste",
 ];
 const SHIPPING_CARRIERS = ["UPS", "FedEx", "USPS", "DHL"];
 
@@ -289,12 +298,11 @@ export default function PoliciesEditor({ form, setForm }) {
                   onClick={() => toggleExclusion(item)}
                   className="text-xs px-3 py-1.5 border transition-colors"
                   style={{
-                    borderColor: active ? "#5A5A5A" : "#DEDBD6",
-                    backgroundColor: active ? "#ECEAE5" : "#FFFFFF",
-                    color: active ? "#2A2A2A" : "#5A5A5A",
+                    borderColor: active ? "#2F3E55" : "#DEDBD6",
+                    backgroundColor: active ? "#2F3E55" : "#FAFAF8",
+                    color: active ? "#FFFFFF" : "#5A5A5A",
                     fontWeight: active ? 500 : 400,
-                    textDecoration: active ? "none" : "none",
-                    opacity: active ? 1 : 0.5,
+                    opacity: 1,
                   }}
                 >
                   {item}
