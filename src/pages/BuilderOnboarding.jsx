@@ -265,24 +265,11 @@ export default function BuilderOnboarding() {
               })}
             </div>
 
-            {/* Right side: step count (mobile) + Save & Exit */}
+            {/* Right side: step count (mobile) */}
             <div className="flex items-center gap-3">
               <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
                 Step {step + 1} of 7
               </div>
-              {profile && (
-                <button
-                  onClick={handleSaveAndExit}
-                  disabled={saving}
-                  className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 border transition-all"
-                  style={{ color: "#7A7A7A", borderColor: "#DEDBD6", backgroundColor: "transparent" }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "#AAAAAA"; e.currentTarget.style.color = "#3A3A3A"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "#DEDBD6"; e.currentTarget.style.color = "#7A7A7A"; }}
-                >
-                  <XIcon className="w-3 h-3" />
-                  Save & Exit
-                </button>
-              )}
             </div>
           </div>
           {/* Progress bar */}
@@ -836,15 +823,30 @@ export default function BuilderOnboarding() {
             ) : <div />}
 
             {step < STEPS.length - 1 ? (
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={saving || (step === 4 && !policyConfirmed) || (step === 0 && (!legalChecked.terms_privacy || !legalChecked.builder_terms))}
-                className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-all"
-                style={{ backgroundColor: (saving || (step === 4 && !policyConfirmed) || (step === 0 && (!legalChecked.terms_privacy || !legalChecked.builder_terms))) ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
-              >
-                {saving ? "Saving..." : step === 0 ? "Save & Continue" : step === 4 ? "Save Policies & Continue" : "Save & Continue"} <ArrowRight className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-3">
+                {profile && (
+                  <button
+                    type="button"
+                    onClick={handleSaveAndExit}
+                    disabled={saving}
+                    className="flex items-center gap-2 text-sm font-medium px-6 py-3 transition-all"
+                    style={{ color: "#7A7A7A", border: "1px solid #E0DDD8", backgroundColor: "transparent", letterSpacing: "0.01em" }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = "#C0BBB3"; e.currentTarget.style.color = "#4A4A4A"; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = "#E0DDD8"; e.currentTarget.style.color = "#7A7A7A"; }}
+                  >
+                    Save & Exit
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  disabled={saving || (step === 4 && !policyConfirmed) || (step === 0 && (!legalChecked.terms_privacy || !legalChecked.builder_terms))}
+                  className="flex items-center gap-2 text-sm font-semibold px-7 py-3 text-white transition-all"
+                  style={{ backgroundColor: (saving || (step === 4 && !policyConfirmed) || (step === 0 && (!legalChecked.terms_privacy || !legalChecked.builder_terms))) ? "#AAAAAA" : NAVY, letterSpacing: "0.01em" }}
+                >
+                  {saving ? "Saving..." : step === 0 ? "Save & Continue" : step === 4 ? "Save Policies & Continue" : "Save & Continue"} <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             ) : (
               <div className="flex items-center gap-3">
                 {profile?.id && (
