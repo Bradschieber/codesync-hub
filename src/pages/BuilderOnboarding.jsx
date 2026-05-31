@@ -313,8 +313,9 @@ export default function BuilderOnboarding() {
             </p>
 
             {step === 0 && <>
-              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Let's set up your storefront.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Start with the basics — your shop name, where you're based, and a line that says who you are. Everything here can be refined from your dashboard at any time.</p>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Welcome — let's build your storefront.</h1>
+              <p className="text-base leading-relaxed mb-2" style={{ color: "#5A5A5A" }}>We're glad you're here. This setup walks you through 7 short steps — your shop details, your story, photos, business info, policies, references, and connecting payments. Most builders finish in under 30 minutes.</p>
+              <p className="text-sm leading-relaxed" style={{ color: "#8A8A8A" }}>No need to do it all at once. Your progress is saved every time you hit Continue, so if life gets in the way, just hit <span className="font-semibold" style={{ color: "#5A6A7A" }}>Save & Exit</span> in the top corner and pick up right where you left off.</p>
             </>}
             {step === 1 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
