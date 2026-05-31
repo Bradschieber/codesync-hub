@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import {
   Check, ArrowRight, ArrowLeft, Store, BookOpen, Camera, Hammer,
   ShieldCheck, Users, Sparkles, Globe,
-  Instagram, Facebook
+  Instagram, Facebook, X as XIcon
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import LocationFields from "../components/onboarding/LocationFields";
@@ -183,6 +183,11 @@ export default function BuilderOnboarding() {
     navigate(createPageUrl("Dashboard"));
   }
 
+  async function handleSaveAndExit() {
+    await saveProfile();
+    navigate(createPageUrl("Dashboard"));
+  }
+
   const updateForm = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
   const progressPct = Math.round((step / (STEPS.length - 1)) * 100);
@@ -201,11 +206,11 @@ export default function BuilderOnboarding() {
       <div className="sticky top-0 z-40" style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E8E5E0" }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between py-4">
-            {/* Logo */}
-            <div className="flex flex-col flex-shrink-0" style={{ lineHeight: 1.1 }}>
-              <span className="font-bold text-sm" style={{ color: NAVY, letterSpacing: "0.02em" }}>Stringed</span>
-              <span className="font-normal text-sm" style={{ color: NAVY, letterSpacing: "0.12em" }}>Collective</span>
-            </div>
+            {/* Logo — links back to home */}
+            <a href="/" className="flex flex-col flex-shrink-0 group" style={{ lineHeight: 1.1 }}>
+              <span className="font-bold text-sm group-hover:opacity-70 transition-opacity" style={{ color: NAVY, letterSpacing: "0.02em" }}>Stringed</span>
+              <span className="font-normal text-sm group-hover:opacity-70 transition-opacity" style={{ color: NAVY, letterSpacing: "0.12em" }}>Collective</span>
+            </a>
 
             {/* Step indicators — desktop */}
             <div className="hidden lg:flex items-center">
@@ -236,9 +241,24 @@ export default function BuilderOnboarding() {
               })}
             </div>
 
-            {/* Step count — mobile */}
-            <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
-              Step {step + 1} of 7
+            {/* Right side: step count (mobile) + Save & Exit */}
+            <div className="flex items-center gap-3">
+              <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
+                Step {step + 1} of 7
+              </div>
+              {profile && (
+                <button
+                  onClick={handleSaveAndExit}
+                  disabled={saving}
+                  className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 border transition-all"
+                  style={{ color: "#7A7A7A", borderColor: "#DEDBD6", backgroundColor: "transparent" }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = "#AAAAAA"; e.currentTarget.style.color = "#3A3A3A"; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = "#DEDBD6"; e.currentTarget.style.color = "#7A7A7A"; }}
+                >
+                  <XIcon className="w-3 h-3" />
+                  Save & Exit
+                </button>
+              )}
             </div>
           </div>
           {/* Progress bar */}
