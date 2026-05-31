@@ -94,7 +94,13 @@ export default function Layout({ children, currentPageName }) {
                 </Link>
               ))}
               <button
-                onClick={() => setBuilderModalOpen(true)}
+                onClick={() => {
+                  if (user && profile?.is_seller) {
+                    window.location.href = "/BuilderOnboarding";
+                  } else {
+                    setBuilderModalOpen(true);
+                  }
+                }}
                 className="text-sm font-medium transition-colors px-4 py-1.5 border"
                 style={{ color: "#2F3E55", borderColor: "#2F3E55", backgroundColor: "transparent" }}
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#2F3E55"; e.currentTarget.style.color = "#fff"; }}
@@ -158,7 +164,7 @@ export default function Layout({ children, currentPageName }) {
                             <Link to={createPageUrl("Wishlist")} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                               <Heart className="w-4 h-4" /> Wishlist
                             </Link>
-                            <button onClick={() => { setUserMenuOpen(false); setBuilderModalOpen(true); }} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-full text-left">
+                            <button onClick={() => { setUserMenuOpen(false); if (user && profile?.is_seller) { window.location.href = "/BuilderOnboarding"; } else { setBuilderModalOpen(true); } }} className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-full text-left">
                               <Hammer className="w-4 h-4" /> Become a Builder
                             </button>
                           </>
@@ -209,7 +215,7 @@ export default function Layout({ children, currentPageName }) {
               </Link>
             ))}
             <button
-              onClick={() => { setMenuOpen(false); setBuilderModalOpen(true); }}
+              onClick={() => { setMenuOpen(false); if (user && profile?.is_seller) { window.location.href = "/BuilderOnboarding"; } else { setBuilderModalOpen(true); } }}
               className="block w-full text-left py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors"
               style={{ color: "#2F3E55", backgroundColor: "#F2F0EA" }}
             >
@@ -245,7 +251,7 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Builders</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><button onClick={() => setBuilderModalOpen(true)} className="hover:text-indigo-400 transition-colors text-left">Become a Founding Builder</button></li>
+              <li><button onClick={() => { if (user && profile?.is_seller) { window.location.href = "/BuilderOnboarding"; } else { setBuilderModalOpen(true); } }} className="hover:text-indigo-400 transition-colors text-left">Become a Founding Builder</button></li>
               <li><button onClick={() => base44.auth.redirectToLogin()} className="hover:text-indigo-400 transition-colors text-left">Builder Login</button></li>
               <li><Link to={createPageUrl("About")} className="hover:text-indigo-400 transition-colors">How It Works</Link></li>
             </ul>
