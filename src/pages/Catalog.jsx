@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Guitar, Search, ChevronDown, ChevronUp, X, ArrowRight } from "lucide-react";
+import { Guitar, Search, ChevronDown, ChevronUp, X, ArrowRight, SlidersHorizontal } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -26,7 +26,7 @@ export default function Catalog() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Filters
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -81,6 +81,7 @@ export default function Catalog() {
   }
 
   const hasActiveFilters = selectedTypes.length > 0 || minPrice || maxPrice || selectedBuilder;
+  const activeFilterCount = [selectedTypes.length > 0, !!minPrice || !!maxPrice, !!selectedBuilder].filter(Boolean).length;
 
   function clearFilters() {
     setSelectedTypes([]);
@@ -139,22 +140,48 @@ export default function Catalog() {
           {/* Filter toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-3 text-sm font-medium border transition-colors flex-shrink-0"
+            className="flex items-center gap-2 px-5 py-3 text-sm font-semibold transition-colors flex-shrink-0"
             style={{
-              borderColor: hasActiveFilters ? NAVY : "#E5E8EC",
-              color: hasActiveFilters ? NAVY : "#4A4A4A",
-              backgroundColor: "#FFFFFF"
+              backgroundColor: showFilters || hasActiveFilters ? NAVY : "#FFFFFF",
+              color: showFilters || hasActiveFilters ? "#FFFFFF" : NAVY,
+              border: `1px solid ${NAVY}`,
             }}
           >
-            {showFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            Filters {hasActiveFilters && `(${[selectedTypes.length > 0, !!minPrice || !!maxPrice, !!selectedBuilder].filter(Boolean).length})`}
+            <SlidersHorizontal className="w-4 h-4" />
+            Filters
+            {hasActiveFilters && (
+              <span
+                className="ml-0.5 text-xs font-bold rounded-full min-w-5 h-5 flex items-center justify-center px-1.5"
+                style={{
+                  backgroundColor: showFilters || hasActiveFilters ? "#FFFFFF" : NAVY,
+                  color: showFilters || hasActiveFilters ? NAVY : "#FFFFFF",
+                }}
+              >
+                {activeFilterCount}
+              </span>
+            )}
           </button>
         </div>
 
         {/* Expandable Filter Panel */}
         {showFilters && (
-          <div className="border p-6 mb-6" style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF" }}>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="border mb-6" style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", boxShadow: "0 8px 24px rgba(27,43,75,0.12)" }}>
+            {/* Panel header */}
+            <div className="flex items-center justify-between px-6 py-3 border-b" style={{ borderColor: "#E5E8EC" }}>
+              <span className="text-sm font-bold" style={{ color: NAVY }}>Filter Results</span>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="text-xs font-semibold flex items-center gap-1 transition-colors"
+                  style={{ color: "#7A7A7A" }}
+                  onMouseEnter={e => { e.currentTarget.style.color = NAVY; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = "#7A7A7A"; }}
+                >
+                  <X className="w-3.5 h-3.5" /> Clear all
+                </button>
+              )}
+            </div>
+            <div className="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
               {/* Instrument Type */}
               <div>
@@ -215,14 +242,6 @@ export default function Catalog() {
                 </div>
               </div>
 
-              {/* Clear */}
-              <div className="flex items-end">
-                {hasActiveFilters && (
-                  <button onClick={clearFilters} className="text-sm font-semibold flex items-center gap-1 underline" style={{ color: "#7A7A7A" }}>
-                    <X className="w-3.5 h-3.5" /> Clear all filters
-                  </button>
-                )}
-              </div>
             </div>
           </div>
         )}
