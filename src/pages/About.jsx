@@ -6,18 +6,18 @@ const NAVY = "#1B2B4B";
 
 export default function About() {
   return (
-    <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
 
       {/* Hero */}
-      <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-20 pb-16">
+      <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-20 pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1B2B4B", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
             About Stringed Collective.
           </h1>
-          <p className="text-lg leading-relaxed mb-4" style={{ color: "#3D3D3D" }}>
+          <p className="text-lg leading-relaxed mb-4" style={{ color: "#333333" }}>
             Stringed Collective is a modern marketplace for handcrafted instruments from independent builders.
           </p>
-          <p className="text-lg leading-relaxed" style={{ color: "#3D3D3D" }}>
+          <p className="text-lg leading-relaxed" style={{ color: "#333333" }}>
             We bring instrument lovers and boutique makers together through a polished online shopping experience — making it easier to discover, purchase, and commission exceptional instruments from builders around the world.
           </p>
         </div>
@@ -28,16 +28,16 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-16 items-start mb-20">
           <div>
             <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
-            <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
+            <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
               Independent builders create some of the most inspiring instruments in the world — but their work is often difficult to discover.
             </p>
-            <p className="text-base leading-relaxed mb-5" style={{ color: "#3D3D3D" }}>
+            <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
               Many builders rely on personal websites, social media, word of mouth, and small communities to reach buyers. At the same time, instrument lovers are used to the convenience and structure of major online retailers, even when those retailers do not carry the kind of unique, handcrafted instruments they are looking for.
             </p>
             <p className="text-base leading-relaxed mb-5 font-medium" style={{ color: NAVY }}>
               Stringed Collective was created to bridge that gap.
             </p>
-            <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
+            <p className="text-base leading-relaxed" style={{ color: "#333333" }}>
               We give builders a professional marketplace to showcase their work, and we give buyers a trusted place to discover distinctive instruments, connect with makers, and complete purchases through a clear, organized process.
             </p>
           </div>
@@ -68,7 +68,7 @@ export default function About() {
               <div key={step} className="p-7 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
                 <p className="text-xs font-bold tracking-widest mb-4" style={{ color: "#8A9BB0" }}>{step}</p>
                 <h4 className="text-base mb-3" style={{ color: NAVY, fontWeight: 600 }}>{title}</h4>
-                <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{text}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "#333333" }}>{text}</p>
               </div>
             ))}
           </div>
@@ -100,7 +100,7 @@ export default function About() {
                   <Icon className="w-6 h-6" strokeWidth={1.5} />
                 </div>
                 <h3 className="text-base mb-3" style={{ color: "#1B2B4B", fontWeight: 600, fontFamily: "'DM Sans', system-ui, sans-serif" }}>{title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#4A4A4A" }}>{text}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "#333333" }}>{text}</p>
               </div>
             ))}
           </div>
@@ -113,9 +113,9 @@ export default function About() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to={createPageUrl("Catalog")}
-              className="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 text-sm transition-colors"
-              style={{ backgroundColor: "#FFFFFF", color: NAVY }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#EEF1F7"}
+              className="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 text-sm transition-all"
+              style={{ backgroundColor: "#FFFFFF", color: NAVY, boxShadow: "0 4px 16px rgba(27,43,75,0.15)" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#F4F7FB"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = "#FFFFFF"}
             >
               Browse Instruments <ArrowRight className="w-4 h-4" />

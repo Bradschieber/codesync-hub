@@ -194,12 +194,12 @@ export default function Builders() {
               options={EXPERIENCE_OPTIONS}
               active={!!experienceFilter}
             />
-            <label className="flex items-center gap-2 cursor-pointer text-sm select-none" style={{ color: customBuildsOnly ? AMBER : "#4A4A4A" }}>
+            <label className="flex items-center gap-2 cursor-pointer text-sm select-none" style={{ color: customBuildsOnly ? NAVY : "#4A4A4A" }}>
               <input
                 type="checkbox"
                 checked={customBuildsOnly}
                 onChange={e => { setCustomBuildsOnly(e.target.checked); setVisibleCount(PAGE_SIZE); }}
-                className="w-4 h-4 accent-amber-600"
+                className="w-4 h-4 accent-slate-700"
               />
               Accepting Custom Builds
             </label>
@@ -287,9 +287,9 @@ export default function Builders() {
             <Link
               to={createPageUrl("CustomBuilds")}
               className="inline-block font-semibold px-8 py-4 text-sm tracking-wide text-white transition-colors"
-              style={{ backgroundColor: AMBER }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}
+              style={{ backgroundColor: NAVY }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
             >
               Explore Custom Builds
             </Link>
