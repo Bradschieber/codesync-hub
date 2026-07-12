@@ -11,7 +11,8 @@ import BuilderBadges from "../components/builder/BuilderBadges";
 import ImageLightbox from "../components/marketplace/ImageLightbox";
 
 const AMBER = "#C57A1F";
-const SLATE = "#2F3E55";
+const NAVY = "#1B2B4B";
+const SLATE = "#1B2B4B";
 const WALNUT = "#3B2F2A";
 
 export default function ProductDetail() {
@@ -80,7 +81,7 @@ export default function ProductDetail() {
     <div className="max-w-6xl mx-auto px-4 py-20 text-center">
       <Guitar className="w-16 h-16 text-stone-300 mx-auto mb-4" />
       <h2 className="text-xl font-semibold text-stone-600">Product not found</h2>
-      <Link to={createPageUrl("Catalog")} className="mt-4 inline-block hover:underline" style={{ color: AMBER }}>Back to Catalog</Link>
+      <Link to={createPageUrl("Catalog")} className="mt-4 inline-block hover:underline" style={{ color: "#333333" }}>Back to Catalog</Link>
     </div>
   );
 
@@ -95,7 +96,7 @@ export default function ProductDetail() {
   const hasSpecs = Object.keys(specs).length > 0;
 
   return (
-    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         {/* Back link */}
         <Link to={createPageUrl("Catalog")} className="inline-flex items-center gap-1 text-sm mb-8 transition-colors" style={{ color: "#6A6A6A" }}
@@ -172,7 +173,7 @@ export default function ProductDetail() {
             )}
 
             {/* Price */}
-            <p className="text-4xl font-bold mb-5" style={{ color: AMBER }}>${product.price?.toLocaleString()}</p>
+            <p className="text-4xl font-bold mb-5" style={{ color: NAVY }}>${product.price?.toLocaleString()}</p>
 
             {/* Trust signals */}
             <div className="rounded-xl border p-4 mb-5 space-y-2.5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
