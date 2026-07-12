@@ -62,7 +62,7 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-white font-sans">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAFBFC; color: #1B2B4B; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; background: #FFFFFF; color: #1B2B4B; }
         * { font-family: 'DM Sans', system-ui, sans-serif; }
         h1, h2, h3, h4, h5, h6 { font-family: 'DM Sans', system-ui, sans-serif; }
         .logo-wordmark { font-family: 'DM Sans', system-ui, sans-serif; }

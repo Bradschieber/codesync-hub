@@ -40,7 +40,7 @@ Deno.serve(async (req) => {
     const configs = await base44.asServiceRole.entities.MarketplaceImageConfig.filter({ config_key: 'default' });
     const config = configs[0] || {};
 
-    const bgColor = config.background_color || '#F7F5F0';
+    const bgColor = config.background_color || '#FFFFFF';
     const paddingPreset = config.padding_preset || 'balanced';
     const shadowMode = config.shadow_mode || 'soft';
     const outputSize = config.output_size || 2000;

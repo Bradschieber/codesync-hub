@@ -14,8 +14,8 @@
     },
     "background_color": {
       "type": "string",
-      "default": "#F7F5F0",
-      "description": "Hex color for the standard marketplace background. Warm off-white. Allowed: solid neutrals only \u2014 no gradients, no environment scenes."
+      "default": "#FFFFFF",
+      "description": "Hex color for the standard marketplace background. Pure white. Allowed: solid neutrals only \u2014 no gradients, no environment scenes."
     },
     "shadow_mode": {
       "type": "string",

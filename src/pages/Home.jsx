@@ -100,10 +100,10 @@ export default function Home() {
   const heroProduct = featured[0] || null;
 
   return (
-    <div style={{ backgroundColor: "#FAFBFC", color: "#1F1F1F" }} className="min-h-screen">
+    <div style={{ backgroundColor: "#FFFFFF", color: "#1F1F1F" }} className="min-h-screen">
 
       {/* ── 1. HERO ── */}
-      <section style={{ background: "linear-gradient(180deg, #EFF3F8 0%, #FAFBFC 100%)" }} className="pt-20 pb-16">
+      <section style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
 
@@ -113,7 +113,7 @@ export default function Home() {
                 Play Something<br />Different.
               </h1>
               <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
-                Discover handcrafted instruments from independent builders — all in one modern marketplace.
+                A marketplace for extraordinary handcrafted instruments — and the independent builders behind them.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
                 <Link
@@ -463,7 +463,7 @@ function ProductCard({ product }) {
       <div className="pt-3 pb-1 px-0.5">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-bold text-sm leading-snug" style={{ color: "#1A1A1A" }}>{product.name}</h3>
-          <span className="font-bold text-sm flex-shrink-0" style={{ color: AMBER }}>${product.price?.toLocaleString()}</span>
+          <span className="font-bold text-sm flex-shrink-0" style={{ color: NAVY }}>${product.price?.toLocaleString()}</span>
         </div>
         {specParts.length > 0 && (
           <p className="text-xs mb-1" style={{ color: "#8A8A8A" }}>{specParts.join(" • ")}</p>
