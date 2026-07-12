@@ -325,7 +325,7 @@ export default function BuilderOnboarding() {
             {/* Right side: step count (mobile) */}
             <div className="flex items-center gap-3">
               <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
-                Step {step + 1} of 7
+                Step {step + 1} of 8
               </div>
             </div>
           </div>
@@ -346,11 +346,11 @@ export default function BuilderOnboarding() {
           {/* Step header */}
           <div className="mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#AAAA9A", letterSpacing: "0.12em" }}>
-              {step === 0 && "Foundation — Step 1 of 7"}
-              {step === 1 && "Your Voice — Step 2 of 7"}
-              {step === 2 && "Visual Identity — Step 3 of 7"}
-              {step === 3 && "Your Offering — Step 4 of 7"}
-              {step === 4 && "Step 5 of 7 — Shop Policies"}
+              {step === 0 && "Foundation — Step 1 of 8"}
+              {step === 1 && "Your Voice — Step 2 of 8"}
+              {step === 2 && "Visual Identity — Step 3 of 8"}
+              {step === 3 && "Your Offering — Step 4 of 8"}
+              {step === 4 && "Step 5 of 8 — Shop Policies"}
               {step === 5 && "Step 6 of 8 — References"}
               {step === 6 && "Step 7 of 8 — Connect Stripe"}
               {step === 7 && "Step 8 of 8 — Next Steps"}
@@ -358,7 +358,7 @@ export default function BuilderOnboarding() {
 
             {step === 0 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Welcome — let's build your storefront.</h1>
-              <p className="text-base leading-relaxed mb-2" style={{ color: "#5A5A5A" }}>We're glad you're here. This setup walks you through 7 short steps — your shop details, your story, photos, business info, policies, references, and connecting payments. Most builders finish in under 30 minutes.</p>
+              <p className="text-base leading-relaxed mb-2" style={{ color: "#5A5A5A" }}>We're glad you're here. This setup walks you through 8 short steps — your shop details, your story, photos, business info, policies, references, and connecting payments. Most builders finish in under 30 minutes.</p>
               <p className="text-sm leading-relaxed" style={{ color: "#8A8A8A" }}>No need to do it all at once. Your progress is saved every time you hit Continue, so if life gets in the way, just hit <span className="font-semibold" style={{ color: "#5A6A7A" }}>Save & Exit</span> in the top corner and pick up right where you left off.</p>
             </>}
             {step === 1 && <>
