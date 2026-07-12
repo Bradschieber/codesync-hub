@@ -9,7 +9,7 @@ const NAVY = "#1B2B4B";
 const PAGE_SIZE = 20;
 
 const TAG_COLORS = {
-  "Wood Selection":  { bg: "#FDF3E3", color: "#C57A1F" },
+  "Wood Selection":  { bg: "#FDF3E3", color: "#333333" },
   "Neck Carving":    { bg: "#F0EBF8", color: "#7B5EA7" },
   "Body Shaping":    { bg: "#EEF1F7", color: "#2F3E55" },
   "Electronics":     { bg: "#E8F4FB", color: "#1A8FD1" },
@@ -18,7 +18,7 @@ const TAG_COLORS = {
   "Sound Test":      { bg: "#FEF9E7", color: "#B7950B" },
   // WorkshopPost tags
   "Stock Build":     { bg: "#EEF1F7", color: "#2F3E55" },
-  "Custom Build":    { bg: "#FDF3E3", color: "#C57A1F" },
+  "Custom Build":    { bg: "#FDF3E3", color: "#333333" },
   "Shop Work":       { bg: "#E8F6ED", color: "#27AE60" },
   "Materials":       { bg: "#F0EBF8", color: "#7B5EA7" },
 };

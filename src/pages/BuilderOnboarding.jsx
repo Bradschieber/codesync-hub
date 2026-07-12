@@ -47,7 +47,7 @@ function Input({ field, value, onChange, placeholder, type = "text" }) {
 // Warm editorial guidance card
 function GuidanceCard({ children }) {
   return (
-    <div className="px-5 py-4 border-l-2" style={{ borderColor: "#C8A870", backgroundColor: "#FEFCF7" }}>
+    <div className="px-5 py-4 border-l-2" style={{ borderColor: NAVY, backgroundColor: "#F2F5FA" }}>
       {children}
     </div>
   );
@@ -482,13 +482,13 @@ export default function BuilderOnboarding() {
           {step === 1 && (
             <div className="space-y-6">
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>What buyers connect with</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>Buyers respond to specificity — your background, what you care about, how you work. A genuine story, at any stage of your career, is what makes someone choose to reach out. Start with a first draft and refine it whenever you're ready.</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#333333" }}>What buyers connect with</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>Buyers respond to specificity — your background, what you care about, how you work. A genuine story, at any stage of your career, is what makes someone choose to reach out. Start with a first draft and refine it whenever you're ready.</p>
               </GuidanceCard>
 
               {/* Writing prompts */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Need a starting point?</p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Need a starting point?</p>
                 <p className="text-xs mb-3" style={{ color: "#BBBBBB" }}>Tap a prompt to open it — use it as an anchor and let the rest follow.</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {STORY_PROMPTS.map((p, i) => (
@@ -602,7 +602,7 @@ export default function BuilderOnboarding() {
 
               {/* Intro video — secondary */}
               <div className="border-t pt-6" style={{ borderColor: "#E3E0D8" }}>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#AAAA9A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
                 <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link — it embeds directly on your builder page.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Video URL">
@@ -741,8 +741,8 @@ export default function BuilderOnboarding() {
           {step === 4 && (
             <div>
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>How these policies are used</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>These terms are embedded into purchase agreements on the platform to protect both you and the buyer. Don't worry about making them perfect on the first pass — you can revise them anytime from your dashboard.</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#333333" }}>How these policies are used</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>These terms are embedded into purchase agreements on the platform to protect both you and the buyer. Don't worry about making them perfect on the first pass — you can revise them anytime from your dashboard.</p>
               </GuidanceCard>
               <PoliciesEditor form={form} setForm={setForm} />
 
@@ -785,8 +785,8 @@ export default function BuilderOnboarding() {
           {step === 5 && (
             <div className="space-y-6">
               <GuidanceCard>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#7A6030" }}>Why references help</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#8A7040" }}>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#333333" }}>Why references help</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>
                   Buyer references act as social proof on your storefront. After our team verifies them, they help signal credibility to people discovering your work for the first time.
                 </p>
               </GuidanceCard>
@@ -867,13 +867,13 @@ export default function BuilderOnboarding() {
 
               {/* Required before launch */}
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#C8973A" }}>Required before launch</p>
-                <div className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: "#E8D9B8", backgroundColor: "#FFFAF2" }}>
-                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full" style={{ backgroundColor: "#E8D9B8" }}>
-                    <span className="text-xs font-bold" style={{ color: "#C8973A" }}>1</span>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#333333" }}>Required before launch</p>
+                <div className="flex items-center gap-3 px-4 py-3 border" style={{ borderColor: "#D0D5DB", backgroundColor: "#F4F7FB" }}>
+                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full" style={{ backgroundColor: "#D0D5DB" }}>
+                    <span className="text-xs font-bold" style={{ color: "#333333" }}>1</span>
                   </div>
-                  <span className="text-sm font-medium" style={{ color: "#6A4A10" }}>First product listing</span>
-                  <span className="ml-auto text-xs font-semibold" style={{ color: "#C8973A" }}>Add from dashboard</span>
+                  <span className="text-sm font-medium" style={{ color: "#333333" }}>First product listing</span>
+                  <span className="ml-auto text-xs font-semibold" style={{ color: "#333333" }}>Add from dashboard</span>
                 </div>
               </div>
 

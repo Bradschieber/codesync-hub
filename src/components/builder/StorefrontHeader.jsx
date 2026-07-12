@@ -1,10 +1,12 @@
 import { MapPin, Globe, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar, Package, Check } from "lucide-react";
 
+const NAVY = "#1B2B4B";
+
 const COLOR_SCHEMES = {
-  "earthy": { banner: "from-amber-900 to-stone-800", accentText: "text-amber-700", accentBg: "bg-amber-50", accentBorder: "border-amber-200", sectionBg: "bg-amber-50" },
-  "dark-wood": { banner: "from-stone-900 to-amber-950", accentText: "text-stone-800", accentBg: "bg-stone-100", accentBorder: "border-stone-300", sectionBg: "bg-stone-100" },
+  "earthy": { banner: "from-stone-800 to-stone-700", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50" },
+  "dark-wood": { banner: "from-stone-900 to-stone-800", accentText: "text-stone-800", accentBg: "bg-stone-100", accentBorder: "border-stone-300", sectionBg: "bg-stone-100" },
   "slate": { banner: "from-slate-800 to-slate-600", accentText: "text-slate-700", accentBg: "bg-slate-50", accentBorder: "border-slate-200", sectionBg: "bg-slate-50" },
-  "warm-cream": { banner: "from-orange-800 to-amber-700", accentText: "text-orange-700", accentBg: "bg-orange-50", accentBorder: "border-orange-200", sectionBg: "bg-orange-50" },
+  "warm-cream": { banner: "from-stone-700 to-stone-600", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50" },
   "midnight": { banner: "from-indigo-950 to-slate-900", accentText: "text-indigo-700", accentBg: "bg-indigo-50", accentBorder: "border-indigo-200", sectionBg: "bg-indigo-50" },
 };
 
@@ -83,7 +85,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
         <div className="absolute inset-0" style={layout.overlayStyle} />
 
         {builder.is_featured && (
-          <span className="absolute top-4 left-4 bg-amber-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 z-10">
+          <span className="absolute top-4 left-4 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 z-10" style={{ backgroundColor: NAVY }}>
             <Award className="w-3 h-3" /> Featured Builder
           </span>
         )}
@@ -124,7 +126,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
               </span>
             )}
             {builder.founding_builder && (
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-amber-300/60 bg-amber-500/30 text-amber-100 backdrop-blur-sm">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-white/30 bg-white/15 text-white/90 backdrop-blur-sm">
                 Founding Builder
               </span>
             )}
@@ -139,9 +141,9 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
               <button
                 onClick={onRequestQuote}
                 className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-                style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                style={{ backgroundColor: NAVY }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
               >
                 <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
                 Request Custom Build
@@ -151,9 +153,9 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
               <button
                 onClick={() => scrollToSection("instruments-section")}
                 className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-                style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                style={{ backgroundColor: NAVY }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}
               >
                 <Guitar className="w-4 h-4 inline mr-1.5 -mt-0.5" />
                 View Available Instruments
