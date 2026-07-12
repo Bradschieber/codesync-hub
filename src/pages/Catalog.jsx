@@ -4,8 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Search, ChevronDown, ChevronUp, X, ArrowRight } from "lucide-react";
 
-const NAVY = "#2F3E55";
-const AMBER = "#C57A1F";
+const NAVY = "#1B2B4B";
 
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest First" },
@@ -27,7 +26,7 @@ export default function Catalog() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
 
   // Filters
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -94,13 +93,13 @@ export default function Catalog() {
   const countLabel = `${count} ${count === 1 ? "instrument" : "instruments"} available from independent builders`;
 
   return (
-    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
 
       {/* Page Header */}
-      <div style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-14 pb-10">
+      <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-14 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-2 tracking-tight" style={{ color: "#1A1A1A" }}>Instruments</h1>
-          <p className="text-sm" style={{ color: "#7A7A7A" }}>{loading ? "Loading..." : countLabel}</p>
+          <h1 className="text-4xl font-bold mb-2 tracking-tight" style={{ color: "#1A1A1A" }}>Handcrafted Instruments</h1>
+          <p className="text-sm" style={{ color: "#7A7A7A" }}>Handcrafted instruments, ready to play — from independent builders around the world.</p>
         </div>
       </div>
 
@@ -115,7 +114,7 @@ export default function Catalog() {
               onChange={e => setSearch(e.target.value)}
               placeholder="Search instruments or builders..."
               className="w-full pl-9 pr-9 py-3 text-sm focus:outline-none border"
-              style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
+              style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
             />
             {search && (
               <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -130,7 +129,7 @@ export default function Catalog() {
               value={sort}
               onChange={e => setSort(e.target.value)}
               className="appearance-none border pl-3 pr-8 py-3 text-sm focus:outline-none"
-              style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
+              style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
             >
               {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
@@ -142,7 +141,7 @@ export default function Catalog() {
             onClick={() => setShowFilters(!showFilters)}
             className="flex items-center gap-2 px-4 py-3 text-sm font-medium border transition-colors flex-shrink-0"
             style={{
-              borderColor: hasActiveFilters ? NAVY : "#DEDBD6",
+              borderColor: hasActiveFilters ? NAVY : "#E5E8EC",
               color: hasActiveFilters ? NAVY : "#4A4A4A",
               backgroundColor: "#FFFFFF"
             }}
@@ -154,7 +153,7 @@ export default function Catalog() {
 
         {/* Expandable Filter Panel */}
         {showFilters && (
-          <div className="border p-6 mb-6" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}>
+          <div className="border p-6 mb-6" style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF" }}>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
               {/* Instrument Type */}
@@ -185,7 +184,7 @@ export default function Catalog() {
                     onChange={e => setMinPrice(e.target.value)}
                     placeholder="Min"
                     className="w-full border px-3 py-2 text-sm focus:outline-none"
-                    style={{ borderColor: "#DEDBD6" }}
+                    style={{ borderColor: "#E5E8EC" }}
                   />
                   <span className="text-stone-400 text-sm">–</span>
                   <input
@@ -194,7 +193,7 @@ export default function Catalog() {
                     onChange={e => setMaxPrice(e.target.value)}
                     placeholder="Max"
                     className="w-full border px-3 py-2 text-sm focus:outline-none"
-                    style={{ borderColor: "#DEDBD6" }}
+                    style={{ borderColor: "#E5E8EC" }}
                   />
                 </div>
               </div>
@@ -207,7 +206,7 @@ export default function Catalog() {
                     value={selectedBuilder}
                     onChange={e => setSelectedBuilder(e.target.value)}
                     className="appearance-none w-full border pl-3 pr-8 py-2 text-sm focus:outline-none"
-                    style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#4A4A4A" }}
+                    style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", color: "#4A4A4A" }}
                   >
                     <option value="">All Builders</option>
                     {builderOptions.map(b => <option key={b} value={b}>{b}</option>)}
@@ -275,7 +274,7 @@ function InstrumentCard({ product }) {
       className="group block no-underline transition-all duration-200"
       style={{
         backgroundColor: "#FFFFFF",
-        boxShadow: hovered ? "0 6px 24px rgba(27,43,75,0.1)" : "none",
+        boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
       }}
       onMouseEnter={() => setHovered(true)}
@@ -313,7 +312,7 @@ function InstrumentCard({ product }) {
         {/* Name + Price */}
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-bold text-sm leading-snug" style={{ color: "#1A1A1A" }}>{product.name}</h3>
-          <span className="font-bold text-sm flex-shrink-0" style={{ color: AMBER }}>${product.price?.toLocaleString()}</span>
+          <span className="font-bold text-sm flex-shrink-0" style={{ color: NAVY }}>${product.price?.toLocaleString()}</span>
         </div>
 
         {/* Specs */}
