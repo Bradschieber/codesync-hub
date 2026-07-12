@@ -127,8 +127,8 @@ export default function BuilderAccountFormModal({ onClose }) {
                 ))}
               </div>
               <div className="mb-6 p-3 border-l-2" style={{ borderColor: "#C57A1F", backgroundColor: "#FFF9F0" }}>
-                <p className="text-xs font-bold mb-0.5" style={{ color: "#7A4000" }}>After you verify your email</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#9A6030" }}>You'll be taken directly into your storefront setup. No need to come back here.</p>
+                <p className="text-xs font-bold mb-0.5" style={{ color: "#333333" }}>After you verify your email</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>You'll be taken directly into your storefront setup. No need to come back here.</p>
               </div>
               <button
                 onClick={() => base44.auth.redirectToLogin("/BuilderOnboarding")}
