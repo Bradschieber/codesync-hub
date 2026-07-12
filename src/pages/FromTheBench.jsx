@@ -102,7 +102,7 @@ export default function FromTheBench() {
       {/* Header */}
       <div style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #FAF9F7 100%)" }} className="pt-16 pb-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#8A8A8A" }}>From The Bench</p>
+          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#5A5A5A" }}>From The Bench</p>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4" style={{ color: "#1A1A1A" }}>
             Watch instruments come to life.
           </h1>
