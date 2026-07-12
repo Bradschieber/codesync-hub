@@ -21,7 +21,7 @@ export default function FeaturedBuilders({ builders, productImageMap = {} }) {
   return (
     <section className="mb-12">
       <div className="mb-6">
-        <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Featured Builders</p>
+        <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#5A5A5A" }}>Featured Builders</p>
         <h2 className="text-xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>
           Meet some of the makers shaping Stringed Collective.
         </h2>

@@ -6,7 +6,7 @@ import { Search, Guitar, X, ChevronDown, User, MapPin, ArrowRight } from "lucide
 import FeaturedBuilders from "../components/builders/FeaturedBuilders";
 import BuildersMap from "../components/builders/BuildersMap";
 
-const NAVY = "#2F3E55";
+const NAVY = "#1B2B4B";
 const AMBER = "#C57A1F";
 const PAGE_SIZE = 16;
 
@@ -145,10 +145,10 @@ export default function Builders() {
   }
 
   return (
-    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
 
       {/* HERO */}
-      <div style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-14 pb-12">
+      <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-14 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl font-bold mb-3 tracking-tight" style={{ color: "#1A1A1A" }}>Meet Our Builders</h1>
           <p className="text-base" style={{ color: "#5A5A5A" }}>Independent makers. Verified craft. Real stories.</p>
@@ -166,7 +166,7 @@ export default function Builders() {
               onChange={e => { setSearch(e.target.value); setVisibleCount(PAGE_SIZE); }}
               placeholder="Search builders by name, location, or instrument type"
               className="w-full pl-9 pr-10 py-3 border text-sm focus:outline-none"
-              style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
+              style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
             />
             {search && (
               <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -277,7 +277,7 @@ export default function Builders() {
         )}
 
         {/* CTA */}
-        <section className="mt-20 py-14 px-8 sm:px-14 text-center" style={{ backgroundColor: "#F2F0EA" }}>
+        <section className="mt-20 py-14 px-8 sm:px-14 text-center" style={{ backgroundColor: "#F4F7FB" }}>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#7A7A7A" }}>Looking for something specific?</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight" style={{ color: NAVY }}>Commission your dream instrument.</h2>
           <p className="text-sm leading-relaxed max-w-xl mx-auto mb-8" style={{ color: "#4A4A4A" }}>
@@ -316,7 +316,7 @@ function FilterSelect({ value, onChange, options, active }) {
         onChange={e => onChange(e.target.value)}
         className="appearance-none pl-3 pr-8 py-2 text-sm border focus:outline-none cursor-pointer transition-colors"
         style={{
-          borderColor: active ? NAVY : "#DEDBD6",
+          borderColor: active ? NAVY : "#E5E8EC",
           backgroundColor: active ? NAVY : "#FFFFFF",
           color: active ? "#FFFFFF" : "#4A4A4A",
         }}
@@ -340,9 +340,9 @@ function BuilderCard({ builder, heroImage }) {
       to={createPageUrl("BuilderProfile?id=" + builder.id)}
       className="group block border overflow-hidden transition-all duration-300 no-underline"
       style={{
-        borderColor: hovered ? NAVY : "#E0DDD8",
+        borderColor: hovered ? NAVY : "#E5E8EC",
         backgroundColor: "#FFFFFF",
-        boxShadow: hovered ? "0 6px 24px rgba(27,43,75,0.1)" : "none",
+        boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
       }}
       onMouseEnter={() => setHovered(true)}
