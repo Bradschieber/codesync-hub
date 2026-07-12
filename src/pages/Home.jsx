@@ -267,7 +267,7 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-1" style={{ color: "#1A1A1A" }}>{buildStory.title}</h3>
                 <p className="text-sm font-medium mb-4" style={{ color: "#7A7A7A" }}>by {buildStory.builder_name}</p>
                 {buildStory.tag && (
-                  <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: AMBER }}>
+                  <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: NAVY }}>
                     Currently in {buildStory.tag}.
                   </p>
                 )}
@@ -298,7 +298,7 @@ export default function Home() {
               <div>
                 <h3 className="text-2xl font-bold mb-1" style={{ color: "#1A1A1A" }}>Walnut Short Scale Bass</h3>
                 <p className="text-sm font-medium mb-4" style={{ color: "#7A7A7A" }}>by Rivertown Guitars</p>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: AMBER }}>Currently in Neck Carving.</p>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: NAVY }}>Currently in Neck Carving.</p>
                 <p className="text-base leading-relaxed mb-8" style={{ color: "#4A4A4A" }}>
                   Follow this instrument from wood selection to final setup — every step documented by the builder.
                 </p>

@@ -19,9 +19,9 @@ const BADGE_DEFS = [
     label: "Founding Builder",
     icon: null,
     style: {
-      color: "#6B4C2A",
-      background: "#F5EFE6",
-      border: "#D9C4A8",
+      color: "#1B2B4B",
+      background: "#EEF1F7",
+      border: "#C2CEDB",
     },
   },
   {

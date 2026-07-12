@@ -132,7 +132,7 @@ export default function BuilderProfile() {
                 {featuredProduct.description && (
                   <p className="text-sm text-stone-500 leading-relaxed mb-4 line-clamp-3">{featuredProduct.description}</p>
                 )}
-                <p className="text-2xl font-bold mb-5" style={{ color: "#C57A1F" }}>${featuredProduct.price?.toLocaleString()}</p>
+                <p className="text-2xl font-bold mb-5" style={{ color: "#1B2B4B" }}>${featuredProduct.price?.toLocaleString()}</p>
                 <Link
                   to={createPageUrl("ProductDetail?id=" + featuredProduct.id)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors self-start"
@@ -175,7 +175,7 @@ export default function BuilderProfile() {
                   </div>
                   <div className="p-4">
                     <h3 className="font-bold text-sm mb-1 text-stone-900">{p.name}</h3>
-                    <p className="font-bold text-sm" style={{ color: "#C57A1F" }}>${p.price?.toLocaleString()}</p>
+                    <p className="font-bold text-sm" style={{ color: "#1B2B4B" }}>${p.price?.toLocaleString()}</p>
                   </div>
                 </Link>
               ))}
@@ -227,9 +227,9 @@ export default function BuilderProfile() {
             <button
               onClick={() => setShowQuoteModal(true)}
               className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
-              style={{ backgroundColor: "#C57A1F" }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+              style={{ backgroundColor: "#1B2B4B" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
             >
               <Hammer className="w-4 h-4 inline mr-1.5 -mt-0.5" />
               Request Custom Build
@@ -373,9 +373,9 @@ function ContactModal({ builder, user, onClose }) {
             />
             <div className="flex gap-3">
               <button type="button" onClick={onClose} className="flex-1 border border-stone-200 rounded-lg py-2.5 text-sm font-medium text-stone-600 hover:bg-stone-50 transition-colors">Cancel</button>
-              <button type="submit" className="flex-1 py-2.5 text-sm font-semibold text-white rounded-lg transition-colors" style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>Send Message</button>
+              <button type="submit" className="flex-1 py-2.5 text-sm font-semibold text-white rounded-lg transition-colors" style={{ backgroundColor: "#1B2B4B" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}>Send Message</button>
             </div>
           </form>
         )}

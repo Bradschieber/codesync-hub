@@ -87,7 +87,7 @@ function FeaturedBuilderCard({ builder, productImage }) {
         {/* Founding builder ribbon */}
         {builder.founding_builder && (
           <span className="absolute top-2 right-2 text-xs font-semibold px-2 py-0.5 rounded-full"
-            style={{ backgroundColor: "#C57A1F", color: "#fff" }}>
+            style={{ backgroundColor: "#1B2B4B", color: "#fff" }}>
             Founding Builder
           </span>
         )}

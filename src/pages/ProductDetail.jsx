@@ -128,7 +128,7 @@ export default function ProductDetail() {
                 {galleryImages.map((img, i) => (
                   <button key={i} onClick={() => { setActiveImg(i); setLightboxIndex(i); }}
                     className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all"
-                    style={{ borderColor: activeImg === i ? AMBER : "transparent" }}>
+                    style={{ borderColor: activeImg === i ? NAVY : "transparent" }}>
                     <img src={img} className="w-full h-full object-cover" />
                   </button>
                 ))}
@@ -350,9 +350,9 @@ export default function ProductDetail() {
             <div className="flex flex-col gap-2 flex-shrink-0">
               <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)}
                 className="flex items-center gap-1.5 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
-                style={{ backgroundColor: AMBER }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}>
+                style={{ backgroundColor: NAVY }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}>
                 View Profile <ArrowRight className="w-4 h-4" />
               </Link>
               <button onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
@@ -417,7 +417,7 @@ function ContactModal({ builder, user, onClose }) {
               <input value={subject} onChange={e => setSubject(e.target.value)}
                 placeholder={`Message from ${user?.full_name}`}
                 className="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2"
-                style={{ borderColor: "#E3E0D8", outlineColor: AMBER }} />
+                style={{ borderColor: "#E3E0D8", outlineColor: NAVY }} />
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: "#7A7A7A" }}>Message *</label>
@@ -433,9 +433,9 @@ function ContactModal({ builder, user, onClose }) {
               </button>
               <button type="submit"
                 className="flex-1 text-white font-medium py-2.5 rounded-xl text-sm transition-colors"
-                style={{ backgroundColor: AMBER }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}>
+                style={{ backgroundColor: NAVY }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = NAVY}>
                 Send Message
               </button>
             </div>

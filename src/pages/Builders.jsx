@@ -372,7 +372,7 @@ function BuilderCard({ builder, heroImage }) {
           )}
           {builder.founding_builder && (
             <span className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
-              style={{ backgroundColor: "#C57A1F", color: "#fff", fontSize: "10px" }}>
+              style={{ backgroundColor: "#1B2B4B", color: "#fff", fontSize: "10px" }}>
               Founding Builder
             </span>
           )}
