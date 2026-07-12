@@ -62,21 +62,21 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-white font-sans">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'DM Sans', system-ui, sans-serif; background: #FDFBF8; color: #1B2B4B; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAFBFC; color: #1B2B4B; }
         * { font-family: 'DM Sans', system-ui, sans-serif; }
         h1, h2, h3, h4, h5, h6 { font-family: 'DM Sans', system-ui, sans-serif; }
         .logo-wordmark { font-family: 'DM Sans', system-ui, sans-serif; }
       `}</style>
 
       {/* Header */}
-      <header className="border-b sticky top-0 z-50" style={{ backgroundColor: "#F7F6F3", borderColor: "#E3E0D8" }}>
+      <header className="border-b sticky top-0 z-50" style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E8EC" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex flex-col group" style={{ gap: "0px", lineHeight: 1.05 }}>
-              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 700, fontSize: "1.15rem", color: "#2C3E55", letterSpacing: "0.02em" }}>Stringed</span>
-              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 400, fontSize: "1.15rem", color: "#2C3E55", letterSpacing: "0.13em" }}>Collective</span>
+              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 700, fontSize: "1.15rem", color: "#1B2B4B", letterSpacing: "0.02em" }}>Stringed</span>
+              <span className="logo-wordmark group-hover:opacity-75 transition-opacity" style={{ fontWeight: 400, fontSize: "1.15rem", color: "#1B2B4B", letterSpacing: "0.13em" }}>Collective</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -102,9 +102,9 @@ export default function Layout({ children, currentPageName }) {
                   }
                 }}
                 className="text-sm font-medium transition-colors px-4 py-1.5 border"
-                style={{ color: "#2F3E55", borderColor: "#2F3E55", backgroundColor: "transparent" }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#2F3E55"; e.currentTarget.style.color = "#fff"; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#2F3E55"; }}
+                style={{ color: "#1B2B4B", borderColor: "#1B2B4B", backgroundColor: "transparent" }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#1B2B4B"; e.currentTarget.style.color = "#fff"; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2B4B"; }}
               >
                 Create Your Builder Profile
               </button>
@@ -181,9 +181,9 @@ export default function Layout({ children, currentPageName }) {
                 <button
                   onClick={() => base44.auth.redirectToLogin()}
                   className="text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
-                  style={{ backgroundColor: "#2F3E55" }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#243349"}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#2F3E55"}
+                  style={{ backgroundColor: "#1B2B4B" }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = "#1B2B4B"}
                 >
                   Sign In
                 </button>
@@ -201,7 +201,7 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Mobile Nav */}
         {menuOpen && (
-        <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#F7F6F3", borderColor: "#E3E0D8" }}>
+        <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E8EC" }}>
             {navLinks.map(l => (
               <Link
                 key={l.page}
@@ -217,7 +217,7 @@ export default function Layout({ children, currentPageName }) {
             <button
               onClick={() => { setMenuOpen(false); if (user && profile?.is_seller) { window.location.href = "/BuilderOnboarding"; } else { setBuilderModalOpen(true); } }}
               className="block w-full text-left py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors"
-              style={{ color: "#2F3E55", backgroundColor: "#F2F0EA" }}
+              style={{ color: "#1B2B4B", backgroundColor: "#F4F7FB" }}
             >
               Join As A Builder
             </button>
@@ -231,7 +231,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 mt-20 border-t border-gray-800">
+      <footer className="text-gray-400 mt-20 border-t" style={{ backgroundColor: "#1B2B4B", borderColor: "#152038" }}>
         <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-5 gap-10">
           <div>
             <div className="flex flex-col mb-4" style={{ gap: "1px", lineHeight: 1.15 }}>
@@ -273,7 +273,7 @@ export default function Layout({ children, currentPageName }) {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 px-4 py-5 text-center text-xs text-gray-600 tracking-wide">
+        <div className="border-t px-4 py-5 text-center text-xs text-gray-600 tracking-wide" style={{ borderColor: "#152038" }}>
           © 2025 Stringed Collective. All rights reserved.
         </div>
       </footer>

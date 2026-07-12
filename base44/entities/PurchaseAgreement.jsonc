@@ -1,0 +1,95 @@
+{
+  "name": "PurchaseAgreement",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "The ID of the associated order"
+    },
+    "buyer_user_id": {
+      "type": "string",
+      "description": "The ID of the buyer"
+    },
+    "builder_user_id": {
+      "type": "string",
+      "description": "The ID of the builder/seller"
+    },
+    "store_id": {
+      "type": "string",
+      "description": "The ID of the builder's storefront/profile"
+    },
+    "agreement_number": {
+      "type": "string",
+      "description": "A unique human-readable identifier for this purchase agreement"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "PurchaseAgreement"
+      ],
+      "default": "PurchaseAgreement",
+      "description": "Type of the document"
+    },
+    "order_type": {
+      "type": "string",
+      "enum": [
+        "stock",
+        "custom"
+      ],
+      "description": "Type of the order (stock build or custom build)"
+    },
+    "buyer_snapshot_json": {
+      "type": "object",
+      "description": "Snapshot of buyer information at the time of agreement generation"
+    },
+    "builder_snapshot_json": {
+      "type": "object",
+      "description": "Snapshot of builder information at the time of agreement generation"
+    },
+    "listing_snapshot_json": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Snapshot of product/listing details (items array) at the time of agreement generation"
+    },
+    "pricing_snapshot_json": {
+      "type": "object",
+      "description": "Snapshot of pricing and transaction details at the time of agreement generation"
+    },
+    "builder_terms_snapshot_json": {
+      "type": "object",
+      "description": "Snapshot of builder's warranty, return, and shipping policies at the time of agreement generation"
+    },
+    "pdf_url": {
+      "type": "string",
+      "description": "URL to the generated PDF document"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the agreement PDF was generated"
+    },
+    "version_number": {
+      "type": "string",
+      "description": "Version of the Purchase Agreement template used for generation"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "generated",
+        "regenerated",
+        "error"
+      ],
+      "default": "generated",
+      "description": "Current status of the PDF generation"
+    }
+  },
+  "required": [
+    "order_id",
+    "buyer_user_id",
+    "builder_user_id",
+    "document_type",
+    "order_type"
+  ]
+}

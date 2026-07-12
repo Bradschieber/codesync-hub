@@ -1,0 +1,76 @@
+{
+  "name": "WarrantyClaim",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "buyer_name": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "issue_description": {
+      "type": "string"
+    },
+    "issue_category": {
+      "type": "string",
+      "enum": [
+        "structural",
+        "finish",
+        "hardware",
+        "electronics",
+        "playability",
+        "other"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "under_review",
+        "approved",
+        "rejected",
+        "repair_in_progress",
+        "resolved",
+        "closed"
+      ],
+      "default": "submitted"
+    },
+    "warranty_terms": {
+      "type": "object"
+    },
+    "builder_response": {
+      "type": "string"
+    },
+    "resolution_description": {
+      "type": "string"
+    },
+    "image_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "order_id",
+    "issue_description"
+  ]
+}

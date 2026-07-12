@@ -1,0 +1,75 @@
+{
+  "name": "CustomBuildListing",
+  "type": "object",
+  "properties": {
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "listing_title": {
+      "type": "string"
+    },
+    "instrument_type": {
+      "type": "string"
+    },
+    "body_shape": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": "string"
+    },
+    "image_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contact_method": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone",
+        "platform_message"
+      ]
+    },
+    "consult_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_get_instant_quote": {
+      "type": "boolean",
+      "default": false
+    },
+    "deposit_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "deposit_amount": {
+      "type": "number"
+    },
+    "payment_terms": {
+      "type": "string"
+    },
+    "starting_price": {
+      "type": "number"
+    },
+    "max_price": {
+      "type": "number"
+    },
+    "estimated_build_time": {
+      "type": "string"
+    },
+    "is_published": {
+      "type": "boolean",
+      "default": false
+    },
+    "available_spec_options": {
+      "type": "object",
+      "description": "Builder-defined available options per specification field. Keys are spec field names, values are objects with 'options' (array of allowed values) and 'notes' (free text).",
+      "additionalProperties": true
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,84 @@
+{
+  "name": "LegalAgreement",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "user",
+        "seller",
+        "admin"
+      ]
+    },
+    "agreement_type": {
+      "type": "string",
+      "enum": [
+        "builder_account_creation",
+        "buyer_account_creation",
+        "builder_policy_confirmation",
+        "stock_build_checkout",
+        "custom_build_agreement",
+        "final_payment_authorization"
+      ]
+    },
+    "checkbox_labels_accepted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "document_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "terms_of_use_version": {
+      "type": "string"
+    },
+    "privacy_policy_version": {
+      "type": "string"
+    },
+    "builder_terms_version": {
+      "type": "string"
+    },
+    "buyer_terms_version": {
+      "type": "string"
+    },
+    "builder_policy_snapshot_version": {
+      "type": "string"
+    },
+    "custom_build_agreement_version": {
+      "type": "string"
+    },
+    "source_screen": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "order_id": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "user_id",
+    "agreement_type"
+  ]
+}

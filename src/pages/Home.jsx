@@ -6,7 +6,8 @@ import { ArrowRight, Guitar, Lock, CreditCard, CheckCircle, MapPin, User, Hammer
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
 import { formatDistanceToNow } from "date-fns";
 
-const NAVY = "#2F3E55";
+const NAVY = "#1B2B4B";
+const TAN = "#C8A870";
 const AMBER = "#C57A1F";
 
 export default function Home() {
@@ -99,10 +100,10 @@ export default function Home() {
   const heroProduct = featured[0] || null;
 
   return (
-    <div style={{ backgroundColor: "#F7F6F3", color: "#1F1F1F" }} className="min-h-screen">
+    <div style={{ backgroundColor: "#FAFBFC", color: "#1F1F1F" }} className="min-h-screen">
 
       {/* ── 1. HERO ── */}
-      <section style={{ background: "linear-gradient(180deg, #F2F0EA 0%, #F7F6F3 100%)" }} className="pt-20 pb-16">
+      <section style={{ background: "linear-gradient(180deg, #EFF3F8 0%, #FAFBFC 100%)" }} className="pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
 
@@ -174,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. FEATURED BUILDS ── */}
-      <section className="py-16 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
+      <section className="py-16 border-t" style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start justify-between mb-8">
             <div>
@@ -217,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* ── 3. TRUST / BUYER PROTECTION ── */}
-      <section className="py-20 border-t" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8" }}>
+      <section className="py-20 border-t" style={{ backgroundColor: "#F4F7FB", borderColor: "#E5E8EC" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-5 tracking-tight" style={{ color: NAVY }}>
@@ -250,7 +251,7 @@ export default function Home() {
 
       {/* ── 4. BUILD STORY FROM THE BENCH ── */}
       {/* HIDDEN: Re-enable when live build content is available. Remove `false &&` to restore. */}
-      {false && <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAF9F7" }}>
+      {false && <section className="py-20 border-t" style={{ borderColor: "#E5E8EC", backgroundColor: "#F4F7FB" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#8A8A8A" }}>From The Bench</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12" style={{ color: "#1A1A1A" }}>
@@ -315,7 +316,7 @@ export default function Home() {
       </section>}
 
       {/* ── 5. FEATURED BUILDERS ── */}
-      <section className="py-20 border-t" style={{ backgroundColor: "#FFFFFF", borderColor: "#E3E0D8" }}>
+      <section className="py-20 border-t" style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E8EC" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -347,7 +348,7 @@ export default function Home() {
 
       {/* ── 6. LIVE CRAFT FEED ── */}
       {(benchPosts.length > 0 || loading) && (
-        <section className="py-20 border-t" style={{ borderColor: "#E3E0D8", backgroundColor: "#F2F0EA" }}>
+        <section className="py-20 border-t" style={{ borderColor: "#E5E8EC", backgroundColor: "#F4F7FB" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-3">
               <div>
@@ -384,7 +385,7 @@ export default function Home() {
       )}
 
       {/* ── 7. BUILDER CTA ── */}
-      <section className="py-16" style={{ backgroundColor: "#2F3E55" }}>
+      <section className="py-16" style={{ backgroundColor: NAVY }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 gap-8 items-center">
             <div>
@@ -397,9 +398,9 @@ export default function Home() {
               <button
                 onClick={() => setBuilderModalOpen(true)}
                 className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors"
-                style={{ color: NAVY, backgroundColor: "#FFFFFF" }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#EEF1F7"; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#FFFFFF"; }}
+                style={{ color: "#1B2B4B", backgroundColor: TAN }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#B8985E"; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = TAN; }}
               >
                 Become a Founding Builder
               </button>
@@ -428,7 +429,7 @@ function ProductCard({ product }) {
       className="group block no-underline transition-all duration-200"
       style={{
         backgroundColor: "#FFFFFF",
-        boxShadow: hovered ? "0 6px 24px rgba(27,43,75,0.1)" : "none",
+        boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
       }}
       onMouseEnter={() => setHovered(true)}
@@ -468,7 +469,7 @@ function ProductCard({ product }) {
           <p className="text-xs mb-1" style={{ color: "#8A8A8A" }}>{specParts.join(" • ")}</p>
         )}
         {product.builder_name && (
-          <p className="text-xs font-medium" style={{ color: "#5A6A7A" }}>by {product.builder_name}</p>
+          <p className="text-xs font-medium" style={{ color: NAVY }}>by {product.builder_name}</p>
         )}
       </div>
     </Link>
@@ -485,14 +486,14 @@ function BuilderCard({ builder }) {
     <Link
       to={createPageUrl("BuilderProfile?id=" + builder.id)}
       className="group flex gap-5 items-start p-6 border transition-all no-underline"
-      style={{ borderColor: hovered ? NAVY : "#E0DDD8", backgroundColor: "#FFFFFF" }}
+      style={{ borderColor: hovered ? NAVY : "#E5E8EC", backgroundColor: "#FFFFFF", boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {builder.avatar_url ? (
         <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-16 h-16 object-cover flex-shrink-0" style={{ borderRadius: 2 }} />
       ) : (
-        <div className="w-16 h-16 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F2F0EA", borderRadius: 2 }}>
+        <div className="w-16 h-16 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F4F7FB", borderRadius: 2 }}>
           <User className="w-7 h-7" style={{ color: NAVY }} strokeWidth={1.5} />
         </div>
       )}
@@ -524,7 +525,7 @@ function BenchMiniCard({ post }) {
     <Link
       to={createPageUrl("BuilderProfile?id=" + post.builder_id)}
       className="block overflow-hidden bg-white border border-stone-200 transition-all duration-200 no-underline"
-      style={{ boxShadow: hovered ? "0 6px 20px rgba(0,0,0,0.10)" : "0 1px 3px rgba(0,0,0,0.06)", transform: hovered ? "translateY(-2px)" : "translateY(0)" }}
+      style={{ boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)", transform: hovered ? "translateY(-2px)" : "translateY(0)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

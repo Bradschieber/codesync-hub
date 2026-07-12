@@ -1,0 +1,19 @@
+{
+  "name": "SavedBuilder",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": []
+}

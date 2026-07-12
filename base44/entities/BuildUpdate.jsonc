@@ -1,0 +1,66 @@
+{
+  "name": "BuildUpdate",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "builder_location": {
+      "type": "string"
+    },
+    "builder_avatar_url": {
+      "type": "string"
+    },
+    "builder_slug": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string",
+      "enum": [
+        "Wood Selection",
+        "Neck Carving",
+        "Body Shaping",
+        "Electronics",
+        "Finishing",
+        "Setup",
+        "Sound Test"
+      ]
+    },
+    "photo_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, this update is shared publicly on From The Bench"
+    }
+  },
+  "required": [
+    "order_id",
+    "title"
+  ]
+}

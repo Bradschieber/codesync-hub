@@ -18,6 +18,22 @@
       "type": "string",
       "description": "Editorial story about this specific instrument \u2014 materials, inspiration, craftsmanship details"
     },
+    "feel_to_play": {
+      "type": "string",
+      "description": "How the instrument feels to play \u2014 comfort, balance, responsiveness, neck feel"
+    },
+    "tonal_character": {
+      "type": "string",
+      "description": "How the instrument responds musically \u2014 warm, open, punchy, articulate, resonant, etc."
+    },
+    "suited_for_player": {
+      "type": "string",
+      "description": "What kind of player or playing priorities this build is especially well suited for"
+    },
+    "beyond_the_specs": {
+      "type": "string",
+      "description": "What is special or distinctive about this build beyond the technical specifications"
+    },
     "price": {
       "type": "number"
     },
@@ -441,32 +457,25 @@
       "description": "Whether to use Shippo dynamic rates or a builder-defined flat rate"
     },
     "package_length_in": {
-      "type": "number",
-      "description": "Package length in inches (for dynamic Shippo rates)"
+      "type": "number"
     },
     "package_width_in": {
-      "type": "number",
-      "description": "Package width in inches (for dynamic Shippo rates)"
+      "type": "number"
     },
     "package_height_in": {
-      "type": "number",
-      "description": "Package height in inches (for dynamic Shippo rates)"
+      "type": "number"
     },
     "package_weight_lb": {
-      "type": "number",
-      "description": "Package weight in pounds (for dynamic Shippo rates)"
+      "type": "number"
     },
     "customs_description": {
-      "type": "string",
-      "description": "Item description for customs (e.g. 'Handcrafted Electric Guitar')"
+      "type": "string"
     },
     "declared_value": {
-      "type": "number",
-      "description": "Declared value for customs/insurance (defaults to product price)"
+      "type": "number"
     },
     "flat_shipping_amount": {
-      "type": "number",
-      "description": "Flat rate shipping cost in USD (for flat_rate option)"
+      "type": "number"
     }
   },
   "required": [

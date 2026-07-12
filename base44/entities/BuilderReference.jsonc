@@ -1,0 +1,37 @@
+{
+  "name": "BuilderReference",
+  "type": "object",
+  "properties": {
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "buyer_name": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "verified",
+        "rejected"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "buyer_name",
+    "quote"
+  ]
+}

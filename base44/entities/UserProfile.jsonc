@@ -51,8 +51,7 @@
     },
     "is_approved": {
       "type": "boolean",
-      "default": false,
-      "description": "Admin must approve a builder's storefront before it goes live on the site"
+      "default": false
     },
     "business_name": {
       "type": "string"
@@ -68,7 +67,6 @@
     },
     "instrument_types_built": {
       "type": "array",
-      "description": "Types of instruments the builder builds",
       "items": {
         "type": "object",
         "properties": {
@@ -102,6 +100,18 @@
     },
     "typical_build_time": {
       "type": "string"
+    },
+    "musical_influences_loves": {
+      "type": "string",
+      "description": "What kinds of music the builder loves most \u2014 styles, sounds, musical worlds that inspire their work"
+    },
+    "musical_influences_artists": {
+      "type": "string",
+      "description": "Artists, records, or players that have shaped the builder's ear and musical sensibility"
+    },
+    "musical_influences_in_builds": {
+      "type": "string",
+      "description": "How the builder's musical taste and influences show up in the instruments they build"
     },
     "deposit_required": {
       "type": "boolean",
@@ -146,7 +156,6 @@
     },
     "warranty_coverage": {
       "type": "array",
-      "description": "Per-category warranty coverage with individual durations",
       "items": {
         "type": "object",
         "properties": {
@@ -294,8 +303,7 @@
     },
     "featured_until_date": {
       "type": "string",
-      "format": "date",
-      "description": "Optional expiry date for featured placement."
+      "format": "date"
     },
     "is_verified": {
       "type": "boolean",
@@ -303,8 +311,7 @@
     },
     "founding_builder": {
       "type": "boolean",
-      "default": false,
-      "description": "Admin-assigned badge for early builders who helped launch the marketplace"
+      "default": false
     },
     "media_urls": {
       "type": "array",
@@ -314,7 +321,6 @@
     },
     "custom_build_examples": {
       "type": "array",
-      "description": "Portfolio images showcasing past custom build work",
       "items": {
         "type": "object",
         "properties": {
@@ -322,12 +328,10 @@
             "type": "string"
           },
           "title": {
-            "type": "string",
-            "description": "Optional project title"
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "description": "Optional short notes about this build"
+            "type": "string"
           },
           "caption": {
             "type": "string"
@@ -385,16 +389,13 @@
       "type": "string"
     },
     "introduction_video_url": {
-      "type": "string",
-      "description": "URL to a short introduction/interview video for the builder (YouTube, Vimeo, etc.)"
+      "type": "string"
     },
     "introduction_video_title": {
-      "type": "string",
-      "description": "Optional title or caption for the introduction video"
+      "type": "string"
     },
     "stripe_account_id": {
-      "type": "string",
-      "description": "Stripe Connect account ID for this builder"
+      "type": "string"
     },
     "stripe_onboarding_status": {
       "type": "string",
@@ -404,28 +405,23 @@
         "pending_verification",
         "complete"
       ],
-      "default": "not_started",
-      "description": "Current state of Stripe Connect onboarding"
+      "default": "not_started"
     },
     "stripe_payouts_enabled": {
       "type": "boolean",
-      "default": false,
-      "description": "True when Stripe reports charges_enabled and payouts_enabled for this account"
+      "default": false
     },
     "stripe_charges_enabled": {
       "type": "boolean",
-      "default": false,
-      "description": "True when Stripe reports charges are enabled for this account"
+      "default": false
     },
     "is_first_sale_completed": {
       "type": "boolean",
-      "default": false,
-      "description": "True after builder's first sale has been fully paid out. Disables first-sale hold rules."
+      "default": false
     },
     "last_successful_sale_date": {
       "type": "string",
-      "format": "date",
-      "description": "Date of most recent successfully completed and paid-out sale"
+      "format": "date"
     }
   },
   "required": []

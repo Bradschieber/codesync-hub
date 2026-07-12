@@ -1,0 +1,55 @@
+{
+  "name": "LegalDocument",
+  "type": "object",
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "terms_of_use",
+        "privacy_policy",
+        "builder_terms",
+        "buyer_terms"
+      ]
+    },
+    "public_title": {
+      "type": "string"
+    },
+    "version_number": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "body_content": {
+      "type": "string"
+    },
+    "public_url": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "document_type",
+    "version_number",
+    "status"
+  ]
+}

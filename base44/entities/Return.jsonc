@@ -1,0 +1,67 @@
+{
+  "name": "Return",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string"
+    },
+    "builder_id": {
+      "type": "string"
+    },
+    "builder_name": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "buyer_name": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "requested",
+        "approved",
+        "rejected",
+        "item_received",
+        "refunded",
+        "closed"
+      ],
+      "default": "requested"
+    },
+    "return_policy_terms": {
+      "type": "object"
+    },
+    "refund_amount": {
+      "type": "number"
+    },
+    "builder_notes": {
+      "type": "string"
+    },
+    "buyer_notes": {
+      "type": "string"
+    },
+    "return_shipping_tracking": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "order_id",
+    "reason"
+  ]
+}
