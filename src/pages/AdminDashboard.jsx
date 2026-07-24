@@ -64,8 +64,8 @@ export default function AdminDashboard() {
 
   const adminTools = [
     {
-      title: "Buyer Accounts",
-      description: "View, deactivate, or delete non-builder buyer accounts registered on the platform.",
+      title: "User Accounts",
+      description: "View, deactivate, delete buyer accounts, and invite new admins or users to the platform.",
       icon: UserCircle,
       page: "AdminUserAccounts",
       badge: null,
