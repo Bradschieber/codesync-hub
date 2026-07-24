@@ -19,6 +19,8 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
   const [approved, setApproved] = useState(false);
   const [processingError, setProcessingError] = useState(null);
 
+  const originalImage = product.original_hero_image_url || product.image_urls?.[0] || null;
+
   // Keep localProcessedUrl in sync if parent updates the product prop (after processing completes)
   useEffect(() => {
     if (product.processed_hero_image_url) {
@@ -29,6 +31,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
   // Poll for processed image if not yet available
   useEffect(() => {
     if (localProcessedUrl) return; // already have it
+    if (!originalImage) return; // no source photo to process
 
     let cancelled = false;
     let attempts = 0;
@@ -57,7 +60,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
     // Start polling after a short delay
     const timer = setTimeout(poll, 2000);
     return () => { cancelled = true; clearTimeout(timer); };
-  }, [product.id, localProcessedUrl]);
+  }, [product.id, localProcessedUrl, originalImage]);
 
   async function handleApprove() {
     setSaving(true);
@@ -89,9 +92,8 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
     e.target.value = "";
   }
 
-  const originalImage = product.original_hero_image_url || product.image_urls?.[0] || null;
   const processedImage = localProcessedUrl;
-  const isProcessing = !processedImage && !processingError;
+  const isProcessing = !processedImage && !processingError && !!originalImage;
 
   if (approved) {
     return (
@@ -157,6 +159,13 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
               <div className="overflow-hidden relative" style={{ aspectRatio: "4/3", backgroundColor: "#EEF1F7" }}>
                 {processedImage ? (
                   <img src={processedImage} alt="Clean marketplace version" className="w-full h-full object-cover" />
+                ) : !originalImage ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <ImageIcon className="w-8 h-8" style={{ color: "#C8C4BC" }} />
+                    <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>
+                      No photo to process yet — upload a primary photo, or continue with limited visibility.
+                    </p>
+                  </div>
                 ) : processingError ? (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
                     <ImageIcon className="w-8 h-8" style={{ color: "#C8C4BC" }} />
