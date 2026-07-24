@@ -20,6 +20,10 @@
     "avatar_url": {
       "type": "string"
     },
+    "card_photo_url": {
+      "type": "string",
+      "description": "Primary photo shown on builder directory cards and discovery surfaces. Cropped to 4:3 aspect ratio."
+    },
     "bio": {
       "type": "string"
     },

@@ -1,5 +1,6 @@
 import { base44 } from "@/api/base44Client";
 import { Palette } from "lucide-react";
+import CardPhotoUploader from "../builder/CardPhotoUploader";
 
 const LAYOUTS = [
   {
@@ -92,6 +93,14 @@ export default function StorefrontCustomizer({ form, setForm }) {
           )}
         </div>
         <p className="text-xs text-stone-400 mt-1">Your logo will appear prominently in your storefront header.</p>
+      </div>
+
+      {/* Card Photo Upload */}
+      <div className="pt-2 border-t border-stone-100 mt-4">
+        <CardPhotoUploader
+          cardPhotoUrl={form.card_photo_url}
+          onChange={url => setForm(f => ({ ...f, card_photo_url: url }))}
+        />
       </div>
 
       {/* Banner Upload */}

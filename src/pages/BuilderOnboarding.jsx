@@ -8,6 +8,7 @@ import {
   Instagram, Facebook, X as XIcon, ChevronDown, ChevronUp, Lock, DollarSign, Building2
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
+import CardPhotoUploader from "../components/builder/CardPhotoUploader";
 import LocationFields from "../components/onboarding/LocationFields";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
@@ -555,6 +556,14 @@ export default function BuilderOnboarding() {
           {/* STEP 3: Show Your Craft */}
           {step === 2 && (
             <div className="space-y-8">
+
+              {/* Builder Card Photo — the primary image buyers see in discovery */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <CardPhotoUploader
+                  cardPhotoUrl={form.card_photo_url}
+                  onChange={url => setForm(f => ({ ...f, card_photo_url: url }))}
+                />
+              </div>
 
               {/* Elevated moment — this is the visual centrepiece of the flow */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>

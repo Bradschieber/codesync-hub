@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ArrowRight, Guitar, Lock, CreditCard, CheckCircle, MapPin, User, Hammer, Check } from "lucide-react";
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
+import BuilderCard from "../components/builders/BuilderCard";
 import { formatDistanceToNow } from "date-fns";
 
 const NAVY = "#1B2B4B";
@@ -13,6 +14,7 @@ const AMBER = "#C57A1F";
 export default function Home() {
   const [featured, setFeatured] = useState([]);
   const [builders, setBuilders] = useState([]);
+  const [builderListings, setBuilderListings] = useState({});
   const [benchPosts, setBenchPosts] = useState([]);
   const [buildStory, setBuildStory] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,6 +52,17 @@ export default function Home() {
     const featuredFirst = discoverable.filter(p => p.is_featured);
     setFeatured(featuredFirst.length >= 4 ? featuredFirst.slice(0, 6) : discoverable.slice(0, 6));
     setBuilders(bldrs);
+
+    // Build listings map for builder cards: up to 3 products per builder
+    const bListings = {};
+    discoverable.forEach(p => {
+      if (!bListings[p.builder_id]) bListings[p.builder_id] = [];
+      if (bListings[p.builder_id].length < 3) {
+        const img = p.processed_hero_image_url || p.image_urls?.[0] || null;
+        if (img) bListings[p.builder_id].push({ image: img, price: p.price, name: p.name });
+      }
+    });
+    setBuilderListings(bListings);
 
     // Pick one editorial build story (prefer BuildUpdate with photo)
     const storyCandidate = buildUpdates.find(u => u.photo_urls?.[0]);
@@ -329,7 +342,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {builders.map(b => <BuilderCard key={b.id} builder={b} />)}
+            {builders.map(b => <BuilderCard key={b.id} builder={b} listings={builderListings[b.id] || []} />)}
             {builders.length === 0 && (
               <div className="col-span-3 py-10 text-center text-sm" style={{ color: "#9A9A9A" }}>
                 No featured builders yet.{" "}
@@ -476,44 +489,7 @@ function ProductCard({ product }) {
   );
 }
 
-function BuilderCard({ builder }) {
-  const [hovered, setHovered] = useState(false);
-  const instrumentTypes = (builder.instrument_types_built || []).map(i =>
-    i.type === "Other" && i.other_description ? i.other_description : i.type
-  );
 
-  return (
-    <Link
-      to={createPageUrl("BuilderProfile?id=" + builder.id)}
-      className="group flex gap-5 items-start p-6 border transition-all no-underline"
-      style={{ borderColor: hovered ? NAVY : "#E5E8EC", backgroundColor: "#FFFFFF", boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {builder.avatar_url ? (
-        <img src={builder.avatar_url} alt={builder.business_name || builder.display_name} className="w-16 h-16 object-cover flex-shrink-0" style={{ borderRadius: 2 }} />
-      ) : (
-        <div className="w-16 h-16 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F4F7FB", borderRadius: 2 }}>
-          <User className="w-7 h-7" style={{ color: NAVY }} strokeWidth={1.5} />
-        </div>
-      )}
-      <div className="min-w-0 flex-1">
-        <h3 className="font-bold text-sm mb-1 truncate" style={{ color: "#1A1A1A" }}>{builder.business_name || builder.display_name}</h3>
-        {builder.location && (
-          <p className="text-xs flex items-center gap-1 mb-1.5" style={{ color: "#7A7A7A" }}>
-            <MapPin className="w-3 h-3 flex-shrink-0" />{builder.location}
-          </p>
-        )}
-        {instrumentTypes.length > 0 && (
-          <p className="text-xs mb-2" style={{ color: "#4A5566" }}>{instrumentTypes.join(" • ")}</p>
-        )}
-        <div className="text-xs font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: NAVY }}>
-          View Builder <ArrowRight className="w-3 h-3" />
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 function BenchMiniCard({ post }) {
   const [hovered, setHovered] = useState(false);

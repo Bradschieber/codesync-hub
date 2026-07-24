@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Search, Guitar, X, ChevronDown, User, MapPin, ArrowRight } from "lucide-react";
 import FeaturedBuilders from "../components/builders/FeaturedBuilders";
+import BuilderCard from "../components/builders/BuilderCard";
 import BuildersMap from "../components/builders/BuildersMap";
 
 const NAVY = "#1B2B4B";
@@ -49,7 +50,7 @@ function matchesExperience(years, range) {
 export default function Builders() {
   const [builders, setBuilders] = useState([]);
   const [shuffled, setShuffled] = useState([]);
-  const [productImageMap, setProductImageMap] = useState({});
+  const [builderListings, setBuilderListings] = useState({});
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [instrumentFilter, setInstrumentFilter] = useState("");
@@ -77,23 +78,26 @@ export default function Builders() {
       return;
     }
 
-    // Build image map: only include products from approved builders, prefer processed/cleaned hero image
+    // Build listings map: up to 3 products per builder with image + price for card thumbnails
     const approvedBuilderIds = new Set(data.map(b => b.id));
-    const imgMap = {};
-    [...products].reverse().forEach(p => {
-      if (!approvedBuilderIds.has(p.builder_id)) return;
-      const img = p.processed_hero_image_url || null;
-      if (img) imgMap[p.builder_id] = img;
+    const listingsMap = {};
+    // Prefer featured products first, then most recent
+    const sortedProducts = [...products].sort((a, b) => {
+      if (a.is_featured && !b.is_featured) return -1;
+      if (!a.is_featured && b.is_featured) return 1;
+      return new Date(b.created_date) - new Date(a.created_date);
     });
-    // For builders without a processed image, use no image (show placeholder)
-    // Featured products override if they have a processed image
-    products.forEach(p => {
-      if (p.is_featured && p.processed_hero_image_url && approvedBuilderIds.has(p.builder_id)) {
-        imgMap[p.builder_id] = p.processed_hero_image_url;
+    sortedProducts.forEach(p => {
+      if (!approvedBuilderIds.has(p.builder_id)) return;
+      const img = p.processed_hero_image_url || p.image_urls?.[0] || null;
+      if (!img) return;
+      if (!listingsMap[p.builder_id]) listingsMap[p.builder_id] = [];
+      if (listingsMap[p.builder_id].length < 3) {
+        listingsMap[p.builder_id].push({ image: img, price: p.price, name: p.name });
       }
     });
 
-    setProductImageMap(imgMap);
+    setBuilderListings(listingsMap);
     setBuilders(data);
     setShuffled(shuffle(data));
     setLoading(false);
@@ -212,7 +216,7 @@ export default function Builders() {
         </div>
 
         {/* FEATURED BUILDERS */}
-        <FeaturedBuilders builders={builders} productImageMap={productImageMap} />
+        <FeaturedBuilders builders={builders} builderListings={builderListings} />
 
         {/* MAP */}
         <BuildersMap builders={builders} />
@@ -254,10 +258,10 @@ export default function Builders() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {visible.map(builder => (
                 <BuilderCard
-                  key={builder.id}
-                  builder={builder}
-                  heroImage={productImageMap[builder.id] || null}
-                />
+                   key={builder.id}
+                   builder={builder}
+                   listings={builderListings[builder.id] || []}
+                 />
               ))}
             </div>
             {hasMore && (
@@ -325,98 +329,5 @@ function FilterSelect({ value, onChange, options, active }) {
       </select>
       <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none" style={{ color: active ? "#FFFFFF" : "#9A9A9A" }} />
     </div>
-  );
-}
-
-function BuilderCard({ builder, heroImage }) {
-  const [hovered, setHovered] = useState(false);
-
-  const instrumentTypes = (builder.instrument_types_built || []).map(i =>
-    i.type === "Other" && i.other_description ? i.other_description : i.type
-  );
-
-  return (
-    <Link
-      to={createPageUrl("BuilderProfile?id=" + builder.id)}
-      className="group block border overflow-hidden transition-all duration-300 no-underline"
-      style={{
-        borderColor: hovered ? NAVY : "#E5E8EC",
-        backgroundColor: "#FFFFFF",
-        boxShadow: hovered ? "0 8px 24px rgba(27,43,75,0.12)" : "0 1px 3px rgba(27,43,75,0.06)",
-        transform: hovered ? "translateY(-2px)" : "translateY(0)",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Image */}
-      <div className="relative overflow-hidden bg-stone-100" style={{ aspectRatio: "1/1" }}>
-        {heroImage ? (
-          <img
-            src={heroImage}
-            alt={builder.business_name || builder.display_name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: "#EEF1F7" }}>
-            <User className="w-8 h-8" style={{ color: "#CCCCCC" }} strokeWidth={1} />
-          </div>
-        )}
-
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
-          {builder.is_verified && (
-            <span className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
-              style={{ backgroundColor: "rgba(255,255,255,0.92)", color: NAVY, fontSize: "10px" }}>
-              ✓ Verified
-            </span>
-          )}
-          {builder.founding_builder && (
-            <span className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
-              style={{ backgroundColor: "#1B2B4B", color: "#fff", fontSize: "10px" }}>
-              Founding Builder
-            </span>
-          )}
-        </div>
-
-        {/* Hover overlay */}
-        <div
-          className="absolute inset-0 flex items-end justify-center pb-3 transition-opacity duration-200"
-          style={{
-            opacity: hovered ? 1 : 0,
-            background: "linear-gradient(to top, rgba(27,43,75,0.65) 0%, transparent 60%)"
-          }}
-        >
-          <span className="text-white text-xs font-semibold flex items-center gap-1">
-            View Builder <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="p-3">
-        <h3 className="font-bold text-sm leading-tight mb-0.5 truncate" style={{ color: "#1A1A1A" }}>
-          {builder.business_name || builder.display_name}
-        </h3>
-        {builder.location && (
-          <p className="text-xs flex items-center gap-0.5 mb-1" style={{ color: "#7A7A7A" }}>
-            <MapPin className="w-3 h-3 flex-shrink-0" />
-            <span className="truncate">{builder.location}</span>
-          </p>
-        )}
-        {instrumentTypes.length > 0 && (
-          <p className="text-xs font-medium mb-1 truncate" style={{ color: "#4A5566" }}>
-            {instrumentTypes.join(" • ")}
-          </p>
-        )}
-        <div className="flex flex-wrap items-center gap-x-2">
-          {builder.years_experience > 0 && (
-            <p className="text-xs" style={{ color: "#9A9A9A" }}>{builder.years_experience} yrs experience</p>
-          )}
-          {builder.total_instruments_built > 0 && (
-            <p className="text-xs" style={{ color: "#9A9A9A" }}>{builder.total_instruments_built} completed builds</p>
-          )}
-        </div>
-      </div>
-    </Link>
   );
 }
