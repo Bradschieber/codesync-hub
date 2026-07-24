@@ -11,9 +11,13 @@ export default function ShippingSelector({ cartItems, shippingAddress, onShippin
   const [selectedRate, setSelectedRate] = useState(null);
   const prevAddressRef = useRef("");
 
+  // State is only required for US/CA — many supported countries (UK, AU, JP,
+  // SG, most EU) don't use it, so we must not block shipping on it.
+  const needsState = shippingAddress.country === "US" || shippingAddress.country === "CA";
   const addressComplete =
     shippingAddress.address && shippingAddress.city &&
-    shippingAddress.state && shippingAddress.zip && shippingAddress.country;
+    (!needsState || shippingAddress.state) &&
+    shippingAddress.zip && shippingAddress.country;
 
   useEffect(() => {
     if (!addressComplete) {

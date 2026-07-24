@@ -47,17 +47,25 @@ Deno.serve(async (req) => {
       },
     ];
 
+    // Build the address for Stripe Tax. State is only included when present —
+    // many supported countries (UK, AU, JP, SG, most EU) don't use a
+    // state/province field, and Stripe Tax derives the correct jurisdiction
+    // from postal_code + country regardless.
+    const taxAddress = {
+      line1: shipping_address.line1 || shipping_address.address || '',
+      city: shipping_address.city,
+      postal_code: shipping_address.postal_code || shipping_address.zip,
+      country: country,
+    };
+    if (shipping_address.state && shipping_address.state.trim()) {
+      taxAddress.state = shipping_address.state.trim();
+    }
+
     const calcParams = {
       currency: 'usd',
       line_items: lineItems,
       customer_details: {
-        address: {
-          line1: shipping_address.line1 || shipping_address.address || '',
-          city: shipping_address.city,
-          state: shipping_address.state,
-          postal_code: shipping_address.postal_code || shipping_address.zip,
-          country: country,
-        },
+        address: taxAddress,
         address_source: 'shipping',
       },
     };
