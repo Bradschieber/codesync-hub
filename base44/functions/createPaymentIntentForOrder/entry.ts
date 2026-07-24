@@ -42,22 +42,30 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Builder does not have a Stripe account connected' }, { status: 400 });
     }
 
-    // Calculate fees
+    // --- Fee calculations ---
+    // Platform fee (5%) applies to the item subtotal ONLY — never to tax.
+    const subtotalCents = Math.round((order.subtotal_amount || 0) * 100);
+    const taxCents = Math.round((order.tax_amount || 0) * 100);
     const grossAmountCents = Math.round((order.total_gross_amount || 0) * 100);
     if (grossAmountCents <= 0) return Response.json({ error: 'Order has no valid amount' }, { status: 400 });
 
-    const platformFeeCents = Math.round(grossAmountCents * 0.05);
+    const platformFeeCents = Math.round(subtotalCents * 0.05);
     const stripeFeeCents = estimateStripeFee(grossAmountCents);
-    const builderNetCents = grossAmountCents - platformFeeCents - stripeFeeCents;
+
+    // Application fee = platform fee + collected tax.
+    // The platform (merchant of record for destination charges) retains the
+    // tax for remittance; the builder receives 95% of subtotal + shipping.
+    const applicationFeeCents = platformFeeCents + taxCents;
+    const builderNetCents = grossAmountCents - applicationFeeCents - stripeFeeCents;
 
     // First-sale protection: active until builder has completed one fully paid-out sale
     const isFirstTransaction = !builder.is_first_sale_completed;
 
-    // Create Stripe PaymentIntent
+    // Create Stripe PaymentIntent (destination charge model)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: grossAmountCents,
       currency: 'usd',
-      application_fee_amount: platformFeeCents,
+      application_fee_amount: applicationFeeCents,
       transfer_data: {
         destination: builder.stripe_account_id,
       },
@@ -66,6 +74,9 @@ Deno.serve(async (req) => {
         builder_id: order.builder_id,
         buyer_id: user.id,
         platform: 'stringed_collective',
+        tax_provider: order.tax_provider || 'stripe_tax',
+        stripe_tax_calculation_id: order.stripe_tax_calculation_id || '',
+        tax_amount: String(taxCents / 100),
       },
     });
 
@@ -87,6 +98,8 @@ Deno.serve(async (req) => {
       feeBreakdown: {
         grossAmount: grossAmountCents / 100,
         platformFee: platformFeeCents / 100,
+        taxAmount: taxCents / 100,
+        applicationFee: applicationFeeCents / 100,
         estimatedStripeFee: stripeFeeCents / 100,
         estimatedBuilderNet: builderNetCents / 100,
       },

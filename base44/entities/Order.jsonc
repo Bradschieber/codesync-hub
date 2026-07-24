@@ -164,6 +164,29 @@
       "type": "number",
       "description": "Total tax charged on this order"
     },
+    "tax_provider": {
+      "type": "string",
+      "enum": [
+        "stripe_tax"
+      ],
+      "description": "Tax calculation engine used for this order"
+    },
+    "tax_amount_item": {
+      "type": "number",
+      "description": "Tax charged on item subtotal only"
+    },
+    "tax_amount_shipping": {
+      "type": "number",
+      "description": "Tax charged on shipping cost only"
+    },
+    "tax_jurisdiction_state": {
+      "type": "string",
+      "description": "Buyer's state used for tax calculation"
+    },
+    "tax_jurisdiction_country": {
+      "type": "string",
+      "description": "Buyer's country used for tax calculation"
+    },
     "tax_amount_deposit": {
       "type": "number",
       "description": "Tax charged on the deposit payment"
@@ -182,7 +205,7 @@
     },
     "stripe_tax_calculation_id_final": {
       "type": "string",
-      "description": "Stripe Tax calculation ID for final payment"
+      "description": "Stripe Tax calculation ID for final balance payment"
     },
     "platform_fee_percent": {
       "type": "number",

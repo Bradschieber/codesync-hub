@@ -98,6 +98,9 @@ export default function Checkout() {
   const [paid, setPaid] = useState(false);
   const [shippingRate, setShippingRate] = useState(null);
   const [taxAmount, setTaxAmount] = useState(0);
+  const [taxCalculationId, setTaxCalculationId] = useState(null);
+  const [taxBreakdown, setTaxBreakdown] = useState(null);
+  const [taxError, setTaxError] = useState("");
   const [calcingTax, setCalcingTax] = useState(false);
 
   const [shippingAddress, setShippingAddress] = useState({
@@ -133,18 +136,22 @@ export default function Checkout() {
     }
   }
 
-  // Recalculate tax whenever shipping changes
+  // Recalculate tax whenever shipping rate or address changes
   useEffect(() => {
     if (!shippingRate) {
       setTaxAmount(0);
+      setTaxCalculationId(null);
+      setTaxBreakdown(null);
+      setTaxError("");
       return;
     }
     calcTax();
-  }, [shippingRate]);
+  }, [shippingRate, shippingAddress.state, shippingAddress.zip, shippingAddress.city, shippingAddress.address, shippingAddress.country]);
 
   async function calcTax() {
-    if (!shippingAddress.zip) return;
+    if (!shippingAddress.zip || !shippingAddress.state) return;
     setCalcingTax(true);
+    setTaxError("");
     try {
       const subtotal = cartItems.reduce((sum, item) => {
         const p = products[item.product_id];
@@ -152,7 +159,7 @@ export default function Checkout() {
       }, 0);
 
       const res = await base44.functions.invoke("calculateTax", {
-        amount: subtotal,
+        item_amount: subtotal,
         shipping_amount: shippingRate?.amount || 0,
         shipping_address: {
           line1: shippingAddress.address,
@@ -162,9 +169,28 @@ export default function Checkout() {
           country: shippingAddress.country || "US",
         },
       });
+
+      if (res.data?.error) {
+        setTaxAmount(0);
+        setTaxCalculationId(null);
+        setTaxBreakdown(null);
+        setTaxError(res.data.message || "Tax calculation failed. Please verify your address.");
+        return;
+      }
+
       setTaxAmount(res.data?.tax_amount || 0);
-    } catch {
+      setTaxCalculationId(res.data?.stripe_tax_calculation_id || null);
+      setTaxBreakdown({
+        item: res.data?.tax_amount_item || 0,
+        shipping: res.data?.tax_amount_shipping || 0,
+        state: res.data?.tax_jurisdiction_state || shippingAddress.state,
+      });
+      setTaxError("");
+    } catch (err) {
       setTaxAmount(0);
+      setTaxCalculationId(null);
+      setTaxBreakdown(null);
+      setTaxError(err?.response?.data?.message || "We could not calculate sales tax for your address. Please verify your shipping address.");
     } finally {
       setCalcingTax(false);
     }
@@ -172,6 +198,14 @@ export default function Checkout() {
 
   async function createOrder() {
     if (!shippingRate) return;
+
+    // Hard-enforce: US orders must have a valid Stripe Tax calculation before proceeding
+    const isUS = (shippingAddress.country || "US").toUpperCase() === "US";
+    if (isUS && !taxCalculationId) {
+      setTaxError("Sales tax must be calculated before checkout. Please verify your shipping address.");
+      return;
+    }
+
     setCreating(true);
 
     const subtotal = cartItems.reduce((sum, item) => {
@@ -199,7 +233,13 @@ export default function Checkout() {
       shipping_service: shippingRate.service,
       shipping_estimated_days: shippingRate.estimated_days,
       shippo_rate_object_id: shippingRate.shippo_rate_object_id,
+      tax_provider: "stripe_tax",
       tax_amount: taxAmount,
+      tax_amount_item: taxBreakdown?.item || 0,
+      tax_amount_shipping: taxBreakdown?.shipping || 0,
+      tax_jurisdiction_state: shippingAddress.state,
+      tax_jurisdiction_country: "US",
+      stripe_tax_calculation_id: taxCalculationId,
       total_gross_amount: total,
       total_amount: total,
       shipping_address: {
@@ -234,6 +274,7 @@ export default function Checkout() {
   }, 0);
 
   const shippingCost = shippingRate?.amount || 0;
+  const isUSAddress = (shippingAddress.country || "US").toUpperCase() === "US";
   const total = subtotal + shippingCost + taxAmount;
 
   if (loading) {
@@ -334,13 +375,19 @@ export default function Checkout() {
                     onChange={e => setShippingAddress(a => ({ ...a, zip: e.target.value }))}
                     className="border border-stone-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400"
                   />
-                  <input
-                    type="text"
-                    placeholder="Country"
+                  <select
                     value={shippingAddress.country}
                     onChange={e => setShippingAddress(a => ({ ...a, country: e.target.value }))}
-                    className="border border-stone-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400"
-                  />
+                    className="border border-stone-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400 bg-white"
+                  >
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="INTL">Other / International</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -358,14 +405,26 @@ export default function Checkout() {
             {/* Payment */}
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: "#8A9BB0" }}>Payment</h2>
+              {!isUSAddress && (
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-800 mb-4">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <span>International orders aren't currently supported — check back soon.</span>
+                </div>
+              )}
+              {taxError && isUSAddress && (
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 mb-4">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <span>{taxError}</span>
+                </div>
+              )}
               {!order ? (
                 <button
                   onClick={createOrder}
-                  disabled={creating || !shippingRate}
+                  disabled={creating || !shippingRate || calcingTax || !!taxError || !isUSAddress}
                   className="w-full py-3 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
                   style={{ backgroundColor: NAVY }}
                 >
-                  {creating ? "Preparing order..." : "Continue to Payment"}
+                  {creating ? "Preparing order..." : calcingTax ? "Calculating tax..." : "Continue to Payment"}
                 </button>
               ) : (
                 <Elements stripe={stripePromise}>
@@ -418,7 +477,9 @@ export default function Checkout() {
                   <span>
                     {calcingTax
                       ? <Loader2 className="w-3.5 h-3.5 animate-spin inline" />
-                      : taxAmount > 0 ? formatCurrency(taxAmount) : <span className="text-stone-400">–</span>}
+                      : taxError
+                        ? <span className="text-red-500 text-xs">Unavailable</span>
+                        : taxAmount > 0 ? formatCurrency(taxAmount) : <span className="text-stone-400">–</span>}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-bold pt-2 border-t border-stone-200" style={{ color: NAVY }}>
