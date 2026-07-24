@@ -32,7 +32,8 @@ export default function BuilderProfile() {
 
   async function loadAll() {
     if (!builderId) return;
-    try { const u = await base44.auth.me(); setUser(u); } catch {}
+    let isAdmin = false;
+    try { const u = await base44.auth.me(); setUser(u); isAdmin = u?.role === "admin"; } catch {}
     const [bldrs, prods, revs, refs, orders] = await Promise.all([
       base44.entities.UserProfile.filter({ id: builderId }),
       base44.entities.Product.filter({ builder_id: builderId, status: "available" }),
@@ -40,7 +41,8 @@ export default function BuilderProfile() {
       base44.entities.BuilderReference.filter({ builder_id: builderId, status: "verified" }),
       base44.entities.Order.filter({ builder_id: builderId, status: "delivered" }),
     ]);
-    if (bldrs.length > 0 && bldrs[0].is_approved) setBuilder(bldrs[0]);
+    // Admins can preview unapproved builders; public visitors only see approved ones
+    if (bldrs.length > 0 && (bldrs[0].is_approved || isAdmin)) setBuilder(bldrs[0]);
     setProducts(prods);
     setReviews(revs);
     setReferences(refs);
