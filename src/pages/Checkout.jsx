@@ -8,8 +8,17 @@ import { ShoppingCart, Lock, AlertCircle, CheckCircle2, ChevronLeft, Loader2 } f
 import ShippingSelector from "@/components/checkout/ShippingSelector";
 import { formatCurrency } from "@/lib/utils";
 import { ALLOWED_COUNTRIES, isAllowedCountry } from "@/lib/countries";
+import LegalAcceptanceBlock from "@/components/legal/LegalAcceptanceBlock";
+import LegalLink from "@/components/legal/LegalLink";
+import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "@/lib/legalConfig";
 
 const NAVY = "#1B2B4B";
+
+const TERMS_CHECKBOXES = [
+  { id: "terms", label: <>I agree to the <LegalLink href={LEGAL_URLS.terms_of_use}>Terms of Use</LegalLink>.</> },
+  { id: "privacy", label: <>I agree to the <LegalLink href={LEGAL_URLS.privacy_policy}>Privacy Policy</LegalLink>.</> },
+  { id: "buyerTerms", label: <>I agree to the <LegalLink href={LEGAL_URLS.buyer_terms}>Buyer Terms</LegalLink>.</> },
+];
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
 
 function CheckoutForm({ order, user, shippingRate, onSuccess }) {
@@ -126,6 +135,8 @@ export default function Checkout() {
     zip: "",
     country: "US",
   });
+  const [termsAccepted, setTermsAccepted] = useState({ terms: false, privacy: false, buyerTerms: false });
+  const termsAllChecked = termsAccepted.terms && termsAccepted.privacy && termsAccepted.buyerTerms;
 
   useEffect(() => {
     init();
@@ -277,6 +288,28 @@ export default function Checkout() {
   }
 
   async function handlePaymentSuccess() {
+    // Log legal acceptance for this stock order checkout
+    try {
+      await logLegalAcceptance(base44, {
+        user,
+        agreementType: "stock_build_checkout",
+        checkboxLabels: [
+          "I agree to the Terms of Use.",
+          "I agree to the Privacy Policy.",
+          "I agree to the Buyer Terms.",
+        ],
+        documentUrls: [LEGAL_URLS.terms_of_use, LEGAL_URLS.privacy_policy, LEGAL_URLS.buyer_terms],
+        versions: {
+          terms_of_use: LEGAL_VERSIONS.terms_of_use,
+          privacy_policy: LEGAL_VERSIONS.privacy_policy,
+          buyer_terms: LEGAL_VERSIONS.buyer_terms,
+        },
+        sourceScreen: "Checkout",
+        orderId: order?.id,
+        sourceFlow: "checkout",
+      });
+    } catch {}
+
     // Clear cart
     await Promise.all(cartItems.map(item => base44.entities.CartItem.delete(item.id)));
     setPaid(true);
@@ -430,10 +463,17 @@ export default function Checkout() {
                   <span>{taxError}</span>
                 </div>
               )}
+              <div className="mb-4">
+                <LegalAcceptanceBlock
+                  checkboxes={TERMS_CHECKBOXES}
+                  checked={termsAccepted}
+                  onChange={(id, val) => setTermsAccepted(s => ({ ...s, [id]: val }))}
+                />
+              </div>
               {!order ? (
                 <button
                   onClick={createOrder}
-                  disabled={creating || !shippingRate || calcingTax || !!taxError || !isSupportedCountry}
+                  disabled={creating || !shippingRate || calcingTax || !!taxError || !isSupportedCountry || !termsAllChecked}
                   className="w-full py-3 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
                   style={{ backgroundColor: NAVY }}
                 >

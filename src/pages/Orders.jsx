@@ -258,7 +258,19 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             <CustomBuildAgreementReview
               order={currentOrder}
               builder={null}
-              onAgreementAccepted={(data) => setLocalOrder(o => ({ ...o, current_status: "agreement_accepted", purchase_agreement_signed: true, deposit_amount: data.depositAmount, final_balance_amount: data.finalBalance }))}
+              onAgreementAccepted={(data) => {
+                setLocalOrder(o => ({ ...o, current_status: "agreement_accepted", purchase_agreement_signed: true, deposit_amount: data.depositAmount, final_balance_amount: data.finalBalance }));
+                logLegalAcceptance(base44, {
+                  user,
+                  agreementType: "custom_build_agreement",
+                  checkboxLabels: ["I have reviewed and agree to the purchase agreement, payment terms, builder policies, and all applicable terms for this custom build order."],
+                  documentUrls: [LEGAL_URLS.buyer_terms],
+                  versions: { buyer_terms: LEGAL_VERSIONS.buyer_terms },
+                  sourceScreen: "OrderFormReview",
+                  orderId: currentOrder.id,
+                  sourceFlow: "custom_build_negotiation",
+                }).catch(() => {});
+              }}
             />
           )}
 
@@ -267,7 +279,19 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             <DepositPaymentForm
               order={currentOrder}
               user={user}
-              onDepositPaid={() => setLocalOrder(o => ({ ...o, current_status: "deposit_paid" }))}
+              onDepositPaid={() => {
+                setLocalOrder(o => ({ ...o, current_status: "deposit_paid" }));
+                logLegalAcceptance(base44, {
+                  user,
+                  agreementType: "deposit_authorization",
+                  checkboxLabels: ["I authorize the deposit payment for this custom build order."],
+                  documentUrls: [LEGAL_URLS.buyer_terms],
+                  versions: { buyer_terms: LEGAL_VERSIONS.buyer_terms },
+                  sourceScreen: "Orders_DepositPayment",
+                  orderId: currentOrder.id,
+                  sourceFlow: "checkout",
+                }).catch(() => {});
+              }}
             />
           )}
 
@@ -276,7 +300,19 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
             <FinalPaymentForm
               order={currentOrder}
               user={user}
-              onFinalPaid={() => setLocalOrder(o => ({ ...o, current_status: "final_payment_paid", final_payment_paid: true }))}
+              onFinalPaid={() => {
+                setLocalOrder(o => ({ ...o, current_status: "final_payment_paid", final_payment_paid: true }));
+                logLegalAcceptance(base44, {
+                  user,
+                  agreementType: "final_payment_authorization",
+                  checkboxLabels: ["I authorize the final balance payment for this custom build order."],
+                  documentUrls: [LEGAL_URLS.buyer_terms],
+                  versions: { buyer_terms: LEGAL_VERSIONS.buyer_terms },
+                  sourceScreen: "Orders_FinalPayment",
+                  orderId: currentOrder.id,
+                  sourceFlow: "checkout",
+                }).catch(() => {});
+              }}
             />
           )}
 
