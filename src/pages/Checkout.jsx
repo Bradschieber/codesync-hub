@@ -479,7 +479,7 @@ export default function Checkout() {
                       ? <Loader2 className="w-3.5 h-3.5 animate-spin inline" />
                       : taxError
                         ? <span className="text-red-500 text-xs">Unavailable</span>
-                        : taxAmount > 0 ? formatCurrency(taxAmount) : <span className="text-stone-400">–</span>}
+                        : taxCalculationId ? formatCurrency(taxAmount) : <span className="text-stone-400">–</span>}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-bold pt-2 border-t border-stone-200" style={{ color: NAVY }}>
