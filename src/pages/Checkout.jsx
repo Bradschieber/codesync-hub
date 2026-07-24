@@ -285,31 +285,30 @@ export default function Checkout() {
 
     setOrder(newOrder);
     setCreating(false);
+
+    // Log legal acceptance at the point of order submission (consent captured
+    // regardless of whether the subsequent payment succeeds or fails)
+    logLegalAcceptance(base44, {
+      user,
+      agreementType: "stock_build_checkout",
+      checkboxLabels: [
+        "I agree to the Terms of Use.",
+        "I agree to the Privacy Policy.",
+        "I agree to the Buyer Terms.",
+      ],
+      documentUrls: [LEGAL_URLS.terms_of_use, LEGAL_URLS.privacy_policy, LEGAL_URLS.buyer_terms],
+      versions: {
+        terms_of_use: LEGAL_VERSIONS.terms_of_use,
+        privacy_policy: LEGAL_VERSIONS.privacy_policy,
+        buyer_terms: LEGAL_VERSIONS.buyer_terms,
+      },
+      sourceScreen: "Checkout",
+      orderId: newOrder.id,
+      sourceFlow: "checkout",
+    }).catch(() => {});
   }
 
   async function handlePaymentSuccess() {
-    // Log legal acceptance for this stock order checkout
-    try {
-      await logLegalAcceptance(base44, {
-        user,
-        agreementType: "stock_build_checkout",
-        checkboxLabels: [
-          "I agree to the Terms of Use.",
-          "I agree to the Privacy Policy.",
-          "I agree to the Buyer Terms.",
-        ],
-        documentUrls: [LEGAL_URLS.terms_of_use, LEGAL_URLS.privacy_policy, LEGAL_URLS.buyer_terms],
-        versions: {
-          terms_of_use: LEGAL_VERSIONS.terms_of_use,
-          privacy_policy: LEGAL_VERSIONS.privacy_policy,
-          buyer_terms: LEGAL_VERSIONS.buyer_terms,
-        },
-        sourceScreen: "Checkout",
-        orderId: order?.id,
-        sourceFlow: "checkout",
-      });
-    } catch {}
-
     // Clear cart
     await Promise.all(cartItems.map(item => base44.entities.CartItem.delete(item.id)));
     setPaid(true);
