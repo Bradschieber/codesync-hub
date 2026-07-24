@@ -43,10 +43,48 @@ async function evaluatePayoutRelease(order, builder, newStatus, sb) {
   return null;
 }
 
+// Shippo's published webhook source IPs (US + EU regions)
+const SHIPPO_IP_ALLOWLIST = new Set([
+  '52.4.41.98', '52.23.121.194', '52.44.110.80', '54.81.253.187', '54.81.255.221', // US
+  '34.248.247.69', '34.253.119.130', '52.214.174.64', '54.72.179.250',              // EU
+]);
+
+// In Deno Deploy's serverless runtime there is no raw TCP socket access —
+// the client IP is only available via headers set by the edge proxy.
+// x-forwarded-for is a comma-separated chain where each trusted proxy
+// appends the IP it saw. We take the LAST entry because it is the one
+// appended by Deno Deploy's trusted edge (a client can prepend spoofed
+// entries, but cannot control the trailing one the edge adds).
+function getClientIP(req) {
+  const xff = req.headers.get('x-forwarded-for');
+  if (xff) {
+    const parts = xff.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length > 0) return parts[parts.length - 1];
+  }
+  return req.headers.get('x-real-ip') || 'unknown';
+}
+
 Deno.serve(async (req) => {
   // Only accept POST
   if (req.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405 });
+  }
+
+  // ── Primary auth: shared-secret token via ?token= query parameter ──
+  // Checked BEFORE any order lookup or database access.
+  const SHIPPO_TOKEN = Deno.env.get('SHIPPO_WEBHOOK_TOKEN');
+  const url = new URL(req.url);
+  const token = url.searchParams.get('token');
+  if (!SHIPPO_TOKEN || !token || token !== SHIPPO_TOKEN) {
+    console.warn('Shippo webhook rejected: missing or mismatched token');
+    return new Response('Unauthorized', { status: 401 });
+  }
+
+  // ── Secondary: Shippo IP allowlist (defense-in-depth, non-blocking) ──
+  // Token is the primary gate; IP is a secondary signal in case of proxying.
+  const clientIP = getClientIP(req);
+  if (clientIP !== 'unknown' && !SHIPPO_IP_ALLOWLIST.has(clientIP)) {
+    console.warn(`Shippo webhook from non-allowlisted IP: ${clientIP} — token verified, proceeding`);
   }
 
   try {
