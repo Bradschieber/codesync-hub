@@ -48,10 +48,11 @@ export default function AdminUserAccounts() {
     }
 
     try {
-      const [allUsers, builders] = await Promise.all([
-        base44.entities.User.list("-created_date", 500),
+      const [res, builders] = await Promise.all([
+        base44.functions.invoke("manageUserAccount", { action: "list" }),
         base44.entities.UserProfile.filter({ is_seller: true }, "-created_date", 500),
       ]);
+      const allUsers = res.data?.users || [];
       const builderIds = new Set(builders.map(b => b.user_id).filter(Boolean));
       setBuilderUserIds(builderIds);
       setUsers(allUsers.filter(u => !builderIds.has(u.id) && u.role !== "admin"));

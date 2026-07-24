@@ -10,12 +10,18 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
     }
 
+    const sr = base44.asServiceRole;
+
     const { action, user_id, is_active } = await req.json();
+
+    if (action === 'list') {
+      const allUsers = await sr.entities.User.list("-created_date", 500);
+      return Response.json({ users: allUsers });
+    }
+
     if (!user_id) {
       return Response.json({ error: 'user_id is required' }, { status: 400 });
     }
-
-    const sr = base44.asServiceRole;
 
     if (action === 'delete') {
       // Delete associated UserProfile if it exists (non-builder users may still have one)
