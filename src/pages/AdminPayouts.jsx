@@ -55,24 +55,31 @@ function StatusBadge({ status }) {
   );
 }
 
-function AdminOrderCard({ order, transferInstructions, onUpdate }) {
+function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate }) {
   const [expanded, setExpanded] = useState(false);
   const [adminNotes, setAdminNotes] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
   const [processing, setProcessing] = useState(false);
   const [actionResult, setActionResult] = useState(null);
+  const [confirmRelease, setConfirmRelease] = useState(false);
+  const [confirmCancel, setConfirmCancel] = useState(false);
 
   const relevantTI = transferInstructions.find(ti => ti.order_id === order.id);
+  const builderProfile = builderProfiles.find(p => p.id === order.builder_id || p.user_id === order.builder_id);
 
   async function invokeAction(fn, payload, successMsg) {
     setProcessing(true);
     setActionResult(null);
-    const res = await base44.functions.invoke(fn, payload);
-    if (res.data?.success || res.data?.clientSecret === undefined) {
-      setActionResult({ type: "success", msg: res.data?.message || successMsg });
-      onUpdate();
-    } else {
-      setActionResult({ type: "error", msg: res.data?.error || "Action failed." });
+    try {
+      const res = await base44.functions.invoke(fn, payload);
+      if (res.data?.success || res.data?.clientSecret === undefined) {
+        setActionResult({ type: "success", msg: res.data?.message || successMsg });
+        onUpdate();
+      } else {
+        setActionResult({ type: "error", msg: res.data?.error || "Action failed." });
+      }
+    } catch (err) {
+      setActionResult({ type: "error", msg: err.data?.error || err.message || "Action failed." });
     }
     setProcessing(false);
   }
@@ -80,6 +87,25 @@ function AdminOrderCard({ order, transferInstructions, onUpdate }) {
   const canVerifyShipment = order.current_status === "tracking_submitted";
   const canConfirmDelivery = ["shipment_verified", "shipped"].includes(order.current_status) && !order.delivery_confirmed;
   const canProcessPayout = relevantTI?.status === "ready_for_transfer";
+
+  // Release payout: order is delivered with awaiting_release status (with or without a TI)
+  const canReleasePayout =
+    order.delivery_confirmed &&
+    ["awaiting_release", "held_first_sale"].includes(order.payout_status) &&
+    !order.final_payout_released;
+
+  // Cancel order: stuck in pending_payment with no active payment
+  const canCancelOrder =
+    ["pending_payment", "agreement_pending"].includes(order.current_status) &&
+    !order.stripe_payment_intent_id &&
+    !order.stripe_charge_id;
+
+  // Stripe Connect status for payout release
+  const builderNotFound = canReleasePayout && !builderProfile;
+  const stripeNotConnected = canReleasePayout && builderProfile && !builderProfile.stripe_account_id;
+  const stripePayoutsDisabled = canReleasePayout && builderProfile?.stripe_account_id && !builderProfile?.stripe_payouts_enabled;
+  const stripeReady = canReleasePayout && builderProfile?.stripe_account_id && builderProfile?.stripe_payouts_enabled;
+  const hasRealCharge = !!order.stripe_charge_id;
 
   return (
     <div className="bg-white border rounded-xl overflow-hidden" style={{ borderColor: "#E0DDD8" }}>
@@ -283,7 +309,7 @@ function AdminOrderCard({ order, transferInstructions, onUpdate }) {
                 </div>
               )}
 
-              {/* Process Payout */}
+              {/* Process Payout (existing TI in ready_for_transfer) */}
               {canProcessPayout && relevantTI && (
                 <button
                   disabled={processing}
@@ -298,13 +324,144 @@ function AdminOrderCard({ order, transferInstructions, onUpdate }) {
                 </button>
               )}
 
+              {/* Release Payout (no existing TI — creates one on the fly) */}
+              {canReleasePayout && !canProcessPayout && (
+                <>
+                  {/* Stripe Connect status warnings */}
+                  {builderNotFound && (
+                    <div className="flex items-start gap-2 p-3 rounded-lg bg-orange-50 border border-orange-200 w-full">
+                      <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-semibold text-orange-800">Cannot release payout — builder profile not found</p>
+                        <p className="text-xs text-orange-700 mt-0.5">
+                          No builder profile exists for builder ID {order.builder_id}. The order may reference a deleted builder.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  {stripeNotConnected && (
+                    <div className="flex items-start gap-2 p-3 rounded-lg bg-orange-50 border border-orange-200 w-full">
+                      <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-semibold text-orange-800">Cannot release payout — builder has not completed Stripe Connect setup</p>
+                        <p className="text-xs text-orange-700 mt-0.5">
+                          {builderProfile?.business_name || order.builder_name || "This builder"} needs to connect their Stripe account before payouts can be released.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  {stripePayoutsDisabled && (
+                    <div className="flex items-start gap-2 p-3 rounded-lg bg-orange-50 border border-orange-200 w-full">
+                      <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-semibold text-orange-800">Cannot release payout — Stripe Connect payouts not enabled</p>
+                        <p className="text-xs text-orange-700 mt-0.5">
+                          {builderProfile?.business_name || order.builder_name} has a Stripe account but payouts are not yet enabled. The builder may need to complete verification.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Release button with confirmation */}
+                  {stripeReady && (
+                    confirmRelease ? (
+                      <div className="flex items-center gap-2 flex-wrap w-full p-3 rounded-lg bg-blue-50 border border-blue-200">
+                        <AlertOctagon className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                        <span className="text-xs font-medium text-blue-800">
+                          {hasRealCharge
+                            ? `This will create a real Stripe transfer of $${(order.builder_net_payout_expected || (order.total_gross_amount || order.total_amount || 0) * 0.95).toFixed(2)} to ${builderProfile?.business_name || order.builder_name}'s Stripe account.`
+                            : `This order has no real Stripe charge — payout will be marked as released without a Stripe transfer (test/manual order).`
+                        }
+                        </span>
+                        <div className="flex gap-2 ml-auto">
+                          <button
+                            disabled={processing}
+                            onClick={() => {
+                              invokeAction("releasePayout", { orderId: order.id, adminNotes }, "Payout released successfully.");
+                              setConfirmRelease(false);
+                            }}
+                            className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                            style={{ backgroundColor: NAVY }}
+                          >
+                            <CheckCircle2 className="w-3.5 h-3.5" /> Confirm Release
+                          </button>
+                          <button
+                            disabled={processing}
+                            onClick={() => setConfirmRelease(false)}
+                            className="text-xs font-medium px-3 py-2 rounded-lg border border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors disabled:opacity-50"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        disabled={processing}
+                        onClick={() => setConfirmRelease(true)}
+                        className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                        style={{ backgroundColor: NAVY }}
+                        onMouseEnter={e => !processing && (e.currentTarget.style.backgroundColor = "#1A2D45")}
+                        onMouseLeave={e => !processing && (e.currentTarget.style.backgroundColor = NAVY)}
+                      >
+                        <Send className="w-3.5 h-3.5" />
+                        Release Payout
+                      </button>
+                    )
+                  )}
+                </>
+              )}
+
+              {/* Cancel Order (stuck pending_payment / agreement_pending with no payment) */}
+              {canCancelOrder && (
+                confirmCancel ? (
+                  <div className="flex items-center gap-2 flex-wrap w-full p-3 rounded-lg bg-red-50 border border-red-200">
+                    <AlertOctagon className="w-4 h-4 text-red-600 flex-shrink-0" />
+                    <span className="text-xs font-medium text-red-800">
+                      This will permanently cancel order #{order.id.slice(-8).toUpperCase()}. This cannot be undone.
+                    </span>
+                    <div className="flex gap-2 ml-auto">
+                      <button
+                        disabled={processing}
+                        onClick={() => {
+                          invokeAction("cancelOrder", { orderId: order.id, adminNotes }, "Order cancelled.");
+                          setConfirmCancel(false);
+                        }}
+                        className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-colors disabled:opacity-50"
+                        style={{ backgroundColor: "#991B1B" }}
+                      >
+                        <XCircle className="w-3.5 h-3.5" /> Confirm Cancel
+                      </button>
+                      <button
+                        disabled={processing}
+                        onClick={() => setConfirmCancel(false)}
+                        className="text-xs font-medium px-3 py-2 rounded-lg border border-stone-300 text-stone-600 hover:bg-stone-50 transition-colors disabled:opacity-50"
+                      >
+                        Keep Order
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    disabled={processing}
+                    onClick={() => setConfirmCancel(true)}
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg border text-red-700 border-red-300 bg-red-50 hover:bg-red-100 transition-colors disabled:opacity-50"
+                  >
+                    <XCircle className="w-3.5 h-3.5" /> Cancel Order
+                  </button>
+                )
+              )}
+
               {/* Status label when no actions available */}
-              {!canVerifyShipment && !canConfirmDelivery && !canProcessPayout && (
+              {!canVerifyShipment && !canConfirmDelivery && !canProcessPayout && !canReleasePayout && !canCancelOrder && (
                 <p className="text-xs text-stone-400 italic">
                   {order.payout_status === "fully_released"
                     ? "✓ Payout complete"
                     : order.payout_status === "payout_failed"
                     ? "⚠ Payout failed — check Stripe"
+                    : order.current_status === "pending_payment" && (order.stripe_payment_intent_id || order.stripe_charge_id)
+                    ? "Payment in progress — cannot cancel until payment resolves"
+                    : order.current_status === "delivered" && order.delivery_confirmed && order.payout_status === "fully_released"
+                    ? "✓ Payout complete"
                     : "No actions available at this stage"}
                 </p>
               )}
@@ -334,6 +491,7 @@ export default function AdminPayouts() {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const [transferInstructions, setTransferInstructions] = useState([]);
+  const [builderProfiles, setBuilderProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -345,13 +503,20 @@ export default function AdminPayouts() {
       const u = await base44.auth.me();
       setUser(u);
       if (u.role !== "admin") { setLoading(false); return; }
-      const [allOrders, allTIs] = await Promise.all([
+      const [allOrders, allTIs, allProfiles] = await Promise.all([
         base44.entities.Order.list("-created_date", 300),
         base44.entities.TransferInstruction.list("-created_date", 300),
+        base44.entities.UserProfile.filter({ is_seller: true }, "-created_date", 300),
       ]);
       setOrders(allOrders.filter(o => o.current_status !== "cancelled"));
       setTransferInstructions(allTIs);
-    } catch { base44.auth.redirectToLogin(); }
+      setBuilderProfiles(allProfiles);
+    } catch (err) {
+      if (err.status === 401 || err.status === 403) {
+        base44.auth.redirectToLogin();
+        return;
+      }
+    }
     setLoading(false);
   }
 
@@ -451,6 +616,7 @@ export default function AdminPayouts() {
                 key={order.id}
                 order={order}
                 transferInstructions={transferInstructions}
+                builderProfiles={builderProfiles}
                 onUpdate={loadData}
               />
             ))}
