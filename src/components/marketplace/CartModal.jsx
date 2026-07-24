@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { X, ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
 import { createPageUrl } from "@/utils";
+import { formatCurrency } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 export default function CartModal({ user, onClose }) {
@@ -63,7 +64,7 @@ export default function CartModal({ user, onClose }) {
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-stone-800 text-sm truncate">{item.product_name}</p>
                   <p className="text-stone-500 text-xs">{item.builder_name}</p>
-                  <p className="text-amber-700 font-bold mt-1">${item.product_price?.toLocaleString()}</p>
+                  <p className="text-amber-700 font-bold mt-1">{formatCurrency(item.product_price)}</p>
                 </div>
                 <button onClick={() => removeItem(item.id)} className="p-1.5 text-stone-400 hover:text-red-500">
                   <Trash2 className="w-4 h-4" />
@@ -77,7 +78,7 @@ export default function CartModal({ user, onClose }) {
           <div className="p-4 border-t border-stone-200 space-y-3">
             <div className="flex justify-between text-sm font-semibold text-stone-800">
               <span>Subtotal</span>
-              <span>${total.toLocaleString()}</span>
+              <span>{formatCurrency(total)}</span>
             </div>
             <Link
               to={createPageUrl("Checkout")}

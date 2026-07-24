@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { ShoppingCart, Lock, AlertCircle, CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 import ShippingSelector from "@/components/checkout/ShippingSelector";
+import { formatCurrency } from "@/lib/utils";
 
 const NAVY = "#1B2B4B";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
@@ -77,7 +78,7 @@ function CheckoutForm({ order, user, shippingRate, onSuccess }) {
         className="w-full py-3 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
         style={{ backgroundColor: NAVY }}
       >
-        {paying ? "Processing..." : `Pay $${total.toFixed(2)}`}
+        {paying ? "Processing..." : `Pay ${formatCurrency(total)}`}
       </button>
       {!shippingRate && (
         <p className="text-xs text-amber-700 text-center">Please select a shipping option above to continue.</p>
@@ -394,7 +395,7 @@ export default function Checkout() {
                       <p className="text-sm font-semibold text-stone-800 truncate">{p?.name || "Product"}</p>
                       <p className="text-xs text-stone-400">{p?.builder_name}</p>
                     </div>
-                    <p className="text-sm font-bold text-stone-800">${(p?.price || 0).toLocaleString()}</p>
+                    <p className="text-sm font-bold text-stone-800">{formatCurrency(p?.price || 0)}</p>
                   </div>
                 );
               })}
@@ -402,13 +403,13 @@ export default function Checkout() {
               <div className="p-4 space-y-2 bg-stone-50 border-t border-stone-100">
                 <div className="flex justify-between text-sm text-stone-600">
                   <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm text-stone-600">
                   <span>Shipping</span>
                   <span>
                     {shippingRate
-                      ? shippingCost === 0 ? "Free" : `$${shippingCost.toFixed(2)}`
+                      ? shippingCost === 0 ? "Free" : formatCurrency(shippingCost)
                       : <span className="text-stone-400">–</span>}
                   </span>
                 </div>
@@ -417,12 +418,12 @@ export default function Checkout() {
                   <span>
                     {calcingTax
                       ? <Loader2 className="w-3.5 h-3.5 animate-spin inline" />
-                      : taxAmount > 0 ? `$${taxAmount.toFixed(2)}` : <span className="text-stone-400">–</span>}
+                      : taxAmount > 0 ? formatCurrency(taxAmount) : <span className="text-stone-400">–</span>}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-bold pt-2 border-t border-stone-200" style={{ color: NAVY }}>
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>{formatCurrency(total)}</span>
                 </div>
               </div>
             </div>
