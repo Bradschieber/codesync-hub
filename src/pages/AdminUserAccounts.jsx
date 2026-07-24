@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, ArrowLeft, Trash2, UserX, UserCheck, AlertTriangle, UserPlus } from "lucide-react";
+import { Search, ShieldCheck, ArrowLeft, Trash2, UserX, UserCheck, AlertTriangle, UserPlus, AlertCircle } from "lucide-react";
 
 const NAVY = "#2F3E55";
 
@@ -18,6 +18,7 @@ export default function AdminUserAccounts() {
   const [inviteRole, setInviteRole] = useState("admin");
   const [inviting, setInviting] = useState(false);
   const [inviteMsg, setInviteMsg] = useState(null);
+  const [loadError, setLoadError] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -41,16 +42,21 @@ export default function AdminUserAccounts() {
       const u = await base44.auth.me();
       setUser(u);
       if (u.role !== "admin") { setLoading(false); return; }
+    } catch (authErr) {
+      base44.auth.redirectToLogin();
+      return;
+    }
+
+    try {
       const [allUsers, builders] = await Promise.all([
         base44.entities.User.list("-created_date", 500),
         base44.entities.UserProfile.filter({ is_seller: true }, "-created_date", 500),
       ]);
       const builderIds = new Set(builders.map(b => b.user_id).filter(Boolean));
       setBuilderUserIds(builderIds);
-      // Filter to non-builder, non-admin users
       setUsers(allUsers.filter(u => !builderIds.has(u.id) && u.role !== "admin"));
-    } catch {
-      base44.auth.redirectToLogin();
+    } catch (dataErr) {
+      setLoadError(dataErr.message || "Failed to load user accounts.");
     }
     setLoading(false);
   }
@@ -94,6 +100,21 @@ export default function AdminUserAccounts() {
     <div className="max-w-xl mx-auto px-4 py-24 text-center">
       <ShieldCheck className="w-12 h-12 mx-auto mb-4" style={{ color: "#CCCCCC" }} />
       <h2 className="text-xl font-bold mb-2">Admin Access Required</h2>
+    </div>
+  );
+
+  if (loadError) return (
+    <div className="max-w-xl mx-auto px-4 py-24 text-center">
+      <AlertCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#C57A1F" }} />
+      <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
+      <p className="text-sm mb-4" style={{ color: "#7A7A7A" }}>{loadError}</p>
+      <button
+        onClick={() => { setLoading(true); setLoadError(null); loadData(); }}
+        className="px-5 py-2 text-sm font-semibold text-white"
+        style={{ backgroundColor: NAVY }}
+      >
+        Try Again
+      </button>
     </div>
   );
 
