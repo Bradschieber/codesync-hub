@@ -202,15 +202,15 @@ export default function CardPhotoUploader({ cardPhotoUrl, onChange, label = "Bui
   // ── Crop state (modal overlay) ──
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
-      <div className="bg-white rounded-xl max-w-lg w-full overflow-hidden">
-        <div className="px-5 py-4 border-b border-stone-200 flex items-center justify-between">
+      <div className="bg-white rounded-xl max-w-lg w-full overflow-hidden flex flex-col" style={{ maxHeight: "90vh" }}>
+        <div className="px-5 py-4 border-b border-stone-200 flex items-center justify-between flex-shrink-0">
           <h3 className="text-sm font-bold text-stone-800">Crop Your Card Photo</h3>
           <button type="button" onClick={handleCancel} className="text-stone-400 hover:text-stone-600">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="p-5">
+        <div className="p-5 overflow-y-auto flex-1">
           <p className="text-xs text-stone-500 mb-4 leading-relaxed">
             This is exactly how your photo will appear on builder cards across the marketplace. Drag to reposition and use the slider to zoom.
           </p>
@@ -257,7 +257,7 @@ export default function CardPhotoUploader({ cardPhotoUrl, onChange, label = "Bui
           </div>
         </div>
 
-        <div className="px-5 py-4 border-t border-stone-200 flex items-center justify-end gap-2">
+        <div className="px-5 py-4 border-t border-stone-200 flex items-center justify-end gap-2 flex-shrink-0">
           <button type="button" onClick={handleCancel} className="text-sm font-medium px-4 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 transition-colors">
             Cancel
           </button>

@@ -111,12 +111,12 @@ export default function BuilderCard({ builder, listings = [] }) {
 
       {/* ── Listing thumbnails ── */}
       {topListings.length > 0 && (
-        <div className="flex border-t" style={{ borderColor: "#E5E8EC" }}>
+        <div className="flex border-t p-2 gap-1.5" style={{ borderColor: "#E5E8EC" }}>
           {topListings.map((listing, i) => (
             <div
               key={i}
-              className="relative flex-1 overflow-hidden"
-              style={{ aspectRatio: "1/1", backgroundColor: "#F4F4F4", borderRight: i < topListings.length - 1 ? "1px solid #E5E8EC" : "none" }}
+              className="relative overflow-hidden flex-shrink-0"
+              style={{ width: "4.5rem", height: "4.5rem", backgroundColor: "#F4F4F4" }}
             >
               {listing.image ? (
                 <img src={listing.image} alt={listing.name || ""} className="w-full h-full object-cover" />
