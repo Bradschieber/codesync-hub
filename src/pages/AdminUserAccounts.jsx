@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, ArrowLeft, Trash2, UserX, UserCheck, AlertTriangle } from "lucide-react";
+import { Search, ShieldCheck, ArrowLeft, Trash2, UserX, UserCheck, AlertTriangle, UserPlus } from "lucide-react";
 
 const NAVY = "#2F3E55";
 
@@ -14,8 +14,27 @@ export default function AdminUserAccounts() {
   const [search, setSearch] = useState("");
   const [updating, setUpdating] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState("admin");
+  const [inviting, setInviting] = useState(false);
+  const [inviteMsg, setInviteMsg] = useState(null);
 
   useEffect(() => { loadData(); }, []);
+
+  async function handleInvite(e) {
+    e.preventDefault();
+    if (!inviteEmail.trim()) return;
+    setInviting(true);
+    setInviteMsg(null);
+    try {
+      await base44.users.inviteUser(inviteEmail.trim(), inviteRole);
+      setInviteMsg({ type: "success", text: `Invitation sent to ${inviteEmail.trim()} as ${inviteRole}.` });
+      setInviteEmail("");
+    } catch (err) {
+      setInviteMsg({ type: "error", text: err.message || "Failed to send invitation." });
+    }
+    setInviting(false);
+  }
 
   async function loadData() {
     try {
@@ -87,6 +106,49 @@ export default function AdminUserAccounts() {
           </Link>
           <h1 className="text-3xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Buyer Accounts</h1>
           <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>{users.length} registered buyer accounts</p>
+        </div>
+      </div>
+
+      {/* Invite User */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 mb-6">
+        <div className="bg-white border p-5" style={{ borderColor: "#E0DDD8" }}>
+          <div className="flex items-center gap-2 mb-3">
+            <UserPlus className="w-4 h-4" style={{ color: NAVY }} />
+            <h2 className="text-sm font-bold uppercase tracking-wide" style={{ color: "#1A1A1A" }}>Invite New User</h2>
+          </div>
+          <form onSubmit={handleInvite} className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={inviteEmail}
+              onChange={e => setInviteEmail(e.target.value)}
+              placeholder="Email address..."
+              className="flex-1 px-3 py-2 border text-sm focus:outline-none"
+              style={{ borderColor: "#DEDBD6" }}
+              required
+            />
+            <select
+              value={inviteRole}
+              onChange={e => setInviteRole(e.target.value)}
+              className="px-3 py-2 border text-sm focus:outline-none bg-white"
+              style={{ borderColor: "#DEDBD6" }}
+            >
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+            <button
+              type="submit"
+              disabled={inviting}
+              className="px-5 py-2 text-sm font-semibold text-white transition-colors disabled:opacity-50"
+              style={{ backgroundColor: NAVY }}
+            >
+              {inviting ? "Sending..." : "Send Invite"}
+            </button>
+          </form>
+          {inviteMsg && (
+            <p className="text-xs mt-2" style={{ color: inviteMsg.type === "success" ? "#27AE60" : "#DC2626" }}>
+              {inviteMsg.text}
+            </p>
+          )}
         </div>
       </div>
 
