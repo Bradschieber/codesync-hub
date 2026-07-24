@@ -20,9 +20,23 @@ Deno.serve(async (req) => {
 
   // Create a new Connect account if none exists
   if (!stripeAccountId) {
+    // Phase 2: Map builder's country to ISO code for international support
+    const COUNTRY_LABEL_TO_CODE = {
+      'United States': 'US', 'Canada': 'CA', 'United Kingdom': 'GB',
+      'Australia': 'AU', 'New Zealand': 'NZ', 'Japan': 'JP', 'Singapore': 'SG',
+      'Austria': 'AT', 'Belgium': 'BE', 'Bulgaria': 'BG', 'Croatia': 'HR',
+      'Cyprus': 'CY', 'Czech Republic': 'CZ', 'Denmark': 'DK', 'Estonia': 'EE',
+      'Finland': 'FI', 'France': 'FR', 'Germany': 'DE', 'Greece': 'GR',
+      'Hungary': 'HU', 'Ireland': 'IE', 'Italy': 'IT', 'Latvia': 'LV',
+      'Lithuania': 'LT', 'Luxembourg': 'LU', 'Malta': 'MT', 'Netherlands': 'NL',
+      'Poland': 'PL', 'Portugal': 'PT', 'Romania': 'RO', 'Slovakia': 'SK',
+      'Slovenia': 'SI', 'Spain': 'ES', 'Sweden': 'SE',
+    };
+    const builderCountry = COUNTRY_LABEL_TO_CODE[profile.business_country] || 'US';
+
     const account = await stripe.accounts.create({
       type: 'custom',
-      country: 'US',
+      country: builderCountry,
       email: user.email,
       capabilities: {
         card_payments: { requested: true },

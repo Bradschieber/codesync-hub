@@ -1,9 +1,6 @@
-const COUNTRIES = [
-  "United States", "Canada", "United Kingdom", "Australia", "Germany", "France",
-  "Italy", "Spain", "Netherlands", "Sweden", "Norway", "Denmark", "Finland",
-  "Switzerland", "Austria", "Belgium", "Portugal", "Japan", "New Zealand",
-  "Ireland", "Mexico", "Brazil", "Argentina", "South Korea", "Other"
-];
+import { ALLOWED_COUNTRIES } from "@/lib/countries";
+
+const COUNTRIES = ALLOWED_COUNTRIES.map(c => c.label);
 
 const US_STATES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut",
@@ -35,7 +32,7 @@ export default function LocationFields({ form, setForm }) {
   const country = form.business_country || "";
   const showStateDropdown = country === "United States" || country === "Canada";
   const stateOptions = country === "Canada" ? CA_PROVINCES : US_STATES;
-  const stateLabel = country === "Canada" ? "Province / Territory" : "State / Region";
+  const stateLabel = country === "Canada" ? "Province / Territory" : country === "United States" ? "State" : "State / Region";
 
   function updateLocation(updates) {
     const next = { ...form, ...updates };

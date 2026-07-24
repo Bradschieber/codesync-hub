@@ -7,6 +7,7 @@ import { Elements, CardElement, useStripe, useElements } from "@stripe/react-str
 import { ShoppingCart, Lock, AlertCircle, CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 import ShippingSelector from "@/components/checkout/ShippingSelector";
 import { formatCurrency } from "@/lib/utils";
+import { ALLOWED_COUNTRIES, isAllowedCountry } from "@/lib/countries";
 
 const NAVY = "#1B2B4B";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
@@ -146,10 +147,10 @@ export default function Checkout() {
       return;
     }
     calcTax();
-  }, [shippingRate, shippingAddress.state, shippingAddress.zip, shippingAddress.city, shippingAddress.address, shippingAddress.country]);
+  }, [shippingRate, shippingAddress.zip, shippingAddress.city, shippingAddress.address, shippingAddress.country]);
 
   async function calcTax() {
-    if (!shippingAddress.zip || !shippingAddress.state) return;
+    if (!shippingAddress.zip || !shippingAddress.city || !shippingAddress.address) return;
     setCalcingTax(true);
     setTaxError("");
     try {
@@ -199,10 +200,9 @@ export default function Checkout() {
   async function createOrder() {
     if (!shippingRate) return;
 
-    // Hard-enforce: US orders must have a valid Stripe Tax calculation before proceeding
-    const isUS = (shippingAddress.country || "US").toUpperCase() === "US";
-    if (isUS && !taxCalculationId) {
-      setTaxError("Sales tax must be calculated before checkout. Please verify your shipping address.");
+    // Hard-enforce: all orders must have a valid Stripe Tax calculation before proceeding
+    if (!taxCalculationId) {
+      setTaxError("Tax must be calculated before checkout. Please verify your shipping address.");
       return;
     }
 
@@ -238,7 +238,7 @@ export default function Checkout() {
       tax_amount_item: taxBreakdown?.item || 0,
       tax_amount_shipping: taxBreakdown?.shipping || 0,
       tax_jurisdiction_state: shippingAddress.state,
-      tax_jurisdiction_country: "US",
+      tax_jurisdiction_country: (shippingAddress.country || "US").toUpperCase(),
       stripe_tax_calculation_id: taxCalculationId,
       total_gross_amount: total,
       total_amount: total,
@@ -274,7 +274,8 @@ export default function Checkout() {
   }, 0);
 
   const shippingCost = shippingRate?.amount || 0;
-  const isUSAddress = (shippingAddress.country || "US").toUpperCase() === "US";
+  const isSupportedCountry = isAllowedCountry(shippingAddress.country);
+  const isInternational = (shippingAddress.country || "US").toUpperCase() !== "US";
   const total = subtotal + shippingCost + taxAmount;
 
   if (loading) {
@@ -380,13 +381,9 @@ export default function Checkout() {
                     onChange={e => setShippingAddress(a => ({ ...a, country: e.target.value }))}
                     className="border border-stone-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400 bg-white"
                   >
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="GB">United Kingdom</option>
-                    <option value="AU">Australia</option>
-                    <option value="DE">Germany</option>
-                    <option value="FR">France</option>
-                    <option value="INTL">Other / International</option>
+                    {ALLOWED_COUNTRIES.map(c => (
+                      <option key={c.code} value={c.code}>{c.label}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -405,13 +402,15 @@ export default function Checkout() {
             {/* Payment */}
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: "#8A9BB0" }}>Payment</h2>
-              {!isUSAddress && (
+              {isInternational && (
                 <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-800 mb-4">
                   <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                  <span>International orders aren't currently supported — check back soon.</span>
+                  <span>
+                    <strong>Customs & duties:</strong> Your order may be subject to customs duties, import VAT, or brokerage fees collected by the carrier upon delivery. These charges are separate from your order total and are determined by your local customs authority.
+                  </span>
                 </div>
               )}
-              {taxError && isUSAddress && (
+              {taxError && isSupportedCountry && (
                 <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 mb-4">
                   <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <span>{taxError}</span>
@@ -420,7 +419,7 @@ export default function Checkout() {
               {!order ? (
                 <button
                   onClick={createOrder}
-                  disabled={creating || !shippingRate || calcingTax || !!taxError || !isUSAddress}
+                  disabled={creating || !shippingRate || calcingTax || !!taxError || !isSupportedCountry}
                   className="w-full py-3 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
                   style={{ backgroundColor: NAVY }}
                 >

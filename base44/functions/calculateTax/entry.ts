@@ -18,12 +18,17 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'item_amount and shipping_address are required' }, { status: 400 });
     }
 
-    // Phase 1: US-only enforcement
-    const country = (shipping_address.country || 'US').toUpperCase();
-    if (country !== 'US') {
+    // Phase 2: Allowlist of supported countries (US, CA, GB, EU, AU, NZ, JP, SG)
+    const ALLOWED_COUNTRIES = [
+      'US','CA','GB','AU','NZ','JP','SG',
+      'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU',
+      'IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    ];
+    const country = (shipping_address.country || '').toUpperCase();
+    if (!ALLOWED_COUNTRIES.includes(country)) {
       return Response.json({
-        error: 'international_not_supported',
-        message: "International orders aren't currently supported — check back soon."
+        error: 'country_not_supported',
+        message: "We can't calculate tax for this destination yet. Please select a supported country."
       }, { status: 400 });
     }
 
