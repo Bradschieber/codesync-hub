@@ -12,6 +12,7 @@ export default function AdminPendingBuilders() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [updating, setUpdating] = useState(null);
+  const [confirming, setConfirming] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -30,6 +31,7 @@ export default function AdminPendingBuilders() {
 
   async function approveBuilder(builder) {
     setUpdating(builder.id);
+    setConfirming(null);
     await base44.entities.UserProfile.update(builder.id, { is_approved: true });
     setBuilders(prev => prev.filter(b => b.id !== builder.id));
     setUpdating(null);
@@ -134,7 +136,7 @@ export default function AdminPendingBuilders() {
                       View Profile
                     </Link>
                     <button
-                      onClick={() => approveBuilder(b)}
+                      onClick={() => setConfirming(b)}
                       disabled={updating === b.id}
                       className="flex items-center gap-1.5 text-xs font-semibold px-5 py-2 text-white transition-colors"
                       style={{ backgroundColor: updating === b.id ? "#AAAAAA" : "#27AE60" }}
@@ -149,6 +151,41 @@ export default function AdminPendingBuilders() {
           </div>
         )}
       </div>
+
+      {/* Approve Confirmation Dialog */}
+      {confirming && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setConfirming(null)} />
+          <div className="relative bg-white w-full max-w-md shadow-2xl rounded-xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#FEF3E2" }}>
+                <ShieldCheck className="w-5 h-5" style={{ color: "#C57A1F" }} />
+              </div>
+              <h3 className="font-bold text-base" style={{ color: "#1A1A1A" }}>Approve storefront?</h3>
+            </div>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "#5A5A5A" }}>
+              Approve <span className="font-semibold" style={{ color: "#1A1A1A" }}>{confirming.business_name || confirming.display_name}</span>'s storefront? This will make it live on the public site immediately.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setConfirming(null)}
+                className="flex-1 border py-2.5 text-sm font-medium transition-colors"
+                style={{ borderColor: "#DEDBD6", color: "#5A5A5A" }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => approveBuilder(confirming)}
+                disabled={updating === confirming.id}
+                className="flex-1 py-2.5 text-sm font-semibold text-white rounded-lg transition-colors"
+                style={{ backgroundColor: updating === confirming.id ? "#AAAAAA" : "#27AE60" }}
+              >
+                {updating === confirming.id ? "Approving..." : "Yes, Approve"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
