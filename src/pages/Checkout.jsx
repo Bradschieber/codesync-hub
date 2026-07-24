@@ -24,10 +24,24 @@ function CheckoutForm({ order, user, shippingRate, onSuccess }) {
     setPaying(true);
     setCardError("");
 
-    const piRes = await base44.functions.invoke("createPaymentIntentForOrder", { orderId: order.id });
-    const clientSecret = piRes.data?.clientSecret;
+    let clientSecret;
+    try {
+      const piRes = await base44.functions.invoke("createPaymentIntentForOrder", { orderId: order.id });
+      clientSecret = piRes.data?.clientSecret;
+    } catch (err) {
+      const backendError = err?.response?.data?.error || err?.data?.error || err?.message || "";
+      const isBuilderPaymentIssue = backendError.toLowerCase().startsWith("builder");
+      setCardError(
+        isBuilderPaymentIssue
+          ? "This builder isn't able to accept online payments yet. There's nothing wrong with your card — the builder's payment account still needs to be set up. Please try a different listing or check back soon."
+          : "We couldn't start the payment process. Please try again or contact support if the problem persists."
+      );
+      setPaying(false);
+      return;
+    }
+
     if (!clientSecret) {
-      setCardError(piRes.data?.error || "Could not initiate payment.");
+      setCardError("Could not initiate payment. Please try again or contact support.");
       setPaying(false);
       return;
     }
