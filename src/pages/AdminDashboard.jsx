@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -21,7 +22,13 @@ export default function AdminDashboard() {
       const u = await base44.auth.me();
       setUser(u);
       if (u.role !== "admin") { setLoading(false); return; }
+    } catch (authErr) {
+      // Only redirect to login if auth itself fails
+      base44.auth.redirectToLogin();
+      return;
+    }
 
+    try {
       const [builders, refs] = await Promise.all([
         base44.entities.UserProfile.filter({ is_seller: true }, "-created_date", 200),
         base44.entities.BuilderReference.list("-created_date", 200),
@@ -35,8 +42,8 @@ export default function AdminDashboard() {
         pendingRefs: refs.filter(r => r.status === "pending").length,
         verifiedRefs: refs.filter(r => r.status === "verified").length,
       });
-    } catch {
-      base44.auth.redirectToLogin();
+    } catch (dataErr) {
+      setLoadError(dataErr.message || "Failed to load dashboard data.");
     }
     setLoading(false);
   }
@@ -52,6 +59,21 @@ export default function AdminDashboard() {
       <ShieldCheck className="w-12 h-12 mx-auto mb-4" style={{ color: "#CCCCCC" }} />
       <h2 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Admin Access Required</h2>
       <p style={{ color: "#7A7A7A" }}>You don't have permission to view this page.</p>
+    </div>
+  );
+
+  if (loadError) return (
+    <div className="max-w-xl mx-auto px-4 py-24 text-center">
+      <AlertCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#C57A1F" }} />
+      <h2 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Something went wrong</h2>
+      <p className="text-sm mb-4" style={{ color: "#7A7A7A" }}>{loadError}</p>
+      <button
+        onClick={() => { setLoading(true); setLoadError(null); loadData(); }}
+        className="px-5 py-2 text-sm font-semibold text-white"
+        style={{ backgroundColor: NAVY }}
+      >
+        Try Again
+      </button>
     </div>
   );
 
