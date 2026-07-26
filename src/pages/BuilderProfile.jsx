@@ -33,7 +33,8 @@ export default function BuilderProfile() {
   async function loadAll() {
     if (!builderId) return;
     let isAdmin = false;
-    try { const u = await base44.auth.me(); setUser(u); isAdmin = u?.role === "admin"; } catch {}
+    let u = null;
+    try { u = await base44.auth.me(); setUser(u); isAdmin = u?.role === "admin"; } catch {}
     const [bldrs, prods, revs, refs, orders] = await Promise.all([
       base44.entities.UserProfile.filter({ id: builderId }),
       base44.entities.Product.filter({ builder_id: builderId, status: "available" }),
@@ -42,7 +43,7 @@ export default function BuilderProfile() {
       base44.entities.Order.filter({ builder_id: builderId, status: "delivered" }),
     ]);
     // Builders can preview their own unapproved storefront; admins can preview any; public visitors only see approved ones
-    const isOwner = user && bldrs.length > 0 && bldrs[0].user_id === user.id;
+    const isOwner = u && bldrs.length > 0 && bldrs[0].user_id === u.id;
     if (bldrs.length > 0 && (bldrs[0].is_approved || isAdmin || isOwner)) setBuilder(bldrs[0]);
     setProducts(prods);
     setReviews(revs);
