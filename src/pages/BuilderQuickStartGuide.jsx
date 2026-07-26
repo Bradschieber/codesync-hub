@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ChevronLeft, Mail, MessageCircle } from "lucide-react";
+import { ChevronLeft, Mail, MessageCircle, Instagram, Facebook } from "lucide-react";
 
 const NAVY = "#1B2B4B";
 
@@ -97,9 +97,11 @@ export default function BuilderQuickStartGuide() {
           <SubHeading>Photos</SubHeading>
           <UL>
             <li>
-              A <span className="font-medium" style={{ color: NAVY }}>Builder Card Photo</span> — a photo of you or your
-              workshop for your storefront card. A genuine, well-lit shot of you at the bench or your space beats a
-              logo or empty background.
+              A <span className="font-medium" style={{ color: NAVY }}>Builder Card Photo</span> — This photo will be the
+              image used to introduce your storefront on our "Builders" page. It will also show up when your storefront is
+              included in search results. You want it to be a polished representation of your brand — it could be a photo
+              of you or your workshop. You want this to be a quality, well-lit shot of you at the bench or your space.
+              This image beats a logo or empty background.
             </li>
             <li>A logo, if you have one (optional).</li>
             <li>A banner image for the top of your storefront page (optional).</li>
@@ -121,24 +123,30 @@ export default function BuilderQuickStartGuide() {
               the edges
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Instrument photos</span> — good lighting and a plain
-              background; the rest is handled automatically
+              <span className="font-medium" style={{ color: NAVY }}>Logo</span> — square or wide works best; at least
+              500px on the short side, and a transparent PNG will blend into the header more cleanly than a white
+              background
+            </li>
+            <li>
+              <span className="font-medium" style={{ color: NAVY }}>Instrument photos</span> — these are separate from
+              the photos you'll provide for actual product listings. Good lighting and a plain background is always a
+              good plan.
             </li>
           </UL>
           <P>
-            Don't have a design background? That's completely fine — tools like{" "}
+            Need some help with these images? That's completely fine — tools like{" "}
             <a href="https://canva.com" target="_blank" rel="noopener noreferrer" className="underline font-medium" style={{ color: NAVY }}>
               Canva
             </a>{" "}
             (free) make it easy to crop, resize, and clean up photos without any experience. For writing help — your
-            bio, policies, anything text-heavy — Claude or ChatGPT work well too. And if you get stuck on any of it,
-            just reach out. We're happy to help.
+            bio, policies, anything text-heavy — Claude, ChatGPT, and Google Gemini work well when you need a little
+            help. And if you get stuck on any of it, just reach out. We're happy to help.
           </P>
 
           <SubHeading>Your Story</SubHeading>
           <P>
-            A few sentences about your background and what makes your builds distinctive. This doesn't need to be
-            polished — buyers respond to genuine.
+            A few sentences about your background and what makes your builds distinctive. This doesn't need to be super
+            polished — buyers respond to authenticity. It's your passion for building that needs to shine.
           </P>
 
           <SubHeading>Your Shop Policies</SubHeading>
@@ -204,26 +212,33 @@ export default function BuilderQuickStartGuide() {
           <SectionHeading>Your First Listing</SectionHeading>
           <P>
             Before your storefront can go live, you'll need at least one complete listing — either a ready-made
-            instrument or a custom build offering — both count. It needs a name, price, at least one photo, and whatever
-            specs (wood, scale length, electronics, etc.) help buyers understand what makes your build worth a closer
-            look. Once that's in place, you can submit your storefront for review.
+            instrument or just check the box that you offer custom builds — both count. If you are adding a stock build,
+            it needs a name, price, at least one photo, and whatever specs (wood, scale length, electronics, etc.) help
+            buyers understand what makes your build worth a closer look. Once that's in place, you can submit your
+            storefront for review.
           </P>
           <P>
-            <span className="font-semibold" style={{ color: NAVY }}>A note on this one:</span> this is genuinely the
-            most important part of the guide to get right, and we know it's not finished. We've taken a first pass at
-            which specs matter most for showcasing an instrument, but you're the expert here, not us. If a field feels
-            like it's missing something important, asking for the wrong thing, or just doesn't make sense for how you
-            build — tell us. This is the section most likely to change as we learn from real builders, and your feedback
-            here matters more than almost anything else in this guide.
+            <span className="font-semibold" style={{ color: NAVY }}>A note on this one:</span> this is one of the areas
+            where we need your input in order to get this right. We know the product specs section needs some work to
+            make it the best possible experience for buyers. We've taken a first pass at which specs matter most for
+            showcasing the build, but we really want your input. If a field feels like it's missing something important,
+            asking for the wrong thing, or just doesn't make sense for how you build — tell us. This is the section most
+            likely to change as we learn from real builders, and your feedback here matters more than almost anything
+            else in this guide.
           </P>
 
           {/* Getting Approved */}
           <SectionHeading>Getting Approved</SectionHeading>
           <P>
-            We personally review every new storefront before it goes live on the public site — checking your profile,
-            photos, and listing to make sure everything looks right. This isn't a gatekeeping step; it's just a quick
-            sanity check to make sure everything displays properly before it's public. Most storefronts sail through with
-            no issues. We'll be in touch as soon as it's approved.
+            We will personally review every new storefront before it goes live on the public site — checking your
+            profile, photos, and listing to make sure everything looks right. This isn't a gatekeeping step; it's just a
+            quick sanity check to make sure everything displays properly before it's public. Most storefronts sail through
+            with no issues. We'll be in touch as soon as it's approved.
+          </P>
+          <P>
+            <span className="font-semibold" style={{ color: NAVY }}>Just a heads up,</span> even after we review and
+            approve your storefront, we don't plan to promote the site until we have enough builders and products to make
+            it interesting.
           </P>
 
           {/* How You Can Help Us */}
@@ -238,11 +253,18 @@ export default function BuilderQuickStartGuide() {
             few minutes, even if it's just a quick list. We'd genuinely rather hear about the rough edges now, while
             it's just a handful of us figuring this out together, than after we've opened the doors more widely.
           </P>
+          <P>
+            Have a question this guide didn't cover — payments, shipping, custom builds, and the like? Check the{" "}
+            <Link to={createPageUrl("BuilderFAQ")} className="underline font-medium" style={{ color: NAVY }}>
+              Builder FAQ
+            </Link>{" "}
+            for quick answers.
+          </P>
 
           {/* Need Help */}
           <SectionHeading>Need Help? We're Right Here.</SectionHeading>
           <P>Seriously — reach out any time, however's easiest for you:</P>
-          <div className="flex flex-col sm:flex-row gap-4 my-5">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 my-5">
             <a
               href="mailto:info@stringedcollective.com"
               className="flex items-center gap-2.5 px-4 py-3 rounded-lg border transition-colors hover:bg-gray-50"
@@ -267,6 +289,26 @@ export default function BuilderQuickStartGuide() {
                 <p className="text-sm font-medium">+1 630 204 4451</p>
               </div>
             </a>
+            <div
+              className="flex items-center gap-2.5 px-4 py-3 rounded-lg border"
+              style={{ borderColor: "#E8E5E0", color: NAVY }}
+            >
+              <Instagram className="w-4 h-4" />
+              <div>
+                <p className="text-xs uppercase tracking-wide font-semibold" style={{ color: "#8A9BB0" }}>Instagram</p>
+                <p className="text-sm font-medium" style={{ color: "#8A9BB0" }}>Coming Soon</p>
+              </div>
+            </div>
+            <div
+              className="flex items-center gap-2.5 px-4 py-3 rounded-lg border"
+              style={{ borderColor: "#E8E5E0", color: NAVY }}
+            >
+              <Facebook className="w-4 h-4" />
+              <div>
+                <p className="text-xs uppercase tracking-wide font-semibold" style={{ color: "#8A9BB0" }}>FB Messenger</p>
+                <p className="text-sm font-medium" style={{ color: "#8A9BB0" }}>Coming Soon</p>
+              </div>
+            </div>
           </div>
           <P>
             We'd rather answer five small questions than have you stuck on something that should've been simple. Welcome
