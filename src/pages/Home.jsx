@@ -126,7 +126,7 @@ export default function Home() {
                 Play Something<br />Different.
               </h1>
               <p className="text-lg sm:text-xl mb-10 leading-relaxed" style={{ color: "#3D3D3D" }}>
-                A marketplace for extraordinary handcrafted instruments — and the independent builders behind them.
+                A marketplace for extraordinary handcrafted instruments, and the independent builders behind them.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-10">
                 <Link
