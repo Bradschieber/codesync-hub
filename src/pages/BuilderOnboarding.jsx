@@ -323,8 +323,19 @@ export default function BuilderOnboarding() {
               })}
             </div>
 
-            {/* Right side: step count (mobile) */}
-            <div className="flex items-center gap-3">
+            {/* Right side: help link + step count (mobile) */}
+            <div className="flex items-center gap-4">
+              <a
+                href="/BuilderQuickStartGuide"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-medium transition-opacity hover:opacity-70"
+                style={{ color: "#8A8A8A" }}
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Need help? Quick Start Guide</span>
+                <span className="sm:hidden">Guide</span>
+              </a>
               <div className="lg:hidden text-xs font-medium" style={{ color: "#8A8A8A" }}>
                 Step {step + 1} of 8
               </div>

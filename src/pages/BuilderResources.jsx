@@ -7,6 +7,11 @@ const NAVY = "#1B2B4B";
 
 const faqResources = [
   {
+    title: "Builder Quick Start Guide",
+    description: "Everything you need to know to set up your storefront, step by step.",
+    page: "BuilderQuickStartGuide",
+  },
+  {
     title: "Builder FAQ",
     description: "Answers to common questions about Stringed Collective — payments, shipping, custom builds, and more.",
     page: "BuilderFAQ",
