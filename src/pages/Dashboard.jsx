@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [products, setProducts] = useState([]);
+  const [customListings, setCustomListings] = useState([]);
   const [requests, setRequests] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -31,14 +32,16 @@ export default function Dashboard() {
         const p = profiles[0];
         setProfile(p);
         const builderName = p.business_name || p.display_name;
-        const [prods, reqs, msgs, revs, allOrders] = await Promise.all([
+        const [prods, customLists, reqs, msgs, revs, allOrders] = await Promise.all([
           base44.entities.Product.filter({ builder_id: p.id }, "-created_date", 20),
+          base44.entities.CustomBuildListing.filter({ builder_id: p.id }, "-created_date", 50),
           base44.entities.CustomBuildRequest.filter({ builder_id: p.id }, "-created_date", 20),
           base44.entities.Message.filter({ recipient_id: p.id }, "-created_date", 10),
           base44.entities.BuilderReview.filter({ builder_id: p.id }, "-created_date", 10),
           base44.entities.Order.list("-created_date", 200),
         ]);
         setProducts(prods);
+        setCustomListings(customLists);
         setRequests(reqs);
         setMessages(msgs);
         setReviews(revs);
@@ -76,11 +79,16 @@ export default function Dashboard() {
     );
   }
 
-  const hasCompleteListing = products.some(p =>
+  const hasCompleteProduct = products.some(p =>
     p.name && p.price && p.description &&
     p.specifications?.instrumentCategory &&
     p.image_urls?.length >= 1
   );
+  const hasCompleteCustomListing = customListings.some(cl =>
+    cl.listing_title && cl.short_description &&
+    cl.image_urls?.length >= 1
+  );
+  const hasCompleteListing = hasCompleteProduct || hasCompleteCustomListing;
   const storefrontSetupComplete = !!(profile?.business_name && (profile?.business_city || profile?.location));
   const showLaunchBanner = storefrontSetupComplete && !hasCompleteListing && !profile?.is_approved;
 
@@ -153,7 +161,7 @@ export default function Dashboard() {
                   <p className="text-sm font-bold" style={{ color: "#1A1A1A" }}>Add your first listing to launch your storefront</p>
                 </div>
                 <p className="text-xs leading-relaxed mb-4" style={{ color: "#5A5A5A" }}>
-                  Your builder profile is set up and looking good. The next step is to add one complete instrument listing. Once that's done, your storefront can be submitted for review.
+                  Your builder profile is set up and looking good. The next step is to add one complete listing — a stock instrument or a custom build offering. Once that's done, your storefront can be submitted for review.
                 </p>
                 {/* Progress milestones */}
                 <div className="flex flex-wrap items-center gap-4 mb-5">

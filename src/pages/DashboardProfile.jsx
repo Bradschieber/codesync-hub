@@ -66,7 +66,7 @@ export default function DashboardProfile() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [productCount, setProductCount] = useState(0);
+  const [listingCount, setListingCount] = useState(0);
   const [openSection, setOpenSection] = useState("basics");
 
   const sectionRefs = {
@@ -90,8 +90,11 @@ export default function DashboardProfile() {
         const p = profiles[0];
         setProfile(p);
         setForm(p);
-        const prods = await base44.entities.Product.filter({ builder_id: p.id });
-        setProductCount(prods.length);
+        const [prods, customListings] = await Promise.all([
+          base44.entities.Product.filter({ builder_id: p.id }),
+          base44.entities.CustomBuildListing.filter({ builder_id: p.id }),
+        ]);
+        setListingCount(prods.length + customListings.length);
       } else {
         setForm({ user_id: u.id, email: u.email, display_name: u.full_name, is_seller: true, account: "seller" });
       }
@@ -152,7 +155,7 @@ export default function DashboardProfile() {
       <StorefrontProgressTracker
         form={form}
         profile={profile}
-        productCount={productCount}
+        listingCount={listingCount}
         onSectionClick={handleTrackerSectionClick}
       />
 
@@ -160,7 +163,7 @@ export default function DashboardProfile() {
 
         {/* 1. The Basics */}
         <div ref={sectionRefs.basics}>
-          <AccordionSection id="basics" title="The Basics" isOpen={openSection === "basics"} onToggle={toggleSection} complete={sectionComplete("basics", form, productCount)}>
+          <AccordionSection id="basics" title="The Basics" isOpen={openSection === "basics"} onToggle={toggleSection} complete={sectionComplete("basics", form, listingCount)}>
             <p className="text-gray-400 text-xs mb-5">Your public storefront identity — how buyers find and recognize you.</p>
             <div className="space-y-4">
               <div>
@@ -201,14 +204,14 @@ export default function DashboardProfile() {
 
         {/* 2. Storefront Style */}
         <div ref={sectionRefs.storefront}>
-          <AccordionSection id="storefront" title="Storefront Style" isOpen={openSection === "storefront"} onToggle={toggleSection} complete={sectionComplete("storefront", form, productCount)}>
+          <AccordionSection id="storefront" title="Storefront Style" isOpen={openSection === "storefront"} onToggle={toggleSection} complete={sectionComplete("storefront", form, listingCount)}>
             <StorefrontCustomizer form={form} setForm={setForm} />
           </AccordionSection>
         </div>
 
         {/* 3. Tell Your Story */}
         <div ref={sectionRefs.story}>
-          <AccordionSection id="story" title="Tell Your Story" isOpen={openSection === "story"} onToggle={toggleSection} complete={sectionComplete("story", form, productCount)}>
+          <AccordionSection id="story" title="Tell Your Story" isOpen={openSection === "story"} onToggle={toggleSection} complete={sectionComplete("story", form, listingCount)}>
             <div className="mb-4 p-4 bg-stone-50 border border-stone-200 rounded-xl">
               <div className="flex items-start gap-3">
                 <Sparkles className="w-4 h-4 text-stone-400 mt-0.5 flex-shrink-0" />
@@ -256,7 +259,7 @@ export default function DashboardProfile() {
 
         {/* 4. Show Buyers Your Craft */}
         <div ref={sectionRefs.photos}>
-          <AccordionSection id="photos" title="Show Buyers Your Craft" isOpen={openSection === "photos"} onToggle={toggleSection} complete={sectionComplete("photos", form, productCount)}>
+          <AccordionSection id="photos" title="Show Buyers Your Craft" isOpen={openSection === "photos"} onToggle={toggleSection} complete={sectionComplete("photos", form, listingCount)}>
             <div className="mb-5">
               <p className="text-xs font-semibold text-gray-700 mb-1">
                 {form.business_name ? `Your ${form.business_name} gallery` : "Your craft gallery"}
@@ -306,7 +309,7 @@ export default function DashboardProfile() {
 
         {/* 5. Your Business */}
         <div ref={sectionRefs.business}>
-          <AccordionSection id="business" title="Your Business" isOpen={openSection === "business"} onToggle={toggleSection} complete={sectionComplete("business", form, productCount)}>
+          <AccordionSection id="business" title="Your Business" isOpen={openSection === "business"} onToggle={toggleSection} complete={sectionComplete("business", form, listingCount)}>
             <p className="text-gray-400 text-xs mb-5">Help buyers understand what working with you looks like.</p>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -409,7 +412,7 @@ export default function DashboardProfile() {
 
         {/* 6. Shop Policies */}
         <div ref={sectionRefs.policies}>
-          <AccordionSection id="policies" title="Shop Policies" isOpen={openSection === "policies"} onToggle={toggleSection} complete={sectionComplete("policies", form, productCount)}>
+          <AccordionSection id="policies" title="Shop Policies" isOpen={openSection === "policies"} onToggle={toggleSection} complete={sectionComplete("policies", form, listingCount)}>
             <p className="text-gray-400 text-xs mb-5">Clear policies build buyer confidence. Define your pricing, warranty, returns, and shipping terms.</p>
             <PoliciesEditor form={form} setForm={setForm} />
           </AccordionSection>

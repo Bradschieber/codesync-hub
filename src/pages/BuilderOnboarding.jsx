@@ -399,7 +399,7 @@ export default function BuilderOnboarding() {
             {step === 7 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Your storefront foundation is complete.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
-                You've completed your builder profile, shop details, and policies. To submit your storefront for review, add at least one complete product listing buyers can explore.
+                You've completed your builder profile, shop details, and policies. To submit your storefront for review, add at least one complete listing — a stock instrument or a custom build offering — that buyers can explore.
               </p>
             </>}
           </div>
@@ -881,7 +881,7 @@ export default function BuilderOnboarding() {
                   <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full" style={{ backgroundColor: "#D0D5DB" }}>
                     <span className="text-xs font-bold" style={{ color: "#333333" }}>1</span>
                   </div>
-                  <span className="text-sm font-medium" style={{ color: "#333333" }}>First product listing</span>
+                  <span className="text-sm font-medium" style={{ color: "#333333" }}>First listing (stock or custom build)</span>
                   <span className="ml-auto text-xs font-semibold" style={{ color: "#333333" }}>Add from dashboard</span>
                 </div>
               </div>

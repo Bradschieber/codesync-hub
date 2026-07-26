@@ -7,7 +7,7 @@ const STEPS = [
   { id: "story",       label: "Tell Your Story",      anchor: "#story",       check: f => !!(f.brand_story && f.brand_story.length > 80) },
   { id: "photos",      label: "Photos & Video",       anchor: "#photos",      check: f => !!(f.media_urls && f.media_urls.length > 0) },
   { id: "policies",    label: "Shop Policies",        anchor: "#policies",    check: f => !!(f.warranty_policy || f.return_policy || f.shipping_policy) },
-  { id: "instrument",  label: "Add First Instrument", anchor: null,           check: (_f, productCount) => productCount > 0 },
+  { id: "instrument",  label: "Add First Listing",   anchor: null,           check: (_f, listingCount) => listingCount > 0 },
   { id: "references",  label: "References",           anchor: "#references",  check: f => !!(f._hasReferences) },
 ];
 
@@ -17,8 +17,8 @@ const PROMPTS = [
   { check: f => !(f.warranty_policy || f.return_policy || f.shipping_policy), text: "Clear policies build buyer confidence. Complete your shop policies.", anchor: "#policies" },
 ];
 
-export default function StorefrontProgressTracker({ form, profile, productCount, onSectionClick }) {
-  const completedCount = STEPS.filter(s => s.check(form, productCount)).length;
+export default function StorefrontProgressTracker({ form, profile, listingCount, onSectionClick }) {
+  const completedCount = STEPS.filter(s => s.check(form, listingCount)).length;
   const pct = Math.round((completedCount / STEPS.length) * 100);
   const profileId = profile?.slug || profile?.id || form?.id;
 
@@ -44,7 +44,7 @@ export default function StorefrontProgressTracker({ form, profile, productCount,
       {/* Steps checklist */}
       <div className="grid sm:grid-cols-2 gap-2 mb-5">
         {STEPS.map(step => {
-          const done = step.check(form, productCount);
+          const done = step.check(form, listingCount);
           const content = (
             <span className={`flex items-center gap-2 text-xs font-medium transition-colors ${done ? "text-gray-400 line-through" : "text-gray-700 hover:text-gray-900"}`}>
               {done
@@ -91,20 +91,20 @@ export default function StorefrontProgressTracker({ form, profile, productCount,
       </div>
 
       {/* First instrument card */}
-      <div className={`rounded-xl border p-4 flex items-center justify-between gap-4 ${productCount > 0 ? "border-green-200 bg-green-50" : "border-amber-200 bg-amber-50"}`}>
+      <div className={`rounded-xl border p-4 flex items-center justify-between gap-4 ${listingCount > 0 ? "border-green-200 bg-green-50" : "border-amber-200 bg-amber-50"}`}>
         <div>
-          <p className={`text-sm font-semibold ${productCount > 0 ? "text-green-800" : "text-amber-800"}`}>
-            {productCount > 0 ? `You have ${productCount} instrument${productCount > 1 ? "s" : ""} listed.` : "Add Your First Instrument"}
+          <p className={`text-sm font-semibold ${listingCount > 0 ? "text-green-800" : "text-amber-800"}`}>
+            {listingCount > 0 ? `You have ${listingCount} listing${listingCount > 1 ? "s" : ""} on your storefront.` : "Add Your First Listing"}
           </p>
-          {productCount === 0 && (
-            <p className="text-xs text-amber-700 mt-0.5">Your storefront comes to life when you add your first instrument listing.</p>
+          {listingCount === 0 && (
+            <p className="text-xs text-amber-700 mt-0.5">Your storefront comes to life when you add your first listing — a stock instrument or a custom build offering.</p>
           )}
         </div>
         <Link
           to={createPageUrl("DashboardProducts")}
-          className={`flex-shrink-0 text-xs font-semibold px-4 py-2 rounded-lg transition-colors ${productCount > 0 ? "bg-green-700 text-white hover:bg-green-800" : "bg-amber-600 text-white hover:bg-amber-700"}`}
+          className={`flex-shrink-0 text-xs font-semibold px-4 py-2 rounded-lg transition-colors ${listingCount > 0 ? "bg-green-700 text-white hover:bg-green-800" : "bg-amber-600 text-white hover:bg-amber-700"}`}
         >
-          {productCount > 0 ? "Manage Listings" : "Add Instrument"}
+          {listingCount > 0 ? "Manage Listings" : "Add Listing"}
         </Link>
       </div>
 
