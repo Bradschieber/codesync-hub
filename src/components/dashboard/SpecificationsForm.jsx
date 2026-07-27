@@ -149,15 +149,19 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           </>
         )}
 
-        <SpecSelect
-          label="Body Construction"
-          value={specs.bodyConstruction}
-          onChange={v => onChange({ ...specs, bodyConstruction: v, otherBodyConstruction: "", topWood: "", otherTopWood: "", backWood: "", otherBackWood: "", middleWood: "", otherMiddleWood: "", bodyConstructionDescription: "" })}
-          options={["One Piece", "Two Piece", "Three Piece", "Other"]}
-          builderOptions={bo("bodyConstruction")} builderNotes={bn("bodyConstruction")}
-        />
-        {bc === "Other" && (
-          <SpecInput label="Body Construction Description" value={specs.bodyConstructionDescription} onChange={v => update("bodyConstructionDescription", v)} placeholder="Describe the body construction..." />
+        {!isAcoustic && (
+          <>
+            <SpecSelect
+              label="Body Construction"
+              value={specs.bodyConstruction}
+              onChange={v => onChange({ ...specs, bodyConstruction: v, otherBodyConstruction: "", topWood: "", otherTopWood: "", backWood: "", otherBackWood: "", middleWood: "", otherMiddleWood: "", bodyConstructionDescription: "" })}
+              options={["One Piece", "Two Piece", "Three Piece", "Other"]}
+              builderOptions={bo("bodyConstruction")} builderNotes={bn("bodyConstruction")}
+            />
+            {bc === "Other" && (
+              <SpecInput label="Body Construction Description" value={specs.bodyConstructionDescription} onChange={v => update("bodyConstructionDescription", v)} placeholder="Describe the body construction..." />
+            )}
+          </>
         )}
 
         {bc === "One Piece" && (
@@ -169,7 +173,9 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         </>)}
         {bc === "Three Piece" && (<>
           <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
-          <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} builderOptions={bo("middleWood")} builderNotes={bn("middleWood")} />
+          {!isAcoustic && (
+            <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} builderOptions={bo("middleWood")} builderNotes={bn("middleWood")} />
+          )}
           <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </>)}
 
