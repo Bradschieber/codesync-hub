@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import MediaUploader from "../components/dashboard/MediaUploader";
 import CardPhotoUploader from "../components/builder/CardPhotoUploader";
+import StorefrontImageUploader from "../components/builder/StorefrontImageUploader";
 import LocationFields from "../components/onboarding/LocationFields";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
@@ -570,9 +571,37 @@ export default function BuilderOnboarding() {
 
               {/* Builder Card Photo — the primary image buyers see in discovery */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Builder Card Photo</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This is the first photo buyers see — it appears on the Builders directory and in search results before anyone clicks into your storefront. A genuine photo of you at the bench, or your workshop, beats a logo or empty background.</p>
                 <CardPhotoUploader
                   cardPhotoUrl={form.card_photo_url}
                   onChange={url => setForm(f => ({ ...f, card_photo_url: url }))}
+                  compact
+                />
+              </div>
+
+              {/* Banner — large hero image at the top of the storefront page */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Storefront Banner</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This large image sits at the top of your storefront page — it's the first impression once a buyer actually lands on your page. A shot of your workshop, a finished instrument, or anything that captures your style works well.</p>
+                <StorefrontImageUploader
+                  imageUrl={form.banner_image_url}
+                  onChange={url => setForm(f => ({ ...f, banner_image_url: url }))}
+                  uploadLabel="Upload Banner"
+                  aspectRatio="16/5"
+                />
+              </div>
+
+              {/* Logo — optional, appears in storefront header */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Shop Logo <span className="font-normal" style={{ color: "#9A9A9A" }}>(optional)</span></p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>Appears next to your shop name in the storefront header. If you don't have one yet, skip this — you can always add it later from your dashboard.</p>
+                <StorefrontImageUploader
+                  imageUrl={form.logo_url}
+                  onChange={url => setForm(f => ({ ...f, logo_url: url }))}
+                  uploadLabel="Upload Logo"
+                  aspectRatio="4/3"
+                  objectFit="contain"
                 />
               </div>
 
