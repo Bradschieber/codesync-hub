@@ -114,7 +114,7 @@ function RequestCard({ request, latestForm }) {
     <div className={`bg-white rounded-2xl border overflow-hidden shadow-sm ${hasActionableForm ? "border-indigo-300 ring-1 ring-indigo-200" : "border-stone-200"}`}>
       {hasActionableForm && (
         <div className="bg-indigo-600 text-white text-xs font-semibold px-4 py-2 flex items-center gap-2">
-          <FileText className="w-3.5 h-3.5" /> Order Form ready for your review — action required
+          <FileText className="w-3.5 h-3.5" /> Order Form ready for your review - action required
         </div>
       )}
       <div className="p-5">

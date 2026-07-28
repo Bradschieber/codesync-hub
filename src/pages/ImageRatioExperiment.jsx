@@ -18,20 +18,20 @@ const VARIANTS = [
     label: "1 : 1",
     sublabel: "Square (Current)",
     ratio: "1 / 1",
-    note: "Clean but guitar feels small — side whitespace visible",
+    note: "Clean but guitar feels small - side whitespace visible",
   },
   {
     label: "4 : 5",
     sublabel: "Portrait (Recommended)",
     ratio: "4 / 5",
-    note: "Instrument fills the frame better — balanced and polished",
+    note: "Instrument fills the frame better - balanced and polished",
     highlight: true,
   },
   {
     label: "3 : 4",
     sublabel: "Tall Portrait",
     ratio: "3 / 4",
-    note: "Maximum instrument height — card becomes quite tall",
+    note: "Maximum instrument height - card becomes quite tall",
   },
 ];
 
@@ -68,7 +68,7 @@ function ExperimentCard({ product, ratio, label, sublabel, note, highlight }) {
           border: highlight ? "2px solid #9B1B30" : "1px solid #E8E5E0",
         }}
       >
-        {/* Image Container — only the ratio changes */}
+        {/* Image Container - only the ratio changes */}
         <div
           className="w-full overflow-hidden"
           style={{ aspectRatio: ratio, backgroundColor: "#F0EFED" }}
@@ -80,7 +80,7 @@ function ExperimentCard({ product, ratio, label, sublabel, note, highlight }) {
           />
         </div>
 
-        {/* Card Content — identical across all 3 */}
+        {/* Card Content - identical across all 3 */}
         <div className="pt-3 pb-4 px-3">
           <div className="flex items-start justify-between gap-2 mb-1">
             <h3 className="font-bold text-sm leading-snug" style={{ color: "#1A1A1A" }}>
@@ -118,10 +118,10 @@ export default function ImageRatioExperiment() {
             Design Experiment
           </div>
           <h1 className="text-2xl font-bold mb-1" style={{ color: NAVY }}>
-            Product Card — Image Ratio Comparison
+            Product Card - Image Ratio Comparison
           </h1>
           <p className="text-sm" style={{ color: "#7A7A7A" }}>
-            Same image · Same card design · Same product — only the image aspect ratio changes.
+            Same image · Same card design · Same product - only the image aspect ratio changes.
           </p>
         </div>
       </div>

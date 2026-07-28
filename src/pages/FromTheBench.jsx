@@ -107,7 +107,7 @@ export default function FromTheBench() {
             Watch instruments come to life.
           </h1>
           <p className="text-base leading-relaxed max-w-xl" style={{ color: "#4A4A4A" }}>
-            Real updates from independent builders as they craft each instrument — from raw wood to finished build.
+            Real updates from independent builders as they craft each instrument - from raw wood to finished build.
           </p>
         </div>
       </div>
@@ -186,7 +186,7 @@ function BenchCard({ post }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Photo — natural aspect ratio */}
+      {/* Photo - natural aspect ratio */}
       {post.photo_url && (
         <div className="relative overflow-hidden">
           <img

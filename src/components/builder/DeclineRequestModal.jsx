@@ -18,7 +18,7 @@ export default function DeclineRequestModal({ request, profile, onClose, onDecli
       await base44.integrations.Core.SendEmail({
         from_name: "Stringed Collective",
         to: request.customer_email,
-        subject: `Update on your custom build request — ${profile?.business_name || profile?.display_name}`,
+        subject: `Update on your custom build request - ${profile?.business_name || profile?.display_name}`,
         body: `
 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background: #FDFBF8; color: #1B2B4B;">
   <div style="margin-bottom: 20px;">
@@ -30,7 +30,7 @@ export default function DeclineRequestModal({ request, profile, onClose, onDecli
   <p style="color: #4A5568; margin-bottom: 12px;">Thank you for reaching out to <strong>${profile?.business_name || profile?.display_name}</strong>. Unfortunately, they are unable to take on your custom build request at this time.</p>
   ${reason ? `<div style="background: #F9E5E8; border: 1px solid #E3E0D8; border-radius: 8px; padding: 16px; margin-bottom: 20px;"><p style="margin: 0; font-style: italic; color: #5A5A5A;">"${reason}"</p></div>` : ""}
   <p style="color: #4A5568;">We encourage you to explore other talented builders on Stringed Collective who may be a great fit for your project.</p>
-  <p style="color: #9CA3AF; font-size: 0.8rem; margin-top: 32px; border-top: 1px solid #E5E7EB; padding-top: 16px;">— The Stringed Collective Team</p>
+  <p style="color: #9CA3AF; font-size: 0.8rem; margin-top: 32px; border-top: 1px solid #E5E7EB; padding-top: 16px;">- The Stringed Collective Team</p>
 </div>`
       });
     }
@@ -60,7 +60,7 @@ export default function DeclineRequestModal({ request, profile, onClose, onDecli
 
         <div className="mb-5">
           <label className="block text-xs font-medium text-stone-600 mb-1">
-            Reason <span className="text-stone-400 font-normal">(optional — shown to buyer)</span>
+            Reason <span className="text-stone-400 font-normal">(optional - shown to buyer)</span>
           </label>
           <textarea
             rows={3}

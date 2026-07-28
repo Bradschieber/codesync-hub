@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 
 /**
  * Props:
- *   orderId       — required
- *   userRole      — "buyer" | "builder" | "admin"
- *   variant       — button variant (default "outline")
- *   size          — button size (default "sm")
+ *   orderId       - required
+ *   userRole      - "buyer" | "builder" | "admin"
+ *   variant       - button variant (default "outline")
+ *   size          - button size (default "sm")
  */
 export default function PurchaseAgreementButton({ orderId, userRole = "buyer", variant = "outline", size = "sm" }) {
   const [agreement, setAgreement] = useState(null);
@@ -76,7 +76,7 @@ export default function PurchaseAgreementButton({ orderId, userRole = "buyer", v
           onClick={handleRegenerate}
           disabled={regenerating}
           className="gap-1.5 text-muted-foreground hover:text-foreground"
-          title="Regenerate PDF (admin only — preserves original snapshot data)"
+          title="Regenerate PDF (admin only - preserves original snapshot data)"
         >
           {regenerating ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />

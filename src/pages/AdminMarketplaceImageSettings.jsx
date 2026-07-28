@@ -121,7 +121,7 @@ export default function AdminMarketplaceImageSettings() {
           </div>
         </div>
 
-        {/* Background — Transparent (locked) */}
+        {/* Background - Transparent (locked) */}
         <div className="bg-white border p-6 mb-4" style={{ borderColor: "#E0DDD8" }}>
           <h3 className="font-bold text-sm mb-1" style={{ color: "#1A1A1A" }}>Background</h3>
           <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>
@@ -199,7 +199,7 @@ export default function AdminMarketplaceImageSettings() {
           </div>
         </div>
 
-        {/* Output Format — PNG locked (transparency requires alpha channel) */}
+        {/* Output Format - PNG locked (transparency requires alpha channel) */}
         <div className="bg-white border p-6 mb-4" style={{ borderColor: "#E0DDD8" }}>
           <h3 className="font-bold text-sm mb-1" style={{ color: "#1A1A1A" }}>Output Format</h3>
           <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>

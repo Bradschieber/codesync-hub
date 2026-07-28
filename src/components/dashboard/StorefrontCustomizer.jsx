@@ -6,7 +6,7 @@ const LAYOUTS = [
   {
     id: "classic",
     label: "Text-Forward",
-    description: "Strong text overlay covers most of the banner — works great without a banner image.",
+    description: "Strong text overlay covers most of the banner - works great without a banner image.",
     preview: (
       <svg viewBox="0 0 160 80" className="w-full" xmlns="http://www.w3.org/2000/svg">
         <rect width="160" height="80" fill="#57534e"/>
@@ -27,7 +27,7 @@ const LAYOUTS = [
   {
     id: "showcase",
     label: "Banner Showcase",
-    description: "Taller banner with text anchored at the bottom — lets a great banner image take center stage.",
+    description: "Taller banner with text anchored at the bottom - lets a great banner image take center stage.",
     preview: (
       <svg viewBox="0 0 160 80" className="w-full" xmlns="http://www.w3.org/2000/svg">
         <rect width="160" height="80" fill="#57534e"/>

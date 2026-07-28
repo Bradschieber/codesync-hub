@@ -47,7 +47,7 @@ function VersionHistoryModal({ label, versions, onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" style={{ backgroundColor: "rgba(0,0,0,0.4)" }} onClick={onClose}>
       <div className="bg-white border max-w-lg w-full p-6" style={{ borderColor: "#E0DDD8" }} onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-bold text-base" style={{ color: "#1A1A1A" }}>Version History — {label}</h2>
+          <h2 className="font-bold text-base" style={{ color: "#1A1A1A" }}>Version History - {label}</h2>
           <button onClick={onClose} className="text-sm font-medium" style={{ color: "#7A7A7A" }}>Close</button>
         </div>
         {versions.length === 0 ? (

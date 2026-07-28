@@ -151,7 +151,7 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
       <div className="grid sm:grid-cols-2 gap-4">
         <SectionHeader title="Body" />
 
-        {/* Body Type — Electric only */}
+        {/* Body Type - Electric only */}
         {isElectric && (
           <>
             <SpecSelect
@@ -166,7 +166,7 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           </>
         )}
 
-        {/* Body Shape — Acoustic only */}
+        {/* Body Shape - Acoustic only */}
         {isAcoustic && (
           <>
             <SpecSelect
@@ -211,7 +211,7 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} options={isAcoustic ? ACOUSTIC_SIDES_BACK : ELECTRIC_WOOD} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </>)}
 
-        {/* Side Wood & Bracing — Acoustic only */}
+        {/* Side Wood & Bracing - Acoustic only */}
         {isAcoustic && (
           <>
             <WoodSelect label="Side Wood" value={specs.sideWood} otherValue={specs.otherSideWood} onChange={v => update("sideWood", v)} onOtherChange={v => update("otherSideWood", v)} options={ACOUSTIC_SIDES_BACK} />
@@ -232,7 +232,7 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
           <SpecInput label="Specify Top Grain Details" value={specs.otherTopGrainDetails} onChange={v => update("otherTopGrainDetails", v)} placeholder="Enter grain details..." />
         )}
 
-        {/* Body Description — always shown */}
+        {/* Body Description - always shown */}
         <div className="col-span-full">
           <SpecTextarea label="Body Description" value={specs.bodyDescription} onChange={v => update("bodyDescription", v)} placeholder="Any unique or noteworthy details about the body..." />
         </div>

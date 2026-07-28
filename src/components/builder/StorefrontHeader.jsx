@@ -81,7 +81,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
           <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800')] bg-cover bg-center" />
         )}
 
-        {/* Overlay — heavier on left for "classic", gradient-from-bottom for "showcase" */}
+        {/* Overlay - heavier on left for "classic", gradient-from-bottom for "showcase" */}
         <div className="absolute inset-0" style={layout.overlayStyle} />
 
         {builder.is_featured && (

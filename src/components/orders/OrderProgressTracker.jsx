@@ -103,7 +103,7 @@ export default function OrderProgressTracker({ order }) {
 
       {/* Mobile fallback: current step label */}
       <p className="text-xs mt-1" style={{ color: "#7A7A7A" }}>
-        Step {Math.max(currentIndex + 1, 1)} of {steps.length} —{" "}
+        Step {Math.max(currentIndex + 1, 1)} of {steps.length} -{" "}
         <span style={{ color: AMBER, fontWeight: 600 }}>
           {steps[currentIndex]?.label || "Unknown"}
         </span>

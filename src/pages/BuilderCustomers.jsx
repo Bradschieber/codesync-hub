@@ -149,7 +149,7 @@ export default function BuilderCustomers() {
                   </td>
                   <td className="px-5 py-3 text-right font-semibold" style={{ color: "#A0692A" }}>${c.totalSpent.toLocaleString()}</td>
                   <td className="px-5 py-3 text-right text-stone-400 hidden md:table-cell">
-                    {c.lastOrder ? format(new Date(c.lastOrder), "MMM d, yyyy") : "—"}
+                    {c.lastOrder ? format(new Date(c.lastOrder), "MMM d, yyyy") : "-"}
                   </td>
                 </tr>
               ))}

@@ -27,14 +27,14 @@ export default function StorefrontInsideWorkshop({ builder }) {
       <div className="p-6">
         <div className={`grid gap-8 ${story && media.length > 0 ? "lg:grid-cols-2" : "grid-cols-1"}`}>
 
-          {/* Left — Story */}
+          {/* Left - Story */}
           {story && (
             <div>
               <p className="text-sm leading-relaxed text-stone-700 whitespace-pre-line">{story}</p>
             </div>
           )}
 
-          {/* Right — Media grid + optional video */}
+          {/* Right - Media grid + optional video */}
           {(media.length > 0 || hasVideo) && (
             <div className="space-y-3">
               {media.length > 0 && (

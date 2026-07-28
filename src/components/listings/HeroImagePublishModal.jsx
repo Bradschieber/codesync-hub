@@ -5,9 +5,9 @@ const NAVY = "#1B2B4B";
 /**
  * Primary modal shown when builder tries to publish without a builder-approved marketplace photo.
  * Props:
- *   onReviewHero    — navigate to hero review flow
- *   onPublishAnyway — open secondary confirmation modal
- *   onClose         — dismiss
+ *   onReviewHero    - navigate to hero review flow
+ *   onPublishAnyway - open secondary confirmation modal
+ *   onClose         - dismiss
  */
 export default function HeroImagePublishModal({ onReviewHero, onPublishAnyway, onClose }) {
   return (

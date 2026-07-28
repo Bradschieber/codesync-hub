@@ -52,7 +52,7 @@ export default function StorefrontMediaGallery({ builder, media }) {
       );
     }
 
-    // classic — standard 3-col grid
+    // classic - standard 3-col grid
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {media.map((url, i) => (

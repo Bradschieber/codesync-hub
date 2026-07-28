@@ -105,10 +105,10 @@ export default function ProductDetail() {
           <ChevronLeft className="w-4 h-4" /> Back to Catalog
         </Link>
 
-        {/* HERO — Two column */}
+        {/* HERO - Two column */}
         <div className="grid md:grid-cols-2 gap-12 mb-16">
 
-          {/* Left — Image gallery */}
+          {/* Left - Image gallery */}
           <div>
             <div
               className="rounded-2xl overflow-hidden bg-stone-100 mb-3 cursor-zoom-in"
@@ -136,7 +136,7 @@ export default function ProductDetail() {
             )}
           </div>
 
-          {/* Right — Info */}
+          {/* Right - Info */}
           <div className="flex flex-col">
 
             {/* Builder identity */}
@@ -236,7 +236,7 @@ export default function ProductDetail() {
             <div className="flex-1">
               <h3 className="text-base font-bold mb-1" style={{ color: "#2F3E55" }}>Talk to the Builder About A Custom Build</h3>
               <p className="text-sm leading-relaxed" style={{ color: "#5A5A5A" }}>
-                Interested in a version built specifically for you? This builder offers custom instruments — reach out to start a conversation or request a formal quote.
+                Interested in a version built specifically for you? This builder offers custom instruments - reach out to start a conversation or request a formal quote.
               </p>
             </div>
             <div className="flex flex-col gap-2 flex-shrink-0">
@@ -268,7 +268,7 @@ export default function ProductDetail() {
           </section>
         )}
 
-        {/* SPECIFICATIONS — Accordion */}
+        {/* SPECIFICATIONS - Accordion */}
         {hasSpecs && (
           <div className="mb-10">
             <h2 className="text-xl font-bold mb-4" style={{ color: SLATE }}>Specifications</h2>

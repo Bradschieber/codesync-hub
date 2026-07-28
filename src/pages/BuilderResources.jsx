@@ -13,7 +13,7 @@ const faqResources = [
   },
   {
     title: "Builder FAQ",
-    description: "Answers to common questions about Stringed Collective — payments, shipping, custom builds, and more.",
+    description: "Answers to common questions about Stringed Collective - payments, shipping, custom builds, and more.",
     page: "BuilderFAQ",
   },
 ];

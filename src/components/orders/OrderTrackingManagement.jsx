@@ -113,7 +113,7 @@ export default function OrderTrackingManagement({ order, onTrackingUpdated, savi
         <Truck className="w-3.5 h-3.5" /> Shipment & Tracking
       </p>
 
-      {/* Shippo Status — shown when tracker exists */}
+      {/* Shippo Status - shown when tracker exists */}
       {hasShippoTracker && (
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-3">
@@ -144,13 +144,13 @@ export default function OrderTrackingManagement({ order, onTrackingUpdated, savi
         </div>
       )}
 
-      {/* Main form — always shown for initial submission, or shown again if tracking changed */}
+      {/* Main form - always shown for initial submission, or shown again if tracking changed */}
       {(!hasShippoTracker || trackingChanged) && (
         <form onSubmit={handleSubmitTracking} className="space-y-3">
           {trackingChanged && (
             <div className="flex items-center gap-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-800">
               <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
-              Tracking number changed — submit below to register the updated tracking with Shippo.
+              Tracking number changed - submit below to register the updated tracking with Shippo.
             </div>
           )}
           <div className="grid sm:grid-cols-3 gap-3">
@@ -225,7 +225,7 @@ export default function OrderTrackingManagement({ order, onTrackingUpdated, savi
         </form>
       )}
 
-      {/* Optional fields editor — shown when tracker already exists and tracking hasn't changed */}
+      {/* Optional fields editor - shown when tracker already exists and tracking hasn't changed */}
       {hasShippoTracker && !trackingChanged && (
         <div className="space-y-3 border-t border-stone-100 pt-3">
           <button type="button" onClick={() => setShowOptional(o => !o)}

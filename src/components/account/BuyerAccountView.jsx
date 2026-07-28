@@ -122,7 +122,7 @@ export default function BuyerAccountView({ user, profile, form, setForm, saving,
               {activeSection === "shipping" && (
                 <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
                   <h2 className="font-bold mb-1" style={{ color: "#1A1A1A" }}>Shipping Address</h2>
-                  <p className="text-sm mb-6" style={{ color: "#7A7A7A" }}>Used to pre-fill shipping at checkout. Private — not shown publicly.</p>
+                  <p className="text-sm mb-6" style={{ color: "#7A7A7A" }}>Used to pre-fill shipping at checkout. Private - not shown publicly.</p>
                   <div className="grid sm:grid-cols-2 gap-4 mb-6">
                     <div className="sm:col-span-2">
                       <label className="block text-xs font-medium mb-1" style={{ color: "#6B6B6B" }}>Address Line 1</label>

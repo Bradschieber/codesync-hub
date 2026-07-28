@@ -5,8 +5,8 @@ const NAVY = "#1B2B4B";
 /**
  * Secondary confirmation modal shown when builder clicks "Publish with limited visibility".
  * Props:
- *   onConfirm — execute the publish action
- *   onGoBack  — return to primary modal
+ *   onConfirm - execute the publish action
+ *   onGoBack  - return to primary modal
  */
 export default function HeroImagePublishConfirmModal({ onConfirm, onGoBack }) {
   return (

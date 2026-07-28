@@ -110,12 +110,12 @@ export default function BuilderAccountFormModal({ onClose }) {
           {user === null && (
             <div className="py-6">
               <p className="text-sm font-semibold mb-2" style={{ color: "#1A1A1A" }}>Create your builder account and start building your storefront.</p>
-              <p className="text-xs mb-6 leading-relaxed" style={{ color: "#7A7A7A" }}>It takes just a minute to create your account. Then we'll guide you through your complete storefront setup — step by step.</p>
+              <p className="text-xs mb-6 leading-relaxed" style={{ color: "#7A7A7A" }}>It takes just a minute to create your account. Then we'll guide you through your complete storefront setup - step by step.</p>
               <div className="space-y-3 mb-6">
                 {[
-                  { step: "1", label: "Create a free account", detail: "Sign up with your email and verify — takes under a minute." },
+                  { step: "1", label: "Create a free account", detail: "Sign up with your email and verify - takes under a minute." },
                   { step: "2", label: "Build your storefront", detail: "We'll walk you through your shop, story, policies, and first listing." },
-                  { step: "3", label: "Go live after review", detail: "Our team approves your storefront within 1–2 business days." },
+                  { step: "3", label: "Go live after review", detail: "Our team approves your storefront within 1-2 business days." },
                 ].map(({ step, label, detail }) => (
                   <div key={step} className="flex items-start gap-4">
                     <div className="w-7 h-7 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white rounded-full" style={{ backgroundColor: NAVY }}>{step}</div>
@@ -154,9 +154,9 @@ export default function BuilderAccountFormModal({ onClose }) {
           {user && submitted && (
             <div className="text-center py-8">
               <CheckCircle className="w-14 h-14 mx-auto mb-4" style={{ color: "#27AE60" }} />
-              <h3 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Account ready — let's build your storefront.</h3>
+              <h3 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Account ready - let's build your storefront.</h3>
               <p className="text-sm mb-6" style={{ color: "#5A5A5A" }}>
-                We'll walk you through your shop setup step by step. Once complete, our team will review and get you live within 1–2 business days.
+                We'll walk you through your shop setup step by step. Once complete, our team will review and get you live within 1-2 business days.
               </p>
               <button
                 onClick={() => { window.location.href = createPageUrl("BuilderOnboarding"); }}

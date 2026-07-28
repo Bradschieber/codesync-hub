@@ -62,7 +62,7 @@ export default function BuilderQuickStartGuide() {
             Builder Quick Start Guide
           </h1>
           <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
-            Everything you need to set up your storefront on Stringed Collective — step by step, with no pressure.
+            Everything you need to set up your storefront on Stringed Collective - step by step, with no pressure.
           </p>
         </div>
       </div>
@@ -76,12 +76,12 @@ export default function BuilderQuickStartGuide() {
             us directly if anything trips you up.
           </P>
           <P>
-            There's no such thing as a dumb question here — you're helping us figure out the early days of this together,
+            There's no such thing as a dumb question here - you're helping us figure out the early days of this together,
             and we'd rather you ask than get stuck.
           </P>
           <P>
             <span className="font-semibold" style={{ color: NAVY }}>A quick note on timing:</span> right now we're
-            focused on testing this process out and working out any rough edges — we won't be formally launching with
+            focused on testing this process out and working out any rough edges - we won't be formally launching with
             marketing and promotion for about a month. So there's no rush and no pressure to get everything perfect on
             the first try. Nothing goes live on the public site until we've reviewed and approved it, so feel free to
             explore, try things out, and see what works for your shop. Everything here is easy to change later.
@@ -90,16 +90,16 @@ export default function BuilderQuickStartGuide() {
           {/* Before You Start */}
           <SectionHeading>Before You Start: A Few Things to Know</SectionHeading>
           <P>
-            None of this is required before you begin — you can start setup anytime and fill things in as you go. This
+            None of this is required before you begin - you can start setup anytime and fill things in as you go. This
             is just a heads-up on what's ahead, not a checklist you need to finish first.
           </P>
 
           <SubHeading>Photos</SubHeading>
           <UL>
             <li>
-              A <span className="font-medium" style={{ color: NAVY }}>Builder Card Photo</span> — This photo will be the
+              A <span className="font-medium" style={{ color: NAVY }}>Builder Card Photo</span> - This photo will be the
               image used to introduce your storefront on our "Builders" page. It will also show up when your storefront is
-              included in search results. You want it to be a polished representation of your brand — it could be a photo
+              included in search results. You want it to be a polished representation of your brand - it could be a photo
               of you or your workshop. You want this to be a quality, well-lit shot of you at the bench or your space.
               This image beats a logo or empty background.
             </li>
@@ -108,45 +108,45 @@ export default function BuilderQuickStartGuide() {
             <li>At least one clear photo per instrument you plan to list.</li>
           </UL>
           <P>
-            If none of the specs below mean much to you, that's completely fine — any decent photo works, and our system
+            If none of the specs below mean much to you, that's completely fine - any decent photo works, and our system
             automatically cleans up and standardizes backgrounds for you. But if you're using a tool to prep your
             images, these will help you get it right the first time:
           </P>
           <UL>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Builder Card Photo</span> — crops to a 4:3 ratio;
+              <span className="font-medium" style={{ color: NAVY }}>Builder Card Photo</span> - crops to a 4:3 ratio;
               aim for at least 1200×900px
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Banner</span> — works best as a wide, landscape
+              <span className="font-medium" style={{ color: NAVY }}>Banner</span> - works best as a wide, landscape
               image, around 1600×400px (roughly 4:1); there's no crop tool for this one, so keep text or logos away from
               the edges
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Logo</span> — square or wide works best; at least
+              <span className="font-medium" style={{ color: NAVY }}>Logo</span> - square or wide works best; at least
               500px on the short side, and a transparent PNG will blend into the header more cleanly than a white
               background
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Instrument photos</span> — these are separate from
+              <span className="font-medium" style={{ color: NAVY }}>Instrument photos</span> - these are separate from
               the photos you'll provide for actual product listings. Good lighting and a plain background is always a
               good plan.
             </li>
           </UL>
           <P>
-            Need some help with these images? That's completely fine — tools like{" "}
+            Need some help with these images? That's completely fine - tools like{" "}
             <a href="https://canva.com" target="_blank" rel="noopener noreferrer" className="underline font-medium" style={{ color: NAVY }}>
               Canva
             </a>{" "}
-            (free) make it easy to crop, resize, and clean up photos without any experience. For writing help — your
-            bio, policies, anything text-heavy — Claude, ChatGPT, and Google Gemini work well when you need a little
+            (free) make it easy to crop, resize, and clean up photos without any experience. For writing help - your
+            bio, policies, anything text-heavy - Claude, ChatGPT, and Google Gemini work well when you need a little
             help. And if you get stuck on any of it, just reach out. We're happy to help.
           </P>
 
           <SubHeading>Your Story</SubHeading>
           <P>
             A few sentences about your background and what makes your builds distinctive. This doesn't need to be super
-            polished — buyers respond to authenticity. It's your passion for building that needs to shine.
+            polished - buyers respond to authenticity. It's your passion for building that needs to shine.
           </P>
 
           <SubHeading>Your Shop Policies</SubHeading>
@@ -158,52 +158,52 @@ export default function BuilderQuickStartGuide() {
 
           <SubHeading>Payment Setup</SubHeading>
           <P>
-            You'll connect a Stripe account so we can pay you for sales. This takes about 5–10 minutes and asks for
-            basic business/bank details. You can finish this later if you want to get your storefront live first — but
+            You'll connect a Stripe account so we can pay you for sales. This takes about 5-10 minutes and asks for
+            basic business/bank details. You can finish this later if you want to get your storefront live first - but
             you won't be able to receive a real payout until it's done, so we recommend knocking it out early.
           </P>
 
           {/* Walking Through Setup */}
           <SectionHeading>Walking Through Setup</SectionHeading>
           <P>
-            Setup is 8 short steps. Only a few are required — the rest you can skip and come back to.
+            Setup is 8 short steps. Only a few are required - the rest you can skip and come back to.
           </P>
           <ol
             className="list-decimal list-outside ml-5 space-y-3 text-sm leading-relaxed my-4"
             style={{ color: "#4A4A4A" }}
           >
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Foundation</span> — your shop name, location, and
+              <span className="font-medium" style={{ color: NAVY }}>Foundation</span> - your shop name, location, and
               basic legal agreements. <span className="italic">Required.</span>
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Your Story</span> — tell buyers about yourself and
+              <span className="font-medium" style={{ color: NAVY }}>Your Story</span> - tell buyers about yourself and
               your craft.
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Show Your Craft</span> — upload your Builder Card
-              Photo and any workshop photos or video. Optional, but strongly recommended — this is your storefront's
+              <span className="font-medium" style={{ color: NAVY }}>Show Your Craft</span> - upload your Builder Card
+              Photo and any workshop photos or video. Optional, but strongly recommended - this is your storefront's
               first impression.
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Your Business</span> — years of experience,
+              <span className="font-medium" style={{ color: NAVY }}>Your Business</span> - years of experience,
               categories you build in. Optional.
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Shop Policies</span> — your returns, warranty, and
+              <span className="font-medium" style={{ color: NAVY }}>Shop Policies</span> - your returns, warranty, and
               shipping approach, plus a confirmation checkbox. <span className="italic">Required.</span>
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>References</span> — if you have past customers
+              <span className="font-medium" style={{ color: NAVY }}>References</span> - if you have past customers
               willing to vouch for you, add them here. Optional, and verified references earn you a "Verified Builder"
               badge.
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Payments</span> — connect Stripe (see above). Not
+              <span className="font-medium" style={{ color: NAVY }}>Payments</span> - connect Stripe (see above). Not
               required to finish setup, but required before you can get paid.
             </li>
             <li>
-              <span className="font-medium" style={{ color: NAVY }}>Next Steps</span> — a checklist showing what's done
+              <span className="font-medium" style={{ color: NAVY }}>Next Steps</span> - a checklist showing what's done
               and what's left before you can submit your storefront for review.
             </li>
           </ol>
@@ -211,8 +211,8 @@ export default function BuilderQuickStartGuide() {
           {/* Your First Listing */}
           <SectionHeading>Your First Listing</SectionHeading>
           <P>
-            Before your storefront can go live, you'll need at least one complete listing — either a ready-made
-            instrument or just check the box that you offer custom builds — both count. If you are adding a stock build,
+            Before your storefront can go live, you'll need at least one complete listing - either a ready-made
+            instrument or just check the box that you offer custom builds - both count. If you are adding a stock build,
             it needs a name, price, at least one photo, and whatever specs (wood, scale length, electronics, etc.) help
             buyers understand what makes your build worth a closer look. Once that's in place, you can submit your
             storefront for review.
@@ -222,7 +222,7 @@ export default function BuilderQuickStartGuide() {
             where we need your input in order to get this right. We know the product specs section needs some work to
             make it the best possible experience for buyers. We've taken a first pass at which specs matter most for
             showcasing the build, but we really want your input. If a field feels like it's missing something important,
-            asking for the wrong thing, or just doesn't make sense for how you build — tell us. This is the section most
+            asking for the wrong thing, or just doesn't make sense for how you build - tell us. This is the section most
             likely to change as we learn from real builders, and your feedback here matters more than almost anything
             else in this guide.
           </P>
@@ -230,7 +230,7 @@ export default function BuilderQuickStartGuide() {
           {/* Getting Approved */}
           <SectionHeading>Getting Approved</SectionHeading>
           <P>
-            We will personally review every new storefront before it goes live on the public site — checking your
+            We will personally review every new storefront before it goes live on the public site - checking your
             profile, photos, and listing to make sure everything looks right. This isn't a gatekeeping step; it's just a
             quick sanity check to make sure everything displays properly before it's public. Most storefronts sail through
             with no issues. We'll be in touch as soon as it's approved.
@@ -246,15 +246,15 @@ export default function BuilderQuickStartGuide() {
           <P>
             You're one of our very first builders, and that means your experience matters more than you might think. As
             you go through setup and list your first instruments, keep an eye out for anything that's confusing,
-            missing, or just feels off — and jot it down as you go.
+            missing, or just feels off - and jot it down as you go.
           </P>
           <P>
-            A running note in a Google Doc, a text, an email, whatever's easiest — share it with us whenever you have a
+            A running note in a Google Doc, a text, an email, whatever's easiest - share it with us whenever you have a
             few minutes, even if it's just a quick list. We'd genuinely rather hear about the rough edges now, while
             it's just a handful of us figuring this out together, than after we've opened the doors more widely.
           </P>
           <P>
-            Have a question this guide didn't cover — payments, shipping, custom builds, and the like? Check the{" "}
+            Have a question this guide didn't cover - payments, shipping, custom builds, and the like? Check the{" "}
             <Link to={createPageUrl("BuilderFAQ")} className="underline font-medium" style={{ color: NAVY }}>
               Builder FAQ
             </Link>{" "}
@@ -263,7 +263,7 @@ export default function BuilderQuickStartGuide() {
 
           {/* Need Help */}
           <SectionHeading>Need Help? We're Right Here.</SectionHeading>
-          <P>Seriously — reach out any time, however's easiest for you:</P>
+          <P>Seriously - reach out any time, however's easiest for you:</P>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 my-5">
             <a
               href="mailto:info@stringedcollective.com"

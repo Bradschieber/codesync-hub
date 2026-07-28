@@ -307,7 +307,7 @@ export default function BuilderProfile() {
                     <div key={ref.id} className="p-4 bg-stone-50 rounded-xl">
                       <Quote className="w-4 h-4 mb-2 text-stone-300" />
                       <p className="text-sm italic leading-relaxed mb-3 text-stone-600">"{ref.quote}"</p>
-                      <p className="text-sm font-semibold text-stone-800">— {ref.buyer_name}</p>
+                      <p className="text-sm font-semibold text-stone-800">- {ref.buyer_name}</p>
                     </div>
                   ))}
                 </div>

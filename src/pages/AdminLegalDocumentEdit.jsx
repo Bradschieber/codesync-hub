@@ -57,14 +57,14 @@ function PublishConfirmModal({ doc, form, onConfirm, onCancel, publishing }) {
           <div className="grid grid-cols-2 gap-3">
             <div className="px-4 py-3 border" style={{ borderColor: "#ECEAE5", backgroundColor: "#FAFAF8" }}>
               <p className="text-xs font-semibold mb-1" style={{ color: "#7A7A7A" }}>Version</p>
-              <p className="text-sm font-medium" style={{ color: "#1A1A1A" }}>v{form.version_number || "—"}</p>
+              <p className="text-sm font-medium" style={{ color: "#1A1A1A" }}>v{form.version_number || "-"}</p>
             </div>
             <div className="px-4 py-3 border" style={{ borderColor: "#ECEAE5", backgroundColor: "#FAFAF8" }}>
               <p className="text-xs font-semibold mb-1" style={{ color: "#7A7A7A" }}>Effective Date</p>
               <p className="text-sm font-medium" style={{ color: "#1A1A1A" }}>
                 {form.effective_date
                   ? new Date(form.effective_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
-                  : "—"}
+                  : "-"}
               </p>
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function AdminLegalDocumentEdit() {
             value={form.notes || ""}
             onChange={e => set("notes", e.target.value)}
             disabled={isActive}
-            placeholder="Notes for internal reference only — not shown publicly."
+            placeholder="Notes for internal reference only - not shown publicly."
             className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none disabled:bg-stone-50 disabled:text-stone-400"
             style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
           />

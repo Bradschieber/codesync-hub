@@ -41,7 +41,7 @@ export default function CustomBuildExamples({ form, setForm }) {
         <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Custom Build Examples</p>
       </div>
       <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>
-        Add photos of past custom work. An optional title and notes can be added to each — these appear on hover on your public storefront.
+        Add photos of past custom work. An optional title and notes can be added to each - these appear on hover on your public storefront.
       </p>
 
       <div className="space-y-4 mb-4">
@@ -73,7 +73,7 @@ export default function CustomBuildExamples({ form, setForm }) {
                 rows={2}
                 value={ex.description || ""}
                 onChange={e => updateField(i, "description", e.target.value)}
-                placeholder="Short notes — materials, specs, or anything worth sharing (optional)"
+                placeholder="Short notes - materials, specs, or anything worth sharing (optional)"
                 className="w-full border px-2.5 py-1.5 text-xs focus:outline-none resize-none bg-white"
                 style={{ borderColor: "#DEDBD6" }}
               />

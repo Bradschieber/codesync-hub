@@ -1,6 +1,6 @@
 import { ShieldCheck, Hammer } from "lucide-react";
 
-// Badge definitions — easy to extend in future phases
+// Badge definitions - easy to extend in future phases
 const BADGE_DEFS = [
   {
     key: "verified",

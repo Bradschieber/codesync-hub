@@ -109,7 +109,7 @@ export default function Home() {
     setLoading(false);
   }
 
-  // Hero instrument image — best available from featured products
+  // Hero instrument image - best available from featured products
   const heroProduct = featured[0] || null;
 
   return (
@@ -179,7 +179,7 @@ export default function Home() {
               >
                 <span className="text-xs font-semibold px-3 py-1.5 backdrop-blur-sm"
                   style={{ backgroundColor: "rgba(255,255,255,0.88)", color: NAVY }}>
-                  {heroProduct ? `${heroProduct.name} — $${heroProduct.price?.toLocaleString()}` : "Built by independent makers"}
+                  {heroProduct ? `${heroProduct.name} - $${heroProduct.price?.toLocaleString()}` : "Built by independent makers"}
                 </span>
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function Home() {
               A Better Way to Buy and Build.
             </h2>
             <p className="text-base leading-relaxed" style={{ color: "#3D3D3D" }}>
-              Stringed Collective gives you the trusted online shopping experience you expect from major online retailers, with access to unique instruments from boutique builders around the world — supported by clear order details, organized communication, and platform support behind every purchase.
+              Stringed Collective gives you the trusted online shopping experience you expect from major online retailers, with access to unique instruments from boutique builders around the world - supported by clear order details, organized communication, and platform support behind every purchase.
             </p>
           </div>
 
@@ -313,7 +313,7 @@ export default function Home() {
                 <p className="text-sm font-medium mb-4" style={{ color: "#7A7A7A" }}>by Rivertown Guitars</p>
                 <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: NAVY }}>Currently in Neck Carving.</p>
                 <p className="text-base leading-relaxed mb-8" style={{ color: "#4A4A4A" }}>
-                  Follow this instrument from wood selection to final setup — every step documented by the builder.
+                  Follow this instrument from wood selection to final setup - every step documented by the builder.
                 </p>
                 <Link
                   to={createPageUrl("FromTheBench")}

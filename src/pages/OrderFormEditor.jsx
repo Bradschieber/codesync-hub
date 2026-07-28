@@ -131,7 +131,7 @@ export default function OrderFormEditor() {
             const reqs2 = await base44.entities.CustomBuildRequest.filter({ id: requestId });
             if (reqs2.length) {
               const reqSpecs = reqs2[0].specifications || {};
-              // Only fill in missing fields — don't override what the builder has already set
+              // Only fill in missing fields - don't override what the builder has already set
               mergedSpecs = { ...reqSpecs, ...mergedSpecs };
             }
           }
@@ -349,7 +349,7 @@ export default function OrderFormEditor() {
       {/* Section 1: Order Form Overview */}
       <Zone title="Order Form Overview">
         <div className="space-y-4">
-          <Field label="Order Form Title" hint="e.g. '6-String Electric Guitar Build — Ash Body, Maple Neck'">
+          <Field label="Order Form Title" hint="e.g. '6-String Electric Guitar Build - Ash Body, Maple Neck'">
             <Input value={form.title} onChange={v => update("title", v)} placeholder="Descriptive title for this order form" />
           </Field>
           <Field label="Builder Note" hint="Personal note to the buyer about this build offer">
@@ -414,7 +414,7 @@ export default function OrderFormEditor() {
             </div>
           </Field>
           <Field label="Estimated Build Timeline">
-            <Input value={form.estimated_build_timeline} onChange={v => update("estimated_build_timeline", v)} placeholder="e.g. 4–6 months from deposit" />
+            <Input value={form.estimated_build_timeline} onChange={v => update("estimated_build_timeline", v)} placeholder="e.g. 4-6 months from deposit" />
           </Field>
           <Field label="Final Payment Due Window">
             <select value={form.payment_due_window_days} onChange={e => update("payment_due_window_days", Number(e.target.value))}
@@ -451,7 +451,7 @@ export default function OrderFormEditor() {
 
       {/* Build Reference Images */}
       <Zone title="Build Reference Images" collapsible={true} defaultOpen={true}>
-        <p className="text-xs text-stone-400 mb-4">Upload up to 4 supporting reference images to help the buyer visualize the build. These are illustrative only — use captions to clarify context (e.g. "Body shape reference", "Burst finish example"). The official build definition comes from the specifications, summary, and pricing above.</p>
+        <p className="text-xs text-stone-400 mb-4">Upload up to 4 supporting reference images to help the buyer visualize the build. These are illustrative only - use captions to clarify context (e.g. "Body shape reference", "Burst finish example"). The official build definition comes from the specifications, summary, and pricing above.</p>
         <div className="space-y-3">
           {(form.reference_images || []).map((img, idx) => (
             <div key={idx} className="flex gap-3 items-start bg-white border border-stone-200 rounded-xl p-3">
@@ -460,7 +460,7 @@ export default function OrderFormEditor() {
                 <input
                   value={img.caption || ""}
                   onChange={e => updateImage(idx, "caption", e.target.value)}
-                  placeholder="Optional caption (e.g. 'Body shape reference', 'Burst finish example', 'Illustrative only — wood figure will vary')"
+                  placeholder="Optional caption (e.g. 'Body shape reference', 'Burst finish example', 'Illustrative only - wood figure will vary')"
                   className="w-full border border-stone-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-wine-400 mb-2"
                 />
                 <div className="flex items-center gap-1.5">
@@ -488,11 +488,11 @@ export default function OrderFormEditor() {
         </div>
       </Zone>
 
-      {/* Section 5: Original Buyer Request — Reference Only, collapsed */}
+      {/* Section 5: Original Buyer Request - Reference Only, collapsed */}
       {request && (
         <Zone title="Original Buyer Request" collapsible={true} defaultOpen={false}>
           <div className="bg-stone-50 border border-stone-200 rounded-xl p-3 mb-4">
-            <p className="text-xs text-stone-500">Reference only — this is what the buyer originally submitted. Not editable.</p>
+            <p className="text-xs text-stone-500">Reference only - this is what the buyer originally submitted. Not editable.</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-4 text-sm mb-4">
             <div><span className="text-xs font-semibold text-stone-400 block">Name</span><span className="text-stone-700">{request.customer_name}</span></div>
@@ -536,7 +536,7 @@ export default function OrderFormEditor() {
           </span>
         </label>
         {!confirmed && (
-          <p className="text-xs text-stone-400 mt-2 ml-7">Required before sending — does not affect saving a draft.</p>
+          <p className="text-xs text-stone-400 mt-2 ml-7">Required before sending - does not affect saving a draft.</p>
         )}
       </div>
 

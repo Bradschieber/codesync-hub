@@ -24,8 +24,8 @@ const STATUS_CONFIG = {
   under_review:           { label: "Under Review",         color: "#1E40AF", bg: "#DBEAFE" },
   awaiting_buyer:         { label: "Awaiting Buyer",       color: "#7C3AED", bg: "#EDE9FE" },
   awaiting_builder:       { label: "Awaiting Builder",     color: "#065F46", bg: "#D1FAE5" },
-  resolved_buyer_favor:   { label: "Resolved — Buyer",     color: "#166534", bg: "#DCFCE7" },
-  resolved_builder_favor: { label: "Resolved — Builder",   color: "#374151", bg: "#F3F4F6" },
+  resolved_buyer_favor:   { label: "Resolved - Buyer",     color: "#166534", bg: "#DCFCE7" },
+  resolved_builder_favor: { label: "Resolved - Builder",   color: "#374151", bg: "#F3F4F6" },
   resolved_partial:       { label: "Partially Resolved",   color: "#7A1526", bg: "#F9E5E8" },
   closed:                 { label: "Closed",               color: "#6B7280", bg: "#F9FAFB" },
   won:                    { label: "Won",                  color: "#166534", bg: "#DCFCE7" },
@@ -143,7 +143,7 @@ function DisputeCard({ dispute, order, payments, auditLogs, onUpdate }) {
         </div>
         <div className="flex items-center gap-2">
           <span className="font-bold text-sm" style={{ color: "#A0692A" }}>
-            ${dispute.amount_disputed?.toLocaleString() || "—"}
+            ${dispute.amount_disputed?.toLocaleString() || "-"}
           </span>
           {expanded ? <ChevronUp className="w-4 h-4 text-stone-400" /> : <ChevronDown className="w-4 h-4 text-stone-400" />}
         </div>
@@ -330,8 +330,8 @@ const FILTER_OPTIONS = [
   { key: "buyer_issue", label: "Buyer Issues" },
   { key: "chargeback", label: "Chargebacks" },
   { key: "refund_review", label: "Refund Reviews" },
-  { key: "resolved_buyer_favor", label: "Resolved — Buyer" },
-  { key: "resolved_builder_favor", label: "Resolved — Builder" },
+  { key: "resolved_buyer_favor", label: "Resolved - Buyer" },
+  { key: "resolved_builder_favor", label: "Resolved - Builder" },
   { key: "closed", label: "Closed" },
 ];
 

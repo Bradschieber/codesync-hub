@@ -7,10 +7,10 @@ const NAVY = "#1B2B4B";
 /**
  * Hero image review screen/panel for builders.
  * Props:
- *   product       — the product object
- *   onApproved    — callback after builder approves; receives updated product
- *   onKeepLimited — callback when builder chooses to keep live with limited visibility
- *   onClose       — dismiss
+ *   product       - the product object
+ *   onApproved    - callback after builder approves; receives updated product
+ *   onKeepLimited - callback when builder chooses to keep live with limited visibility
+ *   onClose       - dismiss
  */
 export default function HeroImageReviewPanel({ product, onApproved, onKeepLimited, onClose }) {
   const [saving, setSaving] = useState(false);
@@ -120,7 +120,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
           <div>
             <h2 className="text-base font-bold" style={{ color: "#1A1A1A" }}>Review your clean marketplace version</h2>
             <p className="text-xs mt-1 leading-relaxed" style={{ color: "#7A7A7A" }}>
-              We create a clean marketplace version so listings across Stringed Collective look polished, consistent, and professional wherever shoppers browse multiple instruments. Nothing about your instrument is changed — we only standardize the background and presentation.
+              We create a clean marketplace version so listings across Stringed Collective look polished, consistent, and professional wherever shoppers browse multiple instruments. Nothing about your instrument is changed - we only standardize the background and presentation.
             </p>
           </div>
           <button onClick={onClose} className="p-1.5 text-gray-400 hover:text-gray-700 flex-shrink-0 ml-4">
@@ -163,7 +163,7 @@ export default function HeroImageReviewPanel({ product, onApproved, onKeepLimite
                   <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 text-center">
                     <ImageIcon className="w-8 h-8" style={{ color: "#C8C4BC" }} />
                     <p className="text-xs leading-relaxed" style={{ color: "#5A5A5A" }}>
-                      No photo to process yet — upload a primary photo, or continue with limited visibility.
+                      No photo to process yet - upload a primary photo, or continue with limited visibility.
                     </p>
                   </div>
                 ) : processingError ? (

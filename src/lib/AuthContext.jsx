@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
         if (appError.status === 403 && appError.data?.extra_data?.reason) {
           const reason = appError.data.extra_data.reason;
           if (reason === 'auth_required') {
-            // App requires auth but we allow public browsing — just mark as unauthenticated
+            // App requires auth but we allow public browsing - just mark as unauthenticated
             setIsAuthenticated(false);
             setIsLoadingAuth(false);
             setIsLoadingPublicSettings(false);

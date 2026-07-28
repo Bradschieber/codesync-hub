@@ -61,7 +61,7 @@ export default function ReportIssueModal({ order, user, onClose, onSubmitted }) 
               </div>
               <p className="font-semibold text-stone-800 mb-1">Issue reported</p>
               <p className="text-sm text-stone-500 leading-relaxed">
-                Our team will review your issue and follow up with you. We aim to respond within 1–2 business days.
+                Our team will review your issue and follow up with you. We aim to respond within 1-2 business days.
               </p>
               <button
                 onClick={onClose}

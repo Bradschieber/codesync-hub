@@ -145,7 +145,7 @@ export default function BuilderAccountView({ user, profile, form, setForm, savin
               {activeSection === "addresses" && (
                 <div className="p-6 border" style={{ borderColor: "#E0DDD8", backgroundColor: "#FFFFFF" }}>
                   <h2 className="font-bold mb-1" style={{ color: "#1A1A1A" }}>Addresses</h2>
-                  <p className="text-sm mb-6" style={{ color: "#7A7A7A" }}>Your business and shipping addresses. Private — not shown publicly.</p>
+                  <p className="text-sm mb-6" style={{ color: "#7A7A7A" }}>Your business and shipping addresses. Private - not shown publicly.</p>
 
                   <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "#9A9A9A" }}>Business Address</p>
                   <div className="grid sm:grid-cols-2 gap-4 mb-8">

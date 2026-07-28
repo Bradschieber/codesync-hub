@@ -9,7 +9,7 @@ const STATUS_LABELS = {
   agreement_accepted: { label: "Agreement Accepted", color: "#1D4ED8", bg: "#DBEAFE" },
   deposit_pending: { label: "Deposit Pending", color: "#7A1526", bg: "#F9E5E8" },
   deposit_paid: { label: "Deposit Paid", color: "#065F46", bg: "#D1FAE5" },
-  deposit_paid_pending_admin_release: { label: "Deposit Held — Awaiting Platform Approval", color: "#7A1526", bg: "#F9E5E8" },
+  deposit_paid_pending_admin_release: { label: "Deposit Held - Awaiting Platform Approval", color: "#7A1526", bg: "#F9E5E8" },
   build_authorized: { label: "Build Authorized", color: "#065F46", bg: "#D1FAE5" },
   build_in_progress: { label: "Build In Progress", color: "#1D4ED8", bg: "#DBEAFE" },
   build_complete: { label: "Build Complete", color: "#065F46", bg: "#D1FAE5" },
@@ -19,7 +19,7 @@ const STATUS_LABELS = {
   tracking_submitted: { label: "Tracking Submitted", color: "#6D28D9", bg: "#EDE9FE" },
   shipment_verified: { label: "Shipment Verified", color: "#065F46", bg: "#D1FAE5" },
   delivered: { label: "Delivered", color: "#374151", bg: "#F3F4F6" },
-  buyer_default_review: { label: "Buyer Default — Under Review", color: "#991B1B", bg: "#FEE2E2" },
+  buyer_default_review: { label: "Buyer Default - Under Review", color: "#991B1B", bg: "#FEE2E2" },
 };
 
 function StatusBadge({ status }) {
@@ -82,7 +82,7 @@ export default function BuilderCustomOrderControls({ order, onOrderUpdated }) {
         <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200">
           <Shield className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-semibold text-amber-900">First Custom Build — Deposit Held</p>
+            <p className="text-sm font-semibold text-amber-900">First Custom Build - Deposit Held</p>
             <p className="text-xs text-amber-700 mt-0.5">
               Because this is your first custom build, the deposit is being held for platform review before being released to you.
               You will be notified once it's approved and you are authorized to begin work.

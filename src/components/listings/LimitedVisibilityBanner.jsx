@@ -6,7 +6,7 @@ import { AlertTriangle, X, Info } from "lucide-react";
  * builder-approved marketplace hero image.
  *
  * Props:
- *   onReviewHero — navigate to hero image review flow
+ *   onReviewHero - navigate to hero image review flow
  */
 export default function LimitedVisibilityBanner({ onReviewHero }) {
   const [showLearnMore, setShowLearnMore] = useState(false);
@@ -64,7 +64,7 @@ export default function LimitedVisibilityBanner({ onReviewHero }) {
                 Stringed Collective uses a clean, consistent format for catalog, search, homepage features, and other marketplace browsing areas. This helps buyers compare and discover instruments more easily.
               </p>
               <p>
-                Your original photos still appear on your listing page and can reflect your brand and shop style. Only the background and presentation are standardized — your instrument itself is not altered.
+                Your original photos still appear on your listing page and can reflect your brand and shop style. Only the background and presentation are standardized - your instrument itself is not altered.
               </p>
             </div>
             <div className="px-6 pb-6">

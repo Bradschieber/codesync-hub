@@ -29,7 +29,7 @@ const STATUS_CONFIG = {
     bg: "#FFFBEB",
     border: "#E08894",
     title: "Stripe verification pending",
-    description: "Stripe is reviewing your account information. This usually takes 1–2 business days. You'll be notified when it's complete.",
+    description: "Stripe is reviewing your account information. This usually takes 1-2 business days. You'll be notified when it's complete.",
     cta: "Check Verification Status",
   },
   complete: {

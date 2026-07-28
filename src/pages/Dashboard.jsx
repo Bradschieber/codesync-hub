@@ -99,7 +99,7 @@ export default function Dashboard() {
   const stats = [
     { label: "Active Listings", value: products.filter(p => p.status === "available").length, icon: Package, page: "DashboardActiveListings" },
     { label: "Pending Requests", value: pendingRequests, icon: Hammer, page: "DashboardCustomBuilds" },
-    { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "—", icon: Star, page: "DashboardRatings" },
+    { label: "Avg. Rating", value: avgRating > 0 ? avgRating.toFixed(1) : "-", icon: Star, page: "DashboardRatings" },
     { label: "Unread Messages", value: unreadMessages, icon: MessageSquare, page: "Messages" },
   ];
 
@@ -140,7 +140,7 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stripe Connect Onboarding — shown when not complete */}
+        {/* Stripe Connect Onboarding - shown when not complete */}
         {profile?.stripe_onboarding_status !== "complete" && (
           <StripeConnectOnboarding
             profile={profile}
@@ -161,7 +161,7 @@ export default function Dashboard() {
                   <p className="text-sm font-bold" style={{ color: "#1A1A1A" }}>Add your first listing to launch your storefront</p>
                 </div>
                 <p className="text-xs leading-relaxed mb-4" style={{ color: "#5A5A5A" }}>
-                  Your builder profile is set up and looking good. The next step is to add one complete listing — a stock instrument or a custom build offering. Once that's done, your storefront can be submitted for review.
+                  Your builder profile is set up and looking good. The next step is to add one complete listing - a stock instrument or a custom build offering. Once that's done, your storefront can be submitted for review.
                 </p>
                 {/* Progress milestones */}
                 <div className="flex flex-wrap items-center gap-4 mb-5">

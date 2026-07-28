@@ -22,9 +22,9 @@ const INSTRUMENT_OPTIONS = [
 
 const EXPERIENCE_OPTIONS = [
   { label: "Experience", value: "" },
-  { label: "1–5 years", value: "1-5" },
-  { label: "6–10 years", value: "6-10" },
-  { label: "11–20 years", value: "11-20" },
+  { label: "1-5 years", value: "1-5" },
+  { label: "6-10 years", value: "6-10" },
+  { label: "11-20 years", value: "11-20" },
   { label: "20+ years", value: "20+" },
 ];
 

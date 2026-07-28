@@ -64,7 +64,7 @@ export default function CustomBuildsContent({ builder, onRequestQuote }) {
         </div>
       )}
 
-      {/* Custom Build Examples — portfolio grid */}
+      {/* Custom Build Examples - portfolio grid */}
       {(builder.custom_build_examples || []).length > 0 && (
         <div className="mb-6">
           <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-stone-400">Past Custom Work</p>

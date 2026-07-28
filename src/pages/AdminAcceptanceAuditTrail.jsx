@@ -255,9 +255,9 @@ export default function AdminAcceptanceAuditTrail() {
                   onClick={() => setExpandedRow(expandedRow === event.id ? null : event.id)}
                 >
                   <div className="text-xs" style={{ color: "#4A4A4A" }}>
-                    {event.accepted_at_utc ? format(new Date(event.accepted_at_utc), "MMM d, yyyy HH:mm") : "—"}
+                    {event.accepted_at_utc ? format(new Date(event.accepted_at_utc), "MMM d, yyyy HH:mm") : "-"}
                   </div>
-                  <div className="text-xs truncate" style={{ color: "#1A1A1A" }}>{event.email_at_acceptance || "—"}</div>
+                  <div className="text-xs truncate" style={{ color: "#1A1A1A" }}>{event.email_at_acceptance || "-"}</div>
                   <div>
                     {event.role_at_acceptance && (
                       <span className="text-xs font-semibold px-2 py-0.5"
@@ -270,13 +270,13 @@ export default function AdminAcceptanceAuditTrail() {
                     )}
                   </div>
                   <div className="text-xs" style={{ color: "#1A1A1A" }}>{AGREEMENT_TYPE_LABELS[event.agreement_type] || event.agreement_type}</div>
-                  <div className="text-xs font-mono" style={{ color: "#5A5A5A" }}>{event.agreement_version || "—"}</div>
-                  <div className="text-xs truncate" style={{ color: "#5A5A5A" }}>{event.source_flow || "—"}</div>
-                  <div className="text-xs truncate" style={{ color: "#5A5A5A" }}>{event.source_screen || "—"}</div>
+                  <div className="text-xs font-mono" style={{ color: "#5A5A5A" }}>{event.agreement_version || "-"}</div>
+                  <div className="text-xs truncate" style={{ color: "#5A5A5A" }}>{event.source_flow || "-"}</div>
+                  <div className="text-xs truncate" style={{ color: "#5A5A5A" }}>{event.source_screen || "-"}</div>
                   <div className="text-xs font-mono truncate" style={{ color: "#7A7A7A" }}>
-                    {event.order_id ? `#${event.order_id.slice(-6)}` : event.transaction_id ? event.transaction_id.slice(0, 12) + "…" : "—"}
+                    {event.order_id ? `#${event.order_id.slice(-6)}` : event.transaction_id ? event.transaction_id.slice(0, 12) + "…" : "-"}
                   </div>
-                  <div className="text-xs font-mono" style={{ color: "#9A9A9A" }}>{event.ip_address || "—"}</div>
+                  <div className="text-xs font-mono" style={{ color: "#9A9A9A" }}>{event.ip_address || "-"}</div>
                 </div>
 
                 {/* Expanded Detail Row */}
@@ -332,7 +332,7 @@ function Detail({ label, value, mono }) {
     <div>
       <p className="font-semibold uppercase tracking-wide mb-0.5" style={{ color: "#9A9A9A", fontSize: "10px" }}>{label}</p>
       <p className={`text-xs break-all ${mono ? "font-mono" : ""}`} style={{ color: value ? "#1A1A1A" : "#CCCCCC" }}>
-        {value || "—"}
+        {value || "-"}
       </p>
     </div>
   );

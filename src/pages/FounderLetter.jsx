@@ -30,15 +30,15 @@ That idea is the north star for Stringed Collective.`,
     label: "MY STORY",
     body: `I've loved instruments for as long as I can remember.
 
-When I was a kid, I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me — the shape, the smell of the wood, the way it felt in my hands.
+When I was a kid, I used to pick up my dad's guitar long before I had any idea how to play it. Something about the instrument itself fascinated me - the shape, the smell of the wood, the way it felt in my hands.
 
 Eventually, I learned how to play.
 
-For more than 30 years, I've played in working bands, and many of the best experiences of my life — and many of my closest friendships — have happened because of music.
+For more than 30 years, I've played in working bands, and many of the best experiences of my life - and many of my closest friendships - have happened because of music.
 
 A few years ago, I started building guitars myself.
 
-I've been building seriously for about five years now. I'm not at the level of many of the incredible builders out there, but I'm working on it every day. Like every builder, I'm chasing the next improvement — the next better instrument.
+I've been building seriously for about five years now. I'm not at the level of many of the incredible builders out there, but I'm working on it every day. Like every builder, I'm chasing the next improvement - the next better instrument.
 
 Being part of that community has been inspiring.`,
   },
@@ -80,7 +80,7 @@ We want more musicians to see boutique instruments as a real option when they're
 
 Large retailers have something independent builders often do not: a professional platform that makes discovery easy and transactions feel safe.
 
-Stringed Collective is designed to give independent builders that kind of platform — built specifically around their work.
+Stringed Collective is designed to give independent builders that kind of platform - built specifically around their work.
 
 A place where builders can present their instruments professionally, tell the story behind their craft, reach players who are actively looking for something different, and manage transactions through a more structured process.
 
@@ -205,7 +205,7 @@ export default function FounderLetter() {
           <div className="space-y-3">
             {[
               "Stringed Collective was created to help independent instrument builders reach a wider audience and make boutique instruments easier for players to discover and purchase.",
-              "We're building a marketplace that gives independent builders a professional platform to present their work, manage transactions, and connect with the right players — while preserving the direct relationship between builder and musician.",
+              "We're building a marketplace that gives independent builders a professional platform to present their work, manage transactions, and connect with the right players - while preserving the direct relationship between builder and musician.",
               "The platform is designed to make transactions safer and more structured for both sides, so builders and buyers can move forward with greater confidence.",
               "Right now, we're inviting a small group of founding builders to help launch the marketplace and shape how it evolves.",
             ].map((text, i) => (
@@ -276,7 +276,7 @@ export default function FounderLetter() {
           <ul className="space-y-3">
             {[
               "Free early access to the platform",
-              "Simple 5% platform fee — no listing fees",
+              "Simple 5% platform fee - no listing fees",
               "Help setting up your storefront",
               "Featured placement as the marketplace launches",
               "Direct input on platform improvements and builder tools",

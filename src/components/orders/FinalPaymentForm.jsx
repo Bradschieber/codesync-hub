@@ -72,7 +72,7 @@ function FinalForm({ order, user, onSuccess }) {
         className="w-full py-3 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
         style={{ backgroundColor: AMBER }}
       >
-        {paying ? "Processing..." : `Pay Final Balance — $${order.final_balance_amount?.toLocaleString()}`}
+        {paying ? "Processing..." : `Pay Final Balance - $${order.final_balance_amount?.toLocaleString()}`}
       </button>
     </form>
   );
@@ -86,7 +86,7 @@ export default function FinalPaymentForm({ order, user, onFinalPaid }) {
       <div className="flex items-start gap-3 p-4 rounded-xl bg-green-50 border border-green-200">
         <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-semibold text-green-800">Final payment complete — ${order.final_balance_amount?.toLocaleString()}</p>
+          <p className="text-sm font-semibold text-green-800">Final payment complete - ${order.final_balance_amount?.toLocaleString()}</p>
           <p className="text-xs text-green-700 mt-0.5">The builder will now ship your instrument.</p>
         </div>
       </div>

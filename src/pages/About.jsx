@@ -18,7 +18,7 @@ export default function About() {
             Stringed Collective is a modern marketplace for handcrafted instruments from independent builders.
           </p>
           <p className="text-lg leading-relaxed" style={{ color: "#333333" }}>
-            We bring instrument lovers and boutique makers together through a polished online shopping experience — making it easier to discover, purchase, and commission exceptional instruments from builders around the world.
+            We bring instrument lovers and boutique makers together through a polished online shopping experience - making it easier to discover, purchase, and commission exceptional instruments from builders around the world.
           </p>
         </div>
       </div>
@@ -29,7 +29,7 @@ export default function About() {
           <div>
             <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
             <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
-              Independent builders create some of the most inspiring instruments in the world — but their work is often difficult to discover.
+              Independent builders create some of the most inspiring instruments in the world - but their work is often difficult to discover.
             </p>
             <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
               Many builders rely on personal websites, social media, word of mouth, and small communities to reach buyers. At the same time, instrument lovers are used to the convenience and structure of major online retailers, even when those retailers do not carry the kind of unique, handcrafted instruments they are looking for.

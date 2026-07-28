@@ -162,7 +162,7 @@ export default function CardPhotoUploader({ cardPhotoUrl, onChange, label = "Bui
         <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
         {!compact && (
           <p className="text-xs text-stone-400 mb-3 leading-relaxed">
-            This photo introduces your storefront to buyers — it's often the first thing they'll see. Choose an image of you or your workshop that represents your craft well.
+            This photo introduces your storefront to buyers - it's often the first thing they'll see. Choose an image of you or your workshop that represents your craft well.
           </p>
         )}
 
@@ -215,7 +215,7 @@ export default function CardPhotoUploader({ cardPhotoUrl, onChange, label = "Bui
             This is exactly how your photo will appear on builder cards across the marketplace. Drag to reposition and use the slider to zoom.
           </p>
 
-          {/* Crop frame — 4:3 */}
+          {/* Crop frame - 4:3 */}
           <div
             ref={frameRef}
             className="relative overflow-hidden bg-stone-100 cursor-grab active:cursor-grabbing select-none mx-auto"

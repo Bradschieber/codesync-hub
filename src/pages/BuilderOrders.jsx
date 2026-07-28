@@ -198,7 +198,7 @@ export default function BuilderOrders() {
                     {order.order_type === "custom" && order.final_payment_paid && (
                       <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200">
                         <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                        <p className="text-xs font-semibold text-green-800">Final payment received — you may now prepare for shipment.</p>
+                        <p className="text-xs font-semibold text-green-800">Final payment received - you may now prepare for shipment.</p>
                       </div>
                     )}
 
@@ -249,12 +249,12 @@ export default function BuilderOrders() {
 
 
 
-                    {/* Payout breakdown — stock builds */}
+                    {/* Payout breakdown - stock builds */}
                     {order.order_type === "stock" && order.current_status !== "pending_payment" && (
                       <PayoutBreakdown order={order} showAdminDetail={false} />
                     )}
 
-                    {/* Custom build controls — mark in progress, mark complete */}
+                    {/* Custom build controls - mark in progress, mark complete */}
                     {order.order_type === "custom" && (
                       <BuilderCustomOrderControls
                         order={order}
@@ -262,7 +262,7 @@ export default function BuilderOrders() {
                       />
                     )}
 
-                    {/* Build Updates — custom builds only */}
+                    {/* Build Updates - custom builds only */}
                     {order.order_type === "custom" && (
                       <div>
                         <label className="text-xs font-semibold uppercase tracking-wider text-stone-400 block mb-3">Build Updates</label>

@@ -17,7 +17,7 @@ const STORY_PROMPTS = [
   { icon: Music, label: "Your Philosophy", hint: "What makes a great playing experience for a musician? What do you obsess over when you're building?" },
   { icon: Clock, label: "Your Journey", hint: "How long have you been building? How has your craft evolved over time?" },
   { icon: Store, label: "Your Shop", hint: "Tell us about where the magic happens. What's your setup? What tools do you love?", example: "I build one instrument at a time in a small workshop using carefully selected materials and hands-on processes." },
-  { icon: Camera, label: "Meet the Builder & Shop Tour", hint: "Add photos and videos below — let buyers see your face, your hands, your workspace." },
+  { icon: Camera, label: "Meet the Builder & Shop Tour", hint: "Add photos and videos below - let buyers see your face, your hands, your workspace." },
   { icon: Shield, label: "Your Commitment to Buyers", hint: "What's your warranty policy? Your satisfaction guarantee? How do you stand behind your work?" },
   { icon: Heart, label: "Why Stringed Collective", hint: "Why did you choose to sell here? What excites you about connecting directly with players who care about craftsmanship?" },
 ];
@@ -139,7 +139,7 @@ export default function DashboardProfile() {
         <h1 className="text-2xl font-bold text-gray-900">Builder Profile</h1>
       </div>
       <div className="flex items-center justify-between mb-6 ml-8">
-        <p className="text-gray-400 text-sm">Build your storefront — tell your story, show your craft, earn trust.</p>
+        <p className="text-gray-400 text-sm">Build your storefront - tell your story, show your craft, earn trust.</p>
         {profile?.id && (
           <a
             href={createPageUrl("BuilderProfile") + `?id=${profile.id}`}
@@ -164,7 +164,7 @@ export default function DashboardProfile() {
         {/* 1. The Basics */}
         <div ref={sectionRefs.basics}>
           <AccordionSection id="basics" title="The Basics" isOpen={openSection === "basics"} onToggle={toggleSection} complete={sectionComplete("basics", form, listingCount)}>
-            <p className="text-gray-400 text-xs mb-5">Your public storefront identity — how buyers find and recognize you.</p>
+            <p className="text-gray-400 text-xs mb-5">Your public storefront identity - how buyers find and recognize you.</p>
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Business / Brand Name</label>
@@ -217,7 +217,7 @@ export default function DashboardProfile() {
                 <Sparkles className="w-4 h-4 text-stone-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-xs font-semibold text-stone-700 mb-1">Your story helps buyers understand who you are, why you build, and what makes your instruments unique.</p>
-                  <p className="text-xs text-stone-500 leading-relaxed">This is your stage. Buyers aren't just buying a guitar — they're buying into you. Make it personal, make it real.</p>
+                  <p className="text-xs text-stone-500 leading-relaxed">This is your stage. Buyers aren't just buying a guitar - they're buying into you. Make it personal, make it real.</p>
                 </div>
               </div>
             </div>
@@ -238,14 +238,14 @@ export default function DashboardProfile() {
               rows={14}
               value={form.brand_story || ""}
               onChange={e => setForm({...form, brand_story: e.target.value})}
-              placeholder={`Use the prompts above as a guide — but write in your own voice.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
+              placeholder={`Use the prompts above as a guide - but write in your own voice.\n\nE.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil..."`}
               className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none leading-relaxed"
             />
             <p className="text-xs text-gray-400 mt-2">Tip: Longer, more personal stories build significantly more trust with buyers.</p>
 
             <div className="mt-5 pt-5 border-t border-gray-100">
               <label className="block text-xs font-medium text-gray-600 mb-1">Short Bio <span className="text-gray-400 font-normal">(optional)</span></label>
-              <p className="text-xs text-gray-400 mb-2">A brief public-facing introduction — shown on profile cards, in search results, and preview areas. Your full story lives on your storefront.</p>
+              <p className="text-xs text-gray-400 mb-2">A brief public-facing introduction - shown on profile cards, in search results, and preview areas. Your full story lives on your storefront.</p>
               <textarea
                 rows={2}
                 value={form.bio || ""}
@@ -265,7 +265,7 @@ export default function DashboardProfile() {
                 {form.business_name ? `Your ${form.business_name} gallery` : "Your craft gallery"}
               </p>
               <p className="text-xs leading-relaxed text-gray-500 mb-4">
-                Workshop and process photos are what make buyers feel confident before they ever send a message. Show your bench, a build in progress, your materials — not just finished results. Start with 4–8 images. You can always add more.
+                Workshop and process photos are what make buyers feel confident before they ever send a message. Show your bench, a build in progress, your materials - not just finished results. Start with 4-8 images. You can always add more.
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
                 {[
@@ -287,12 +287,12 @@ export default function DashboardProfile() {
             />
             {(form.media_urls || []).length > 0 && (
               <p className="text-xs mt-3 font-medium text-green-600">
-                {(form.media_urls || []).length} photo{(form.media_urls || []).length !== 1 ? "s" : ""} added — your storefront is taking shape ✓
+                {(form.media_urls || []).length} photo{(form.media_urls || []).length !== 1 ? "s" : ""} added - your storefront is taking shape ✓
               </p>
             )}
             <div className="mt-6 pt-6 border-t border-gray-100">
               <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-1">Introduction Video <span className="normal-case font-normal">(optional)</span></p>
-              <p className="text-xs text-gray-400 mb-4">A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link — it embeds directly on your builder page.</p>
+              <p className="text-xs text-gray-400 mb-4">A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link - it embeds directly on your builder page.</p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Video URL</label>
@@ -326,7 +326,7 @@ export default function DashboardProfile() {
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Typical Build Time</label>
-                <input value={form.typical_build_time || ""} onChange={e => setForm({...form, typical_build_time: e.target.value})} placeholder="e.g. 3–6 months" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                <input value={form.typical_build_time || ""} onChange={e => setForm({...form, typical_build_time: e.target.value})} placeholder="e.g. 3-6 months" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
               </div>
             </div>
             <div className="mt-4 p-4 bg-stone-50 border border-stone-200 rounded-xl mb-4">
@@ -383,19 +383,19 @@ export default function DashboardProfile() {
                   <input type="checkbox" id="offers_stock_builds" checked={form.offers_stock_builds || false} onChange={e => setForm({ ...form, offers_stock_builds: e.target.checked })} className="h-4 w-4 rounded mt-0.5" style={{ accentColor: "#1B2B4B" }} />
                   <div>
                     <label htmlFor="offers_stock_builds" className="text-sm font-semibold text-gray-700 cursor-pointer">Stock Builds</label>
-                    <p className="text-xs text-gray-400 mt-0.5">Pre-made instruments listed with full specs, photos, and a fixed price — ready to ship.</p>
+                    <p className="text-xs text-gray-400 mt-0.5">Pre-made instruments listed with full specs, photos, and a fixed price - ready to ship.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <input type="checkbox" id="offers_custom_builds" checked={form.offers_custom_builds || false} onChange={e => setForm({ ...form, offers_custom_builds: e.target.checked })} className="h-4 w-4 rounded mt-0.5" style={{ accentColor: "#1B2B4B" }} />
                   <div>
                     <label htmlFor="offers_custom_builds" className="text-sm font-semibold text-gray-700 cursor-pointer">Custom Builds</label>
-                    <p className="text-xs text-gray-400 mt-0.5">Buyers submit a quote request with their desired specs — you build it to order.</p>
+                    <p className="text-xs text-gray-400 mt-0.5">Buyers submit a quote request with their desired specs - you build it to order.</p>
                     {form.offers_custom_builds && (
                       <div className="mt-2 space-y-3">
                         <div>
                           <label className="block text-xs font-medium text-gray-600 mb-1">Custom Build Description</label>
-                          <textarea rows={3} value={form.custom_build_description || ""} onChange={e => setForm({ ...form, custom_build_description: e.target.value })} placeholder="Describe what you offer — instrument types, options, process, lead times, starting prices, etc." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none" />
+                          <textarea rows={3} value={form.custom_build_description || ""} onChange={e => setForm({ ...form, custom_build_description: e.target.value })} placeholder="Describe what you offer - instrument types, options, process, lead times, starting prices, etc." className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none" />
                         </div>
                         <CustomBuildExamples form={form} setForm={setForm} />
                       </div>
@@ -421,7 +421,7 @@ export default function DashboardProfile() {
         {/* 7. Musical Influences */}
         <AccordionSection id="influences" title="Musical Influences" isOpen={openSection === "influences"} onToggle={toggleSection} complete={!!(form.musical_influences_loves || form.musical_influences_artists || form.musical_influences_in_builds)}>
           <div className="mb-5 p-4 bg-stone-50 border border-stone-200 rounded-xl">
-            <p className="text-xs font-semibold text-stone-700 mb-1">Optional — but worth a few minutes.</p>
+            <p className="text-xs font-semibold text-stone-700 mb-1">Optional - but worth a few minutes.</p>
             <p className="text-xs text-stone-500 leading-relaxed">
               These questions help us understand some of the musical perspective behind your work. They may help us tell your story more clearly across the site and support more thoughtful discovery, recommendations, or marketing over time. They are not meant to narrowly define your instruments by genre or box your work into one category.
             </p>
@@ -440,7 +440,7 @@ export default function DashboardProfile() {
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Are there artists, records, or players that have shaped your ear? <span className="text-gray-400 font-normal">(optional)</span></label>
-              <p className="text-xs text-gray-400 mb-2">You do not need a complete list — just a few names or records that have influenced how you hear instruments and sound.</p>
+              <p className="text-xs text-gray-400 mb-2">You do not need a complete list - just a few names or records that have influenced how you hear instruments and sound.</p>
               <textarea
                 rows={3}
                 value={form.musical_influences_artists || ""}
@@ -451,7 +451,7 @@ export default function DashboardProfile() {
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">How do those influences show up in the instruments you build? <span className="text-gray-400 font-normal">(optional)</span></label>
-              <p className="text-xs text-gray-400 mb-2">Connect your musical taste to your work — what kinds of sounds, feel, or design choices do those influences lead you toward?</p>
+              <p className="text-xs text-gray-400 mb-2">Connect your musical taste to your work - what kinds of sounds, feel, or design choices do those influences lead you toward?</p>
               <textarea
                 rows={3}
                 value={form.musical_influences_in_builds || ""}

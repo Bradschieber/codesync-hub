@@ -42,7 +42,7 @@ function CheckoutForm({ order, user, shippingRate, onSuccess }) {
       const isBuilderPaymentIssue = backendError.toLowerCase().startsWith("builder");
       setCardError(
         isBuilderPaymentIssue
-          ? "This builder isn't able to accept online payments yet. There's nothing wrong with your card — the builder's payment account still needs to be set up. Please try a different listing or check back soon."
+          ? "This builder isn't able to accept online payments yet. There's nothing wrong with your card - the builder's payment account still needs to be set up. Please try a different listing or check back soon."
           : "We couldn't start the payment process. Please try again or contact support if the problem persists."
       );
       setPaying(false);
@@ -521,7 +521,7 @@ export default function Checkout() {
                   <span>
                     {shippingRate
                       ? shippingCost === 0 ? "Free" : formatCurrency(shippingCost)
-                      : <span className="text-stone-400">–</span>}
+                      : <span className="text-stone-400">-</span>}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm text-stone-600">
@@ -531,7 +531,7 @@ export default function Checkout() {
                       ? <Loader2 className="w-3.5 h-3.5 animate-spin inline" />
                       : taxError
                         ? <span className="text-red-500 text-xs">Unavailable</span>
-                        : taxCalculationId ? formatCurrency(taxAmount) : <span className="text-stone-400">–</span>}
+                        : taxCalculationId ? formatCurrency(taxAmount) : <span className="text-stone-400">-</span>}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-bold pt-2 border-t border-stone-200" style={{ color: NAVY }}>

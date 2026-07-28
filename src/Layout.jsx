@@ -238,7 +238,7 @@ export default function Layout({ children, currentPageName }) {
               <span className="logo-wordmark" style={{ fontWeight: 500, fontSize: "0.9rem", color: "#7A90AA", letterSpacing: "0.01em" }}>Stringed</span>
               <span className="logo-wordmark" style={{ fontWeight: 400, fontSize: "0.9rem", color: "#7A90AA", letterSpacing: "0.08em" }}>Collective</span>
             </div>
-            <p className="text-sm leading-relaxed text-gray-500">Stringed Collective is a modern marketplace for handcrafted instruments from independent builders — connecting instrument lovers with boutique makers around the world.</p>
+            <p className="text-sm leading-relaxed text-gray-500">Stringed Collective is a modern marketplace for handcrafted instruments from independent builders - connecting instrument lovers with boutique makers around the world.</p>
           </div>
           <div>
             <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Shop</h4>

@@ -274,11 +274,11 @@ export default function AdminQAChecklist() {
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell">
                       <span className={`text-xs ${RETEST_CONFIG[item.retest_status] || "text-gray-400"}`}>
-                        {item.retest_status || "—"}
+                        {item.retest_status || "-"}
                       </span>
                     </td>
-                    <td className="px-4 py-3 hidden lg:table-cell text-xs text-gray-500">{item.tester_name || "—"}</td>
-                    <td className="px-4 py-3 hidden lg:table-cell text-xs text-gray-400">{item.date_run || "—"}</td>
+                    <td className="px-4 py-3 hidden lg:table-cell text-xs text-gray-500">{item.tester_name || "-"}</td>
+                    <td className="px-4 py-3 hidden lg:table-cell text-xs text-gray-400">{item.date_run || "-"}</td>
                   </tr>
                 );
               })}

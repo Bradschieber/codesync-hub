@@ -193,7 +193,7 @@ export default function AdminActionQueue() {
                   ))}
                   {rows.length > 5 && (
                     <div className="px-5 py-2 text-xs text-stone-400 italic">
-                      +{rows.length - 5} more — view in {cfg.label}
+                      +{rows.length - 5} more - view in {cfg.label}
                     </div>
                   )}
                 </div>

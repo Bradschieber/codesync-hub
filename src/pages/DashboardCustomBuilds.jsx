@@ -136,7 +136,7 @@ export default function DashboardCustomBuilds() {
                 </div>
                 <div>
                   <h2 className="font-semibold text-stone-800 text-sm">Your Custom Build Specifications</h2>
-                  <p className="text-xs text-stone-400">Define what you offer — buyers will see only your available options when requesting a quote.</p>
+                  <p className="text-xs text-stone-400">Define what you offer - buyers will see only your available options when requesting a quote.</p>
                 </div>
               </div>
               <button

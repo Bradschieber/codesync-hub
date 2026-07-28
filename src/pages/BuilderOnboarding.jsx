@@ -80,11 +80,11 @@ const STEPS = [
 const INSTRUMENT_TYPES = ["Electric Guitars", "Acoustic Guitars", "Electric Bass Guitars", "Acoustic Electric Bass Guitars", "Other"];
 
 const STORY_PROMPTS = [
-  { label: "Who You Are", hint: "Introduce yourself — where you're from, your background, what makes you, you." },
+  { label: "Who You Are", hint: "Introduce yourself - where you're from, your background, what makes you, you." },
   { label: "Why You Build", hint: "What drew you to lutherie? Was there a moment or person that started it all?" },
   { label: "Your Philosophy", hint: "What makes a great playing experience? What do you obsess over when building?" },
   { label: "Your Journey", hint: "How long have you been building? How has your craft evolved?" },
-  { label: "Your Shop", hint: "Tell us about where the magic happens — your setup, your tools, your process." },
+  { label: "Your Shop", hint: "Tell us about where the magic happens - your setup, your tools, your process." },
 ];
 
 // ── Stripe FAQ Accordion ─────────────────────────────────────────────
@@ -92,11 +92,11 @@ const STORY_PROMPTS = [
 const STRIPE_FAQ = [
   {
     q: "What is Stripe?",
-    a: "Stripe is the payment platform used by millions of businesses worldwide — including marketplaces like Stringed Collective. It's the same technology behind checkout at companies like Shopify, Lyft, and Amazon. When you connect your Stripe account, you're setting up a secure way for us to send you your earnings."
+    a: "Stripe is the payment platform used by millions of businesses worldwide - including marketplaces like Stringed Collective. It's the same technology behind checkout at companies like Shopify, Lyft, and Amazon. When you connect your Stripe account, you're setting up a secure way for us to send you your earnings."
   },
   {
     q: "Is there any risk to connecting my bank account?",
-    a: "No. Stripe is a regulated financial service and one of the most trusted payment processors in the world. Connecting your account does not give Stringed Collective access to your bank — it only allows us to send you money. Your banking details are encrypted and managed entirely by Stripe."
+    a: "No. Stripe is a regulated financial service and one of the most trusted payment processors in the world. Connecting your account does not give Stringed Collective access to your bank - it only allows us to send you money. Your banking details are encrypted and managed entirely by Stripe."
   },
   {
     q: "Do I need an existing Stripe account?",
@@ -104,11 +104,11 @@ const STRIPE_FAQ = [
   },
   {
     q: "When do I actually get paid?",
-    a: "Once an order ships and the buyer confirms receipt, your payout is released. For first-time sales there's a short hold period while we verify everything went smoothly — this is standard practice and protects both buyers and builders. After that, funds typically arrive in your bank within 2–3 business days."
+    a: "Once an order ships and the buyer confirms receipt, your payout is released. For first-time sales there's a short hold period while we verify everything went smoothly - this is standard practice and protects both buyers and builders. After that, funds typically arrive in your bank within 2-3 business days."
   },
   {
     q: "What does Stringed Collective charge?",
-    a: "We charge a 5% marketplace fee on completed sales. Stripe also applies standard processing fees (typically 2.9% + 30¢ per transaction). These are deducted before your payout is sent — you'll always see a clear breakdown of what you earned."
+    a: "We charge a 5% marketplace fee on completed sales. Stripe also applies standard processing fees (typically 2.9% + 30¢ per transaction). These are deducted before your payout is sent - you'll always see a clear breakdown of what you earned."
   },
 ];
 
@@ -175,7 +175,7 @@ export default function BuilderOnboarding() {
         const p = profiles[0];
         setProfile(p);
         setForm({ ...p, is_seller: true, account: "seller" });
-        // Returning builders have already accepted terms — pre-check and mark as logged
+        // Returning builders have already accepted terms - pre-check and mark as logged
         setLegalChecked({ terms_privacy: true, builder_terms: true });
         setLegalAcceptanceLogged(true);
       } else {
@@ -289,13 +289,13 @@ export default function BuilderOnboarding() {
       <div className="sticky top-0 z-40" style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E8E5E0" }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between py-4">
-            {/* Logo — links back to home */}
+            {/* Logo - links back to home */}
             <a href="/" className="flex flex-col flex-shrink-0 group" style={{ lineHeight: 1.1 }}>
               <span className="font-bold text-sm group-hover:opacity-70 transition-opacity" style={{ color: NAVY, letterSpacing: "0.02em" }}>Stringed</span>
               <span className="font-normal text-sm group-hover:opacity-70 transition-opacity" style={{ color: NAVY, letterSpacing: "0.12em" }}>Collective</span>
             </a>
 
-            {/* Step indicators — desktop */}
+            {/* Step indicators - desktop */}
             <div className="hidden lg:flex items-center">
               {STEPS.map((s, i) => {
                 const done = i < step;
@@ -359,32 +359,32 @@ export default function BuilderOnboarding() {
           {/* Step header */}
           <div className="mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#AAAA9A", letterSpacing: "0.12em" }}>
-              {step === 0 && "Foundation — Step 1 of 8"}
-              {step === 1 && "Your Voice — Step 2 of 8"}
-              {step === 2 && "Visual Identity — Step 3 of 8"}
-              {step === 3 && "Your Offering — Step 4 of 8"}
-              {step === 4 && "Step 5 of 8 — Shop Policies"}
-              {step === 5 && "Step 6 of 8 — References"}
-              {step === 6 && "Step 7 of 8 — Connect Stripe"}
-              {step === 7 && "Step 8 of 8 — Next Steps"}
+              {step === 0 && "Foundation - Step 1 of 8"}
+              {step === 1 && "Your Voice - Step 2 of 8"}
+              {step === 2 && "Visual Identity - Step 3 of 8"}
+              {step === 3 && "Your Offering - Step 4 of 8"}
+              {step === 4 && "Step 5 of 8 - Shop Policies"}
+              {step === 5 && "Step 6 of 8 - References"}
+              {step === 6 && "Step 7 of 8 - Connect Stripe"}
+              {step === 7 && "Step 8 of 8 - Next Steps"}
             </p>
 
             {step === 0 && <>
-              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Welcome — let's build your storefront.</h1>
-              <p className="text-base leading-relaxed mb-2" style={{ color: "#5A5A5A" }}>We're glad you're here. This setup walks you through 8 short steps — your shop details, your story, photos, business info, policies, references, and connecting payments. Most builders finish in under 30 minutes.</p>
+              <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Welcome - let's build your storefront.</h1>
+              <p className="text-base leading-relaxed mb-2" style={{ color: "#5A5A5A" }}>We're glad you're here. This setup walks you through 8 short steps - your shop details, your story, photos, business info, policies, references, and connecting payments. Most builders finish in under 30 minutes.</p>
               <p className="text-sm leading-relaxed" style={{ color: "#8A8A8A" }}>No need to do it all at once. Your progress is saved every time you hit Continue, so if life gets in the way, just hit <span className="font-semibold" style={{ color: "#5A6A7A" }}>Save & Exit</span> in the top corner and pick up right where you left off.</p>
             </>}
             {step === 1 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
                 {shopName ? `The story behind ${shopName}.` : "Tell buyers who you are."}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Buyers aren't just purchasing an instrument — they're choosing a maker. Your story is one of the most compelling things on your storefront. Start a first draft here and polish it anytime.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Buyers aren't just purchasing an instrument - they're choosing a maker. Your story is one of the most compelling things on your storefront. Start a first draft here and polish it anytime.</p>
             </>}
             {step === 2 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
                 {shopName ? `Show what ${shopName} looks like.` : "Show your shop and your process."}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Workshop and process photos are what make a storefront feel real. They build trust before a buyer reads a single word — and often before they ever ask a question.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Workshop and process photos are what make a storefront feel real. They build trust before a buyer reads a single word - and often before they ever ask a question.</p>
             </>}
             {step === 3 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
@@ -396,13 +396,13 @@ export default function BuilderOnboarding() {
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Set clear expectations for buyers.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
                 {shopName
-                  ? `These policies shape how purchases work with ${shopName}. Clear terms help you and the buyer start from the same understanding — and create a stronger working relationship from the beginning.`
-                  : "These policies shape how purchases work on your storefront. Clear terms help you and the buyer start from the same understanding — and create a stronger working relationship from the beginning."}
+                  ? `These policies shape how purchases work with ${shopName}. Clear terms help you and the buyer start from the same understanding - and create a stronger working relationship from the beginning.`
+                  : "These policies shape how purchases work on your storefront. Clear terms help you and the buyer start from the same understanding - and create a stronger working relationship from the beginning."}
               </p>
             </>}
             {step === 5 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Add buyer references.</h1>
-              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional — you can add references now or later from your dashboard.</p>
+              <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>A few words from past buyers can help new customers feel more confident reaching out. This step is optional - you can add references now or later from your dashboard.</p>
             </>}
             {step === 6 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Set up how you get paid.</h1>
@@ -411,7 +411,7 @@ export default function BuilderOnboarding() {
             {step === 7 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>Your storefront foundation is complete.</h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>
-                You've completed your builder profile, shop details, and policies. To submit your storefront for review, add at least one complete listing — a stock instrument or a custom build offering — that buyers can explore.
+                You've completed your builder profile, shop details, and policies. To submit your storefront for review, add at least one complete listing - a stock instrument or a custom build offering - that buyers can explore.
               </p>
             </>}
           </div>
@@ -421,7 +421,7 @@ export default function BuilderOnboarding() {
           {/* STEP 1: Your Shop */}
           {step === 0 && (
             <div className="space-y-6">
-              {/* Identity anchor — the name is the foundation */}
+              {/* Identity anchor - the name is the foundation */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <label className="block text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Shop or Brand Name *</label>
                 <p className="text-xs mb-3" style={{ color: "#9A9A9A" }}>The name buyers will see on your storefront, in search results, and on every order. You can update this anytime.</p>
@@ -437,7 +437,7 @@ export default function BuilderOnboarding() {
 
               <LocationFields form={form} setForm={setForm} />
 
-              <Field label="Tagline (optional)" hint="A short line that captures your shop's identity — appears beneath your name on your storefront.">
+              <Field label="Tagline (optional)" hint="A short line that captures your shop's identity - appears beneath your name on your storefront.">
                 <Input field="tag_line" value={form.tag_line} onChange={updateForm} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' />
               </Field>
 
@@ -496,13 +496,13 @@ export default function BuilderOnboarding() {
             <div className="space-y-6">
               <GuidanceCard>
                 <p className="text-xs font-semibold mb-1" style={{ color: "#333333" }}>What buyers connect with</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>Buyers respond to specificity — your background, what you care about, how you work. A genuine story, at any stage of your career, is what makes someone choose to reach out. Start with a first draft and refine it whenever you're ready.</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>Buyers respond to specificity - your background, what you care about, how you work. A genuine story, at any stage of your career, is what makes someone choose to reach out. Start with a first draft and refine it whenever you're ready.</p>
               </GuidanceCard>
 
               {/* Writing prompts */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Need a starting point?</p>
-                <p className="text-xs mb-3" style={{ color: "#BBBBBB" }}>Tap a prompt to open it — use it as an anchor and let the rest follow.</p>
+                <p className="text-xs mb-3" style={{ color: "#BBBBBB" }}>Tap a prompt to open it - use it as an anchor and let the rest follow.</p>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {STORY_PROMPTS.map((p, i) => (
                     <button
@@ -526,20 +526,20 @@ export default function BuilderOnboarding() {
                 </div>
               </div>
 
-              {/* Story textarea — primary focal area */}
+              {/* Story textarea - primary focal area */}
               <div className="border" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <div className="px-5 pt-5 pb-3">
                   <label className="block text-sm font-bold mb-0.5" style={{ color: "#1A1A1A" }}>
                     {shopName ? `The ${shopName} story` : "Your brand story"}
                   </label>
-                  <p className="text-xs" style={{ color: "#9A9A9A" }}>In your own voice — honest, specific, and as long or short as feels right.</p>
+                  <p className="text-xs" style={{ color: "#9A9A9A" }}>In your own voice - honest, specific, and as long or short as feels right.</p>
                 </div>
                 <div className="px-5 pb-2">
                   <textarea
                     rows={13}
                     value={form.brand_story || ""}
                     onChange={e => setForm(f => ({ ...f, brand_story: e.target.value }))}
-                    placeholder={`E.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil. I've been building ever since — each instrument is a conversation between the wood and the player it's meant for..."`}
+                    placeholder={`E.g. "I grew up in a small town in Tennessee where my grandfather had a workshop that smelled like sawdust and linseed oil. I've been building ever since - each instrument is a conversation between the wood and the player it's meant for..."`}
                     className="w-full border-0 px-0 py-0 text-sm focus:outline-none resize-none leading-relaxed"
                     style={{ backgroundColor: "transparent", color: "#1A1A1A" }}
                   />
@@ -552,7 +552,7 @@ export default function BuilderOnboarding() {
                 </div>
               </div>
 
-              <Field label="Short Bio (optional)" hint="A brief public-facing introduction — shown on your profile card, in search results, and in other preview areas across the site. Your full story lives on your storefront.">
+              <Field label="Short Bio (optional)" hint="A brief public-facing introduction - shown on your profile card, in search results, and in other preview areas across the site. Your full story lives on your storefront.">
                 <textarea
                   rows={2}
                   value={form.bio || ""}
@@ -569,10 +569,10 @@ export default function BuilderOnboarding() {
           {step === 2 && (
             <div className="space-y-8">
 
-              {/* Builder Card Photo — the primary image buyers see in discovery */}
+              {/* Builder Card Photo - the primary image buyers see in discovery */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Builder Card Photo</p>
-                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This is the first photo buyers see — it appears on the Builders directory and in search results before anyone clicks into your storefront. A genuine photo of you at the bench, or your workshop, beats a logo or empty background.</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This is the first photo buyers see - it appears on the Builders directory and in search results before anyone clicks into your storefront. A genuine photo of you at the bench, or your workshop, beats a logo or empty background.</p>
                 <CardPhotoUploader
                   cardPhotoUrl={form.card_photo_url}
                   onChange={url => setForm(f => ({ ...f, card_photo_url: url }))}
@@ -580,10 +580,10 @@ export default function BuilderOnboarding() {
                 />
               </div>
 
-              {/* Banner — large hero image at the top of the storefront page */}
+              {/* Banner - large hero image at the top of the storefront page */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Storefront Banner</p>
-                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This large image sits at the top of your storefront page — it's the first impression once a buyer actually lands on your page. A shot of your workshop, a finished instrument, or anything that captures your style works well.</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This large image sits at the top of your storefront page - it's the first impression once a buyer actually lands on your page. A shot of your workshop, a finished instrument, or anything that captures your style works well.</p>
                 <StorefrontImageUploader
                   imageUrl={form.banner_image_url}
                   onChange={url => setForm(f => ({ ...f, banner_image_url: url }))}
@@ -592,10 +592,10 @@ export default function BuilderOnboarding() {
                 />
               </div>
 
-              {/* Logo — optional, appears in storefront header */}
+              {/* Logo - optional, appears in storefront header */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Shop Logo <span className="font-normal" style={{ color: "#9A9A9A" }}>(optional)</span></p>
-                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>Appears next to your shop name in the storefront header. If you don't have one yet, skip this — you can always add it later from your dashboard.</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>Appears next to your shop name in the storefront header. If you don't have one yet, skip this - you can always add it later from your dashboard.</p>
                 <StorefrontImageUploader
                   imageUrl={form.logo_url}
                   onChange={url => setForm(f => ({ ...f, logo_url: url }))}
@@ -605,7 +605,7 @@ export default function BuilderOnboarding() {
                 />
               </div>
 
-              {/* Elevated moment — this is the visual centrepiece of the flow */}
+              {/* Elevated moment - this is the visual centrepiece of the flow */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <div className="flex items-start gap-3 mb-4">
                   <div className="flex-1">
@@ -613,7 +613,7 @@ export default function BuilderOnboarding() {
                       {shopName ? `Your ${shopName} gallery` : "Your craft gallery"}
                     </p>
                     <p className="text-xs leading-relaxed" style={{ color: "#7A7A7A" }}>
-                      Workshop and process photos are what make buyers feel confident before they ever send a message. Show your bench, a build in progress, your materials — not just finished results. Start with 4–8 images. You can always add more.
+                      Workshop and process photos are what make buyers feel confident before they ever send a message. Show your bench, a build in progress, your materials - not just finished results. Start with 4-8 images. You can always add more.
                     </p>
                   </div>
                 </div>
@@ -644,15 +644,15 @@ export default function BuilderOnboarding() {
 
                 {(form.media_urls || []).length > 0 && (
                   <p className="text-xs mt-3 font-medium" style={{ color: "#90B89A" }}>
-                    {(form.media_urls || []).length} photo{(form.media_urls || []).length !== 1 ? "s" : ""} added — your storefront is taking shape ✓
+                    {(form.media_urls || []).length} photo{(form.media_urls || []).length !== 1 ? "s" : ""} added - your storefront is taking shape ✓
                   </p>
                 )}
               </div>
 
-              {/* Intro video — secondary */}
+              {/* Intro video - secondary */}
               <div className="border-t pt-6" style={{ borderColor: "#E3E0D8" }}>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#8A8A8A" }}>Introduction Video <span className="normal-case font-normal">(optional)</span></p>
-                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link — it embeds directly on your builder page.</p>
+                <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>A shop walkthrough or short interview adds a powerful human dimension to your storefront. Paste a YouTube or Vimeo link - it embeds directly on your builder page.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Field label="Video URL">
                     <input value={form.introduction_video_url || ""} onChange={e => setForm(f => ({ ...f, introduction_video_url: e.target.value }))} placeholder="https://youtube.com/watch?v=..." className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
@@ -669,7 +669,7 @@ export default function BuilderOnboarding() {
           {step === 3 && (
             <div className="space-y-6">
 
-              {/* Build credentials — framed as signal to buyers, not a form */}
+              {/* Build credentials - framed as signal to buyers, not a form */}
               <div className="border p-5" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
                 <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>Your experience</p>
                 <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>These figures appear on your storefront and help buyers understand the depth and pace of your work at a glance.</p>
@@ -684,7 +684,7 @@ export default function BuilderOnboarding() {
                     <Input field="instruments_per_year" value={form.instruments_per_year} onChange={updateForm} placeholder="e.g. 10" type="number" />
                   </Field>
                   <Field label="Typical Build Time">
-                    <Input field="typical_build_time" value={form.typical_build_time} onChange={updateForm} placeholder="e.g. 3–6 months" />
+                    <Input field="typical_build_time" value={form.typical_build_time} onChange={updateForm} placeholder="e.g. 3-6 months" />
                   </Field>
                 </div>
               </div>
@@ -739,7 +739,7 @@ export default function BuilderOnboarding() {
               {/* What do you offer */}
               <SectionCard>
                 <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#2F3E55" }}>How buyers can purchase</p>
-                <p className="text-xs mb-5" style={{ color: "#9A9A9A" }}>This shapes how buyers interact with your storefront — whether they're browsing finished instruments, requesting a custom quote, or both.</p>
+                <p className="text-xs mb-5" style={{ color: "#9A9A9A" }}>This shapes how buyers interact with your storefront - whether they're browsing finished instruments, requesting a custom quote, or both.</p>
                 <div className="space-y-4">
                   <label
                     className="flex items-start gap-4 cursor-pointer p-4 border transition-all"
@@ -751,7 +751,7 @@ export default function BuilderOnboarding() {
                     <input type="checkbox" checked={form.offers_stock_builds || false} onChange={e => setForm(f => ({ ...f, offers_stock_builds: e.target.checked }))} className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ accentColor: NAVY }} />
                     <div>
                       <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Stock Builds</p>
-                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Finished instruments listed with specs and a set price — buyers purchase directly and you ship when ready.</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Finished instruments listed with specs and a set price - buyers purchase directly and you ship when ready.</p>
                     </div>
                   </label>
                   <label
@@ -764,15 +764,15 @@ export default function BuilderOnboarding() {
                     <input type="checkbox" checked={form.offers_custom_builds || false} onChange={e => setForm(f => ({ ...f, offers_custom_builds: e.target.checked }))} className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ accentColor: NAVY }} />
                     <div className="flex-1">
                       <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Custom Builds</p>
-                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their specs — you build to order. Well suited to builders who work closely with clients from the start.</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Buyers submit a quote request with their specs - you build to order. Well suited to builders who work closely with clients from the start.</p>
                       {form.offers_custom_builds && (
                         <div className="mt-4 space-y-3">
-                          <p className="text-xs" style={{ color: "#9A9A9A" }}>Describe your custom build offering so buyers know what to expect — instrument types, available options, lead times, starting prices, and how the process typically works.</p>
+                          <p className="text-xs" style={{ color: "#9A9A9A" }}>Describe your custom build offering so buyers know what to expect - instrument types, available options, lead times, starting prices, and how the process typically works.</p>
                           <textarea
                             rows={3}
                             value={form.custom_build_description || ""}
                             onChange={e => setForm(f => ({ ...f, custom_build_description: e.target.value }))}
-                            placeholder="e.g. I build custom electric guitars and basses to order. Lead times are typically 4–8 months. Starting prices vary by spec. Reach out to start a conversation."
+                            placeholder="e.g. I build custom electric guitars and basses to order. Lead times are typically 4-8 months. Starting prices vary by spec. Reach out to start a conversation."
                             className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
                             style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                           />
@@ -791,7 +791,7 @@ export default function BuilderOnboarding() {
             <div>
               <GuidanceCard>
                 <p className="text-xs font-semibold mb-1" style={{ color: "#333333" }}>How these policies are used</p>
-                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>These terms are embedded into purchase agreements on the platform to protect both you and the buyer. Don't worry about making them perfect on the first pass — you can revise them anytime from your dashboard.</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>These terms are embedded into purchase agreements on the platform to protect both you and the buyer. Don't worry about making them perfect on the first pass - you can revise them anytime from your dashboard.</p>
               </GuidanceCard>
               <PoliciesEditor form={form} setForm={setForm} />
 
@@ -844,7 +844,7 @@ export default function BuilderOnboarding() {
               ) : (
                 <p className="text-sm text-center py-10" style={{ color: "#9A9A9A" }}>Save your profile first to add references.</p>
               )}
-              <p className="text-xs text-center" style={{ color: "#BBBBBB" }}>Most builders add references after they've made a few sales — you can always come back to this.</p>
+              <p className="text-xs text-center" style={{ color: "#BBBBBB" }}>Most builders add references after they've made a few sales - you can always come back to this.</p>
             </div>
           )}
 
@@ -852,12 +852,12 @@ export default function BuilderOnboarding() {
           {step === 6 && (
             <div className="space-y-6">
 
-              {/* How it works — three simple steps */}
+              {/* How it works - three simple steps */}
               <div className="border p-5 space-y-4" style={{ borderColor: "#E3E0D8", backgroundColor: "#FFFFFF" }}>
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#2F3E55" }}>How payouts work</p>
                 <div className="space-y-3">
                   {[
-                    { icon: Building2, label: "Buyer pays on Stringed Collective", sub: "Payment is processed securely at checkout — just like any trusted online store." },
+                    { icon: Building2, label: "Buyer pays on Stringed Collective", sub: "Payment is processed securely at checkout - just like any trusted online store." },
                     { icon: Lock,      label: "Funds are held safely by Stripe", sub: "Stringed Collective holds the payment on your behalf until the order is confirmed and shipped." },
                     { icon: DollarSign, label: "Your earnings go straight to your bank", sub: "Once the order is complete, your payout is transferred directly to the bank account you connect during setup." },
                   ].map(({ icon: Icon, label, sub }) => (

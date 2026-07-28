@@ -46,7 +46,7 @@ export default function StorefrontPolicies({ builder }) {
           <div className="space-y-1 text-sm text-stone-500">
             <p>
               <span className="font-medium text-stone-600">Ships:</span>{" "}
-              {[builder.ships_domestically && "Domestically", builder.ships_internationally && "Internationally"].filter(Boolean).join(" & ") || "—"}
+              {[builder.ships_domestically && "Domestically", builder.ships_internationally && "Internationally"].filter(Boolean).join(" & ") || "-"}
             </p>
             {builder.shipping_carriers && builder.shipping_carriers.length > 0 && <p><span className="font-medium text-stone-600">Carriers:</span> {builder.shipping_carriers.join(", ")}</p>}
             {builder.shipping_insurance_included && <p><span className="font-medium text-stone-600">Insurance:</span> {shippingInsuranceLabel[builder.shipping_insurance_included] || builder.shipping_insurance_included}</p>}

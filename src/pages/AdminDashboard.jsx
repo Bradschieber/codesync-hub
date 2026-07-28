@@ -78,10 +78,10 @@ export default function AdminDashboard() {
   );
 
   const statCards = [
-    { label: "Total Builders", value: stats?.totalBuilders ?? "—", icon: Users, color: NAVY, page: "AdminAllBuilders" },
-    { label: "Verified Builders", value: stats?.verifiedBuilders ?? "—", icon: ShieldCheck, color: "#27AE60", page: "AdminVerifiedBuilders" },
-    { label: "Founding Builders", value: stats?.foundingBuilders ?? "—", icon: Award, color: "#7A1526", page: "AdminFoundingBuilders" },
-    { label: "Pending References", value: stats?.pendingRefs ?? "—", icon: Clock, color: "#9B1B30", urgent: stats?.pendingRefs > 0, page: "AdminReferences" },
+    { label: "Total Builders", value: stats?.totalBuilders ?? "-", icon: Users, color: NAVY, page: "AdminAllBuilders" },
+    { label: "Verified Builders", value: stats?.verifiedBuilders ?? "-", icon: ShieldCheck, color: "#27AE60", page: "AdminVerifiedBuilders" },
+    { label: "Founding Builders", value: stats?.foundingBuilders ?? "-", icon: Award, color: "#7A1526", page: "AdminFoundingBuilders" },
+    { label: "Pending References", value: stats?.pendingRefs ?? "-", icon: Clock, color: "#9B1B30", urgent: stats?.pendingRefs > 0, page: "AdminReferences" },
   ];
 
   const adminTools = [
@@ -140,7 +140,7 @@ export default function AdminDashboard() {
     },
     {
       title: "Marketplace Image Settings",
-      description: "Configure the global Photoroom processing pipeline for standardized marketplace hero images — background color, shadow, padding, output size, and format.",
+      description: "Configure the global Photoroom processing pipeline for standardized marketplace hero images - background color, shadow, padding, output size, and format.",
       icon: Settings,
       page: "AdminMarketplaceImageSettings",
       badge: null,
@@ -148,7 +148,7 @@ export default function AdminDashboard() {
     },
     {
       title: "Acceptance Audit Trail",
-      description: "Immutable log of every legal agreement accepted by builders and buyers — agreement type, version, timestamp, and source screen.",
+      description: "Immutable log of every legal agreement accepted by builders and buyers - agreement type, version, timestamp, and source screen.",
       icon: FileText,
       page: "AdminAcceptanceAuditTrail",
       badge: null,
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* Stats — now all clickable */}
+        {/* Stats - now all clickable */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {statCards.map(({ label, value, icon: Icon, color, urgent, page }) => (
             <Link

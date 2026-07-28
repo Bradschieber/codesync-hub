@@ -97,7 +97,7 @@ export default function StorefrontProgressTracker({ form, profile, listingCount,
             {listingCount > 0 ? `You have ${listingCount} listing${listingCount > 1 ? "s" : ""} on your storefront.` : "Add Your First Listing"}
           </p>
           {listingCount === 0 && (
-            <p className="text-xs text-wine-700 mt-0.5">Your storefront comes to life when you add your first listing — a stock instrument or a custom build offering.</p>
+            <p className="text-xs text-wine-700 mt-0.5">Your storefront comes to life when you add your first listing - a stock instrument or a custom build offering.</p>
           )}
         </div>
         <Link

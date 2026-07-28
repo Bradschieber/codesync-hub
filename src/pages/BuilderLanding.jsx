@@ -67,7 +67,7 @@ export default function BuilderLanding() {
             A listing gives you a place to sell. It does not automatically bring the right kind of players to your work.
           </p>
           <p>
-            Stringed Collective is different because independent instrument builders are not just another category on the site — they are the reason the marketplace exists.
+            Stringed Collective is different because independent instrument builders are not just another category on the site - they are the reason the marketplace exists.
           </p>
           <p>
             We're building a marketplace focused on actively promoting independent builders, bringing the right kind of players to handmade instruments, and helping buyers discover instruments they might never find through large retail sites or general listing platforms.
@@ -108,7 +108,7 @@ export default function BuilderLanding() {
               {
                 icon: Fingerprint,
                 title: "Your brand stays yours",
-                body: "Your storefront highlights your work, your builds, and your voice. Stringed Collective provides the platform — you keep your identity."
+                body: "Your storefront highlights your work, your builds, and your voice. Stringed Collective provides the platform - you keep your identity."
               }
             ].map(({ icon: Icon, title, body }) =>
               <div key={title} className="flex gap-4">
@@ -135,7 +135,7 @@ export default function BuilderLanding() {
           {[
             { step: "01", title: "Create your builder profile", body: "Tell players about your craft, your experience, your shop, and the instruments you build." },
             { step: "02", title: "Add your storefront and instruments", body: "List available instruments, describe your custom-build options, upload photos, and define your shop policies." },
-            { step: "03", title: "Sell through a more trusted process", body: "Players can discover your work, ask questions, purchase stock builds, or start a custom-build conversation — with payments and order details handled through the platform." }
+            { step: "03", title: "Sell through a more trusted process", body: "Players can discover your work, ask questions, purchase stock builds, or start a custom-build conversation - with payments and order details handled through the platform." }
           ].map(({ step, title, body }) =>
             <div key={step} className="border-t-2 border-[#1B2B4B] pt-5">
               <p className="text-xs font-bold tracking-widest text-gray-300 mb-3">{step}</p>
@@ -159,14 +159,14 @@ export default function BuilderLanding() {
               We're personally inviting a small group of independent builders to help launch Stringed Collective. The goal is to start with a focused founding group whose work reflects the quality, character, and craft we want this marketplace to stand for.
             </p>
             <p>
-              Before opening the platform more broadly, we want feedback from real builders — people who understand the challenges of selling handmade instruments online and care about creating a better experience for both makers and players.
+              Before opening the platform more broadly, we want feedback from real builders - people who understand the challenges of selling handmade instruments online and care about creating a better experience for both makers and players.
             </p>
           </div>
           <p className="text-blue-200 text-sm font-medium mb-5">As a founding builder, you'll get:</p>
           <div className="grid sm:grid-cols-2 gap-3 mb-10 max-w-xl">
             {[
               "Free early access to the platform",
-              "Simple 5% platform fee — no listing fees",
+              "Simple 5% platform fee - no listing fees",
               "Help setting up your storefront",
               "Featured placement during launch",
               "Direct input on builder tools and workflows",
@@ -179,7 +179,7 @@ export default function BuilderLanding() {
             )}
           </div>
           <p className="text-blue-300 text-sm leading-relaxed mb-10 max-w-xl">
-            This isn't about gatekeeping. It's about starting carefully — with builders who care deeply about their craft and want to help create something better.
+            This isn't about gatekeeping. It's about starting carefully - with builders who care deeply about their craft and want to help create something better.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
             <button

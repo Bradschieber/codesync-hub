@@ -44,7 +44,7 @@ export default function BuilderCard({ builder, listings = [] }) {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          // Fallback: solid storefront accent color with initial — looks intentional, not empty
+          // Fallback: solid storefront accent color with initial - looks intentional, not empty
           <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: fallbackColor }}>
             <span className="font-bold text-white" style={{ fontSize: "3rem", opacity: 0.85 }}>
               {initial}
@@ -52,7 +52,7 @@ export default function BuilderCard({ builder, listings = [] }) {
           </div>
         )}
 
-        {/* Badges — top left */}
+        {/* Badges - top left */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {builder.is_verified && (
             <span className="font-semibold px-2 py-0.5 rounded-full"
@@ -68,7 +68,7 @@ export default function BuilderCard({ builder, listings = [] }) {
           )}
         </div>
 
-        {/* Logo badge — top right (supplementary, decorative) */}
+        {/* Logo badge - top right (supplementary, decorative) */}
         {builder.logo_url && (
           <div className="absolute top-2 right-2">
             <div className="w-9 h-9 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white flex items-center justify-center">

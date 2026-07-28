@@ -213,7 +213,7 @@ export default function PoliciesEditor({ form, setForm }) {
                   value={form.deposit_refundable}
                   onChange={v => set("deposit_refundable", v)}
                   options={[
-                    { value: "yes", label: "Yes — fully refundable" },
+                    { value: "yes", label: "Yes - fully refundable" },
                     { value: "partial", label: "Partial refund" },
                     { value: "no", label: "Non-refundable" },
                   ]}
@@ -253,7 +253,7 @@ export default function PoliciesEditor({ form, setForm }) {
         <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Warranty</h3>
         <p className="text-xs mb-4" style={SECTION_HELPER}>Let buyers know what your warranty covers, and for how long. Different categories can have different coverage periods.</p>
 
-        <SectionLabel>What's covered — and for how long</SectionLabel>
+        <SectionLabel>What's covered - and for how long</SectionLabel>
         <div className="space-y-2 mb-3">
           {coverageItems.map(item => (
             <div key={item.label} className="flex items-center gap-2">

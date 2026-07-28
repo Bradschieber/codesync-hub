@@ -32,7 +32,7 @@ export default function Contact() {
       <div className="text-center mb-10">
         <MessageSquare className="w-12 h-12 mx-auto mb-4" style={{ color: "#1B2B4B" }} />
         <h1 className="text-3xl font-bold text-stone-800 mb-2">Get in Touch</h1>
-        <p className="text-stone-500">Questions, feedback, or partnership inquiries — we'd love to hear from you.</p>
+        <p className="text-stone-500">Questions, feedback, or partnership inquiries - we'd love to hear from you.</p>
       </div>
 
       <div className="bg-white rounded-2xl border border-stone-200 p-8">

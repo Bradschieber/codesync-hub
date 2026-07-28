@@ -53,7 +53,7 @@ export default function RequestMessageModal({ request, profile, user, onClose, o
     await base44.integrations.Core.SendEmail({
       from_name: "Stringed Collective",
       to: request.customer_email,
-      subject: `Message from ${profile.business_name || profile.display_name} — Custom Build Discussion`,
+      subject: `Message from ${profile.business_name || profile.display_name} - Custom Build Discussion`,
       body: `
 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background: #FDFBF8; color: #1B2B4B;">
   <div style="margin-bottom: 20px;"><span style="font-weight: 700;">Stringed</span><span style="letter-spacing: 0.1em;"> Collective</span></div>
@@ -63,7 +63,7 @@ export default function RequestMessageModal({ request, profile, user, onClose, o
     <p style="margin: 0; color: #1A1A1A;">${body.trim()}</p>
   </div>
   <p style="color: #4A5568; font-size: 0.9rem;">Log in to your Stringed Collective account to view your custom build request and reply through the platform.</p>
-  <p style="color: #9CA3AF; font-size: 0.8rem; margin-top: 32px; border-top: 1px solid #E5E7EB; padding-top: 16px;">— The Stringed Collective Team</p>
+  <p style="color: #9CA3AF; font-size: 0.8rem; margin-top: 32px; border-top: 1px solid #E5E7EB; padding-top: 16px;">- The Stringed Collective Team</p>
 </div>`
     });
 

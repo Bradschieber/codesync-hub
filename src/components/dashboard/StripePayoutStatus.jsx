@@ -99,7 +99,7 @@ export default function StripePayoutStatus({ profile, onStatusUpdated }) {
               <div className="mt-2 flex items-center gap-1.5">
                 <Zap className="w-3.5 h-3.5" style={{ color: "#9B1B30" }} />
                 <p className="text-xs font-semibold" style={{ color: "#9B1B30" }}>
-                  First Sale Protection applies — your first payout will be held until delivery is confirmed.
+                  First Sale Protection applies - your first payout will be held until delivery is confirmed.
                 </p>
               </div>
             )}

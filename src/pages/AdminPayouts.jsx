@@ -27,10 +27,10 @@ const CURRENT_STATUS_LABELS = {
 
 const PAYOUT_STATUS_CONFIG = {
   pending:                  { label: "Pending",            color: "#6B7280", bg: "#F9FAFB" },
-  held_first_sale:          { label: "Held — 1st Sale",    color: "#7A1526", bg: "#F9E5E8" },
-  held_tracking_unverified: { label: "Held — Tracking",   color: "#1E40AF", bg: "#DBEAFE" },
-  held_dispute:             { label: "Held — Dispute",     color: "#991B1B", bg: "#FEE2E2" },
-  held_admin:               { label: "Held — Admin",       color: "#374151", bg: "#F3F4F6" },
+  held_first_sale:          { label: "Held - 1st Sale",    color: "#7A1526", bg: "#F9E5E8" },
+  held_tracking_unverified: { label: "Held - Tracking",   color: "#1E40AF", bg: "#DBEAFE" },
+  held_dispute:             { label: "Held - Dispute",     color: "#991B1B", bg: "#FEE2E2" },
+  held_admin:               { label: "Held - Admin",       color: "#374151", bg: "#F3F4F6" },
   awaiting_release:         { label: "Awaiting Release",   color: "#065F46", bg: "#D1FAE5" },
   fully_released:           { label: "Paid Out",           color: "#166534", bg: "#DCFCE7" },
   payout_failed:            { label: "Payout Failed",      color: "#991B1B", bg: "#FEE2E2" },
@@ -198,7 +198,7 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
             <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 border border-red-200">
               <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-xs font-semibold text-red-800">Buyer Default — Under Review</p>
+                <p className="text-xs font-semibold text-red-800">Buyer Default - Under Review</p>
                 <p className="text-xs text-red-700 mt-0.5">Buyer failed to pay final balance. Admin action required to resolve this order.</p>
               </div>
             </div>
@@ -320,11 +320,11 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
                   onMouseLeave={e => !processing && (e.currentTarget.style.backgroundColor = NAVY)}
                 >
                   <Send className="w-3.5 h-3.5" />
-                  {processing ? "Processing..." : `Release Payout — $${relevantTI.transfer_amount_net?.toFixed(2)}`}
+                  {processing ? "Processing..." : `Release Payout - $${relevantTI.transfer_amount_net?.toFixed(2)}`}
                 </button>
               )}
 
-              {/* Release Payout (no existing TI — creates one on the fly) */}
+              {/* Release Payout (no existing TI - creates one on the fly) */}
               {canReleasePayout && !canProcessPayout && (
                 <>
                   {/* Stripe Connect status warnings */}
@@ -332,7 +332,7 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
                     <div className="flex items-start gap-2 p-3 rounded-lg bg-orange-50 border border-orange-200 w-full">
                       <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-semibold text-orange-800">Cannot release payout — builder profile not found</p>
+                        <p className="text-xs font-semibold text-orange-800">Cannot release payout - builder profile not found</p>
                         <p className="text-xs text-orange-700 mt-0.5">
                           No builder profile exists for builder ID {order.builder_id}. The order may reference a deleted builder.
                         </p>
@@ -343,7 +343,7 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
                     <div className="flex items-start gap-2 p-3 rounded-lg bg-orange-50 border border-orange-200 w-full">
                       <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-semibold text-orange-800">Cannot release payout — builder has not completed Stripe Connect setup</p>
+                        <p className="text-xs font-semibold text-orange-800">Cannot release payout - builder has not completed Stripe Connect setup</p>
                         <p className="text-xs text-orange-700 mt-0.5">
                           {builderProfile?.business_name || order.builder_name || "This builder"} needs to connect their Stripe account before payouts can be released.
                         </p>
@@ -354,7 +354,7 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
                     <div className="flex items-start gap-2 p-3 rounded-lg bg-orange-50 border border-orange-200 w-full">
                       <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-semibold text-orange-800">Cannot release payout — Stripe Connect payouts not enabled</p>
+                        <p className="text-xs font-semibold text-orange-800">Cannot release payout - Stripe Connect payouts not enabled</p>
                         <p className="text-xs text-orange-700 mt-0.5">
                           {builderProfile?.business_name || order.builder_name} has a Stripe account but payouts are not yet enabled. The builder may need to complete verification.
                         </p>
@@ -370,7 +370,7 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
                         <span className="text-xs font-medium text-blue-800">
                           {hasRealCharge
                             ? `This will create a real Stripe transfer of $${(order.builder_net_payout_expected || (order.total_gross_amount || order.total_amount || 0) * 0.95).toFixed(2)} to ${builderProfile?.business_name || order.builder_name}'s Stripe account.`
-                            : `This order has no real Stripe charge — payout will be marked as released without a Stripe transfer (test/manual order).`
+                            : `This order has no real Stripe charge - payout will be marked as released without a Stripe transfer (test/manual order).`
                         }
                         </span>
                         <div className="flex gap-2 ml-auto">
@@ -457,9 +457,9 @@ function AdminOrderCard({ order, transferInstructions, builderProfiles, onUpdate
                   {order.payout_status === "fully_released"
                     ? "✓ Payout complete"
                     : order.payout_status === "payout_failed"
-                    ? "⚠ Payout failed — check Stripe"
+                    ? "⚠ Payout failed - check Stripe"
                     : order.current_status === "pending_payment" && (order.stripe_payment_intent_id || order.stripe_charge_id)
-                    ? "Payment in progress — cannot cancel until payment resolves"
+                    ? "Payment in progress - cannot cancel until payment resolves"
                     : order.current_status === "delivered" && order.delivery_confirmed && order.payout_status === "fully_released"
                     ? "✓ Payout complete"
                     : "No actions available at this stage"}
@@ -481,8 +481,8 @@ const FILTER_OPTIONS = [
   { key: "buyer_default_review", label: "⚠ Buyer Default Review" },
   { key: "tracking_submitted", label: "Tracking Submitted" },
   { key: "awaiting_release", label: "Awaiting Payout Release" },
-  { key: "held_first_sale", label: "Held — First Sale" },
-  { key: "held_first_custom_deposit", label: "Held — First Custom Deposit" },
+  { key: "held_first_sale", label: "Held - First Sale" },
+  { key: "held_first_custom_deposit", label: "Held - First Custom Deposit" },
   { key: "fully_released", label: "Paid Out" },
   { key: "payout_failed", label: "Payout Failed" },
 ];

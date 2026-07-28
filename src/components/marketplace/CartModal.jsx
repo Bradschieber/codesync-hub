@@ -25,7 +25,7 @@ export default function CartModal({ user, onClose }) {
     try {
       await base44.entities.CartItem.delete(id);
     } catch {
-      // Item already removed or not found — safe to ignore
+      // Item already removed or not found - safe to ignore
     }
   }
 

@@ -204,9 +204,9 @@ export default function AdminUserAccounts() {
             filtered.map(u => (
               <div key={u.id} className="grid grid-cols-12 px-4 py-4 border-b items-center" style={{ borderColor: "#F0EDE8" }}>
                 <div className="col-span-4">
-                  <p className="font-semibold text-sm" style={{ color: "#1A1A1A" }}>{u.full_name || "—"}</p>
+                  <p className="font-semibold text-sm" style={{ color: "#1A1A1A" }}>{u.full_name || "-"}</p>
                   <p className="text-xs mt-0.5" style={{ color: "#9A9A9A" }}>
-                    Joined {u.created_date ? new Date(u.created_date).toLocaleDateString() : "—"}
+                    Joined {u.created_date ? new Date(u.created_date).toLocaleDateString() : "-"}
                   </p>
                 </div>
                 <div className="col-span-3 text-sm truncate" style={{ color: "#5A5A5A" }}>{u.email}</div>

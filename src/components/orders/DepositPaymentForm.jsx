@@ -74,7 +74,7 @@ function DepositForm({ order, user, onSuccess }) {
         className="w-full py-3 text-sm font-bold text-white rounded-lg transition-colors disabled:opacity-50"
         style={{ backgroundColor: NAVY }}
       >
-        {paying ? "Processing..." : `Pay Deposit — $${order.deposit_amount?.toLocaleString()}`}
+        {paying ? "Processing..." : `Pay Deposit - $${order.deposit_amount?.toLocaleString()}`}
       </button>
     </form>
   );
@@ -92,7 +92,7 @@ export default function DepositPaymentForm({ order, user, onDepositPaid }) {
       <div className="flex items-start gap-3 p-4 rounded-xl bg-green-50 border border-green-200">
         <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-semibold text-green-800">Deposit paid — ${order.deposit_amount?.toLocaleString()}</p>
+          <p className="text-sm font-semibold text-green-800">Deposit paid - ${order.deposit_amount?.toLocaleString()}</p>
           <p className="text-xs text-green-700 mt-0.5">
             {order.is_first_custom_build
               ? "Your deposit is being held pending platform approval. The builder will be notified once approved to begin."

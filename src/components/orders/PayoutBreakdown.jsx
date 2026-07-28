@@ -4,10 +4,10 @@ const NAVY = "#1B2B4B";
 
 const PAYOUT_STATUS_CONFIG = {
   pending:                { label: "Pending",                  color: "#6B7280", bg: "#F9FAFB" },
-  held_first_sale:        { label: "Held — First Sale",        color: "#7A1526", bg: "#F9E5E8" },
-  held_tracking_unverified:{ label: "Held — Tracking Unverified", color: "#1E40AF", bg: "#DBEAFE" },
-  held_dispute:           { label: "Held — Dispute",          color: "#991B1B", bg: "#FEE2E2" },
-  held_admin:             { label: "Held — Admin",            color: "#374151", bg: "#F3F4F6" },
+  held_first_sale:        { label: "Held - First Sale",        color: "#7A1526", bg: "#F9E5E8" },
+  held_tracking_unverified:{ label: "Held - Tracking Unverified", color: "#1E40AF", bg: "#DBEAFE" },
+  held_dispute:           { label: "Held - Dispute",          color: "#991B1B", bg: "#FEE2E2" },
+  held_admin:             { label: "Held - Admin",            color: "#374151", bg: "#F3F4F6" },
   awaiting_release:       { label: "Awaiting Release",        color: "#065F46", bg: "#D1FAE5" },
   partially_released:     { label: "Partially Released",      color: "#166534", bg: "#DCFCE7" },
   fully_released:         { label: "Paid Out",                color: "#166534", bg: "#DCFCE7" },

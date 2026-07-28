@@ -100,7 +100,7 @@ export default function Catalog() {
       <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-14 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold mb-2 tracking-tight" style={{ color: "#1A1A1A" }}>Handcrafted Instruments</h1>
-          <p className="text-sm" style={{ color: "#7A7A7A" }}>Handcrafted instruments, ready to play — from independent builders around the world.</p>
+          <p className="text-sm" style={{ color: "#7A7A7A" }}>Handcrafted instruments, ready to play - from independent builders around the world.</p>
         </div>
       </div>
 
@@ -213,7 +213,7 @@ export default function Catalog() {
                     className="w-full border px-3 py-2 text-sm focus:outline-none"
                     style={{ borderColor: "#E5E8EC" }}
                   />
-                  <span className="text-stone-400 text-sm">–</span>
+                  <span className="text-stone-400 text-sm">-</span>
                   <input
                     type="number"
                     value={maxPrice}
@@ -317,7 +317,7 @@ function InstrumentCard({ product }) {
           className="absolute inset-0 flex items-end justify-center pb-3 transition-opacity duration-200"
           style={{
             opacity: hovered ? 1 : 0,
-            background: "linear-gradient(to top, rgba(27,43,75,0.6) 0%, transparent 60%)"
+            background: "linear-gradient(to top, rgba(27,43,75,0.32) 0%, transparent 55%)"
           }}
         >
           <span className="text-white text-xs font-semibold flex items-center gap-1">

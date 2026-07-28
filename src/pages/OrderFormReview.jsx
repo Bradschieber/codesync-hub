@@ -273,7 +273,7 @@ export default function OrderFormReview() {
           )}
         </div>
 
-        {/* Action Buttons — top */}
+        {/* Action Buttons - top */}
         {isSent && (
           <div className="flex flex-wrap gap-3 mb-5">
             <button onClick={handleAccept} disabled={accepting}
@@ -356,7 +356,7 @@ export default function OrderFormReview() {
         {form.reference_images?.length > 0 && (
           <div className="bg-white rounded-2xl border border-stone-200 p-6 mb-5">
             <Section title="Build Reference Images">
-              <p className="text-xs text-stone-400 mb-4">Supporting reference images provided by the builder. These are illustrative only — the official build is defined by the specifications, summary, and pricing above.</p>
+              <p className="text-xs text-stone-400 mb-4">Supporting reference images provided by the builder. These are illustrative only - the official build is defined by the specifications, summary, and pricing above.</p>
               <div className="grid grid-cols-2 gap-3">
                 {form.reference_images.map((img, idx) => (
                   <div key={idx} className="rounded-xl overflow-hidden border border-stone-200">

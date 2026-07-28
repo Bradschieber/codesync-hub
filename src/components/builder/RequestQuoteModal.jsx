@@ -119,9 +119,9 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                   >
                     <option value="">Select a range...</option>
                     <option>Under $1,000</option>
-                    <option>$1,000 – $2,500</option>
-                    <option>$2,500 – $5,000</option>
-                    <option>$5,000 – $10,000</option>
+                    <option>$1,000 - $2,500</option>
+                    <option>$2,500 - $5,000</option>
+                    <option>$5,000 - $10,000</option>
                     <option>$10,000+</option>
                   </select>
                 </div>
@@ -132,7 +132,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                   rows={4}
                   value={form.description}
                   onChange={e => setForm({ ...form, description: e.target.value })}
-                  placeholder="Tell the builder about your dream instrument — playing style, tone goals, inspiration, reference instruments, anything you have in mind..."
+                  placeholder="Tell the builder about your dream instrument - playing style, tone goals, inspiration, reference instruments, anything you have in mind..."
                   className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none"
                 />
               </div>
@@ -156,7 +156,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                     : ["Electric Guitars", "Electric Bass Guitar", "Acoustic Guitar", "Acoustic Bass Guitar", "Other"]
                   ).map(o => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <p className="text-xs text-stone-400 mt-1">Required — unlocks relevant spec fields below (body type, wood options, etc.)</p>
+                <p className="text-xs text-stone-400 mt-1">Required - unlocks relevant spec fields below (body type, wood options, etc.)</p>
               </div>
               {builderSpecOptions === null ? (
                 <div className="text-xs text-stone-400 py-4 text-center">Loading builder's available options...</div>

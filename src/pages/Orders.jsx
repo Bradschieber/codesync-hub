@@ -526,7 +526,7 @@ function MessageBuilderModal({ order, user, onClose }) {
       sender_name: user.full_name,
       recipient_id: order.builder_id,
       recipient_name: builderName,
-      subject: `Re: Order #${order.id.slice(-8).toUpperCase()} — ${order.items?.[0]?.product_name || "Your Order"}`,
+      subject: `Re: Order #${order.id.slice(-8).toUpperCase()} - ${order.items?.[0]?.product_name || "Your Order"}`,
       body: msg,
     });
     setSent(true);
