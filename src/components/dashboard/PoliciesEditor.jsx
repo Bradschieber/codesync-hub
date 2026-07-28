@@ -109,7 +109,7 @@ export default function PoliciesEditor({ form, setForm }) {
   // exclusions = items actively excluded (default = all presets)
   const exclusions = (() => {
     const raw = form.warranty_exclusions;
-    if (!raw) return [...PRESET_EXCLUSIONS];
+    if (!raw || raw.length === 0) return [...PRESET_EXCLUSIONS];
     return raw;
   })();
 
