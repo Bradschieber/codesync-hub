@@ -158,12 +158,16 @@ export default function Home() {
 
             {/* Right: featured instrument image */}
             <div className="relative hidden lg:block">
-              <div className="overflow-hidden flex items-center justify-center" style={{ minHeight: "620px" }}>
+              <Link
+                to={heroProduct ? createPageUrl("ProductDetail?id=" + heroProduct.id) : createPageUrl("Catalog")}
+                className="block overflow-hidden flex items-center justify-center group"
+                style={{ minHeight: "620px" }}
+              >
                 {(heroProduct?.processed_hero_image_url || heroProduct?.image_urls?.[0]) ? (
                   <img
                     src={heroProduct.processed_hero_image_url || heroProduct.image_urls[0]}
                     alt={heroProduct.name}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 ) : (
                   <img
@@ -172,14 +176,14 @@ export default function Home() {
                     className="w-full h-full object-cover"
                   />
                 )}
-              </div>
+              </Link>
               {/* Micro label */}
               <div
                 className="absolute bottom-4 left-4 right-4 flex items-end justify-between"
               >
                 <span className="text-xs font-semibold px-3 py-1.5 backdrop-blur-sm"
                   style={{ backgroundColor: "rgba(255,255,255,0.88)", color: NAVY }}>
-                  {heroProduct ? `${heroProduct.name} - $${heroProduct.price?.toLocaleString()}` : "Built by independent makers"}
+                  {heroProduct ? heroProduct.name : "Built by independent makers"}
                 </span>
               </div>
             </div>
