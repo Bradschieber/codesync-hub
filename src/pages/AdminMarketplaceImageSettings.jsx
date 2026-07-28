@@ -9,7 +9,7 @@ const NAVY = "#2F3E55";
 const DEFAULTS = {
   config_key: "default",
   processing_enabled: true,
-  background_color: "#F7F5F0",
+  background_color: "transparent",
   shadow_mode: "soft",
   padding_preset: "balanced",
   output_size: 2000,
@@ -121,26 +121,15 @@ export default function AdminMarketplaceImageSettings() {
           </div>
         </div>
 
-        {/* Background Color */}
+        {/* Background — Transparent (locked) */}
         <div className="bg-white border p-6 mb-4" style={{ borderColor: "#E0DDD8" }}>
-          <h3 className="font-bold text-sm mb-1" style={{ color: "#1A1A1A" }}>Background Color</h3>
-          <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>Hex color for the standard marketplace background. Solid neutrals only.</p>
-          <div className="flex items-center gap-3">
-            <input
-              type="color"
-              value={form.background_color}
-              onChange={e => set("background_color", e.target.value)}
-              className="w-10 h-10 border cursor-pointer"
-              style={{ borderColor: "#E0DDD8" }}
-            />
-            <input
-              type="text"
-              value={form.background_color}
-              onChange={e => set("background_color", e.target.value)}
-              className="border px-3 py-2 text-sm font-mono w-32"
-              style={{ borderColor: "#E0DDD8" }}
-            />
-            <div className="w-10 h-10 border" style={{ backgroundColor: form.background_color, borderColor: "#E0DDD8" }} />
+          <h3 className="font-bold text-sm mb-1" style={{ color: "#1A1A1A" }}>Background</h3>
+          <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>
+            Processed hero images use a transparent background so they blend cleanly into any surface
+            (white cards, catalog grid, homepage hero, product detail pages). No color fill is applied.
+          </p>
+          <div className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium border" style={{ borderColor: "#E0DDD8", backgroundColor: "#EEF1F7", color: NAVY }}>
+            Transparent (PNG with alpha)
           </div>
         </div>
 
@@ -210,25 +199,14 @@ export default function AdminMarketplaceImageSettings() {
           </div>
         </div>
 
-        {/* Output Format */}
+        {/* Output Format — PNG locked (transparency requires alpha channel) */}
         <div className="bg-white border p-6 mb-4" style={{ borderColor: "#E0DDD8" }}>
           <h3 className="font-bold text-sm mb-1" style={{ color: "#1A1A1A" }}>Output Format</h3>
-          <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>PNG preferred for quality. JPG for smaller file sizes.</p>
-          <div className="flex gap-3">
-            {["png", "jpg"].map(v => (
-              <button
-                key={v}
-                onClick={() => set("output_format", v)}
-                className="px-4 py-2 text-sm font-medium border transition-colors uppercase"
-                style={{
-                  borderColor: form.output_format === v ? NAVY : "#E0DDD8",
-                  backgroundColor: form.output_format === v ? "#EEF1F7" : "transparent",
-                  color: form.output_format === v ? NAVY : "#5A5A5A",
-                }}
-              >
-                {v}
-              </button>
-            ))}
+          <p className="text-xs mb-4" style={{ color: "#7A7A7A" }}>
+            PNG is locked because transparent backgrounds require an alpha channel (JPG does not support transparency).
+          </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border uppercase" style={{ borderColor: "#E0DDD8", backgroundColor: "#EEF1F7", color: NAVY }}>
+            PNG
           </div>
         </div>
 
