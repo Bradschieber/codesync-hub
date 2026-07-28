@@ -139,6 +139,14 @@ export default function AdminDashboard() {
       badge: null,
     },
     {
+      title: "Featured Products",
+      description: "Curate which instruments appear on the homepage and discovery surfaces. Feature and unfeature listings across the platform.",
+      icon: Star,
+      page: "AdminFeaturedProducts",
+      badge: null,
+      urgent: false,
+    },
+    {
       title: "Marketplace Image Settings",
       description: "Configure the global Photoroom processing pipeline for standardized marketplace hero images - background color, shadow, padding, output size, and format.",
       icon: Settings,

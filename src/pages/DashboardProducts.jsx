@@ -17,7 +17,7 @@ const NAVY = "#1B2B4B";
 
 const INITIAL_FORM = {
   name: "", description: "", about_this_build: "", price: "",
-  status: "available", is_available: true, is_featured: false,
+  status: "available", is_available: true,
   image_urls: [], weight_oz: "", offers_local_pickup: false, local_pickup_details: "",
   specifications: {},
   shipping_option_type: "flat_rate",
@@ -109,7 +109,6 @@ export default function DashboardProducts() {
       price: product.price || "",
       status: product.status || "available",
       is_available: product.is_available !== false,
-      is_featured: product.is_featured || false,
       image_urls: product.image_urls || [],
       weight_oz: product.weight_oz || "",
       offers_local_pickup: product.offers_local_pickup || false,

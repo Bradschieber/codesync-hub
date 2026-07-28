@@ -20,6 +20,7 @@ import AdminQAChecklist from './pages/AdminQAChecklist';
 import BuilderGuideArticle from './pages/BuilderGuideArticle';
 import BuyerFAQ from './pages/BuyerFAQ';
 import AdminMarketplaceImageSettings from './pages/AdminMarketplaceImageSettings';
+import AdminFeaturedProducts from './pages/AdminFeaturedProducts';
 import ImageRatioExperiment from './pages/ImageRatioExperiment';
 import OrderFormEditor from './pages/OrderFormEditor';
 import OrderFormReview from './pages/OrderFormReview';
@@ -86,6 +87,7 @@ const AuthenticatedApp = () => {
       <Route path="/BuilderGuideArticle" element={<LayoutWrapper currentPageName="BuilderGuideArticle"><BuilderGuideArticle /></LayoutWrapper>} />
       <Route path="/BuyerFAQ" element={<LayoutWrapper currentPageName="BuyerFAQ"><BuyerFAQ /></LayoutWrapper>} />
       <Route path="/AdminMarketplaceImageSettings" element={<LayoutWrapper currentPageName="AdminMarketplaceImageSettings"><AdminMarketplaceImageSettings /></LayoutWrapper>} />
+      <Route path="/AdminFeaturedProducts" element={<LayoutWrapper currentPageName="AdminFeaturedProducts"><AdminFeaturedProducts /></LayoutWrapper>} />
       <Route path="/ImageRatioExperiment" element={<LayoutWrapper currentPageName="ImageRatioExperiment"><ImageRatioExperiment /></LayoutWrapper>} />
       <Route path="/OrderFormEditor" element={<LayoutWrapper currentPageName="OrderFormEditor"><OrderFormEditor /></LayoutWrapper>} />
       <Route path="/OrderFormReview" element={<LayoutWrapper currentPageName="OrderFormReview"><OrderFormReview /></LayoutWrapper>} />
