@@ -40,11 +40,11 @@ Deno.serve(async (req) => {
     const configs = await base44.asServiceRole.entities.MarketplaceImageConfig.filter({ config_key: 'default' });
     const config = configs[0] || {};
 
-    const bgColor = config.background_color || '#FFFFFF';
     const paddingPreset = config.padding_preset || 'balanced';
     const shadowMode = config.shadow_mode || 'soft';
     const outputSize = config.output_size || 2000;
-    const outputFormat = config.output_format || 'png';
+    // Transparent background requires PNG format (JPG has no alpha channel)
+    const outputFormat = 'png';
 
     const padding = PADDING_MAP[paddingPreset] ?? 0.15;
     const shadow = SHADOW_MAP[shadowMode] ?? true;
@@ -56,7 +56,7 @@ Deno.serve(async (req) => {
     });
 
     // Build template version snapshot
-    const templateVersion = `bg:${bgColor}_shadow:${shadowMode}_pad:${paddingPreset}_size:${outputSize}`;
+    const templateVersion = `bg:transparent_shadow:${shadowMode}_pad:${paddingPreset}_size:${outputSize}`;
 
     // Call Photoroom API
     const photoroomApiKey = Deno.env.get('PHOTOROOM_API_KEY');
@@ -71,10 +71,11 @@ Deno.serve(async (req) => {
     }
     const imageBlob = await imageResponse.blob();
 
-    // Build Photoroom v2 request
+    // Build Photoroom v2 request — no background.color sent so Photoroom
+    // returns a transparent PNG (removeBackground defaults to true).
     const formData = new FormData();
     formData.append('imageFile', imageBlob, 'hero.jpg');
-    formData.append('background.color', bgColor);
+    formData.append('removeBackground', 'true');
     formData.append('outputSize', `${outputSize}x${outputSize}`);
     formData.append('format', outputFormat);
     formData.append('padding', String(padding));
