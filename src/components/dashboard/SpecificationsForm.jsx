@@ -1,4 +1,36 @@
-const WOOD_OPTIONS = ["Alder", "Ash", "Basswood", "Bubinga", "Koa", "Mahogany", "Maple", "Pine", "Poplar", "Rosewood", "Walnut", "Other"];
+const ACOUSTIC_SIDES_BACK = [
+  "African Blackwood", "African Mahogany / Khaya", "American Cherry", "Black Limba / Korina",
+  "Black Walnut", "Bocote", "Bubinga", "Chechen", "Claro Walnut", "Cocobolo",
+  "East Indian Rosewood", "Gaboon Ebony", "Gonçalo Alves", "Granadillo", "Honduran Mahogany",
+  "Honduran Rosewood", "Katalox", "Koa", "Macassar Ebony", "Madagascar Rosewood",
+  "Mahogany", "Mango", "Maple", "Mediterranean Cypress", "Myrtle", "Oak",
+  "Osage Orange", "Ovangkol", "Padauk", "Pau Ferro / Bolivian Rosewood", "Sapele",
+  "Sassafras", "Sipo", "Spanish Cedar", "Sycamore", "Tasmanian Blackwood",
+  "Walnut", "Wenge", "White Limba / Korina", "Zebrawood", "Ziricote",
+  "Other / Custom Wood"
+];
+
+const ACOUSTIC_TOP = [
+  "Adirondack Spruce / Red Spruce", "Alpine Spruce", "Carpathian Spruce", "Douglas Fir",
+  "Engelmann Spruce", "European Spruce", "German Spruce", "Italian Spruce", "Koa",
+  "Lutz Spruce", "Mahogany", "Norway Spruce", "Port Orford Cedar", "Redwood",
+  "Sitka Spruce", "Western Red Cedar", "Western Hemlock", "Yellow Cedar / Alaska Cedar",
+  "Other / Custom Wood"
+];
+
+const ELECTRIC_WOOD = [
+  "African Blackwood", "African Mahogany / Khaya", "Alder", "American Cherry",
+  "American Elm", "American Sycamore", "Ash", "Aspen", "Basswood", "Black Limba / Korina",
+  "Black Walnut", "Bloodwood", "Bocote", "Bubinga", "Buckeye", "Catalpa", "Chechen",
+  "Claro Walnut", "Cocobolo", "Douglas Fir", "Gaboon Ebony", "Gonçalo Alves",
+  "Granadillo", "Hackberry", "Hard Ash / Northern Ash", "Hard Maple", "Honduran Mahogany",
+  "Katalox", "Koa", "Lacewood", "Macassar Ebony", "Mahogany", "Mango", "Maple",
+  "Myrtle", "Oak", "Ovangkol", "Padauk", "Paulownia", "Pine", "Poplar",
+  "Port Orford Cedar", "Purpleheart", "Redwood", "Roasted Maple", "Sapele", "Sassafras",
+  "Sipo", "Soft Maple", "Spanish Cedar", "Sugar Pine", "Swamp Ash",
+  "Tasmanian Blackwood", "Walnut", "Wenge", "White Limba / Korina", "Yellowheart",
+  "Zebrawood", "Ziricote", "Other / Custom Wood"
+];
 
 function SpecSelect({ label, value, onChange, options, placeholder = "Select...", builderOptions, builderNotes }) {
   const filteredOptions = builderOptions && builderOptions.length > 0
@@ -39,11 +71,11 @@ function SpecTextarea({ label, value, onChange, placeholder, rows = 2, builderNo
   );
 }
 
-function WoodSelect({ label, value, otherValue, onChange, onOtherChange, bookMatchedValue, onBookMatchedChange, builderOptions, builderNotes }) {
+function WoodSelect({ label, value, otherValue, onChange, onOtherChange, options, bookMatchedValue, onBookMatchedChange, builderOptions, builderNotes }) {
   return (
     <>
-      <SpecSelect label={label} value={value} onChange={onChange} options={WOOD_OPTIONS} builderOptions={builderOptions} builderNotes={builderNotes} />
-      {value === "Other" && (
+      <SpecSelect label={label} value={value} onChange={onChange} options={options} builderOptions={builderOptions} builderNotes={builderNotes} />
+      {value === "Other / Custom Wood" && (
         <SpecInput label={`Specify ${label}`} value={otherValue} onChange={onOtherChange} placeholder="Enter wood type..." />
       )}
       {bookMatchedValue !== undefined && (
@@ -165,24 +197,24 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         )}
 
         {bc === "One Piece" && (
-          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
+          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} options={isAcoustic ? ACOUSTIC_TOP : ELECTRIC_WOOD} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
         )}
         {bc === "Two Piece" && (<>
-          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
-          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
+          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} options={isAcoustic ? ACOUSTIC_TOP : ELECTRIC_WOOD} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
+          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} options={isAcoustic ? ACOUSTIC_SIDES_BACK : ELECTRIC_WOOD} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </>)}
         {bc === "Three Piece" && (<>
-          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
+          <WoodSelect label="Top Wood" value={specs.topWood} otherValue={specs.otherTopWood} onChange={v => update("topWood", v)} onOtherChange={v => update("otherTopWood", v)} bookMatchedValue={specs.topBookMatched} onBookMatchedChange={v => update("topBookMatched", v)} options={isAcoustic ? ACOUSTIC_TOP : ELECTRIC_WOOD} builderOptions={bo("topWood")} builderNotes={bn("topWood")} />
           {!isAcoustic && (
-            <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} builderOptions={bo("middleWood")} builderNotes={bn("middleWood")} />
+            <WoodSelect label="Middle Wood" value={specs.middleWood} otherValue={specs.otherMiddleWood} onChange={v => update("middleWood", v)} onOtherChange={v => update("otherMiddleWood", v)} options={ELECTRIC_WOOD} builderOptions={bo("middleWood")} builderNotes={bn("middleWood")} />
           )}
-          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
+          <WoodSelect label="Back Wood" value={specs.backWood} otherValue={specs.otherBackWood} onChange={v => update("backWood", v)} onOtherChange={v => update("otherBackWood", v)} bookMatchedValue={specs.backBookMatched} onBookMatchedChange={v => update("backBookMatched", v)} options={isAcoustic ? ACOUSTIC_SIDES_BACK : ELECTRIC_WOOD} builderOptions={bo("backWood")} builderNotes={bn("backWood")} />
         </>)}
 
         {/* Side Wood & Bracing — Acoustic only */}
         {isAcoustic && (
           <>
-            <WoodSelect label="Side Wood" value={specs.sideWood} otherValue={specs.otherSideWood} onChange={v => update("sideWood", v)} onOtherChange={v => update("otherSideWood", v)} />
+            <WoodSelect label="Side Wood" value={specs.sideWood} otherValue={specs.otherSideWood} onChange={v => update("sideWood", v)} onOtherChange={v => update("otherSideWood", v)} options={ACOUSTIC_SIDES_BACK} />
             <div className="col-span-full">
               <SpecTextarea label="Bracing Description" value={specs.bracingDescription} onChange={v => update("bracingDescription", v)} placeholder="Describe the bracing pattern and materials..." />
             </div>
@@ -267,6 +299,13 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         )}
         <SpecTextarea label="Nut Material" value={specs.nutMaterial} onChange={v => update("nutMaterial", v)} placeholder={bn("nutMaterial") || "Describe nut material..."} builderNotes={bn("nutMaterial")} />
         <SpecTextarea label="Neck Construction" value={specs.neckConstruction} onChange={v => update("neckConstruction", v)} placeholder={bn("neckConstruction") || "Describe neck construction and materials (e.g. 3-piece maple neck, quartersawn, scarf joint headstock)..."} builderNotes={bn("neckConstruction")} />
+        <SpecSelect
+          label="Fretboard Material"
+          value={specs.fretMaterial}
+          onChange={v => update("fretMaterial", v)}
+          options={["African Blackwood", "Bloodwood", "Bocote", "Bubinga", "Chechen", "Cocobolo", "East Indian Rosewood", "Gaboon Ebony", "Gonçalo Alves", "Granadillo", "Honduran Rosewood", "Indian Laurel", "Jatoba", "Katalox", "Macassar Ebony", "Madagascar Rosewood", "Maple", "Padauk", "Pau Ferro / Bolivian Rosewood", "Persimmon", "Purpleheart", "Roasted Maple", "Snakewood", "Wenge", "Ziricote", "Richlite", "Micarta / Composite", "Other / Custom Material"]}
+          builderOptions={bo("fretMaterial")} builderNotes={bn("fretMaterial")}
+        />
       </div>
 
       {/* ── Hardware ── */}
