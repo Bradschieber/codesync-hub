@@ -50,7 +50,7 @@ export default function AdminFoundingBuilders() {
 
   return (
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
-      <div style={{ background: "linear-gradient(180deg, #F9E5E8 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
+      <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-14 pb-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to={createPageUrl("AdminDashboard")} className="inline-flex items-center gap-1.5 text-sm mb-4 hover:opacity-70" style={{ color: NAVY }}>
             <ArrowLeft className="w-4 h-4" /> Admin Dashboard

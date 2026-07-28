@@ -277,13 +277,13 @@ export default function BuilderOnboarding() {
   const shopName = form.business_name?.trim() || null;
 
   if (loading) return (
-    <div className="fixed inset-0 flex items-center justify-center" style={{ backgroundColor: "#F9E5E8" }}>
+    <div className="fixed inset-0 flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
       <div className="w-8 h-8 rounded-full animate-spin" style={{ border: "3px solid #E3E0D8", borderTopColor: NAVY }} />
     </div>
   );
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F9E5E8" }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FFFFFF" }}>
 
       {/* ── TOP STEPPER ── */}
       <div className="sticky top-0 z-40" style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E8E5E0" }}>

@@ -65,7 +65,7 @@ export default function BuilderProfile() {
   }
 
   if (loading) return (
-    <div className="min-h-screen animate-pulse" style={{ backgroundColor: "#F9E5E8" }}>
+    <div className="min-h-screen animate-pulse" style={{ backgroundColor: "#FFFFFF" }}>
       <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="h-6 rounded w-32 mb-8 bg-stone-200" />
         <div className="h-56 rounded-2xl mb-6 bg-stone-200" />
@@ -89,7 +89,7 @@ export default function BuilderProfile() {
   const hasMoreProducts = products.length > 6;
 
   return (
-    <div style={{ backgroundColor: "#F9E5E8", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
 
         {/* Back */}
