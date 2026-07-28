@@ -97,14 +97,14 @@ export default function AdminBuilderBadges() {
                   label="Founding Builder"
                   active={!!builder.founding_builder}
                   loading={!!saving[builder.id + "founding_builder"]}
-                  activeColor="#6B4C2A"
+                  activeColor="#5F2530"
                   onClick={() => toggleBadge(builder, "founding_builder")}
                 />
                 <BadgeToggle
                   label="Featured Builder"
                   active={!!builder.is_featured}
                   loading={!!saving[builder.id + "is_featured"]}
-                  activeColor="#C57A1F"
+                  activeColor="#7A2E3B"
                   onClick={() => toggleBadge(builder, "is_featured")}
                 />
                 <div className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border" style={{ borderColor: "#E3E0D8", color: "#9A9A9A", backgroundColor: "#FAFAF8" }}>

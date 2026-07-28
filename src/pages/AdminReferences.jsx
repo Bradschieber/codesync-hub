@@ -50,7 +50,7 @@ export default function AdminReferences() {
     }
   }
 
-  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" /></div>;
+  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-wine-500 border-t-transparent rounded-full" /></div>;
 
   if (user?.role !== "admin") return (
     <div className="max-w-xl mx-auto px-4 py-20 text-center">
@@ -70,7 +70,7 @@ export default function AdminReferences() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
-          <Link to={createPageUrl("AdminDashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+          <Link to={createPageUrl("AdminDashboard")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
           <h1 className="text-2xl font-bold text-stone-800">Manage Builder References</h1>
         </div>
         <Link to={createPageUrl("AdminBuilderBadges")} className="text-xs font-semibold px-4 py-2 rounded-lg border transition-colors" style={{ borderColor: "#2F3E55", color: "#2F3E55" }}
@@ -91,7 +91,7 @@ export default function AdminReferences() {
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${filter === key ? "border-amber-500 text-amber-700" : "border-transparent text-stone-500 hover:text-stone-700"}`}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${filter === key ? "border-wine-500 text-wine-700" : "border-transparent text-stone-500 hover:text-stone-700"}`}
           >
             {label}
           </button>
@@ -111,7 +111,7 @@ export default function AdminReferences() {
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <span className="font-semibold text-stone-800 text-sm">{ref.buyer_name}</span>
                       <span className="text-stone-400 text-xs">→</span>
-                      <span className="text-amber-700 text-sm font-medium">{builderProfile?.business_name || ref.builder_name}</span>
+                      <span className="text-wine-700 text-sm font-medium">{builderProfile?.business_name || ref.builder_name}</span>
                       {builderProfile?.is_verified && (
                         <span className="text-xs text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">✦ Verified Builder</span>
                       )}

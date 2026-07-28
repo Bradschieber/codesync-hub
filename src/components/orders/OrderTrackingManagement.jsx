@@ -8,7 +8,7 @@ const CARRIERS = ["UPS", "FedEx", "USPS", "DHL Express", "OnTrac", "LaserShip"];
 
 const SHIPPO_STATUS_LABELS = {
   UNKNOWN:    { label: "Pending",     color: "#7A7A7A", bg: "#F3F4F6" },
-  PRE_TRANSIT:{ label: "Pre-Transit", color: "#B45309", bg: "#FEF3C7" },
+  PRE_TRANSIT:{ label: "Pre-Transit", color: "#5F2530", bg: "#F5E6E9" },
   TRANSIT:    { label: "In Transit",  color: "#1D4ED8", bg: "#DBEAFE" },
   DELIVERED:  { label: "Delivered",   color: "#16A34A", bg: "#DCFCE7" },
   RETURNED:   { label: "Returned",    color: "#EA580C", bg: "#FFEDD5" },

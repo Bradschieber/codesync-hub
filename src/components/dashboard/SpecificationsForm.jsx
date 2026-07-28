@@ -39,12 +39,12 @@ function SpecSelect({ label, value, onChange, options, placeholder = "Select..."
   return (
     <div>
       <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
-      <select value={value || ""} onChange={e => onChange(e.target.value)} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white">
+      <select value={value || ""} onChange={e => onChange(e.target.value)} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 bg-white">
         <option value="">{placeholder}</option>
         {filteredOptions.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
       {builderNotes && (
-        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {builderNotes}</p>
+        <p className="text-xs text-wine-700 bg-wine-50 border border-wine-100 rounded-lg px-2 py-1 mt-1">💡 {builderNotes}</p>
       )}
     </div>
   );
@@ -54,7 +54,7 @@ function SpecInput({ label, value, onChange, placeholder }) {
   return (
     <div>
       <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
-      <input value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+      <input value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
     </div>
   );
 }
@@ -63,9 +63,9 @@ function SpecTextarea({ label, value, onChange, placeholder, rows = 2, builderNo
   return (
     <div>
       <label className="block text-xs font-medium text-stone-600 mb-1">{label}</label>
-      <textarea value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+      <textarea value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none" />
       {builderNotes && (
-        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-1">💡 {builderNotes}</p>
+        <p className="text-xs text-wine-700 bg-wine-50 border border-wine-100 rounded-lg px-2 py-1 mt-1">💡 {builderNotes}</p>
       )}
     </div>
   );
@@ -271,11 +271,11 @@ export default function SpecificationsForm({ specs = {}, onChange, builderSpecOp
         <SectionHeader title="Neck & Fretboard" />
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-1">Scale Length (NN.NNN")</label>
-          <input type="number" step="0.001" value={specs.scaleLength || ""} onChange={e => update("scaleLength", e.target.value ? Number(e.target.value) : "")} placeholder="e.g. 25.500" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          <input type="number" step="0.001" value={specs.scaleLength || ""} onChange={e => update("scaleLength", e.target.value ? Number(e.target.value) : "")} placeholder="e.g. 25.500" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
         </div>
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-1">Nut Width (N.NNN")</label>
-          <input type="number" step="0.001" value={specs.nutWidth || ""} onChange={e => update("nutWidth", e.target.value ? Number(e.target.value) : "")} placeholder="e.g. 1.687" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          <input type="number" step="0.001" value={specs.nutWidth || ""} onChange={e => update("nutWidth", e.target.value ? Number(e.target.value) : "")} placeholder="e.g. 1.687" className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
         </div>
         <SpecSelect
           label="Fretboard Radius"

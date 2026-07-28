@@ -45,7 +45,7 @@ export default function ReportIssueModal({ order, user, onClose, onSubmitted }) 
       <div className="relative bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-stone-100">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-500" />
+            <AlertTriangle className="w-4 h-4 text-wine-500" />
             <h3 className="font-bold text-sm" style={{ color: "#1A1A1A" }}>Report an Issue</h3>
           </div>
           <button onClick={onClose} className="text-stone-400 hover:text-stone-700 transition-colors">

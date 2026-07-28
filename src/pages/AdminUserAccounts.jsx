@@ -106,7 +106,7 @@ export default function AdminUserAccounts() {
 
   if (loadError) return (
     <div className="max-w-xl mx-auto px-4 py-24 text-center">
-      <AlertCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#C57A1F" }} />
+      <AlertCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#7A2E3B" }} />
       <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
       <p className="text-sm mb-4" style={{ color: "#7A7A7A" }}>{loadError}</p>
       <button
@@ -226,9 +226,9 @@ export default function AdminUserAccounts() {
                     title={u.is_active === false ? "Activate Account" : "Deactivate Account"}
                     className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold border transition-colors"
                     style={{
-                      borderColor: u.is_active === false ? "#27AE60" : "#C57A1F",
-                      color: u.is_active === false ? "#27AE60" : "#C57A1F",
-                      backgroundColor: u.is_active === false ? "#E8F5E9" : "#FEF3E2",
+                      borderColor: u.is_active === false ? "#27AE60" : "#7A2E3B",
+                      color: u.is_active === false ? "#27AE60" : "#7A2E3B",
+                      backgroundColor: u.is_active === false ? "#E8F5E9" : "#F5E6E9",
                       opacity: updating === u.id ? 0.5 : 1,
                     }}
                   >

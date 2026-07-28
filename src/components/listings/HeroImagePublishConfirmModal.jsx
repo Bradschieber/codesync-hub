@@ -15,7 +15,7 @@ export default function HeroImagePublishConfirmModal({ onConfirm, onGoBack }) {
         {/* Header */}
         <div className="p-6 pb-4 border-b" style={{ borderColor: "#E8E5E0" }}>
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#92400E" }} />
+            <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#5F2530" }} />
             <h2 className="text-base font-bold" style={{ color: "#1A1A1A" }}>
               Publish with limited visibility?
             </h2>
@@ -40,9 +40,9 @@ export default function HeroImagePublishConfirmModal({ onConfirm, onGoBack }) {
             <button
               onClick={onConfirm}
               className="flex-1 font-semibold py-3 px-5 text-sm text-white transition-colors"
-              style={{ backgroundColor: "#92400E" }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#78350F"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#92400E"}
+              style={{ backgroundColor: "#5F2530" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#5F2530"}
             >
               Publish with limited visibility
             </button>

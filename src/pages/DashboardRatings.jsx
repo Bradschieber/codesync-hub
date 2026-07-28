@@ -25,12 +25,12 @@ export default function DashboardRatings() {
   const avgRating = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
   const dist = [5, 4, 3, 2, 1].map(n => ({ stars: n, count: reviews.filter(r => r.rating === n).length }));
 
-  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" /></div>;
+  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-wine-500 border-t-transparent rounded-full" /></div>;
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
       <div className="flex items-center gap-3 mb-2">
-        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-2xl font-bold text-stone-800">Ratings & Reviews</h1>
       </div>
       <p className="text-stone-500 mb-6 ml-8">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</p>
@@ -47,7 +47,7 @@ export default function DashboardRatings() {
             <div className="text-center">
               <p className="text-5xl font-bold text-stone-800">{avgRating.toFixed(1)}</p>
               <div className="flex justify-center mt-1">
-                {[1,2,3,4,5].map(n => <Star key={n} className={`w-4 h-4 ${n <= Math.round(avgRating) ? "text-amber-400 fill-amber-400" : "text-stone-300"}`} />)}
+                {[1,2,3,4,5].map(n => <Star key={n} className={`w-4 h-4 ${n <= Math.round(avgRating) ? "text-wine-400 fill-wine-400" : "text-stone-300"}`} />)}
               </div>
               <p className="text-xs text-stone-400 mt-1">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</p>
             </div>
@@ -55,9 +55,9 @@ export default function DashboardRatings() {
               {dist.map(({ stars, count }) => (
                 <div key={stars} className="flex items-center gap-2 text-xs text-stone-500">
                   <span className="w-4 text-right">{stars}</span>
-                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                  <Star className="w-3 h-3 text-wine-400 fill-wine-400" />
                   <div className="flex-1 bg-stone-100 rounded-full h-2 overflow-hidden">
-                    <div className="bg-amber-400 h-full rounded-full" style={{ width: reviews.length ? `${(count / reviews.length) * 100}%` : "0%" }} />
+                    <div className="bg-wine-400 h-full rounded-full" style={{ width: reviews.length ? `${(count / reviews.length) * 100}%` : "0%" }} />
                   </div>
                   <span className="w-4">{count}</span>
                 </div>
@@ -75,7 +75,7 @@ export default function DashboardRatings() {
                     <p className="text-xs text-stone-400">{new Date(r.created_date).toLocaleDateString()}</p>
                   </div>
                   <div className="flex">
-                    {[1,2,3,4,5].map(n => <Star key={n} className={`w-4 h-4 ${n <= r.rating ? "text-amber-400 fill-amber-400" : "text-stone-300"}`} />)}
+                    {[1,2,3,4,5].map(n => <Star key={n} className={`w-4 h-4 ${n <= r.rating ? "text-wine-400 fill-wine-400" : "text-stone-300"}`} />)}
                   </div>
                 </div>
                 {r.review_text && <p className="text-stone-600 text-sm leading-relaxed">{r.review_text}</p>}

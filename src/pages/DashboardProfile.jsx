@@ -483,18 +483,18 @@ export default function DashboardProfile() {
         </div>
 
         {/* Workshop Activity onboarding nudge */}
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+        <div className="rounded-xl border border-wine-200 bg-wine-50 p-5">
           <div className="flex items-start gap-3">
-            <Camera className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+            <Camera className="w-5 h-5 text-wine-600 mt-0.5 flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-amber-900 mb-1">Keep your storefront active with Workshop Activity posts.</p>
-              <p className="text-xs text-amber-700 leading-relaxed mb-3">Share photos of builds in progress, tools, materials, and shop work to show buyers what you're working on. Active storefronts build buyer confidence over time.</p>
+              <p className="text-sm font-bold text-wine-900 mb-1">Keep your storefront active with Workshop Activity posts.</p>
+              <p className="text-xs text-wine-700 leading-relaxed mb-3">Share photos of builds in progress, tools, materials, and shop work to show buyers what you're working on. Active storefronts build buyer confidence over time.</p>
               <Link
                 to={createPageUrl("DashboardWorkshop")}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
-                style={{ backgroundColor: "#C57A1F" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}
+                style={{ backgroundColor: "#7A2E3B" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}
               >
                 <Camera className="w-3.5 h-3.5" /> Create Your First Workshop Post
               </Link>

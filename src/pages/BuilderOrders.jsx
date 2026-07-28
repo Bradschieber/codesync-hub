@@ -187,11 +187,11 @@ export default function BuilderOrders() {
 
                     {/* Final payment pending banner */}
                     {order.order_type === "custom" && order.payment_stage === "awaiting_final_payment" && (
-                      <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200">
-                        <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <div className="flex items-start gap-3 p-3 rounded-lg bg-wine-50 border border-wine-200">
+                        <AlertCircle className="w-4 h-4 text-wine-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-xs font-semibold text-amber-800">Awaiting final payment from buyer</p>
-                          <p className="text-xs text-amber-700 mt-0.5">You will be notified when payment is received. Shipping statuses are locked until then.</p>
+                          <p className="text-xs font-semibold text-wine-800">Awaiting final payment from buyer</p>
+                          <p className="text-xs text-wine-700 mt-0.5">You will be notified when payment is received. Shipping statuses are locked until then.</p>
                         </div>
                       </div>
                     )}

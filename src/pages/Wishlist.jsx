@@ -27,7 +27,7 @@ export default function Wishlist() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center gap-3 mb-6">
-        <Link to={createPageUrl("Account")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+        <Link to={createPageUrl("Account")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-2xl font-bold text-stone-800">Saved Builders</h1>
       </div>
 
@@ -39,21 +39,21 @@ export default function Wishlist() {
         <div className="text-center py-20">
           <Heart className="w-16 h-16 text-stone-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-stone-600 mb-2">No saved builders</h3>
-          <Link to={createPageUrl("Builders")} className="text-amber-600 hover:underline">Discover builders →</Link>
+          <Link to={createPageUrl("Builders")} className="text-wine-600 hover:underline">Discover builders →</Link>
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 gap-4">
           {savedBuilders.map(saved => (
             <div key={saved.id} className="bg-white rounded-2xl border border-stone-200 p-4 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
-                <span className="text-amber-700 font-bold text-lg">{(saved.builder_name || "B")[0]}</span>
+              <div className="w-12 h-12 rounded-full bg-wine-100 flex items-center justify-center flex-shrink-0">
+                <span className="text-wine-700 font-bold text-lg">{(saved.builder_name || "B")[0]}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-stone-800 truncate">{saved.builder_name}</h3>
                 {saved.notes && <p className="text-stone-400 text-xs truncate mt-0.5">{saved.notes}</p>}
               </div>
               <div className="flex gap-1">
-                <Link to={createPageUrl(`BuilderProfile?id=${saved.builder_id}`)} className="p-2 text-stone-400 hover:text-amber-600 rounded-lg text-xs font-medium">View</Link>
+                <Link to={createPageUrl(`BuilderProfile?id=${saved.builder_id}`)} className="p-2 text-stone-400 hover:text-wine-600 rounded-lg text-xs font-medium">View</Link>
                 <button onClick={() => removeSaved(saved.id)} className="p-2 text-stone-400 hover:text-red-500 rounded-lg"><Trash2 className="w-4 h-4" /></button>
               </div>
             </div>

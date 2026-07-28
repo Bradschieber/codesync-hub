@@ -29,7 +29,7 @@ const DOC_USED_IN = {
 function StatusBadge({ status }) {
   const styles = {
     active:   { backgroundColor: "#E8F5EE", color: "#2E7D52" },
-    draft:    { backgroundColor: "#FEF3E2", color: "#C57A1F" },
+    draft:    { backgroundColor: "#F5E6E9", color: "#7A2E3B" },
     archived: { backgroundColor: "#F0EFED", color: "#7A7A7A" },
   };
   return (
@@ -234,7 +234,7 @@ export default function AdminLegalDocumentEdit() {
         {/* Active version warning */}
         {isActive && (
           <div className="flex items-start gap-3 p-4 border" style={{ borderColor: "#E8D9B8", backgroundColor: "#FFFAF2" }}>
-            <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#C57A1F" }} />
+            <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#7A2E3B" }} />
             <p className="text-sm" style={{ color: "#7A4A10" }}>
               This is the currently active version. It is read-only. To make changes, go back and click <strong>Edit New Version</strong> to create an editable draft.
             </p>

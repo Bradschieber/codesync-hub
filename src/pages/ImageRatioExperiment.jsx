@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 const NAVY = "#2F3E55";
 
 // Sample product data using a real processed marketplace image
@@ -49,8 +49,8 @@ function ExperimentCard({ product, ratio, label, sublabel, note, highlight }) {
         <span
           className="text-xs font-medium px-2 py-0.5 rounded-full"
           style={{
-            backgroundColor: highlight ? "#FEF3C7" : "#F0EFED",
-            color: highlight ? "#92400E" : "#5A6A7A",
+            backgroundColor: highlight ? "#F5E6E9" : "#F0EFED",
+            color: highlight ? "#5F2530" : "#5A6A7A",
           }}
         >
           {sublabel}
@@ -65,7 +65,7 @@ function ExperimentCard({ product, ratio, label, sublabel, note, highlight }) {
           boxShadow: highlight
             ? "0 4px 20px rgba(160,105,42,0.18)"
             : "0 1px 4px rgba(27,43,75,0.07)",
-          border: highlight ? "2px solid #C57A1F" : "1px solid #E8E5E0",
+          border: highlight ? "2px solid #7A2E3B" : "1px solid #E8E5E0",
         }}
       >
         {/* Image Container — only the ratio changes */}
@@ -99,7 +99,7 @@ function ExperimentCard({ product, ratio, label, sublabel, note, highlight }) {
       {/* Note */}
       <p
         className="text-xs text-center leading-relaxed max-w-[180px]"
-        style={{ color: highlight ? "#92400E" : "#888" }}
+        style={{ color: highlight ? "#5F2530" : "#888" }}
       >
         {note}
       </p>
@@ -114,7 +114,7 @@ export default function ImageRatioExperiment() {
       <div className="border-b" style={{ backgroundColor: "#F2F0EA", borderColor: "#E3E0D8" }}>
         <div className="max-w-5xl mx-auto px-6 py-8">
           <div className="inline-block text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded mb-3"
-            style={{ backgroundColor: "#FEF3C7", color: "#92400E" }}>
+            style={{ backgroundColor: "#F5E6E9", color: "#5F2530" }}>
             Design Experiment
           </div>
           <h1 className="text-2xl font-bold mb-1" style={{ color: NAVY }}>
@@ -147,7 +147,7 @@ export default function ImageRatioExperiment() {
           className="mt-14 rounded-xl p-6 border"
           style={{ backgroundColor: "#FFFDF9", borderColor: "#E8D5B5" }}
         >
-          <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "#92400E" }}>
+          <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "#5F2530" }}>
             Recommendation
           </h2>
           <p className="text-sm leading-relaxed mb-3" style={{ color: "#3A3A3A" }}>

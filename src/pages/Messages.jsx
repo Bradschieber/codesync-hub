@@ -44,16 +44,16 @@ export default function Messages() {
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-[50vh]">
-      <div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-wine-500 border-t-transparent rounded-full" />
     </div>
   );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center gap-3 mb-8">
-        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-3xl font-bold text-stone-800 flex items-center gap-3">
-          <MessageSquare className="w-8 h-8 text-amber-600" /> My Messages
+          <MessageSquare className="w-8 h-8 text-wine-600" /> My Messages
         </h1>
       </div>
 
@@ -70,10 +70,10 @@ export default function Messages() {
                   key={msg.id}
                   onClick={() => handleMessageClick(msg)}
                   className={`flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-colors ${
-                    selectedMessage?.id === msg.id ? "bg-amber-100 border border-amber-200" : "bg-stone-50 hover:bg-stone-100"
+                    selectedMessage?.id === msg.id ? "bg-wine-100 border border-wine-200" : "bg-stone-50 hover:bg-stone-100"
                   }`}
                 >
-                  <Mail className={`w-5 h-5 flex-shrink-0 mt-0.5 ${msg.is_read ? "text-stone-400" : "text-amber-600"}`} />
+                  <Mail className={`w-5 h-5 flex-shrink-0 mt-0.5 ${msg.is_read ? "text-stone-400" : "text-wine-600"}`} />
                   <div className="flex-grow min-w-0">
                     <p className={`font-medium text-sm truncate ${msg.is_read ? "text-stone-600" : "text-stone-800"}`}>
                       {msg.subject || "No Subject"}
@@ -81,7 +81,7 @@ export default function Messages() {
                     <p className="text-xs text-stone-500 truncate">{msg.sender_name}</p>
                     <p className="text-xs text-stone-400 mt-0.5">{moment(msg.created_date).fromNow()}</p>
                   </div>
-                  {!msg.is_read && <span className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0 mt-1.5" />}
+                  {!msg.is_read && <span className="w-2 h-2 bg-wine-500 rounded-full flex-shrink-0 mt-1.5" />}
                 </div>
               ))}
             </div>

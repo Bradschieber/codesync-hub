@@ -65,7 +65,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
             <p className="text-stone-400 text-xs mb-6">
               You'll be notified when the builder responds. They may message you to discuss details, or send a Custom Build Order Form for your review.
             </p>
-            <button onClick={onClose} className="bg-amber-600 hover:bg-amber-500 text-white font-medium px-8 py-2.5 rounded-xl text-sm">
+            <button onClick={onClose} className="bg-wine-600 hover:bg-wine-500 text-white font-medium px-8 py-2.5 rounded-xl text-sm">
               Close
             </button>
           </div>
@@ -81,7 +81,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                     required
                     value={form.customer_name}
                     onChange={e => setForm({ ...form, customer_name: e.target.value })}
-                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400"
                   />
                 </div>
                 <div>
@@ -91,7 +91,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                     type="email"
                     value={form.customer_email}
                     onChange={e => setForm({ ...form, customer_email: e.target.value })}
-                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400"
                   />
                 </div>
                 <div>
@@ -100,7 +100,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                     value={form.customer_phone}
                     onChange={e => setForm({ ...form, customer_phone: e.target.value })}
                     placeholder="(555) 555-5555"
-                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400"
                   />
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                   <select
                     value={form.budget_range}
                     onChange={e => setForm({ ...form, budget_range: e.target.value })}
-                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white"
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 bg-white"
                   >
                     <option value="">Select a range...</option>
                     <option>Under $1,000</option>
@@ -133,7 +133,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                   value={form.description}
                   onChange={e => setForm({ ...form, description: e.target.value })}
                   placeholder="Tell the builder about your dream instrument — playing style, tone goals, inspiration, reference instruments, anything you have in mind..."
-                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none"
                 />
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
                   required
                   value={form.specifications.instrumentCategory || ""}
                   onChange={e => setForm({ ...form, specifications: { ...form.specifications, instrumentCategory: e.target.value } })}
-                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white"
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 bg-white"
                 >
                   <option value="">Select a category...</option>
                   {(builderSpecOptions?.["instrumentCategory"]?.options?.length > 0
@@ -176,7 +176,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
               <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-600 py-2.5 rounded-xl text-sm font-medium">
                 Cancel
               </button>
-              <button type="submit" disabled={saving} className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-semibold py-2.5 rounded-xl text-sm disabled:opacity-50">
+              <button type="submit" disabled={saving} className="flex-1 bg-wine-600 hover:bg-wine-500 text-white font-semibold py-2.5 rounded-xl text-sm disabled:opacity-50">
                 {saving ? "Sending..." : "Submit Request"}
               </button>
             </div>

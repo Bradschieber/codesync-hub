@@ -45,12 +45,12 @@ export default function DashboardActiveListings() {
     setEditingId(null);
   }
 
-  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" /></div>;
+  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-wine-500 border-t-transparent rounded-full" /></div>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <div className="flex items-center gap-3 mb-2">
-        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-2xl font-bold text-stone-800">Active Listings</h1>
       </div>
       <p className="text-stone-500 mb-6 ml-8">{products.length} active listing{products.length !== 1 ? "s" : ""}</p>
@@ -59,7 +59,7 @@ export default function DashboardActiveListings() {
         <div className="text-center py-16">
           <Guitar className="w-12 h-12 text-stone-300 mx-auto mb-3" />
           <p className="text-stone-500 mb-4">No active listings.</p>
-          <Link to={createPageUrl("DashboardProducts")} className="bg-amber-600 hover:bg-amber-500 text-white font-medium px-5 py-2.5 rounded-xl text-sm">
+          <Link to={createPageUrl("DashboardProducts")} className="bg-wine-600 hover:bg-wine-500 text-white font-medium px-5 py-2.5 rounded-xl text-sm">
             Manage Products
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function DashboardActiveListings() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-stone-800 text-sm truncate">{product.name}</h3>
-                  <p className="text-amber-700 font-bold text-sm">${product.price?.toLocaleString()}</p>
+                  <p className="text-wine-700 font-bold text-sm">${product.price?.toLocaleString()}</p>
                   {product.categories?.length > 0 && (
                     <p className="text-xs text-stone-400">{product.categories.join(", ")}</p>
                   )}
@@ -169,22 +169,22 @@ function EditForm({ product, profile, onSave, onClose }) {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-1">Product Name *</label>
-          <input required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          <input required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
         </div>
         <div>
           <label className="block text-xs font-medium text-stone-600 mb-1">Price ($) *</label>
-          <input required type="number" min="1" value={form.price} onChange={e => setForm({...form, price: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          <input required type="number" min="1" value={form.price} onChange={e => setForm({...form, price: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
         </div>
       </div>
       <div>
         <label className="block text-xs font-medium text-stone-600 mb-1">Description</label>
-        <textarea rows={3} value={form.description || ""} onChange={e => setForm({...form, description: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+        <textarea rows={3} value={form.description || ""} onChange={e => setForm({...form, description: e.target.value})} className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none" />
       </div>
       <div>
         <label className="block text-xs font-medium text-stone-600 mb-2">Categories</label>
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map(cat => (
-            <button type="button" key={cat} onClick={() => toggleCat(cat)} className={`px-3 py-1 rounded-lg text-xs border transition-colors ${form.categories?.includes(cat) ? "bg-amber-600 text-white border-amber-600" : "border-stone-300 text-stone-600 hover:border-amber-400"}`}>
+            <button type="button" key={cat} onClick={() => toggleCat(cat)} className={`px-3 py-1 rounded-lg text-xs border transition-colors ${form.categories?.includes(cat) ? "bg-wine-600 text-white border-wine-600" : "border-stone-300 text-stone-600 hover:border-wine-400"}`}>
               {cat}
             </button>
           ))}
@@ -192,10 +192,10 @@ function EditForm({ product, profile, onSave, onClose }) {
       </div>
       <div>
         <label className="block text-xs font-medium text-stone-600 mb-2">Photos & Videos</label>
-        <label className={`flex items-center justify-center gap-2 w-full border-2 border-dashed rounded-xl px-4 py-4 cursor-pointer transition-colors ${uploading ? "border-amber-300 bg-amber-50" : "border-stone-300 hover:border-amber-400 hover:bg-amber-50"}`}>
+        <label className={`flex items-center justify-center gap-2 w-full border-2 border-dashed rounded-xl px-4 py-4 cursor-pointer transition-colors ${uploading ? "border-wine-300 bg-wine-50" : "border-stone-300 hover:border-wine-400 hover:bg-wine-50"}`}>
           <input type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileUpload} disabled={uploading} />
           {uploading ? (
-            <span className="text-amber-600 text-sm flex items-center gap-2"><div className="w-4 h-4 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /> Uploading...</span>
+            <span className="text-wine-600 text-sm flex items-center gap-2"><div className="w-4 h-4 border-2 border-wine-500 border-t-transparent rounded-full animate-spin" /> Uploading...</span>
           ) : (
             <><Upload className="w-4 h-4 text-stone-400" /><span className="text-sm text-stone-500">Click to upload photos or videos</span></>
           )}
@@ -233,7 +233,7 @@ function EditForm({ product, profile, onSave, onClose }) {
       </div>
       <div className="flex gap-3 pt-2">
         <button type="button" onClick={onClose} className="flex-1 border border-stone-300 text-stone-600 py-2.5 rounded-xl text-sm">Cancel</button>
-        <button type="submit" disabled={saving} className="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 rounded-xl text-sm disabled:opacity-50">
+        <button type="submit" disabled={saving} className="flex-1 bg-wine-600 hover:bg-wine-500 text-white font-medium py-2.5 rounded-xl text-sm disabled:opacity-50">
           {saving ? "Saving..." : "Update Listing"}
         </button>
       </div>

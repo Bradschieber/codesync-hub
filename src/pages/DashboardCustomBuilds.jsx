@@ -9,7 +9,7 @@ import RequestMessageModal from "../components/builder/RequestMessageModal";
 import { formatDistanceToNow } from "date-fns";
 
 const REQUEST_STATUS_CONFIG = {
-  pending:                    { label: "Pending", bg: "bg-amber-100", text: "text-amber-700" },
+  pending:                    { label: "Pending", bg: "bg-wine-100", text: "text-wine-700" },
   in_discussion:              { label: "In Discussion", bg: "bg-blue-100", text: "text-blue-700" },
   order_form_sent:            { label: "Order Form Sent", bg: "bg-indigo-100", text: "text-indigo-700" },
   order_form_declined_by_buyer: { label: "Form Declined", bg: "bg-red-100", text: "text-red-700" },
@@ -96,22 +96,22 @@ export default function DashboardCustomBuilds() {
     setRequests(prev => prev.map(r => r.id === requestId ? { ...r, status } : r));
   }
 
-  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full" /></div>;
+  if (loading) return <div className="flex items-center justify-center min-h-[50vh]"><div className="animate-spin w-8 h-8 border-4 border-wine-500 border-t-transparent rounded-full" /></div>;
 
   return (
     <>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex items-center gap-3 mb-6">
-          <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-amber-600"><ChevronLeft className="w-5 h-5" /></Link>
+          <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
           <h1 className="text-2xl font-bold text-stone-800">Custom Builds</h1>
         </div>
 
         {!profile?.stripe_payouts_enabled && (
-          <div className="mb-5 flex items-start gap-3 p-4 border rounded-xl bg-amber-50 border-amber-200">
-            <span className="text-amber-500 text-lg flex-shrink-0">⚠</span>
+          <div className="mb-5 flex items-start gap-3 p-4 border rounded-xl bg-wine-50 border-wine-200">
+            <span className="text-wine-500 text-lg flex-shrink-0">⚠</span>
             <div>
-              <p className="text-sm font-semibold text-amber-900">Stripe account required to accept custom builds</p>
-              <p className="text-xs text-amber-700 mt-0.5">Connect your Stripe account before activating custom build listings. <a href="/Dashboard" className="underline font-medium">Set up Stripe →</a></p>
+              <p className="text-sm font-semibold text-wine-900">Stripe account required to accept custom builds</p>
+              <p className="text-xs text-wine-700 mt-0.5">Connect your Stripe account before activating custom build listings. <a href="/Dashboard" className="underline font-medium">Set up Stripe →</a></p>
             </div>
           </div>
         )}
@@ -121,7 +121,7 @@ export default function DashboardCustomBuilds() {
             { id: "requests", label: `Requests (${requests.length})` },
             { id: "specs", label: "My Specifications" },
           ].map(t => (
-            <button key={t.id} onClick={() => setActiveTab(t.id)} className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === t.id ? "border-amber-500 text-amber-700" : "border-transparent text-stone-500 hover:text-stone-700"}`}>
+            <button key={t.id} onClick={() => setActiveTab(t.id)} className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === t.id ? "border-wine-500 text-wine-700" : "border-transparent text-stone-500 hover:text-stone-700"}`}>
               {t.label}
             </button>
           ))}
@@ -131,8 +131,8 @@ export default function DashboardCustomBuilds() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                  <Settings className="w-4 h-4 text-amber-600" />
+                <div className="w-8 h-8 bg-wine-100 rounded-lg flex items-center justify-center">
+                  <Settings className="w-4 h-4 text-wine-600" />
                 </div>
                 <div>
                   <h2 className="font-semibold text-stone-800 text-sm">Your Custom Build Specifications</h2>
@@ -142,7 +142,7 @@ export default function DashboardCustomBuilds() {
               <button
                 onClick={handleSaveSpecs}
                 disabled={saving}
-                className={`flex items-center gap-2 font-medium px-5 py-2.5 rounded-xl text-sm transition-colors disabled:opacity-50 ${saved ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"}`}
+                className={`flex items-center gap-2 font-medium px-5 py-2.5 rounded-xl text-sm transition-colors disabled:opacity-50 ${saved ? "bg-green-600 text-white" : "bg-wine-600 hover:bg-wine-500 text-white"}`}
               >
                 <Save className="w-4 h-4" />
                 {saving ? "Saving..." : saved ? "Saved!" : "Update Specs"}
@@ -151,7 +151,7 @@ export default function DashboardCustomBuilds() {
             <BuilderSpecificationsEditor specOptions={specOptions} onChange={setSpecOptions} />
             <div className="mt-6">
               <button onClick={handleSaveSpecs} disabled={saving}
-                className={`w-full flex items-center justify-center gap-2 font-semibold py-3 rounded-xl text-sm transition-colors disabled:opacity-50 ${saved ? "bg-green-600 text-white" : "bg-amber-600 hover:bg-amber-500 text-white"}`}>
+                className={`w-full flex items-center justify-center gap-2 font-semibold py-3 rounded-xl text-sm transition-colors disabled:opacity-50 ${saved ? "bg-green-600 text-white" : "bg-wine-600 hover:bg-wine-500 text-white"}`}>
                 <Save className="w-4 h-4" />
                 {saving ? "Saving..." : saved ? "Saved!" : "Update Specs"}
               </button>
@@ -174,7 +174,7 @@ export default function DashboardCustomBuilds() {
                 const isActive = !["declined_by_builder", "declined", "converted_to_order", "completed"].includes(r.status);
                 return (
                   <div key={r.id} className={`bg-white rounded-2xl border overflow-hidden ${
-                    r.status === "pending" ? "border-amber-200" : "border-stone-200"
+                    r.status === "pending" ? "border-wine-200" : "border-stone-200"
                   }`}>
                     <button className="w-full text-left p-5 hover:bg-stone-50 transition-colors"
                       onClick={() => setExpandedRequest(isExpanded ? null : r.id)}>
@@ -220,9 +220,9 @@ export default function DashboardCustomBuilds() {
                             {!["converted_to_order", "order_form_declined_by_buyer"].includes(r.status) && (
                               <button onClick={() => navigate(`/OrderFormEditor?requestId=${r.id}${draftFormsByRequest[r.id] ? `&formId=${draftFormsByRequest[r.id].id}` : ""}`)}
                                 className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white"
-                                style={{ backgroundColor: "#C57A1F" }}
-                                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
-                                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#C57A1F"}>
+                                style={{ backgroundColor: "#7A2E3B" }}
+                                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
+                                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}>
                                 <FileText className="w-3.5 h-3.5" /> {draftFormsByRequest[r.id] ? "Edit Order Form" : "Create Order Form"}
                               </button>
                             )}

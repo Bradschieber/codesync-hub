@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import { ChevronLeft, CheckCircle, MessageSquare, X, FileText, Loader2, AlertTriangle } from "lucide-react";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 
 function Section({ title, children }) {
   return (
@@ -62,7 +62,7 @@ function RequestChangesModal({ form, user, onClose, onRequested }) {
         from_name: "Stringed Collective",
         to: form.builder_name,
         subject: `${user.full_name} has requested changes to the Order Form`,
-        body: `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background: #FDFBF8;"><h2>Order Form Change Request</h2><p><strong>${user.full_name}</strong> has reviewed your Custom Build Order Form and is requesting changes.</p><blockquote style="border-left: 4px solid #C57A1F; padding-left: 16px; color: #5A5A5A;">${message}</blockquote><p>Log in to your Builder Dashboard to review the request and create a revised Order Form.</p></div>`
+        body: `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background: #FDFBF8;"><h2>Order Form Change Request</h2><p><strong>${user.full_name}</strong> has reviewed your Custom Build Order Form and is requesting changes.</p><blockquote style="border-left: 4px solid #7A2E3B; padding-left: 16px; color: #5A5A5A;">${message}</blockquote><p>Log in to your Builder Dashboard to review the request and create a revised Order Form.</p></div>`
       });
     }
     setSending(false);
@@ -82,7 +82,7 @@ function RequestChangesModal({ form, user, onClose, onRequested }) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <textarea rows={4} value={message} onChange={e => setMessage(e.target.value)}
             placeholder="e.g. I'd like to change the body wood to mahogany, and adjust the deposit amount..."
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none" />
           <div className="flex gap-3">
             <button type="button" onClick={onClose} className="flex-1 border border-stone-300 py-2.5 rounded-xl text-sm text-stone-600 font-medium">Cancel</button>
             <button type="submit" disabled={sending} className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-50"
@@ -181,7 +181,7 @@ export default function OrderFormReview() {
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-[50vh]">
-      <Loader2 className="w-7 h-7 animate-spin text-amber-500" />
+      <Loader2 className="w-7 h-7 animate-spin text-wine-500" />
     </div>
   );
 
@@ -247,7 +247,7 @@ export default function OrderFormReview() {
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${form.status === "sent" ? "bg-amber-100 text-amber-700" : form.status === "accepted" ? "bg-green-100 text-green-700" : form.status === "declined" ? "bg-red-100 text-red-700" : "bg-stone-100 text-stone-600"}`}>
+                <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${form.status === "sent" ? "bg-wine-100 text-wine-700" : form.status === "accepted" ? "bg-green-100 text-green-700" : form.status === "declined" ? "bg-red-100 text-red-700" : "bg-stone-100 text-stone-600"}`}>
                   {form.status === "sent" ? "Awaiting Your Review" : form.status === "accepted" ? "Accepted" : form.status === "declined" ? "Declined" : form.status}
                 </span>
                 {form.sent_at && (
@@ -266,8 +266,8 @@ export default function OrderFormReview() {
           </div>
 
           {form.builder_note && (
-            <div className="mt-4 bg-amber-50 border border-amber-100 rounded-xl p-4">
-              <p className="text-xs font-semibold text-amber-800 mb-1">Note from {form.builder_name}</p>
+            <div className="mt-4 bg-wine-50 border border-wine-100 rounded-xl p-4">
+              <p className="text-xs font-semibold text-wine-800 mb-1">Note from {form.builder_name}</p>
               <p className="text-sm text-stone-700 leading-relaxed">{form.builder_note}</p>
             </div>
           )}

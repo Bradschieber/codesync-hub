@@ -17,12 +17,12 @@ function StripeStatusBadge({ builder }) {
     return <span className="text-xs px-2 py-0.5 font-semibold" style={{ backgroundColor: "#E8F5E9", color: "#27AE60", border: "1px solid #A5D6A7" }}>✓ Active</span>;
   }
   if (status === "pending_verification") {
-    return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#FFF8E1", color: "#F59E0B", border: "1px solid #FDE68A" }}>Pending Verification</span>;
+    return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#F5E6E9", color: "#7A2E3B", border: "1px solid #D9A5B0" }}>Pending Verification</span>;
   }
   if (status === "in_progress") {
     return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#EFF6FF", color: "#3B82F6", border: "1px solid #BFDBFE" }}>In Progress</span>;
   }
-  return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#FEF3E2", color: "#C57A1F", border: "1px solid #FDE68A" }}>{status}</span>;
+  return <span className="text-xs px-2 py-0.5 font-medium" style={{ backgroundColor: "#F5E6E9", color: "#7A2E3B", border: "1px solid #D9A5B0" }}>{status}</span>;
 }
 
 const NAVY = "#2F3E55";
@@ -167,7 +167,7 @@ export default function AdminAllBuilders() {
                 <div className="col-span-2">
                   <div className="flex flex-col gap-1">
                     {b.is_verified && <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#E8F5E9", color: "#27AE60" }}>Verified</span>}
-                    {b.founding_builder && <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#FDF3E3", color: "#6B4C2A" }}>Founding</span>}
+                    {b.founding_builder && <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#F5E6E9", color: "#5F2530" }}>Founding</span>}
                   </div>
                 </div>
                 <div className="col-span-2">
@@ -179,9 +179,9 @@ export default function AdminAllBuilders() {
                     disabled={updating === b.id}
                     className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors"
                     style={{
-                      borderColor: b.is_approved ? "#27AE60" : "#C57A1F",
-                      color: b.is_approved ? "#27AE60" : "#C57A1F",
-                      backgroundColor: b.is_approved ? "#E8F5E9" : "#FEF3E2",
+                      borderColor: b.is_approved ? "#27AE60" : "#7A2E3B",
+                      color: b.is_approved ? "#27AE60" : "#7A2E3B",
+                      backgroundColor: b.is_approved ? "#E8F5E9" : "#F5E6E9",
                       opacity: updating === b.id ? 0.5 : 1,
                     }}
                   >

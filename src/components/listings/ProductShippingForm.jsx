@@ -41,7 +41,7 @@ export default function ProductShippingForm({ form, setForm }) {
         >
           <Package className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: isDynamic ? NAVY : "#A8A29E" }} />
           <div>
-            <p className="text-sm font-semibold" style={{ color: NAVY }}>Calculated rates <span className="text-xs font-normal text-amber-700">(recommended)</span></p>
+            <p className="text-sm font-semibold" style={{ color: NAVY }}>Calculated rates <span className="text-xs font-normal text-wine-700">(recommended)</span></p>
             <p className="text-xs mt-0.5" style={{ color: "#7A7A7A" }}>Live carrier rates shown to buyers at checkout via Shippo.</p>
           </div>
         </button>
@@ -71,7 +71,7 @@ export default function ProductShippingForm({ form, setForm }) {
       {isDynamic && (
         <div className="space-y-4">
           <div className="flex items-start gap-2 p-3 text-xs rounded-lg" style={{ backgroundColor: "#FFFBF0", border: "1px solid #F0D87A" }}>
-            <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-600" />
+            <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-wine-600" />
             <p style={{ color: "#7A5A10" }}>
               Make sure your <strong>shipping origin address</strong> is complete in your builder profile. Buyers will see live carrier rates based on their destination.
             </p>

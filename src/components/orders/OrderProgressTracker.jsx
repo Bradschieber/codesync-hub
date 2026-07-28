@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { STOCK_STATUSES, CUSTOM_STATUSES } from "./FulfillmentStatusBadge";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 
 // For custom orders, determine which step is currently active
 // The synthetic "awaiting_final_payment" step sits between build_complete and preparing_to_ship

@@ -6,10 +6,10 @@ import { ChevronLeft, Hammer, FileText, MessageSquare, ChevronRight } from "luci
 import { formatDistanceToNow } from "date-fns";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 
 const STATUS_CONFIG = {
-  pending:                    { label: "Pending Builder Review", bg: "bg-amber-100", text: "text-amber-700" },
+  pending:                    { label: "Pending Builder Review", bg: "bg-wine-100", text: "text-wine-700" },
   in_discussion:              { label: "In Discussion", bg: "bg-blue-100", text: "text-blue-700" },
   order_form_sent:            { label: "Order Form Ready", bg: "bg-indigo-100", text: "text-indigo-700", highlight: true },
   order_form_declined_by_buyer: { label: "Order Form Declined", bg: "bg-stone-100", text: "text-stone-600" },
@@ -143,7 +143,7 @@ function RequestCard({ request, latestForm }) {
             <Link to={`/OrderFormReview?formId=${latestForm.id}`}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold text-white transition-colors"
               style={{ backgroundColor: AMBER }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#a8661a"}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}>
               <FileText className="w-3.5 h-3.5" /> Review Order Form
               <ChevronRight className="w-3.5 h-3.5" />

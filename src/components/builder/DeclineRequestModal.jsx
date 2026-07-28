@@ -28,7 +28,7 @@ export default function DeclineRequestModal({ request, profile, onClose, onDecli
   <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px;">Update on Your Custom Build Request</h2>
   <p style="color: #4A5568; margin-bottom: 12px;">Hi ${request.customer_name || "there"},</p>
   <p style="color: #4A5568; margin-bottom: 12px;">Thank you for reaching out to <strong>${profile?.business_name || profile?.display_name}</strong>. Unfortunately, they are unable to take on your custom build request at this time.</p>
-  ${reason ? `<div style="background: #F7F6F3; border: 1px solid #E3E0D8; border-radius: 8px; padding: 16px; margin-bottom: 20px;"><p style="margin: 0; font-style: italic; color: #5A5A5A;">"${reason}"</p></div>` : ""}
+  ${reason ? `<div style="background: #F5E6E9; border: 1px solid #E3E0D8; border-radius: 8px; padding: 16px; margin-bottom: 20px;"><p style="margin: 0; font-style: italic; color: #5A5A5A;">"${reason}"</p></div>` : ""}
   <p style="color: #4A5568;">We encourage you to explore other talented builders on Stringed Collective who may be a great fit for your project.</p>
   <p style="color: #9CA3AF; font-size: 0.8rem; margin-top: 32px; border-top: 1px solid #E5E7EB; padding-top: 16px;">— The Stringed Collective Team</p>
 </div>`

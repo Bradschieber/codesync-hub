@@ -8,13 +8,13 @@ const ISSUE_TYPE_LABELS = {
 };
 
 const STATUS_CONFIG = {
-  open:                   { label: "Open",                 color: "#92400E", bg: "#FEF3C7", icon: Clock },
+  open:                   { label: "Open",                 color: "#5F2530", bg: "#F5E6E9", icon: Clock },
   under_review:           { label: "Under Review",         color: "#1E40AF", bg: "#DBEAFE", icon: Clock },
   awaiting_buyer:         { label: "Awaiting Your Response", color: "#7C3AED", bg: "#EDE9FE", icon: AlertTriangle },
   awaiting_builder:       { label: "Awaiting Builder",     color: "#065F46", bg: "#D1FAE5", icon: Clock },
   resolved_buyer_favor:   { label: "Resolved in Your Favor", color: "#166534", bg: "#DCFCE7", icon: CheckCircle },
   resolved_builder_favor: { label: "Resolved — No Action", color: "#374151", bg: "#F3F4F6", icon: CheckCircle },
-  resolved_partial:       { label: "Partially Resolved",   color: "#92400E", bg: "#FEF3C7", icon: CheckCircle },
+  resolved_partial:       { label: "Partially Resolved",   color: "#5F2530", bg: "#F5E6E9", icon: CheckCircle },
   closed:                 { label: "Closed",               color: "#6B7280", bg: "#F9FAFB", icon: XCircle },
   won:                    { label: "Resolved in Your Favor", color: "#166534", bg: "#DCFCE7", icon: CheckCircle },
   lost:                   { label: "Closed",               color: "#6B7280", bg: "#F9FAFB", icon: XCircle },

@@ -99,11 +99,11 @@ export default function ShippingSelector({ cartItems, shippingAddress, onShippin
 
   if (error) {
     return (
-      <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200">
-        <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+      <div className="flex items-start gap-2 p-3 rounded-lg bg-wine-50 border border-wine-200">
+        <AlertCircle className="w-4 h-4 text-wine-600 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm text-amber-800">{error}</p>
-          <button onClick={fetchRates} className="text-xs text-amber-700 underline mt-1">Try again</button>
+          <p className="text-sm text-wine-800">{error}</p>
+          <button onClick={fetchRates} className="text-xs text-wine-700 underline mt-1">Try again</button>
         </div>
       </div>
     );

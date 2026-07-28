@@ -8,7 +8,7 @@ import BuilderCard from "../components/builders/BuilderCard";
 import BuildersMap from "../components/builders/BuildersMap";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 const PAGE_SIZE = 16;
 
 const INSTRUMENT_OPTIONS = [

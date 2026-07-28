@@ -4,7 +4,7 @@ const NAVY = "#1B2B4B";
 
 const PAYOUT_STATUS_CONFIG = {
   pending:                { label: "Pending",                  color: "#6B7280", bg: "#F9FAFB" },
-  held_first_sale:        { label: "Held — First Sale",        color: "#92400E", bg: "#FEF3C7" },
+  held_first_sale:        { label: "Held — First Sale",        color: "#5F2530", bg: "#F5E6E9" },
   held_tracking_unverified:{ label: "Held — Tracking Unverified", color: "#1E40AF", bg: "#DBEAFE" },
   held_dispute:           { label: "Held — Dispute",          color: "#991B1B", bg: "#FEE2E2" },
   held_admin:             { label: "Held — Admin",            color: "#374151", bg: "#F3F4F6" },

@@ -105,7 +105,7 @@ function CheckoutForm({ order, user, shippingRate, onSuccess }) {
         {paying ? "Processing..." : `Pay ${formatCurrency(total)}`}
       </button>
       {!shippingRate && (
-        <p className="text-xs text-amber-700 text-center">Please select a shipping option above to continue.</p>
+        <p className="text-xs text-wine-700 text-center">Please select a shipping option above to continue.</p>
       )}
     </form>
   );
@@ -449,7 +449,7 @@ export default function Checkout() {
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: "#8A9BB0" }}>Payment</h2>
               {isInternational && (
-                <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200 text-sm text-amber-800 mb-4">
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-wine-50 border border-wine-200 text-sm text-wine-800 mb-4">
                   <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <span>
                     <strong>Customs & duties:</strong> Your order may be subject to customs duties, import VAT, or brokerage fees collected by the carrier upon delivery. These charges are separate from your order total and are determined by your local customs authority.

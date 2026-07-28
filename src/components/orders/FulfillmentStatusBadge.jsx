@@ -22,7 +22,7 @@ export const STATUS_COLORS = {
   order_confirmed:       "bg-blue-100 text-blue-700",
   deposit_paid:          "bg-cyan-100 text-cyan-700",
   build_scheduled:       "bg-indigo-100 text-indigo-700",
-  build_in_progress:     "bg-amber-100 text-amber-700",
+  build_in_progress:     "bg-wine-100 text-wine-700",
   build_complete:        "bg-teal-100 text-teal-700",
   awaiting_final_payment:"bg-red-100 text-red-700",
   preparing_to_ship:     "bg-orange-100 text-orange-700",

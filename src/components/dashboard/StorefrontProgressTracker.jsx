@@ -91,18 +91,18 @@ export default function StorefrontProgressTracker({ form, profile, listingCount,
       </div>
 
       {/* First instrument card */}
-      <div className={`rounded-xl border p-4 flex items-center justify-between gap-4 ${listingCount > 0 ? "border-green-200 bg-green-50" : "border-amber-200 bg-amber-50"}`}>
+      <div className={`rounded-xl border p-4 flex items-center justify-between gap-4 ${listingCount > 0 ? "border-green-200 bg-green-50" : "border-wine-200 bg-wine-50"}`}>
         <div>
-          <p className={`text-sm font-semibold ${listingCount > 0 ? "text-green-800" : "text-amber-800"}`}>
+          <p className={`text-sm font-semibold ${listingCount > 0 ? "text-green-800" : "text-wine-800"}`}>
             {listingCount > 0 ? `You have ${listingCount} listing${listingCount > 1 ? "s" : ""} on your storefront.` : "Add Your First Listing"}
           </p>
           {listingCount === 0 && (
-            <p className="text-xs text-amber-700 mt-0.5">Your storefront comes to life when you add your first listing — a stock instrument or a custom build offering.</p>
+            <p className="text-xs text-wine-700 mt-0.5">Your storefront comes to life when you add your first listing — a stock instrument or a custom build offering.</p>
           )}
         </div>
         <Link
           to={createPageUrl("DashboardProducts")}
-          className={`flex-shrink-0 text-xs font-semibold px-4 py-2 rounded-lg transition-colors ${listingCount > 0 ? "bg-green-700 text-white hover:bg-green-800" : "bg-amber-600 text-white hover:bg-amber-700"}`}
+          className={`flex-shrink-0 text-xs font-semibold px-4 py-2 rounded-lg transition-colors ${listingCount > 0 ? "bg-green-700 text-white hover:bg-green-800" : "bg-wine-600 text-white hover:bg-wine-700"}`}
         >
           {listingCount > 0 ? "Manage Listings" : "Add Listing"}
         </Link>

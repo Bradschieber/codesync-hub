@@ -191,7 +191,7 @@ function WorkshopPostForm({ post, profile, onSave, onClose }) {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-amber-200 p-6 mb-6">
+    <div className="bg-white rounded-2xl border border-wine-200 p-6 mb-6">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-lg font-bold text-stone-800">{post ? "Edit Post" : "New Workshop Post"}</h2>
         <button onClick={onClose} className="p-1 text-stone-400 hover:text-stone-700"><X className="w-5 h-5" /></button>
@@ -213,10 +213,10 @@ function WorkshopPostForm({ post, profile, onSave, onClose }) {
               </button>
             </div>
           ) : (
-            <label className={`flex flex-col items-center justify-center gap-2 max-w-sm aspect-video border-2 border-dashed rounded-xl cursor-pointer transition-colors ${uploading ? "border-amber-300 bg-amber-50" : "border-stone-300 hover:border-amber-400 hover:bg-amber-50"}`}>
+            <label className={`flex flex-col items-center justify-center gap-2 max-w-sm aspect-video border-2 border-dashed rounded-xl cursor-pointer transition-colors ${uploading ? "border-wine-300 bg-wine-50" : "border-stone-300 hover:border-wine-400 hover:bg-wine-50"}`}>
               <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} disabled={uploading} />
               {uploading ? (
-                <><Loader2 className="w-6 h-6 animate-spin text-amber-500" /><span className="text-sm text-amber-600">Uploading...</span></>
+                <><Loader2 className="w-6 h-6 animate-spin text-wine-500" /><span className="text-sm text-wine-600">Uploading...</span></>
               ) : (
                 <><Upload className="w-6 h-6 text-stone-400" /><span className="text-sm text-stone-500">Click to upload photo</span></>
               )}
@@ -233,7 +233,7 @@ function WorkshopPostForm({ post, profile, onSave, onClose }) {
             value={form.caption}
             onChange={e => setForm(f => ({ ...f, caption: e.target.value }))}
             placeholder="e.g. Carving the neck for a walnut short-scale bass."
-            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none"
           />
           <p className="text-xs text-stone-400 mt-1 text-right">{form.caption.length}/200</p>
         </div>

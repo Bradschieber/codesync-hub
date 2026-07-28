@@ -65,7 +65,7 @@ export default function BuilderProfile() {
   }
 
   if (loading) return (
-    <div className="min-h-screen animate-pulse" style={{ backgroundColor: "#F7F6F3" }}>
+    <div className="min-h-screen animate-pulse" style={{ backgroundColor: "#F5E6E9" }}>
       <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="h-6 rounded w-32 mb-8 bg-stone-200" />
         <div className="h-56 rounded-2xl mb-6 bg-stone-200" />
@@ -89,7 +89,7 @@ export default function BuilderProfile() {
   const hasMoreProducts = products.length > 6;
 
   return (
-    <div style={{ backgroundColor: "#F7F6F3", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F5E6E9", minHeight: "100vh" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
 
         {/* Back */}
@@ -258,7 +258,7 @@ export default function BuilderProfile() {
                 <div key={r.id} className="p-5 border border-stone-200 rounded-xl bg-white">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-semibold text-sm text-stone-900">{r.reviewer_name}</span>
-                    <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className="w-4 h-4" style={{ color: n <= r.rating ? "#D4AC0D" : "#DDDDDD", fill: n <= r.rating ? "#D4AC0D" : "none" }} />)}</div>
+                    <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className="w-4 h-4" style={{ color: n <= r.rating ? "#7A2E3B" : "#DDDDDD", fill: n <= r.rating ? "#7A2E3B" : "none" }} />)}</div>
                   </div>
                   <p className="text-sm leading-relaxed text-stone-600">{r.review_text}</p>
                 </div>

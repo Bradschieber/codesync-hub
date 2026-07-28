@@ -197,7 +197,7 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
         <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500 mb-5">
           {avgRating > 0 && (
             <span className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <Star className="w-4 h-4 text-wine-400 fill-wine-400" />
               <strong className="text-stone-700">{avgRating.toFixed(1)}</strong> ({reviewCount} reviews)
             </span>
           )}

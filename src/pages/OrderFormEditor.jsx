@@ -6,7 +6,7 @@ import { ChevronLeft, Save, Send, ChevronDown, ChevronUp, Loader2, CheckCircle, 
 import SpecificationsForm from "../components/dashboard/SpecificationsForm";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 
 function Zone({ title, children, collapsible = false, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -39,14 +39,14 @@ function Input({ value, onChange, placeholder, type = "text" }) {
   return (
     <input type={type} value={value || ""} onChange={e => onChange(type === "number" ? (e.target.value ? Number(e.target.value) : "") : e.target.value)}
       placeholder={placeholder}
-      className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+      className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
   );
 }
 
 function Textarea({ value, onChange, placeholder, rows = 3 }) {
   return (
     <textarea value={value || ""} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows}
-      className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
+      className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none" />
   );
 }
 
@@ -299,7 +299,7 @@ export default function OrderFormEditor() {
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-[50vh]">
-      <Loader2 className="w-7 h-7 animate-spin text-amber-500" />
+      <Loader2 className="w-7 h-7 animate-spin text-wine-500" />
     </div>
   );
 
@@ -328,7 +328,7 @@ export default function OrderFormEditor() {
         <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent" || !confirmed}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors disabled:opacity-50"
           style={{ backgroundColor: result?.type === "sent" ? "#27AE60" : AMBER }}
-          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#a8661a"; }}
+          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#5F2530"; }}
           onMouseLeave={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = AMBER; }}>
           {result?.type === "sent" ? <><CheckCircle className="w-4 h-4" /> Sent!</> : <><Send className="w-4 h-4" />{sending ? "Sending..." : "Send Order Form"}</>}
         </button>
@@ -390,7 +390,7 @@ export default function OrderFormEditor() {
                   setForm(f => ({ ...f, total_price: total, final_balance: total ? total - deposit : "" }));
                 }}
                 placeholder="0.00"
-                className="w-full border border-stone-300 rounded-xl pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                className="w-full border border-stone-300 rounded-xl pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
             </div>
           </Field>
           <Field label="Deposit Amount">
@@ -403,7 +403,7 @@ export default function OrderFormEditor() {
                   setForm(f => ({ ...f, deposit_amount: deposit, final_balance: total && deposit ? total - deposit : "" }));
                 }}
                 placeholder="0.00"
-                className="w-full border border-stone-300 rounded-xl pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                className="w-full border border-stone-300 rounded-xl pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400" />
             </div>
           </Field>
           <Field label="Final Balance (auto-calculated)" hint="Automatically calculated from Total − Deposit">
@@ -418,7 +418,7 @@ export default function OrderFormEditor() {
           </Field>
           <Field label="Final Payment Due Window">
             <select value={form.payment_due_window_days} onChange={e => update("payment_due_window_days", Number(e.target.value))}
-              className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white">
+              className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 bg-white">
               {[3, 5, 7, 10, 14].map(d => <option key={d} value={d}>{d} days after build completion</option>)}
             </select>
           </Field>
@@ -432,7 +432,7 @@ export default function OrderFormEditor() {
       <Zone title="Policy Terms">
         <p className="text-xs text-stone-400 mb-4">Auto-populated from your builder profile policies. You may edit these for this specific order form.</p>
         {(!form.policy_return_summary || !form.policy_warranty_summary) && (
-          <div className="mb-4 px-4 py-3 rounded-xl text-sm border bg-amber-50 border-amber-200 text-amber-800">
+          <div className="mb-4 px-4 py-3 rounded-xl text-sm border bg-wine-50 border-wine-200 text-wine-800">
             ⚠ Some policy terms appear blank. Please ensure your <a href="/DashboardProfile" className="underline font-semibold">builder profile policies</a> are filled in to auto-populate these fields.
           </div>
         )}
@@ -461,7 +461,7 @@ export default function OrderFormEditor() {
                   value={img.caption || ""}
                   onChange={e => updateImage(idx, "caption", e.target.value)}
                   placeholder="Optional caption (e.g. 'Body shape reference', 'Burst finish example', 'Illustrative only — wood figure will vary')"
-                  className="w-full border border-stone-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400 mb-2"
+                  className="w-full border border-stone-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-wine-400 mb-2"
                 />
                 <div className="flex items-center gap-1.5">
                   {idx > 0 && (
@@ -476,7 +476,7 @@ export default function OrderFormEditor() {
             </div>
           ))}
           {(form.reference_images || []).length < 4 && (
-            <label className="flex items-center justify-center gap-2 cursor-pointer w-full px-4 py-3 border-2 border-dashed border-stone-300 rounded-xl text-sm text-stone-500 hover:border-amber-400 hover:text-amber-700 transition-colors">
+            <label className="flex items-center justify-center gap-2 cursor-pointer w-full px-4 py-3 border-2 border-dashed border-stone-300 rounded-xl text-sm text-stone-500 hover:border-wine-400 hover:text-wine-700 transition-colors">
               {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImagePlus className="w-4 h-4" />}
               {uploadingImage ? "Uploading..." : `Add Reference Image (${(form.reference_images || []).length}/4 uploaded)`}
               <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
@@ -523,13 +523,13 @@ export default function OrderFormEditor() {
       )}
 
       {/* Builder Confirmation */}
-      <div className="bg-white rounded-2xl border border-amber-200 p-5 mb-4">
+      <div className="bg-white rounded-2xl border border-wine-200 p-5 mb-4">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
             checked={confirmed}
             onChange={e => setConfirmed(e.target.checked)}
-            className="mt-0.5 w-4 h-4 accent-amber-600 flex-shrink-0"
+            className="mt-0.5 w-4 h-4 accent-wine-600 flex-shrink-0"
           />
           <span className="text-sm text-stone-700 leading-relaxed">
             <strong>I confirm</strong> that this Order Form accurately reflects the build specifications, pricing, timing, and any important notes for this custom build.
@@ -550,7 +550,7 @@ export default function OrderFormEditor() {
         <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent" || !confirmed}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors disabled:opacity-50"
           style={{ backgroundColor: result?.type === "sent" ? "#27AE60" : AMBER }}
-          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#a8661a"; }}
+          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#5F2530"; }}
           onMouseLeave={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = AMBER; }}>
           {result?.type === "sent" ? <><CheckCircle className="w-4 h-4" /> Sent!</> : <><Send className="w-4 h-4" />{sending ? "Sending..." : "Send Order Form"}</>}
         </button>

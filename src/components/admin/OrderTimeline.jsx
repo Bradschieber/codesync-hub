@@ -11,7 +11,7 @@ const CATEGORY_CONFIG = {
   payout:    { icon: DollarSign,     color: "#1E40AF", bg: "#DBEAFE", label: "Payout"  },
   shipment:  { icon: Truck,          color: "#0369A1", bg: "#E0F2FE", label: "Shipment"},
   dispute:   { icon: AlertTriangle,  color: "#991B1B", bg: "#FEE2E2", label: "Dispute" },
-  hold:      { icon: Shield,         color: "#92400E", bg: "#FEF3C7", label: "Hold"    },
+  hold:      { icon: Shield,         color: "#5F2530", bg: "#F5E6E9", label: "Hold"    },
   agreement: { icon: FileText,       color: "#5B21B6", bg: "#EDE9FE", label: "Agreement"},
   system:    { icon: Clock,          color: "#374151", bg: "#F3F4F6", label: "System"  },
 };

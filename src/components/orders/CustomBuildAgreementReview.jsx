@@ -66,7 +66,7 @@ export default function CustomBuildAgreementReview({ order, builder, onAgreement
             <span className="text-stone-500">
               Deposit Required ({depositType === "percent" ? `${depositPercent}%` : "Fixed"})
             </span>
-            <span className="font-semibold text-amber-700">${estimatedDeposit.toLocaleString()}</span>
+            <span className="font-semibold text-wine-700">${estimatedDeposit.toLocaleString()}</span>
           </div>
           <div className="flex justify-between px-4 py-2.5">
             <span className="text-stone-500">Final Balance (due at completion)</span>

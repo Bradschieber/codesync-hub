@@ -108,13 +108,13 @@ export default function DepositPaymentForm({ order, user, onDepositPaid }) {
   }
 
   return (
-    <div className="border border-amber-200 rounded-xl overflow-hidden">
-      <div className="px-5 py-4 bg-amber-50 border-b border-amber-200">
+    <div className="border border-wine-200 rounded-xl overflow-hidden">
+      <div className="px-5 py-4 bg-wine-50 border-b border-wine-200">
         <div className="flex items-center gap-2 mb-1">
-          <CreditCard className="w-4 h-4 text-amber-700" />
-          <p className="font-bold text-sm text-amber-900">Pay Deposit to Begin Build</p>
+          <CreditCard className="w-4 h-4 text-wine-700" />
+          <p className="font-bold text-sm text-wine-900">Pay Deposit to Begin Build</p>
         </div>
-        <p className="text-xs text-amber-700">
+        <p className="text-xs text-wine-700">
           A deposit of <strong>${order.deposit_amount?.toLocaleString()}</strong> is required to authorize this custom build.
         </p>
       </div>

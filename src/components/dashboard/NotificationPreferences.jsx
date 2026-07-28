@@ -23,7 +23,7 @@ export default function NotificationPreferences({ profile, onSave }) {
   return (
     <div className="bg-white rounded-2xl border border-stone-200 p-6">
       <div className="flex items-center gap-2 mb-5">
-        <Bell className="w-5 h-5 text-amber-600" />
+        <Bell className="w-5 h-5 text-wine-600" />
         <h2 className="font-bold text-stone-800 text-lg">Message Notifications</h2>
       </div>
       <p className="text-stone-500 text-sm mb-5">
@@ -42,7 +42,7 @@ export default function NotificationPreferences({ profile, onSave }) {
           </div>
           <div
             onClick={() => setNotifyEmail(!notifyEmail)}
-            className={`w-11 h-6 rounded-full transition-colors cursor-pointer flex-shrink-0 ${notifyEmail ? 'bg-amber-500' : 'bg-stone-300'}`}
+            className={`w-11 h-6 rounded-full transition-colors cursor-pointer flex-shrink-0 ${notifyEmail ? 'bg-wine-500' : 'bg-stone-300'}`}
           >
             <div className={`w-5 h-5 bg-white rounded-full shadow mt-0.5 transition-transform ${notifyEmail ? 'translate-x-5' : 'translate-x-0.5'}`} />
           </div>
@@ -59,7 +59,7 @@ export default function NotificationPreferences({ profile, onSave }) {
           </div>
           <div
             onClick={() => setNotifySms(!notifySms)}
-            className={`w-11 h-6 rounded-full transition-colors cursor-pointer flex-shrink-0 ${notifySms ? 'bg-amber-500' : 'bg-stone-300'}`}
+            className={`w-11 h-6 rounded-full transition-colors cursor-pointer flex-shrink-0 ${notifySms ? 'bg-wine-500' : 'bg-stone-300'}`}
           >
             <div className={`w-5 h-5 bg-white rounded-full shadow mt-0.5 transition-transform ${notifySms ? 'translate-x-5' : 'translate-x-0.5'}`} />
           </div>
@@ -74,7 +74,7 @@ export default function NotificationPreferences({ profile, onSave }) {
               value={phone}
               onChange={e => setPhone(e.target.value)}
               placeholder="+15551234567"
-              className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400"
             />
             <p className="text-xs text-stone-400 mt-1">Enter in E.164 format, e.g. +15551234567</p>
           </div>
@@ -84,7 +84,7 @@ export default function NotificationPreferences({ profile, onSave }) {
       <button
         onClick={handleSave}
         disabled={saving}
-        className="mt-5 bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-50"
+        className="mt-5 bg-wine-600 hover:bg-wine-500 text-white font-semibold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-50"
       >
         {saving ? "Saving..." : saved ? "Saved!" : "Save Preferences"}
       </button>

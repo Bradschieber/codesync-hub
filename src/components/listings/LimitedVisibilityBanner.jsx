@@ -15,30 +15,30 @@ export default function LimitedVisibilityBanner({ onReviewHero }) {
     <>
       <div
         className="flex items-start gap-3 p-4 mb-5"
-        style={{ backgroundColor: "#FEF3C7", borderLeft: "4px solid #D97706" }}
+        style={{ backgroundColor: "#F5E6E9", borderLeft: "4px solid #7A2E3B" }}
       >
-        <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#92400E" }} />
+        <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#5F2530" }} />
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold mb-1" style={{ color: "#78350F" }}>
+          <p className="text-sm font-semibold mb-1" style={{ color: "#5F2530" }}>
             This listing is live with limited visibility
           </p>
-          <p className="text-xs leading-relaxed mb-3" style={{ color: "#92400E" }}>
+          <p className="text-xs leading-relaxed mb-3" style={{ color: "#5F2530" }}>
             It is not currently eligible for catalog, search, homepage features, or other marketplace browsing areas because you have not yet approved a clean marketplace version of your primary listing photo.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={onReviewHero}
               className="text-xs font-semibold px-3 py-1.5 text-white transition-colors"
-              style={{ backgroundColor: "#92400E" }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#78350F"}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#92400E"}
+              style={{ backgroundColor: "#5F2530" }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#5F2530"}
             >
               Review photo
             </button>
             <button
               onClick={() => setShowLearnMore(true)}
               className="text-xs font-medium underline transition-opacity hover:opacity-70"
-              style={{ color: "#92400E" }}
+              style={{ color: "#5F2530" }}
             >
               Learn more
             </button>

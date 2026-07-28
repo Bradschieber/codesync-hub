@@ -9,8 +9,8 @@ const RETURN_STATUSES = ["requested", "approved", "rejected", "item_received", "
 const WARRANTY_STATUSES = ["submitted", "under_review", "approved", "rejected", "repair_in_progress", "resolved", "closed"];
 
 const STATUS_COLORS = {
-  requested: "bg-amber-100 text-amber-700",
-  submitted: "bg-amber-100 text-amber-700",
+  requested: "bg-wine-100 text-wine-700",
+  submitted: "bg-wine-100 text-wine-700",
   approved: "bg-green-100 text-green-700",
   under_review: "bg-blue-100 text-blue-700",
   rejected: "bg-red-100 text-red-700",
@@ -89,7 +89,7 @@ export default function BuilderReturnsWarranty() {
             <t.icon className="w-4 h-4" />
             {t.label}
             {t.count > 0 && (
-              <span className="bg-amber-100 text-amber-700 text-xs px-1.5 py-0.5 rounded-full font-semibold">{t.count}</span>
+              <span className="bg-wine-100 text-wine-700 text-xs px-1.5 py-0.5 rounded-full font-semibold">{t.count}</span>
             )}
           </button>
         ))}

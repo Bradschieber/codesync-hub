@@ -7,8 +7,8 @@ const NAVY = "#1B2B4B";
 const STATUS_CONFIG = {
   not_started: {
     icon: AlertCircle,
-    color: "#C57A1F",
-    bg: "#FEF3E2",
+    color: "#7A2E3B",
+    bg: "#F5E6E9",
     border: "#F0C97A",
     label: "Stripe Not Connected",
     description: "Connect your Stripe account to publish listings and accept payments.",
@@ -97,8 +97,8 @@ export default function StripePayoutStatus({ profile, onStatusUpdated }) {
             {/* First sale protection notice */}
             {isFirstSale && (
               <div className="mt-2 flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5" style={{ color: "#C57A1F" }} />
-                <p className="text-xs font-semibold" style={{ color: "#C57A1F" }}>
+                <Zap className="w-3.5 h-3.5" style={{ color: "#7A2E3B" }} />
+                <p className="text-xs font-semibold" style={{ color: "#7A2E3B" }}>
                   First Sale Protection applies — your first payout will be held until delivery is confirmed.
                 </p>
               </div>
@@ -116,7 +116,7 @@ export default function StripePayoutStatus({ profile, onStatusUpdated }) {
                   Payouts {profile?.stripe_payouts_enabled ? "Enabled" : "Disabled"}
                 </span>
                 <span className="text-xs px-2 py-0.5 rounded-full font-medium"
-                  style={{ backgroundColor: profile?.is_first_sale_completed ? "#DCFCE7" : "#FEF9C3", color: profile?.is_first_sale_completed ? "#15803D" : "#92400E" }}>
+                  style={{ backgroundColor: profile?.is_first_sale_completed ? "#DCFCE7" : "#F5E6E9", color: profile?.is_first_sale_completed ? "#15803D" : "#5F2530" }}>
                   {profile?.is_first_sale_completed ? "First Sale Complete" : "First Sale Pending"}
                 </span>
               </div>

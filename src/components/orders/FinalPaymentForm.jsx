@@ -6,7 +6,7 @@ import { CreditCard, Lock, AlertCircle, CheckCircle2 } from "lucide-react";
 import { format } from "date-fns";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#C57A1F";
+const AMBER = "#7A2E3B";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
 

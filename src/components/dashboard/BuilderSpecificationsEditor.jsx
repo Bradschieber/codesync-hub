@@ -158,8 +158,8 @@ function MultiSelectSpec({ definition, value, onChange }) {
             onClick={() => toggleOption(opt)}
             className={`px-3 py-1 text-xs rounded-full border transition-colors ${
               selected.includes(opt)
-                ? "bg-amber-500 border-amber-500 text-white"
-                : "bg-white border-stone-300 text-stone-600 hover:border-amber-400"
+                ? "bg-wine-500 border-wine-500 text-white"
+                : "bg-white border-stone-300 text-stone-600 hover:border-wine-400"
             }`}
           >
             {opt}
@@ -171,7 +171,7 @@ function MultiSelectSpec({ definition, value, onChange }) {
         value={notes}
         onChange={e => onChange({ options: selected, notes: e.target.value })}
         placeholder="Optional note to buyers (e.g. 'Other species available on request')..."
-        className="w-full border border-stone-200 rounded-lg px-3 py-1.5 text-xs text-stone-600 focus:outline-none focus:ring-1 focus:ring-amber-400 bg-stone-50"
+        className="w-full border border-stone-200 rounded-lg px-3 py-1.5 text-xs text-stone-600 focus:outline-none focus:ring-1 focus:ring-wine-400 bg-stone-50"
       />
     </div>
   );
@@ -187,7 +187,7 @@ function NotesSpec({ definition, value, onChange }) {
         onChange={e => onChange({ notes: e.target.value })}
         placeholder={definition.placeholder}
         rows={2}
-        className="w-full border border-stone-200 rounded-lg px-3 py-1.5 text-xs text-stone-600 focus:outline-none focus:ring-1 focus:ring-amber-400 bg-stone-50 resize-none"
+        className="w-full border border-stone-200 rounded-lg px-3 py-1.5 text-xs text-stone-600 focus:outline-none focus:ring-1 focus:ring-wine-400 bg-stone-50 resize-none"
       />
     </div>
   );

@@ -17,7 +17,7 @@ const LAYOUTS = [
         <rect x="10" y="25" width="48" height="4" rx="2" fill="rgba(255,255,255,0.55)"/>
         <rect x="10" y="33" width="36" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/>
         {/* CTA buttons */}
-        <rect x="10" y="44" width="44" height="12" rx="3" fill="#C57A1F"/>
+        <rect x="10" y="44" width="44" height="12" rx="3" fill="#7A2E3B"/>
         <rect x="58" y="44" width="44" height="12" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5"/>
         {/* avatar at bottom */}
         <circle cx="22" cy="80" r="10" fill="#fff" stroke="#d6d3d1" strokeWidth="1.5"/>
