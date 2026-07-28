@@ -220,9 +220,9 @@ export default function Dashboard() {
               <Link
                 to={createPageUrl("DashboardWorkshop")}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
-                style={{ backgroundColor: "#7A2E3B" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}
+                style={{ backgroundColor: "#9B1B30" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#7A1526"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#9B1B30"}
               >
                 <Camera className="w-3.5 h-3.5" /> Add Workshop Update
               </Link>
@@ -364,7 +364,7 @@ export default function Dashboard() {
                   <div key={r.id} className="p-4" style={{ backgroundColor: "#F5F3F0" }}>
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-semibold text-sm" style={{ color: "#1A1A1A" }}>{r.reviewer_name}</span>
-                      <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className={`w-3.5 h-3.5`} style={{ color: n <= r.rating ? "#7A2E3B" : "#DDDDDD", fill: n <= r.rating ? "#7A2E3B" : "none" }} />)}</div>
+                      <div className="flex gap-0.5">{[1,2,3,4,5].map(n => <Star key={n} className={`w-3.5 h-3.5`} style={{ color: n <= r.rating ? "#9B1B30" : "#DDDDDD", fill: n <= r.rating ? "#9B1B30" : "none" }} />)}</div>
                     </div>
                     <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#5A5A5A" }}>{r.review_text}</p>
                   </div>

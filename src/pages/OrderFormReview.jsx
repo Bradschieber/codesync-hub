@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 import { ChevronLeft, CheckCircle, MessageSquare, X, FileText, Loader2, AlertTriangle } from "lucide-react";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#7A2E3B";
+const AMBER = "#9B1B30";
 
 function Section({ title, children }) {
   return (
@@ -62,7 +62,7 @@ function RequestChangesModal({ form, user, onClose, onRequested }) {
         from_name: "Stringed Collective",
         to: form.builder_name,
         subject: `${user.full_name} has requested changes to the Order Form`,
-        body: `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background: #FDFBF8;"><h2>Order Form Change Request</h2><p><strong>${user.full_name}</strong> has reviewed your Custom Build Order Form and is requesting changes.</p><blockquote style="border-left: 4px solid #7A2E3B; padding-left: 16px; color: #5A5A5A;">${message}</blockquote><p>Log in to your Builder Dashboard to review the request and create a revised Order Form.</p></div>`
+        body: `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background: #FDFBF8;"><h2>Order Form Change Request</h2><p><strong>${user.full_name}</strong> has reviewed your Custom Build Order Form and is requesting changes.</p><blockquote style="border-left: 4px solid #9B1B30; padding-left: 16px; color: #5A5A5A;">${message}</blockquote><p>Log in to your Builder Dashboard to review the request and create a revised Order Form.</p></div>`
       });
     }
     setSending(false);

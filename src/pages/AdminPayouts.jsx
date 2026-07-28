@@ -27,7 +27,7 @@ const CURRENT_STATUS_LABELS = {
 
 const PAYOUT_STATUS_CONFIG = {
   pending:                  { label: "Pending",            color: "#6B7280", bg: "#F9FAFB" },
-  held_first_sale:          { label: "Held — 1st Sale",    color: "#5F2530", bg: "#F5E6E9" },
+  held_first_sale:          { label: "Held — 1st Sale",    color: "#7A1526", bg: "#F9E5E8" },
   held_tracking_unverified: { label: "Held — Tracking",   color: "#1E40AF", bg: "#DBEAFE" },
   held_dispute:             { label: "Held — Dispute",     color: "#991B1B", bg: "#FEE2E2" },
   held_admin:               { label: "Held — Admin",       color: "#374151", bg: "#F3F4F6" },
@@ -572,7 +572,7 @@ export default function AdminPayouts() {
               </p>
             </div>
             {urgentCount > 0 && (
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ backgroundColor: "#F5E6E9", color: "#5F2530" }}>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ backgroundColor: "#F9E5E8", color: "#7A1526" }}>
                 <AlertTriangle className="w-4 h-4" />
                 <span className="text-sm font-semibold">{urgentCount} order{urgentCount !== 1 ? "s" : ""} need attention</span>
               </div>

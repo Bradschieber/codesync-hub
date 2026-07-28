@@ -168,7 +168,7 @@ export default function ImageLightbox({ images, startIndex = 0, onClose }) {
               onClick={() => setIndex(i)}
               className="flex-shrink-0 w-14 h-14 overflow-hidden transition-all"
               style={{
-                outline: i === index ? "2px solid #7A2E3B" : "2px solid transparent",
+                outline: i === index ? "2px solid #9B1B30" : "2px solid transparent",
                 outlineOffset: "2px",
                 opacity: i === index ? 1 : 0.5,
               }}

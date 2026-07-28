@@ -28,7 +28,7 @@ const ROLE_LABELS = {
 
 const ROLE_COLORS = {
   user: { bg: "#EFF6FF", color: "#3B82F6" },
-  seller: { bg: "#F5E6E9", color: "#7A2E3B" },
+  seller: { bg: "#F9E5E8", color: "#9B1B30" },
   admin: { bg: "#F3E8FF", color: "#7C3AED" },
   guest: { bg: "#F5F5F5", color: "#9A9A9A" },
 };

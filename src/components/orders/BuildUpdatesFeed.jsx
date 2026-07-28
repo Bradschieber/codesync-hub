@@ -6,7 +6,7 @@ import { format } from "date-fns";
 const NAVY = "#1B2B4B";
 
 const TAG_COLORS = {
-  "Wood Selection":  { bg: "#F5E6E9", color: "#7A2E3B" },
+  "Wood Selection":  { bg: "#F9E5E8", color: "#9B1B30" },
   "Neck Carving":    { bg: "#F0EBF8", color: "#7B5EA7" },
   "Body Shaping":    { bg: "#EEF1F7", color: "#2F3E55" },
   "Electronics":     { bg: "#E8F4FB", color: "#1A8FD1" },

@@ -13,20 +13,20 @@ import OrderTimeline from "../components/admin/OrderTimeline";
 const NAVY = "#2F3E55";
 
 const TYPE_CONFIG = {
-  buyer_issue:    { label: "Buyer Issue",     color: "#5F2530", bg: "#F5E6E9" },
+  buyer_issue:    { label: "Buyer Issue",     color: "#7A1526", bg: "#F9E5E8" },
   refund_review:  { label: "Refund Review",   color: "#1E40AF", bg: "#DBEAFE" },
   formal_dispute: { label: "Formal Dispute",  color: "#7C3AED", bg: "#EDE9FE" },
   chargeback:     { label: "Chargeback",      color: "#991B1B", bg: "#FEE2E2" },
 };
 
 const STATUS_CONFIG = {
-  open:                   { label: "Open",                 color: "#5F2530", bg: "#F5E6E9" },
+  open:                   { label: "Open",                 color: "#7A1526", bg: "#F9E5E8" },
   under_review:           { label: "Under Review",         color: "#1E40AF", bg: "#DBEAFE" },
   awaiting_buyer:         { label: "Awaiting Buyer",       color: "#7C3AED", bg: "#EDE9FE" },
   awaiting_builder:       { label: "Awaiting Builder",     color: "#065F46", bg: "#D1FAE5" },
   resolved_buyer_favor:   { label: "Resolved — Buyer",     color: "#166534", bg: "#DCFCE7" },
   resolved_builder_favor: { label: "Resolved — Builder",   color: "#374151", bg: "#F3F4F6" },
-  resolved_partial:       { label: "Partially Resolved",   color: "#5F2530", bg: "#F5E6E9" },
+  resolved_partial:       { label: "Partially Resolved",   color: "#7A1526", bg: "#F9E5E8" },
   closed:                 { label: "Closed",               color: "#6B7280", bg: "#F9FAFB" },
   won:                    { label: "Won",                  color: "#166534", bg: "#DCFCE7" },
   lost:                   { label: "Lost",                 color: "#991B1B", bg: "#FEE2E2" },
@@ -408,7 +408,7 @@ export default function AdminIssues() {
               <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>Review buyer issues, manage disputes, and initiate refunds.</p>
             </div>
             {openCount > 0 && (
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ backgroundColor: "#F5E6E9", color: "#5F2530" }}>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ backgroundColor: "#F9E5E8", color: "#7A1526" }}>
                 <AlertTriangle className="w-4 h-4" />
                 <span className="text-sm font-semibold">{openCount} case{openCount !== 1 ? "s" : ""} need attention</span>
               </div>

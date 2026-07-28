@@ -50,13 +50,13 @@ export default function AdminFoundingBuilders() {
 
   return (
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
-      <div style={{ background: "linear-gradient(180deg, #F5E6E9 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
+      <div style={{ background: "linear-gradient(180deg, #F9E5E8 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to={createPageUrl("AdminDashboard")} className="inline-flex items-center gap-1.5 text-sm mb-4 hover:opacity-70" style={{ color: NAVY }}>
             <ArrowLeft className="w-4 h-4" /> Admin Dashboard
           </Link>
           <div className="flex items-center gap-3 mb-2">
-            <Award className="w-6 h-6" style={{ color: "#5F2530" }} />
+            <Award className="w-6 h-6" style={{ color: "#7A1526" }} />
             <h1 className="text-3xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Founding Builders</h1>
           </div>
           <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>{builders.length} founding builder{builders.length !== 1 ? "s" : ""} on the platform</p>
@@ -89,7 +89,7 @@ export default function AdminFoundingBuilders() {
                 <div className="col-span-5">
                   <p className="font-semibold text-sm" style={{ color: "#1A1A1A" }}>{b.business_name || b.display_name}</p>
                   <p className="text-xs mt-0.5" style={{ color: "#9A9A9A" }}>{b.email}</p>
-                  <span className="text-xs font-semibold px-2 py-0.5 mt-1 inline-block" style={{ backgroundColor: "#F5E6E9", color: "#5F2530" }}>★ Founding Builder</span>
+                  <span className="text-xs font-semibold px-2 py-0.5 mt-1 inline-block" style={{ backgroundColor: "#F9E5E8", color: "#7A1526" }}>★ Founding Builder</span>
                 </div>
                 <div className="col-span-4 text-sm flex items-center gap-1" style={{ color: "#5A5A5A" }}>
                   {b.location && <><MapPin className="w-3 h-3 flex-shrink-0" />{b.location}</>}

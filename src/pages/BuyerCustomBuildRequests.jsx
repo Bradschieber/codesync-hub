@@ -6,7 +6,7 @@ import { ChevronLeft, Hammer, FileText, MessageSquare, ChevronRight } from "luci
 import { formatDistanceToNow } from "date-fns";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#7A2E3B";
+const AMBER = "#9B1B30";
 
 const STATUS_CONFIG = {
   pending:                    { label: "Pending Builder Review", bg: "bg-wine-100", text: "text-wine-700" },
@@ -143,7 +143,7 @@ function RequestCard({ request, latestForm }) {
             <Link to={`/OrderFormReview?formId=${latestForm.id}`}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold text-white transition-colors"
               style={{ backgroundColor: AMBER }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#7A1526"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = AMBER}>
               <FileText className="w-3.5 h-3.5" /> Review Order Form
               <ChevronRight className="w-3.5 h-3.5" />

@@ -60,13 +60,13 @@ export default function AdminPendingBuilders() {
 
   return (
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
-      <div style={{ background: "linear-gradient(180deg, #F5E6E9 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
+      <div style={{ background: "linear-gradient(180deg, #F9E5E8 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to={createPageUrl("AdminDashboard")} className="inline-flex items-center gap-1.5 text-sm mb-4 hover:opacity-70" style={{ color: NAVY }}>
             <ArrowLeft className="w-4 h-4" /> Admin Dashboard
           </Link>
           <div className="flex items-center gap-3 mb-2">
-            <Clock className="w-6 h-6" style={{ color: "#7A2E3B" }} />
+            <Clock className="w-6 h-6" style={{ color: "#9B1B30" }} />
             <h1 className="text-3xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>Pending Builder Approvals</h1>
           </div>
           <p className="text-sm mt-1" style={{ color: "#5A5A5A" }}>
@@ -97,7 +97,7 @@ export default function AdminPendingBuilders() {
         ) : (
           <div className="space-y-4">
             {filtered.map(b => (
-              <div key={b.id} className="bg-white border p-6" style={{ borderColor: "#E0DDD8", borderLeftWidth: 4, borderLeftColor: "#7A2E3B" }}>
+              <div key={b.id} className="bg-white border p-6" style={{ borderColor: "#E0DDD8", borderLeftWidth: 4, borderLeftColor: "#9B1B30" }}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-start gap-4">
@@ -158,8 +158,8 @@ export default function AdminPendingBuilders() {
           <div className="absolute inset-0 bg-black/40" onClick={() => setConfirming(null)} />
           <div className="relative bg-white w-full max-w-md shadow-2xl rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F5E6E9" }}>
-                <ShieldCheck className="w-5 h-5" style={{ color: "#7A2E3B" }} />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F9E5E8" }}>
+                <ShieldCheck className="w-5 h-5" style={{ color: "#9B1B30" }} />
               </div>
               <h3 className="font-bold text-base" style={{ color: "#1A1A1A" }}>Approve storefront?</h3>
             </div>

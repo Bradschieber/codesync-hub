@@ -9,7 +9,7 @@ import { formatDistanceToNow } from "date-fns";
 
 const NAVY = "#1B2B4B";
 const TAN = "#C8A870";
-const AMBER = "#7A2E3B";
+const AMBER = "#9B1B30";
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);

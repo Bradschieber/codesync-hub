@@ -126,7 +126,7 @@ export default function BuilderAccountFormModal({ onClose }) {
                   </div>
                 ))}
               </div>
-              <div className="mb-6 p-3 border-l-2" style={{ borderColor: "#7A2E3B", backgroundColor: "#F5E6E9" }}>
+              <div className="mb-6 p-3 border-l-2" style={{ borderColor: "#9B1B30", backgroundColor: "#F9E5E8" }}>
                 <p className="text-xs font-bold mb-0.5" style={{ color: "#333333" }}>After you verify your email</p>
                 <p className="text-xs leading-relaxed" style={{ color: "#333333" }}>You'll be taken directly into your storefront setup. No need to come back here.</p>
               </div>

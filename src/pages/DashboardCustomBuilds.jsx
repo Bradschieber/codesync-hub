@@ -220,9 +220,9 @@ export default function DashboardCustomBuilds() {
                             {!["converted_to_order", "order_form_declined_by_buyer"].includes(r.status) && (
                               <button onClick={() => navigate(`/OrderFormEditor?requestId=${r.id}${draftFormsByRequest[r.id] ? `&formId=${draftFormsByRequest[r.id].id}` : ""}`)}
                                 className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg text-white"
-                                style={{ backgroundColor: "#7A2E3B" }}
-                                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
-                                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}>
+                                style={{ backgroundColor: "#9B1B30" }}
+                                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#7A1526"}
+                                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#9B1B30"}>
                                 <FileText className="w-3.5 h-3.5" /> {draftFormsByRequest[r.id] ? "Edit Order Form" : "Create Order Form"}
                               </button>
                             )}

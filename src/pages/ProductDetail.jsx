@@ -10,7 +10,7 @@ import SpecificationsDisplay from "../components/marketplace/SpecificationsDispl
 import BuilderBadges from "../components/builder/BuilderBadges";
 import ImageLightbox from "../components/marketplace/ImageLightbox";
 
-const AMBER = "#7A2E3B";
+const AMBER = "#9B1B30";
 const NAVY = "#1B2B4B";
 const SLATE = "#1B2B4B";
 const WALNUT = "#3B2F2A";
@@ -166,7 +166,7 @@ export default function ProductDetail() {
               <div className="flex items-center gap-2 mb-4">
                 {[1,2,3,4,5].map(n => (
                   <Star key={n} className={`w-4 h-4 ${n <= Math.round(product.average_rating) ? "fill-current" : ""}`}
-                    style={{ color: n <= Math.round(product.average_rating) ? "#7A2E3B" : "#D8D3CC" }} />
+                    style={{ color: n <= Math.round(product.average_rating) ? "#9B1B30" : "#D8D3CC" }} />
                 ))}
                 <span className="text-sm" style={{ color: "#7A7A7A" }}>{product.average_rating?.toFixed(1)} ({product.review_count} reviews)</span>
               </div>
@@ -209,7 +209,7 @@ export default function ProductDetail() {
                 <button onClick={addToCart}
                   className="w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl text-white text-base transition-colors"
                   style={{ backgroundColor: addedToCart ? "#3B7A57" : AMBER }}
-                  onMouseEnter={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#5F2530"; }}
+                  onMouseEnter={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = "#7A1526"; }}
                   onMouseLeave={e => { if (!addedToCart) e.currentTarget.style.backgroundColor = AMBER; }}>
                   {addedToCart ? <><Check className="w-5 h-5" /> Added to Cart!</> : <><ShoppingCart className="w-5 h-5" /> Add to Cart</>}
                 </button>
@@ -316,7 +316,7 @@ export default function ProductDetail() {
                     <div className="flex gap-0.5">
                       {[1,2,3,4,5].map(n => (
                         <Star key={n} className={`w-4 h-4 ${n <= r.rating ? "fill-current" : ""}`}
-                          style={{ color: n <= r.rating ? "#7A2E3B" : "#D8D3CC" }} />
+                          style={{ color: n <= r.rating ? "#9B1B30" : "#D8D3CC" }} />
                       ))}
                     </div>
                   </div>

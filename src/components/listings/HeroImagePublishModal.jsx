@@ -16,8 +16,8 @@ export default function HeroImagePublishModal({ onReviewHero, onPublishAnyway, o
         {/* Header */}
         <div className="flex items-start justify-between p-6 pb-4">
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: "#F5E6E9" }}>
-              <ImageIcon className="w-4 h-4" style={{ color: "#5F2530" }} />
+            <div className="w-9 h-9 flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: "#F9E5E8" }}>
+              <ImageIcon className="w-4 h-4" style={{ color: "#7A1526" }} />
             </div>
             <h2 className="text-base font-bold leading-snug pr-4" style={{ color: "#1A1A1A" }}>
               Review your primary listing photo for marketplace browsing

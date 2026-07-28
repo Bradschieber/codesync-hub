@@ -22,7 +22,7 @@ import ReportIssueModal from "../components/orders/ReportIssueModal";
 import OrderIssueStatus from "../components/orders/OrderIssueStatus";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#7A2E3B";
+const AMBER = "#9B1B30";
 
 const STATUS_MESSAGES = {
   // Stock build statuses
@@ -482,7 +482,7 @@ function OrderCard({ order, user, expanded, onToggle, onContact }) {
               <button
                 onClick={() => setReportIssueOpen(true)}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium border transition-colors"
-                style={{ borderColor: "#7A2E3B", color: "#7A2E3B", backgroundColor: "#fff" }}
+                style={{ borderColor: "#9B1B30", color: "#9B1B30", backgroundColor: "#fff" }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#FFFBEB"}
                 onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fff"}
               >

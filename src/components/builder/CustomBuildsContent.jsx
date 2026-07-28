@@ -130,9 +130,9 @@ export default function CustomBuildsContent({ builder, onRequestQuote }) {
       <button
         onClick={onRequestQuote}
         className="font-semibold px-5 py-2.5 text-sm text-white rounded-lg transition-colors mb-2"
-        style={{ backgroundColor: "#7A2E3B" }}
-        onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
-        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}
+        style={{ backgroundColor: "#9B1B30" }}
+        onMouseEnter={e => e.currentTarget.style.backgroundColor = "#7A1526"}
+        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#9B1B30"}
       >
         Request Custom Build
       </button>

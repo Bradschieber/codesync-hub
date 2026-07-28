@@ -64,7 +64,7 @@ export default function AdminDashboard() {
 
   if (loadError) return (
     <div className="max-w-xl mx-auto px-4 py-24 text-center">
-      <AlertCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#7A2E3B" }} />
+      <AlertCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#9B1B30" }} />
       <h2 className="text-xl font-bold mb-2" style={{ color: "#1A1A1A" }}>Something went wrong</h2>
       <p className="text-sm mb-4" style={{ color: "#7A7A7A" }}>{loadError}</p>
       <button
@@ -80,8 +80,8 @@ export default function AdminDashboard() {
   const statCards = [
     { label: "Total Builders", value: stats?.totalBuilders ?? "—", icon: Users, color: NAVY, page: "AdminAllBuilders" },
     { label: "Verified Builders", value: stats?.verifiedBuilders ?? "—", icon: ShieldCheck, color: "#27AE60", page: "AdminVerifiedBuilders" },
-    { label: "Founding Builders", value: stats?.foundingBuilders ?? "—", icon: Award, color: "#5F2530", page: "AdminFoundingBuilders" },
-    { label: "Pending References", value: stats?.pendingRefs ?? "—", icon: Clock, color: "#7A2E3B", urgent: stats?.pendingRefs > 0, page: "AdminReferences" },
+    { label: "Founding Builders", value: stats?.foundingBuilders ?? "—", icon: Award, color: "#7A1526", page: "AdminFoundingBuilders" },
+    { label: "Pending References", value: stats?.pendingRefs ?? "—", icon: Clock, color: "#9B1B30", urgent: stats?.pendingRefs > 0, page: "AdminReferences" },
   ];
 
   const adminTools = [
@@ -186,16 +186,16 @@ export default function AdminDashboard() {
               key={label}
               to={createPageUrl(page)}
               className="block p-5 border bg-white transition-all hover:shadow-md group"
-              style={{ borderColor: urgent ? "#7A2E3B" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = urgent ? "#7A2E3B" : NAVY}
-              onMouseLeave={e => e.currentTarget.style.borderColor = urgent ? "#7A2E3B" : "#E0DDD8"}
+              style={{ borderColor: urgent ? "#9B1B30" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = urgent ? "#9B1B30" : NAVY}
+              onMouseLeave={e => e.currentTarget.style.borderColor = urgent ? "#9B1B30" : "#E0DDD8"}
             >
               <div className="mb-3">
                 <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color }} />
               </div>
               <p className="text-3xl font-bold mb-1" style={{ color: "#1A1A1A" }}>{value}</p>
               <p className="text-xs font-medium uppercase tracking-wide" style={{ color: "#7A7A7A" }}>{label}</p>
-              {urgent && <p className="text-xs font-semibold mt-1" style={{ color: "#7A2E3B" }}>Needs attention</p>}
+              {urgent && <p className="text-xs font-semibold mt-1" style={{ color: "#9B1B30" }}>Needs attention</p>}
             </Link>
           ))}
         </div>
@@ -213,20 +213,20 @@ export default function AdminDashboard() {
               key={page}
               to={createPageUrl(page)}
               className="group block bg-white border p-6 transition-all hover:shadow-md"
-              style={{ borderColor: urgent ? "#7A2E3B" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = urgent ? "#7A2E3B" : NAVY}
-              onMouseLeave={e => e.currentTarget.style.borderColor = urgent ? "#7A2E3B" : "#E0DDD8"}
+              style={{ borderColor: urgent ? "#9B1B30" : "#E0DDD8", borderWidth: urgent ? 2 : 1 }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = urgent ? "#9B1B30" : NAVY}
+              onMouseLeave={e => e.currentTarget.style.borderColor = urgent ? "#9B1B30" : "#E0DDD8"}
             >
               <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: urgent ? "#F5E6E9" : "#EEF1F7" }}>
-                  <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color: urgent ? "#7A2E3B" : NAVY }} />
+                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: urgent ? "#F9E5E8" : "#EEF1F7" }}>
+                  <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color: urgent ? "#9B1B30" : NAVY }} />
                 </div>
                 <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity mt-1 flex-shrink-0" style={{ color: NAVY }} />
               </div>
               <div className="flex items-center gap-2 mb-1">
                 <h3 className="font-bold text-sm" style={{ color: "#1A1A1A" }}>{title}</h3>
                 {badge && (
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F5E6E9", color: "#7A2E3B" }}>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F9E5E8", color: "#9B1B30" }}>
                     {badge}
                   </span>
                 )}

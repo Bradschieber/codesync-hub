@@ -492,9 +492,9 @@ export default function DashboardProfile() {
               <Link
                 to={createPageUrl("DashboardWorkshop")}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-white px-4 py-2 rounded-lg transition-colors"
-                style={{ backgroundColor: "#7A2E3B" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#5F2530"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}
+                style={{ backgroundColor: "#9B1B30" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#7A1526"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#9B1B30"}
               >
                 <Camera className="w-3.5 h-3.5" /> Create Your First Workshop Post
               </Link>

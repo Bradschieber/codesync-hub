@@ -6,7 +6,7 @@ import { ChevronLeft, Save, Send, ChevronDown, ChevronUp, Loader2, CheckCircle, 
 import SpecificationsForm from "../components/dashboard/SpecificationsForm";
 
 const NAVY = "#1B2B4B";
-const AMBER = "#7A2E3B";
+const AMBER = "#9B1B30";
 
 function Zone({ title, children, collapsible = false, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -328,7 +328,7 @@ export default function OrderFormEditor() {
         <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent" || !confirmed}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors disabled:opacity-50"
           style={{ backgroundColor: result?.type === "sent" ? "#27AE60" : AMBER }}
-          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#5F2530"; }}
+          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#7A1526"; }}
           onMouseLeave={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = AMBER; }}>
           {result?.type === "sent" ? <><CheckCircle className="w-4 h-4" /> Sent!</> : <><Send className="w-4 h-4" />{sending ? "Sending..." : "Send Order Form"}</>}
         </button>
@@ -550,7 +550,7 @@ export default function OrderFormEditor() {
         <button onClick={handleSendOrderForm} disabled={saving || sending || result?.type === "sent" || !confirmed}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors disabled:opacity-50"
           style={{ backgroundColor: result?.type === "sent" ? "#27AE60" : AMBER }}
-          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#5F2530"; }}
+          onMouseEnter={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = "#7A1526"; }}
           onMouseLeave={e => { if (result?.type !== "sent") e.currentTarget.style.backgroundColor = AMBER; }}>
           {result?.type === "sent" ? <><CheckCircle className="w-4 h-4" /> Sent!</> : <><Send className="w-4 h-4" />{sending ? "Sending..." : "Send Order Form"}</>}
         </button>

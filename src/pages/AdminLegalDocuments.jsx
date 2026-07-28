@@ -182,7 +182,7 @@ export default function AdminLegalDocuments() {
                         </span>
                       )}
                       {!active && draft && (
-                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F5E6E9", color: "#7A2E3B" }}>
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F9E5E8", color: "#9B1B30" }}>
                           Draft
                         </span>
                       )}
@@ -217,7 +217,7 @@ export default function AdminLegalDocuments() {
                     {/* Draft in progress notice */}
                     {draft && (
                       <div className="mt-2 flex items-center gap-2">
-                        <Clock className="w-3.5 h-3.5" style={{ color: "#7A2E3B" }} />
+                        <Clock className="w-3.5 h-3.5" style={{ color: "#9B1B30" }} />
                         <span className="text-xs" style={{ color: "#7A7A7A" }}>
                           Draft v{draft.version_number} in progress
                         </span>
@@ -270,9 +270,9 @@ export default function AdminLegalDocuments() {
                       <Link
                         to={`/AdminLegalDocumentEdit?id=${draft.id}`}
                         className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 text-white transition-colors"
-                        style={{ backgroundColor: "#7A2E3B" }}
+                        style={{ backgroundColor: "#9B1B30" }}
                         onMouseEnter={e => e.currentTarget.style.backgroundColor = "#A5641A"}
-                        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#7A2E3B"}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#9B1B30"}
                       >
                         Continue Draft
                       </Link>

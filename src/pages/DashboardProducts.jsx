@@ -46,7 +46,7 @@ function VisibilityChip({ product, builderApproved }) {
   if (isLimited) {
     return (
       <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full"
-        style={{ backgroundColor: "#F5E6E9", color: "#5F2530" }}>
+        style={{ backgroundColor: "#F9E5E8", color: "#7A1526" }}>
         <AlertTriangle className="w-3 h-3" /> Limited Visibility
       </span>
     );
@@ -590,7 +590,7 @@ export default function DashboardProducts() {
                     <button
                       onClick={() => openHeroReviewPanel(product)}
                       className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 border transition-colors"
-                      style={{ borderColor: "#7A2E3B", color: "#5F2530", backgroundColor: "#FFFBEB" }}
+                      style={{ borderColor: "#9B1B30", color: "#7A1526", backgroundColor: "#FFFBEB" }}
                     >
                       <ImageIcon className="w-3.5 h-3.5" /> Review Photo
                     </button>

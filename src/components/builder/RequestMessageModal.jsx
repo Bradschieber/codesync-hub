@@ -59,7 +59,7 @@ export default function RequestMessageModal({ request, profile, user, onClose, o
   <div style="margin-bottom: 20px;"><span style="font-weight: 700;">Stringed</span><span style="letter-spacing: 0.1em;"> Collective</span></div>
   <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 12px;">Message from ${profile.business_name || profile.display_name}</h2>
   <p style="color: #4A5568; margin-bottom: 12px;">Hi ${request.customer_name || "there"},</p>
-  <div style="background: #F5E6E9; border-left: 4px solid #7A2E3B; padding: 16px; border-radius: 4px; margin-bottom: 20px;">
+  <div style="background: #F9E5E8; border-left: 4px solid #9B1B30; padding: 16px; border-radius: 4px; margin-bottom: 20px;">
     <p style="margin: 0; color: #1A1A1A;">${body.trim()}</p>
   </div>
   <p style="color: #4A5568; font-size: 0.9rem;">Log in to your Stringed Collective account to view your custom build request and reply through the platform.</p>
@@ -111,7 +111,7 @@ export default function RequestMessageModal({ request, profile, user, onClose, o
                   <div className={`max-w-xs rounded-2xl px-4 py-2.5 text-sm ${isBuilder ? "text-white" : "bg-stone-100 text-stone-800"}`}
                     style={isBuilder ? { backgroundColor: NAVY } : {}}>
                     {!isBuilder && (
-                      <p className="text-xs font-semibold mb-1" style={{ color: "#7A2E3B" }}>{msg.sender_name}</p>
+                      <p className="text-xs font-semibold mb-1" style={{ color: "#9B1B30" }}>{msg.sender_name}</p>
                     )}
                     <p className="leading-relaxed">{msg.body}</p>
                     <p className={`text-xs mt-1 ${isBuilder ? "text-blue-200" : "text-stone-400"}`}>
