@@ -72,12 +72,13 @@ Deno.serve(async (req) => {
     const imageBlob = await imageResponse.blob();
 
     // Build Photoroom v2 request — no background.color sent so Photoroom
-    // returns a transparent PNG (removeBackground defaults to true).
+    // returns a transparent PNG (background.color defaults to "transparent"
+    // when omitted, per v2/edit docs). export.format ensures PNG with alpha.
     const formData = new FormData();
     formData.append('imageFile', imageBlob, 'hero.jpg');
     formData.append('removeBackground', 'true');
     formData.append('outputSize', `${outputSize}x${outputSize}`);
-    formData.append('format', outputFormat);
+    formData.append('export.format', outputFormat);
     formData.append('padding', String(padding));
 
     const photoroomRes = await fetch('https://image-api.photoroom.com/v2/edit', {

@@ -300,15 +300,15 @@ function InstrumentCard({ product }) {
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "4/5", backgroundColor: "#EBEBEB" }}>
+      <div className="relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
         {(product.processed_hero_image_url || product.image_urls?.[0]) ? (
           <img
             src={product.processed_hero_image_url || product.image_urls[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
+            className="w-full h-full object-contain transition-transform duration-400 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: "#EBEBEB" }}>
             <Guitar className="w-10 h-10" style={{ color: "#CCCCCC" }} />
           </div>
         )}

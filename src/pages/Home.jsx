@@ -158,12 +158,12 @@ export default function Home() {
 
             {/* Right: featured instrument image */}
             <div className="relative hidden lg:block">
-              <div className="overflow-hidden" style={{ aspectRatio: "3/4", backgroundColor: "#EBEBEB" }}>
+              <div className="overflow-hidden" style={{ aspectRatio: "3/4" }}>
                 {(heroProduct?.processed_hero_image_url || heroProduct?.image_urls?.[0]) ? (
                   <img
                     src={heroProduct.processed_hero_image_url || heroProduct.image_urls[0]}
                     alt={heroProduct.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 ) : (
                   <img
@@ -448,15 +448,15 @@ function ProductCard({ product }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative overflow-hidden" style={{ aspectRatio: "4/3", backgroundColor: "#EBEBEB" }}>
+      <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
         {(product.processed_hero_image_url || product.image_urls?.[0]) ? (
           <img
             src={product.processed_hero_image_url || product.image_urls[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: "#EBEBEB" }}>
             <Guitar className="w-12 h-12" style={{ color: "#CCCCCC" }} />
           </div>
         )}
