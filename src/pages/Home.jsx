@@ -158,7 +158,7 @@ export default function Home() {
 
             {/* Right: featured instrument image */}
             <div className="relative hidden lg:block">
-              <div className="overflow-hidden" style={{ aspectRatio: "3/4" }}>
+              <div className="overflow-hidden flex items-center justify-center" style={{ minHeight: "620px" }}>
                 {(heroProduct?.processed_hero_image_url || heroProduct?.image_urls?.[0]) ? (
                   <img
                     src={heroProduct.processed_hero_image_url || heroProduct.image_urls[0]}
