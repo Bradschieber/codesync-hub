@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText, Settings
+  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText, Settings, Activity
 } from "lucide-react";
 import AdminActionQueue from "../components/admin/AdminActionQueue";
 
@@ -167,6 +167,14 @@ export default function AdminDashboard() {
       description: "Internal UAT tracker for the commercial transaction layer. Track test scenarios, pass/fail status, and pre-pilot readiness.",
       icon: CheckCircle,
       page: "AdminQAChecklist",
+      badge: null,
+      urgent: false,
+    },
+    {
+      title: "Analytics Dashboard",
+      description: "Buyer and builder activity metrics - cart clicks, checkout starts, profile views, custom build requests, listings published, and more.",
+      icon: Activity,
+      page: "AdminAnalytics",
       badge: null,
       urgent: false,
     },

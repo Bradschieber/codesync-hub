@@ -1,0 +1,49 @@
+{
+  "name": "AnalyticsEvent",
+  "type": "object",
+  "properties": {
+    "event_name": {
+      "type": "string",
+      "description": "Unique event identifier, e.g. buyer_add_to_cart, builder_listing_published"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "buyer",
+        "builder",
+        "system"
+      ],
+      "default": "system"
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-friendly event label for display"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Contextual properties attached to the event (product_id, builder_id, price, source, etc.)"
+    }
+  },
+  "required": [
+    "event_name",
+    "category"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
