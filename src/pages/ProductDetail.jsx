@@ -9,6 +9,7 @@ import {
 import SpecificationsDisplay from "../components/marketplace/SpecificationsDisplay";
 import BuilderBadges from "../components/builder/BuilderBadges";
 import ImageLightbox from "../components/marketplace/ImageLightbox";
+import { track } from "@/lib/analytics";
 
 const AMBER = "#9B1B30";
 const NAVY = "#1B2B4B";
@@ -50,6 +51,7 @@ export default function ProductDetail() {
 
   async function addToCart() {
     if (!user) { base44.auth.redirectToLogin(); return; }
+    track.buyer.addToCart({ product_id: product?.id, builder_id: product?.builder_id, price: product?.price });
     await base44.entities.CartItem.create({
       user_id: user.id,
       product_id: product.id,
@@ -142,7 +144,7 @@ export default function ProductDetail() {
             {/* Builder identity */}
             {builder && (
               <div className="mb-4">
-                <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)}
+                <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} onClick={() => track.buyer.viewBuilderProfile({ builder_id: builder.id, source: 'product_detail_header' })}
                   className="text-sm font-semibold tracking-wide uppercase hover:underline"
                   style={{ color: SLATE }}>
                   {builder.business_name || builder.display_name}
@@ -218,7 +220,7 @@ export default function ProductDetail() {
               )}
 
               {builder && (
-                <button onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } setShowContact(true); }}
+                <button onClick={() => { if (!user) { base44.auth.redirectToLogin(); return; } track.buyer.messageBuilder({ product_id: product?.id, builder_id: builder?.id, source: 'product_detail' }); setShowContact(true); }}
                   className="w-full flex items-center justify-center gap-2 border font-medium py-3.5 rounded-xl text-sm transition-colors"
                   style={{ borderColor: SLATE, color: SLATE, backgroundColor: "#FFFFFF" }}
                   onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#F2F0EA"; }}
@@ -348,7 +350,7 @@ export default function ProductDetail() {
               {builder.bio && <p className="text-sm leading-relaxed line-clamp-3" style={{ color: "rgba(255,255,255,0.75)" }}>{builder.bio}</p>}
             </div>
             <div className="flex flex-col gap-2 flex-shrink-0">
-              <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)}
+              <Link to={createPageUrl(`BuilderProfile?id=${builder.id}`)} onClick={() => track.buyer.viewBuilderProfile({ builder_id: builder.id, source: 'product_detail_card' })}
                 className="flex items-center gap-1.5 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
                 style={{ backgroundColor: NAVY }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = "#152038"}

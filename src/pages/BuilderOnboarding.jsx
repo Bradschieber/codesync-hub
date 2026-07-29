@@ -13,6 +13,7 @@ import StorefrontImageUploader from "../components/builder/StorefrontImageUpload
 import LocationFields from "../components/onboarding/LocationFields";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
+import { track } from "@/lib/analytics";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
 import LegalLink from "../components/legal/LegalLink";
@@ -263,6 +264,7 @@ export default function BuilderOnboarding() {
 
   async function handleLaunch() {
     await saveProfile();
+    track.builder.onboardingCompleted({ business_name: form.business_name, user_id: user?.id });
     navigate(createPageUrl("Dashboard"));
   }
 

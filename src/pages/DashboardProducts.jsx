@@ -12,6 +12,7 @@ import HeroImageReviewPanel from "@/components/listings/HeroImageReviewPanel";
 import LimitedVisibilityBanner from "@/components/listings/LimitedVisibilityBanner";
 import SpecificationsForm from "@/components/dashboard/SpecificationsForm";
 import ProductShippingForm from "@/components/listings/ProductShippingForm";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 
@@ -169,6 +170,7 @@ export default function DashboardProducts() {
         savedProduct = await base44.entities.Product.update(editingProduct.id, payload);
       } else {
         savedProduct = await base44.entities.Product.create(payload);
+        track.builder.listingPublished({ product_id: savedProduct?.id, builder_id: profile?.id, price: payload.price });
       }
       setSaving(false);
       if (!skipCancelEdit) {

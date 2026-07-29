@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { MapPin, ArrowRight } from "lucide-react";
 import { getCardFallbackColor } from "../builder/CardPhotoUploader";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 
@@ -25,6 +26,7 @@ export default function BuilderCard({ builder, listings = [] }) {
   return (
     <Link
       to={createPageUrl("BuilderProfile?id=" + builder.id)}
+      onClick={() => track.buyer.viewBuilderProfile({ builder_id: builder.id, source: 'builder_card' })}
       className="group block border overflow-hidden no-underline transition-all duration-300"
       style={{
         borderColor: hovered ? NAVY : "#E5E8EC",

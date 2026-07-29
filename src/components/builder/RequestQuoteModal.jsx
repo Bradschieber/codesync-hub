@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { X } from "lucide-react";
 import SpecificationsForm from "../dashboard/SpecificationsForm";
+import { track } from "@/lib/analytics";
 
 export default function RequestQuoteModal({ builder, user, onClose }) {
   const [builderSpecOptions, setBuilderSpecOptions] = useState(null);
@@ -34,6 +35,7 @@ export default function RequestQuoteModal({ builder, user, onClose }) {
       builder_id: builder.id,
       buyer_user_id: user?.id || "",
     });
+    track.buyer.customBuildRequestSubmitted({ builder_id: builder.id, instrument_category: form.specifications?.instrumentCategory });
     setSaving(false);
     setSubmitted(true);
   }

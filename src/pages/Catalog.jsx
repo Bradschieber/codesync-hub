@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Guitar, Search, ChevronDown, ChevronUp, X, ArrowRight, SlidersHorizontal } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 
@@ -78,6 +79,7 @@ export default function Catalog() {
 
   function toggleType(val) {
     setSelectedTypes(prev => prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]);
+    track.buyer.catalogFilterApplied({ filter_type: 'instrument_type', value: val });
   }
 
   const hasActiveFilters = selectedTypes.length > 0 || minPrice || maxPrice || selectedBuilder;
@@ -112,7 +114,7 @@ export default function Catalog() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#9A9A9A" }} />
             <input
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={e => { setSearch(e.target.value); if (e.target.value.length >= 3) track.buyer.catalogSearch({ query: e.target.value }); }}
               placeholder="Search instruments or builders..."
               className="w-full pl-9 pr-9 py-3 text-sm focus:outline-none border"
               style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", color: "#1A1A1A" }}
@@ -208,7 +210,7 @@ export default function Catalog() {
                   <input
                     type="number"
                     value={minPrice}
-                    onChange={e => setMinPrice(e.target.value)}
+                    onChange={e => { setMinPrice(e.target.value); if (e.target.value) track.buyer.catalogFilterApplied({ filter_type: 'price_min', value: e.target.value }); }}
                     placeholder="Min"
                     className="w-full border px-3 py-2 text-sm focus:outline-none"
                     style={{ borderColor: "#E5E8EC" }}
@@ -217,7 +219,7 @@ export default function Catalog() {
                   <input
                     type="number"
                     value={maxPrice}
-                    onChange={e => setMaxPrice(e.target.value)}
+                    onChange={e => { setMaxPrice(e.target.value); if (e.target.value) track.buyer.catalogFilterApplied({ filter_type: 'price_max', value: e.target.value }); }}
                     placeholder="Max"
                     className="w-full border px-3 py-2 text-sm focus:outline-none"
                     style={{ borderColor: "#E5E8EC" }}
@@ -231,7 +233,7 @@ export default function Catalog() {
                 <div className="relative">
                   <select
                     value={selectedBuilder}
-                    onChange={e => setSelectedBuilder(e.target.value)}
+                    onChange={e => { setSelectedBuilder(e.target.value); if (e.target.value) track.buyer.catalogFilterApplied({ filter_type: 'builder', value: e.target.value }); }}
                     className="appearance-none w-full border pl-3 pr-8 py-2 text-sm focus:outline-none"
                     style={{ borderColor: "#E5E8EC", backgroundColor: "#FFFFFF", color: "#4A4A4A" }}
                   >
@@ -344,7 +346,7 @@ function InstrumentCard({ product }) {
           <p
             className="text-xs font-medium"
             style={{ color: "#5A6A7A" }}
-            onClick={e => { e.preventDefault(); e.stopPropagation(); window.location.href = createPageUrl("BuilderProfile?id=" + product.builder_id); }}
+            onClick={e => { e.preventDefault(); e.stopPropagation(); track.buyer.viewBuilderProfile({ builder_id: product.builder_id, source: 'catalog_card' }); window.location.href = createPageUrl("BuilderProfile?id=" + product.builder_id); }}
           >
             by <span className="underline hover:opacity-70 cursor-pointer">{product.builder_name}</span>
           </p>

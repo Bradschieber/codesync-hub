@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { CreditCard, Lock, AlertCircle, CheckCircle2 } from "lucide-react";
 import { format } from "date-fns";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 const AMBER = "#9B1B30";
@@ -43,6 +44,7 @@ function FinalForm({ order, user, onSuccess }) {
       return;
     }
 
+    track.buyer.customBuildFinalPaymentPaid({ order_id: order.id, builder_id: order.builder_id, final_amount: order.final_balance_amount });
     onSuccess?.();
     setPaying(false);
   }

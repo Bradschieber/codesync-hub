@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { CreditCard, Lock, AlertCircle, CheckCircle2 } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 
@@ -42,6 +43,7 @@ function DepositForm({ order, user, onSuccess }) {
       return;
     }
 
+    track.buyer.customBuildDepositPaid({ order_id: order.id, builder_id: order.builder_id, deposit_amount: order.deposit_amount });
     onSuccess?.();
     setPaying(false);
   }

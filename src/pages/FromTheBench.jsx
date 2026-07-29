@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Camera } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 const PAGE_SIZE = 20;
@@ -178,6 +179,7 @@ function BenchCard({ post }) {
   return (
     <Link
       to={createPageUrl("BuilderProfile?id=" + post.builder_id)}
+      onClick={() => track.buyer.fromTheBenchPostOpened({ builder_id: post.builder_id, post_id: post.id, source: 'bench_feed' })}
       className="block mb-5 break-inside-avoid rounded-2xl overflow-hidden bg-white border border-stone-200 transition-all duration-200 cursor-pointer no-underline"
       style={{
         boxShadow: hovered ? "0 8px 32px rgba(0,0,0,0.12)" : "0 1px 4px rgba(0,0,0,0.06)",

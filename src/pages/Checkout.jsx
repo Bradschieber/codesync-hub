@@ -11,6 +11,7 @@ import { ALLOWED_COUNTRIES, isAllowedCountry } from "@/lib/countries";
 import LegalAcceptanceBlock from "@/components/legal/LegalAcceptanceBlock";
 import LegalLink from "@/components/legal/LegalLink";
 import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "@/lib/legalConfig";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 
@@ -148,6 +149,7 @@ export default function Checkout() {
       setUser(u);
       const items = await base44.entities.CartItem.filter({ user_id: u.id });
       setCartItems(items);
+      track.buyer.checkoutStarted({ item_count: items.length });
 
       const productMap = {};
       await Promise.all(items.map(async (item) => {

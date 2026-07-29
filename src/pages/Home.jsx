@@ -6,6 +6,7 @@ import { ArrowRight, Guitar, Lock, CreditCard, CheckCircle, MapPin, User, Hammer
 import BuilderAccountFormModal from "../components/builder/BuilderAccountFormModal";
 import BuilderCard from "../components/builders/BuilderCard";
 import { formatDistanceToNow } from "date-fns";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
 const TAN = "#C8A870";
@@ -295,6 +296,7 @@ export default function Home() {
                 )}
                 <Link
                   to={createPageUrl("BuilderProfile?id=" + buildStory.builder_id)}
+                  onClick={() => track.buyer.followThisBuild({ builder_id: buildStory.builder_id, source: 'home_build_story' })}
                   className="inline-flex items-center gap-2 font-semibold text-sm transition-opacity hover:opacity-70"
                   style={{ color: NAVY }}
                 >
@@ -413,7 +415,7 @@ export default function Home() {
             </div>
             <div className="sm:text-right">
               <button
-                onClick={() => setBuilderModalOpen(true)}
+                onClick={() => { track.builder.becomeFoundingBuilder({ source: 'home_cta' }); setBuilderModalOpen(true); }}
                 className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors"
                 style={{ color: "#1B2B4B", backgroundColor: TAN }}
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#B8985E"; }}

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ArrowRight, Tag, MapPin, Camera } from "lucide-react";
 import { format } from "date-fns";
+import { track } from "@/lib/analytics";
 
 const NAVY = "#2F3E55";
 
@@ -75,7 +76,7 @@ function PreviewCard({ update }) {
   const photo = update.photo_urls?.[0];
 
   return (
-    <Link to={createPageUrl("FromTheBench")} className="group bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow block">
+    <Link to={createPageUrl("FromTheBench")} onClick={() => track.buyer.fromTheBenchPostOpened({ builder_id: update.builder_id, update_id: update.id, source: 'home_preview' })} className="group bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow block">
       {photo ? (
         <div className="overflow-hidden" style={{ aspectRatio: "16/9" }}>
           <img src={photo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
