@@ -416,10 +416,10 @@ export default function Home() {
             <div className="sm:text-right">
               <button
                 onClick={() => { track.builder.becomeFoundingBuilder({ source: 'home_cta' }); setBuilderModalOpen(true); }}
-                className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors"
-                style={{ color: "#1B2B4B", backgroundColor: TAN }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#B8985E"; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = TAN; }}
+                className="inline-block font-semibold px-8 py-4 text-sm tracking-wide transition-colors text-white"
+                style={{ color: "#FFFFFF", backgroundColor: AMBER }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = "#7A1526"; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = AMBER; }}
               >
                 Become a Founding Builder
               </button>
