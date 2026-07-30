@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
-  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText, Settings, Activity
+  ShieldCheck, Star, Award, Users, Clock, CheckCircle, ChevronRight, AlertCircle, DollarSign, UserCircle, FileText, Settings, Activity, Mail
 } from "lucide-react";
 import AdminActionQueue from "../components/admin/AdminActionQueue";
 
@@ -29,9 +29,10 @@ export default function AdminDashboard() {
     }
 
     try {
-      const [builders, refs] = await Promise.all([
+      const [builders, refs, contactMsgs] = await Promise.all([
         base44.entities.UserProfile.filter({ is_seller: true }, "-created_date", 200),
         base44.entities.BuilderReference.list("-created_date", 200),
+        base44.entities.ContactMessage.filter({ status: "new" }, "-created_date", 200),
       ]);
 
       setStats({
@@ -41,6 +42,7 @@ export default function AdminDashboard() {
         pendingBuilders: builders.filter(b => !b.is_approved).length,
         pendingRefs: refs.filter(r => r.status === "pending").length,
         verifiedRefs: refs.filter(r => r.status === "verified").length,
+        newContactMessages: contactMsgs.length,
       });
     } catch (dataErr) {
       setLoadError(dataErr.message || "Failed to load dashboard data.");
@@ -169,6 +171,14 @@ export default function AdminDashboard() {
       page: "AdminQAChecklist",
       badge: null,
       urgent: false,
+    },
+    {
+      title: "Contact Messages",
+      description: "Read messages submitted through the public Contact form. Mark as read, respond, archive, or delete.",
+      icon: Mail,
+      page: "AdminContactMessages",
+      badge: stats?.newContactMessages > 0 ? `${stats.newContactMessages} new` : null,
+      urgent: stats?.newContactMessages > 0,
     },
     {
       title: "Analytics Dashboard",

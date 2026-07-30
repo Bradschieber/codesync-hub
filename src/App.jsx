@@ -27,6 +27,7 @@ import OrderFormReview from './pages/OrderFormReview';
 import BuyerCustomBuildRequests from './pages/BuyerCustomBuildRequests';
 import AdminAcceptanceAuditTrail from './pages/AdminAcceptanceAuditTrail';
 import AdminAnalytics from './pages/AdminAnalytics';
+import AdminContactMessages from './pages/AdminContactMessages';
 import BuilderQuickStartGuide from './pages/BuilderQuickStartGuide';
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -95,6 +96,7 @@ const AuthenticatedApp = () => {
       <Route path="/BuyerCustomBuildRequests" element={<LayoutWrapper currentPageName="BuyerCustomBuildRequests"><BuyerCustomBuildRequests /></LayoutWrapper>} />
       <Route path="/AdminAcceptanceAuditTrail" element={<LayoutWrapper currentPageName="AdminAcceptanceAuditTrail"><AdminAcceptanceAuditTrail /></LayoutWrapper>} />
       <Route path="/AdminAnalytics" element={<LayoutWrapper currentPageName="AdminAnalytics"><AdminAnalytics /></LayoutWrapper>} />
+      <Route path="/AdminContactMessages" element={<LayoutWrapper currentPageName="AdminContactMessages"><AdminContactMessages /></LayoutWrapper>} />
       <Route path="/BuilderQuickStartGuide" element={<LayoutWrapper currentPageName="BuilderQuickStartGuide"><BuilderQuickStartGuide /></LayoutWrapper>} />
       <Route path="/legal/terms-of-use" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
       <Route path="/legal/privacy-policy" element={<LayoutWrapper currentPageName="LegalDocumentPublic"><LegalDocumentPublic /></LayoutWrapper>} />
