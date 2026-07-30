@@ -18,7 +18,7 @@ export default function BuilderLanding() {
           Built for Independent Instrument Builders
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
-          A marketplace built to help independent builders get discovered.
+          A marketplace built for independent builders to be discovered.
         </h1>
         <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">
           Stringed Collective gives independent instrument builders a professional storefront, safer transaction tools, and active marketplace promotion designed to help the right kind of players discover their work.
