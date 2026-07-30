@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { Mail, MessageSquare, CheckCircle } from "lucide-react";
+import { MessageSquare, CheckCircle } from "lucide-react";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -19,7 +19,7 @@ export default function Contact() {
       });
       setSent(true);
     } catch (err) {
-      alert("Something went wrong sending your message. Please try again or email us directly at hello@stringedcollective.com.");
+      alert("Something went wrong sending your message. Please try again.");
     }
     setLoading(false);
   }
@@ -66,12 +66,6 @@ export default function Contact() {
             {loading ? "Sending..." : "Send Message"}
           </button>
         </form>
-      </div>
-
-      <div className="mt-8 text-center">
-        <p className="text-stone-400 text-sm flex items-center justify-center gap-2">
-          <Mail className="w-4 h-4" /> hello@stringedcollective.com
-        </p>
       </div>
     </div>
   );
