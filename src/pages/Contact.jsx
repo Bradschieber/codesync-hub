@@ -10,12 +10,17 @@ export default function Contact() {
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    await base44.integrations.Core.SendEmail({
-      to: "hello@stringedcollective.com",
-      subject: `Contact Form: ${form.subject}`,
-      body: `From: ${form.name} (${form.email})\n\n${form.message}`,
-    });
-    setSent(true);
+    try {
+      await base44.entities.ContactMessage.create({
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+      });
+      setSent(true);
+    } catch (err) {
+      alert("Something went wrong sending your message. Please try again or email us directly at hello@stringedcollective.com.");
+    }
     setLoading(false);
   }
 
