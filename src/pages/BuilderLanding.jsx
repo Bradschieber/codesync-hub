@@ -198,9 +198,9 @@ export default function BuilderLanding() {
             <p className="text-sm text-blue-200">
               Email us anytime at{" "}
               <a
-                href="mailto:support@stringedcollective.com?subject=Founding%20Builder%20Question%20or%20Call%20Request"
+                href="mailto:info@stringedcollective.com?subject=Founding%20Builder%20Question%20or%20Call%20Request"
                 className="text-blue-300 underline hover:text-white transition-colors">
-                support@stringedcollective.com
+                info@stringedcollective.com
               </a>
               .
             </p>
