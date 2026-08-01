@@ -160,13 +160,13 @@ export default function FounderLetter() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div style={{ backgroundColor: "#FDFBF8", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
 
       {/* Page Header */}
       <div className="border-b" style={{ borderColor: "#E8E5E0" }}>
         <div className={`${COL} py-10`}>
           <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#8A9BB0" }}>
-            Founder Letter
+            Founder's Letter
           </p>
           <h1 className="text-3xl sm:text-4xl font-bold mb-3 leading-tight" style={{ color: NAVY }}>
             Why I Built Stringed Collective

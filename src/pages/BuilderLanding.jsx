@@ -10,7 +10,7 @@ export default function BuilderLanding() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="bg-[#FDFBF8] text-[#1B2B4B] font-sans">
+    <div className="bg-white text-[#1B2B4B] font-sans">
 
       {/* ── Hero ── */}
       <section className="max-w-3xl mx-auto px-6 pt-20 pb-20 text-center">
@@ -50,8 +50,7 @@ export default function BuilderLanding() {
         </div>
       </section>
 
-      {/* ── Divider ── */}
-      <div className="border-t border-[#E8E4DE] max-w-6xl mx-auto" />
+      <div className="border-t border-[#E5E8EC] max-w-6xl mx-auto" />
 
       {/* ── Problem Statement ── */}
       <section className="max-w-3xl mx-auto px-6 py-20">
@@ -79,7 +78,7 @@ export default function BuilderLanding() {
       </section>
 
       {/* ── Why Builders Join ── */}
-      <section className="bg-[#F5F3EF] border-y border-[#E8E4DE]">
+      <section className="bg-white border-y border-[#E5E8EC]">
         <div className="max-w-5xl mx-auto px-6 py-20">
           <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Join Stringed Collective</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY }}>
