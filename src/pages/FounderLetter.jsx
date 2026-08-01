@@ -36,9 +36,9 @@ Eventually, I learned how to play.
 
 For more than 30 years, I've played in working bands, and many of the best experiences of my life - and many of my closest friendships - have happened because of music.
 
-A few years ago, I started building guitars myself.
+I started building guitars myself about 25 years ago. Then kids, work, still playing music... took a lot of my time. A few years ago I started getting serious about building again.
 
-I've been building seriously for about five years now. I'm not at the level of many of the incredible builders out there, but I'm working on it every day. Like every builder, I'm chasing the next improvement - the next better instrument.
+I'm definitely not at the level of many of the incredible builders out there, but I'm working on it. Like every builder, I'm chasing improvement - the next better instrument.
 
 Being part of that community has been inspiring.`,
   },
