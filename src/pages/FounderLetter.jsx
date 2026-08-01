@@ -15,7 +15,7 @@ const sections = [
 
 At a time when technology is moving faster than ever, a lot of people are wondering what that means for work, creativity, and human connection.
 
-I believe something important can happen if we choose it.
+I actually believe something amazing can happen. But we have to choose it.
 
 I think more people will start seeking out things that feel deeply human: things made by hand, art with a story behind it, communities built around shared passion, and music created between real people in real rooms.
 
