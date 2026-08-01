@@ -17,7 +17,7 @@ At a time when technology is moving faster than ever, a lot of people are wonder
 
 I actually believe something amazing can happen. But we have to choose it.
 
-I think more people will start seeking out things that feel deeply human: things made by hand, art with a story behind it, communities built around shared passion, and music created between real people in real rooms.
+I think even more people will seek things that feel deeply human; things made by hand, art with a story behind it, communities built around shared passion, and music created between real people in real rooms.
 
 Few things represent that better than an instrument.
 
