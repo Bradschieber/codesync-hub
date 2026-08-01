@@ -5,7 +5,7 @@ import BuilderAccountFormModal from "../components/builder/BuilderAccountFormMod
 import { useState } from "react";
 
 const NAVY = "#1B2B4B";
-const COL = "max-w-[680px] mx-auto px-6";
+const COL = "max-w-[760px] mx-auto px-6";
 
 const sections = [
   {
@@ -134,11 +134,11 @@ function LetterSection({ section }) {
   return (
     <div>
       {section.label && (
-        <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "#8A9BB0" }}>
+        <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#8A9BB0" }}>
           {section.label}
         </p>
       )}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {section.body.split("\n\n").map((para, j) => {
           const isEmphasis = emphasisLines.includes(para.trim());
           return (
@@ -164,11 +164,11 @@ export default function FounderLetter() {
 
       {/* Page Header */}
       <div className="border-b" style={{ borderColor: "#E8E5E0" }}>
-        <div className={`${COL} py-14`}>
-          <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: "#8A9BB0" }}>
+        <div className={`${COL} py-10`}>
+          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#8A9BB0" }}>
             Founder Letter
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight" style={{ color: NAVY }}>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-3 leading-tight" style={{ color: NAVY }}>
             Why I Built Stringed Collective
           </h1>
           <p className="text-base text-gray-500 leading-relaxed">
@@ -178,14 +178,14 @@ export default function FounderLetter() {
       </div>
 
       {/* Letter Body */}
-      <div className={`${COL} py-16`}>
-        <div className="space-y-16">
+      <div className={`${COL} py-10`}>
+        <div className="space-y-10">
           {sections.map((section) => (
             <div key={section.id}>
 
               {section.dividerBefore && (
-                <div className="mb-16">
-                  <p className="text-xs font-semibold tracking-widest uppercase mb-4 text-center" style={{ color: "#8A9BB0" }}>
+                <div className="mb-10">
+                  <p className="text-xs font-semibold tracking-widest uppercase mb-3 text-center" style={{ color: "#8A9BB0" }}>
                     {section.dividerLabel}
                   </p>
                   <hr style={{ borderColor: "#E0DDD8" }} />
@@ -196,9 +196,9 @@ export default function FounderLetter() {
 
               {/* Pull quote after "changing-discovery" */}
               {section.id === "changing-discovery" && (
-                <div className="my-16 py-12 text-center border-t border-b" style={{ borderColor: "#E8E5E0" }}>
+                <div className="my-10 py-8 text-center border-t border-b" style={{ borderColor: "#E8E5E0" }}>
                   <p
-                    className="text-2xl sm:text-3xl font-semibold leading-snug mb-5"
+                    className="text-2xl sm:text-3xl font-semibold leading-snug mb-4"
                     style={{ color: NAVY, letterSpacing: "-0.01em" }}
                   >
                     Help more players discover your work.
@@ -225,17 +225,17 @@ export default function FounderLetter() {
 
       {/* Founding Builder Benefits */}
       <div className="border-t" style={{ borderColor: "#E8E5E0" }}>
-        <div className={`${COL} py-14`}>
-          <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: "#8A9BB0" }}>
+        <div className={`${COL} py-10`}>
+          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#8A9BB0" }}>
             Founding Builder Benefits
           </p>
-          <h2 className="text-xl font-bold mb-4" style={{ color: NAVY }}>
+          <h2 className="text-xl font-bold mb-3" style={{ color: NAVY }}>
             What founding builders receive
           </h2>
-          <p className="text-sm leading-relaxed mb-8" style={{ color: "#4A5566" }}>
+          <p className="text-sm leading-relaxed mb-6" style={{ color: "#4A5566" }}>
             Builders who join early will help shape the platform and receive early advantages as Stringed Collective launches.
           </p>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5">
             {[
               "Free early access to the platform",
               "Simple 5% platform fee - no listing fees",
@@ -255,7 +255,7 @@ export default function FounderLetter() {
 
       {/* CTA */}
       <div className="border-t" style={{ borderColor: "#E8E5E0" }}>
-        <div className={`${COL} py-16 text-center`}>
+        <div className={`${COL} py-12 text-center`}>
           <h2 className="text-xl font-bold mb-3" style={{ color: NAVY }}>
             Join the first group of founding builders
           </h2>
