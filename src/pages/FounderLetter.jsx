@@ -87,25 +87,6 @@ A place where builders can present their instruments professionally, tell the st
 When musicians discover what independent builders are creating, it opens up an entirely new world of instruments.`,
   },
   {
-    id: "why-exists",
-    label: "WHY STRINGED COLLECTIVE EXISTS",
-    body: `Stringed Collective is a marketplace designed specifically for independent instrument builders.
-
-It provides the structure and trust that both builders and buyers need.
-
-Builders can showcase their work through professional storefronts.
-
-Players can explore instruments, learn about builders, purchase stock builds, and start conversations about custom builds.
-
-Transactions happen through the platform, so payments, terms, order details, and shipment steps are documented more clearly.
-
-The goal is simple:
-
-Builders should be able to focus on building great instruments.
-
-Players should be able to focus on making music.`,
-  },
-  {
     id: "the-beginning",
     label: "THE BEGINNING",
     dividerBefore: true,
@@ -193,25 +174,6 @@ export default function FounderLetter() {
           <p className="text-base text-gray-500 leading-relaxed">
             A personal note about music, builders, and why this platform exists.
           </p>
-        </div>
-      </div>
-
-      {/* Summary Block */}
-      <div className="border-b" style={{ borderColor: "#E8E5E0" }}>
-        <div className={`${COL} py-10`}>
-          <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "#8A9BB0" }}>
-            A Quick Summary
-          </p>
-          <div className="space-y-3">
-            {[
-              "Stringed Collective was created to help independent instrument builders reach a wider audience and make boutique instruments easier for players to discover and purchase.",
-              "We're building a marketplace that gives independent builders a professional platform to present their work, manage transactions, and connect with the right players - while preserving the direct relationship between builder and musician.",
-              "The platform is designed to make transactions safer and more structured for both sides, so builders and buyers can move forward with greater confidence.",
-              "Right now, we're inviting a small group of founding builders to help launch the marketplace and shape how it evolves.",
-            ].map((text, i) => (
-              <p key={i} className="text-sm leading-relaxed" style={{ color: "#4A5566" }}>{text}</p>
-            ))}
-          </div>
         </div>
       </div>
 
