@@ -387,7 +387,7 @@ export default function BuilderOnboarding() {
                 {shopName ? `Show what ${shopName} looks like.` : "Show your shop and your process."}
               </h1>
               <p className="text-base leading-relaxed" style={{ color: "#5A5A5A" }}>Workshop and process photos are what make a storefront feel real. They build trust before a buyer reads a single word - and often before they ever ask a question.</p>
-              <p className="text-base leading-relaxed mt-3" style={{ color: "#5A5A5A" }}>For more details on what you need for this section, take a look at our <Link to="/BuilderQuickStartGuide" className="underline" style={{ color: "#1B2B4B" }}>Quick Start guide in the FAQ</Link>.</p>
+              <p className="text-base leading-relaxed mt-3" style={{ color: "#5A5A5A" }}>For more details on what you need for this section, take a look at our <Link to="/BuilderQuickStartGuide" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "#1B2B4B" }}>Quick Start guide in the FAQ</Link>.</p>
             </>}
             {step === 3 && <>
               <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A1A1A" }}>
