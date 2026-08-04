@@ -132,7 +132,7 @@ export default function BuilderLanding() {
         </h2>
         <div className="grid sm:grid-cols-3 gap-8 mb-8">
           {[
-            { step: "01", title: "Create your builder profile", body: "Tell players about your craft, your experience, your shop, and the instruments you build." },
+            { step: "01", title: "Create your builder profile", body: "Tell players about your craft, your experience, your shop and the instruments you build. Define your store policies and connect your account to Stripe for safe and secure payments." },
             { step: "02", title: "Add your storefront and instruments", body: "List available instruments, describe your custom-build options, upload photos, and define your shop policies." },
             { step: "03", title: "Sell through a more trusted process", body: "Players can discover your work, ask questions, purchase stock builds, or start a custom-build conversation - with payments and order details handled through the platform." }
           ].map(({ step, title, body }) =>
