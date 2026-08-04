@@ -91,8 +91,8 @@ export default function BuilderLanding() {
             {[
               {
                 icon: Shield,
-                title: "Safer transactions with Stripe",
-                body: "Stringed Collective processes every payment through Stripe, one of the most trusted and secure payment platforms in the world. Stripe protects your buyers' card data and sends payouts directly to your account, so you and your customers can transact with confidence."
+                title: "Safer transactions",
+                body: "Stringed Collective helps reduce risk for both sides by handling payments securely through Stripe, documenting the order, and supporting clear transaction steps from purchase through shipment."
               },
               {
                 icon: Store,
