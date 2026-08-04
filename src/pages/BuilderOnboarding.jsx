@@ -574,7 +574,7 @@ export default function BuilderOnboarding() {
               {/* Builder Card Photo - the primary image buyers see in discovery */}
               <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
                 <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Builder Card Photo</p>
-                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This is the first photo buyers see - it appears on the Builders directory and in search results before anyone clicks into your storefront. A genuine photo of you at the bench, or your workshop, beats a logo or empty background.</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>This photo will be the face of your brand on our builder page, or in search results when a buyer is looking through builders. It could be a nice build, a photo of your shop, you at the bench, or custom graphics. You can change this any time. Have some fun with it.</p>
                 <CardPhotoUploader
                   cardPhotoUrl={form.card_photo_url}
                   onChange={url => setForm(f => ({ ...f, card_photo_url: url }))}
