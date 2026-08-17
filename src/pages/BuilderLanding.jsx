@@ -13,40 +13,52 @@ export default function BuilderLanding() {
     <div className="bg-white text-[#1B2B4B] font-sans">
 
       {/* ── Hero ── */}
-      <section className="max-w-3xl mx-auto px-6 pt-20 pb-20 text-center">
-        <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-6">
-          Built for Independent Instrument Builders
-        </p>
-        <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
-          A marketplace built for independent builders to be discovered.
-        </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">
-          Stringed Collective gives independent instrument builders a professional storefront, safer transaction tools, and active marketplace promotion designed to help the right kind of players discover their work.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-          <button
-            onClick={() => setModalOpen(true)}
-            className="px-8 py-3.5 text-sm font-semibold text-white transition-colors"
-            style={{ backgroundColor: NAVY }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#152038"}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = NAVY}>
-            Become a Founding Builder
-          </button>
-          <Link
-            to={createPageUrl("FounderLetter")}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors">
-            Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+      <section className="max-w-6xl mx-auto px-6 pt-20 pb-20">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-6">
+              Built for Independent Instrument Builders
+            </p>
+            <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
+              A marketplace built for independent builders to be discovered.
+            </h1>
+            <p className="text-lg text-gray-500 leading-relaxed mb-10">
+              Stringed Collective gives independent instrument builders a professional storefront, safer transaction tools, and active marketplace promotion designed to help the right kind of players discover their work.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start gap-4 mb-12">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="px-8 py-3.5 text-sm font-semibold text-white transition-colors"
+                style={{ backgroundColor: NAVY }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#152038"}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = NAVY}>
+                Become a Founding Builder
+              </button>
+              <Link
+                to={createPageUrl("FounderLetter")}
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors pt-3.5">
+                Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
 
-        {/* Trust indicators */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
-          {["Active marketplace promotion", "Professional storefronts", "Safer transactions"].map((item) =>
-            <span key={item} className="flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" strokeWidth={2} />
-              {item}
-            </span>
-          )}
+            {/* Trust indicators */}
+            <div className="flex flex-col sm:flex-row items-start gap-6 text-sm text-gray-500">
+              {["Active marketplace promotion", "Professional storefronts", "Safer transactions"].map((item) =>
+                <span key={item} className="flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" strokeWidth={2} />
+                  {item}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="relative order-first lg:order-last">
+            <img
+              src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/275b6c421_image.png"
+              alt="An unfinished bass guitar body with a dark laminated center stripe resting on a light wooden workbench"
+              className="w-full h-auto rounded-lg object-cover shadow-lg"
+              style={{ maxHeight: "560px" }}
+            />
+          </div>
         </div>
       </section>
 
@@ -87,6 +99,12 @@ export default function BuilderLanding() {
           <p className="text-sm text-gray-500 leading-relaxed mb-12 max-w-2xl">
             Most platforms give builders a place to list. Stringed Collective is being built to help the right kind of players find those listings.
           </p>
+          <img
+            src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/1906c8cdb_image.png"
+            alt="A semi-hollow bass guitar mid-assembly on a workbench with wiring harness, tools, and soldering supplies"
+            className="w-full h-auto rounded-lg object-cover mb-12"
+            style={{ maxHeight: "440px" }}
+          />
           <div className="grid sm:grid-cols-2 gap-8">
             {[
               {
@@ -161,6 +179,12 @@ export default function BuilderLanding() {
               Before opening the platform more broadly, we want feedback from real builders - people who understand the challenges of selling handmade instruments online and care about creating a better experience for both makers and players.
             </p>
           </div>
+          <img
+            src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/40667d4fe_image.png"
+            alt="Overhead view of a bass guitar being wired on a workbench with soldering tools, multimeter, and electronic components"
+            className="w-full h-auto rounded-lg object-cover mb-10"
+            style={{ maxHeight: "440px" }}
+          />
           <p className="text-blue-200 text-sm font-medium mb-5">As a founding builder, you'll get:</p>
           <div className="grid sm:grid-cols-2 gap-3 mb-10 max-w-xl">
             {[
