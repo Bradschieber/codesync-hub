@@ -100,8 +100,8 @@ export default function BuilderLanding() {
             Most platforms give builders a place to list. Stringed Collective is being built to help the right kind of players find those listings.
           </p>
           <img
-            src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/1906c8cdb_image.png"
-            alt="A semi-hollow bass guitar mid-assembly on a workbench with wiring harness, tools, and soldering supplies"
+            src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/69f72c11f_image.png"
+            alt="Two unfinished electric guitar bodies with neck-through construction placed side by side on a table saw workbench"
             className="w-full h-auto rounded-lg object-cover mb-12"
             style={{ maxHeight: "440px" }}
           />
