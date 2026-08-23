@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle, Eye } from "lucide-react";
+import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle, Eye, Mail } from "lucide-react";
 import BuilderDetailDrawer from "@/components/admin/BuilderDetailDrawer";
+import MessageBuilderModal from "@/components/admin/MessageBuilderModal";
 
 function StripeStatusBadge({ builder }) {
   const status = builder.stripe_onboarding_status;
@@ -37,6 +38,7 @@ export default function AdminAllBuilders() {
   const [updating, setUpdating] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [detailBuilderId, setDetailBuilderId] = useState(null);
+  const [messageBuilder, setMessageBuilder] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -184,6 +186,13 @@ export default function AdminAllBuilders() {
                     <Eye className="w-3 h-3" /> Details
                   </button>
                   <button
+                    onClick={() => setMessageBuilder(b)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50"
+                    style={{ borderColor: "#DEDBD6", color: NAVY }}
+                  >
+                    <Mail className="w-3 h-3" /> Message
+                  </button>
+                  <button
                     onClick={() => toggleApproval(b)}
                     disabled={updating === b.id}
                     className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors"
@@ -244,6 +253,9 @@ export default function AdminAllBuilders() {
 
       {detailBuilderId && (
         <BuilderDetailDrawer builderId={detailBuilderId} onClose={() => setDetailBuilderId(null)} />
+      )}
+      {messageBuilder && (
+        <MessageBuilderModal builder={messageBuilder} onClose={() => setMessageBuilder(null)} />
       )}
     </div>
   );
