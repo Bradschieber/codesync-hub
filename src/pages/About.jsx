@@ -43,8 +43,8 @@ export default function About() {
           </div>
           <div className="relative">
             <img
-              src="https://images.unsplash.com/photo-1525201548942-d8732f6617c0?auto=format&fit=crop&w=1000&q=80"
-              alt="Luthier working on a handcrafted guitar in a workshop"
+              src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/95f649139_20230516_211402.jpg"
+              alt="Luthier laminating wood for a handcrafted guitar on a workbench"
               className="w-full h-full object-cover"
               style={{ minHeight: "460px", backgroundColor: "#EEF1F7" }}
             />
