@@ -36,6 +36,11 @@ export default function NotificationPreferences({ form, setForm }) {
           <input type="checkbox" checked={notifySms} onChange={e => setForm(f => ({ ...f, notify_sms: e.target.checked }))} className="h-4 w-4" style={{ accentColor: "#1B2B4B" }} />
         </label>
         {notifySms && (
+          <p className="text-xs text-gray-400 leading-relaxed px-1">
+            By checking this box, I agree to receive text messages from Stringed Collective about my builder application and account, including onboarding reminders. Message frequency varies, message and data rates may apply. Reply STOP to opt out at any time. Consent is not required to use Stringed Collective.
+          </p>
+        )}
+        {notifySms && (
           <div className="px-1">
             <label className="block text-xs font-medium text-gray-600 mb-1">Phone Number for SMS</label>
             <input
