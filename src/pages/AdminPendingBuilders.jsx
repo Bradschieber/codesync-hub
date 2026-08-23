@@ -32,7 +32,11 @@ export default function AdminPendingBuilders() {
   async function approveBuilder(builder) {
     setUpdating(builder.id);
     setConfirming(null);
-    await base44.entities.UserProfile.update(builder.id, { is_approved: true });
+    try {
+      await base44.functions.invoke("approveBuilder", { builder_profile_id: builder.id });
+    } catch (err) {
+      alert("Failed to approve builder: " + (err.message || "Unknown error"));
+    }
     setBuilders(prev => prev.filter(b => b.id !== builder.id));
     setUpdating(null);
   }
