@@ -197,14 +197,20 @@ export default function BuilderOnboarding() {
     setLoading(false);
   }
 
-  async function saveProfile() {
+  async function saveProfile(extraFields = {}) {
     setSaving(true);
     try {
+      const onboardingMeta = {
+        onboarding_step: step,
+        onboarding_step_name: STEPS[step].label,
+        onboarding_last_activity_at: new Date().toISOString(),
+        ...extraFields,
+      };
       if (profile) {
-        const updated = await base44.entities.UserProfile.update(profile.id, form);
+        const updated = await base44.entities.UserProfile.update(profile.id, { ...form, ...onboardingMeta });
         setProfile(updated);
       } else {
-        const created = await base44.entities.UserProfile.create(form);
+        const created = await base44.entities.UserProfile.create({ ...form, ...onboardingMeta });
         setProfile(created);
         setForm(created);
       }
@@ -264,7 +270,7 @@ export default function BuilderOnboarding() {
   }
 
   async function handleLaunch() {
-    await saveProfile();
+    await saveProfile({ onboarding_completed_at: new Date().toISOString() });
     track.builder.onboardingCompleted({ business_name: form.business_name, user_id: user?.id });
     navigate(createPageUrl("Dashboard"));
   }

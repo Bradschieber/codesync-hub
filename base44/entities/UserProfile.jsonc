@@ -426,6 +426,29 @@
     "last_successful_sale_date": {
       "type": "string",
       "format": "date"
+    },
+    "onboarding_step": {
+      "type": "number",
+      "description": "Current onboarding step index (0-7) the builder last saved"
+    },
+    "onboarding_step_name": {
+      "type": "string",
+      "description": "Label of the onboarding step the builder last saved (e.g. 'Your Story')"
+    },
+    "onboarding_last_activity_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the builder's last save or advance in the onboarding flow"
+    },
+    "onboarding_completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the builder completed onboarding (clicked Go to Builder Dashboard). Null or absent if not yet completed."
+    },
+    "onboarding_reminders_sent": {
+      "type": "number",
+      "default": 0,
+      "description": "Cumulative count of onboarding abandonment reminders sent (caps at 3). Does not reset on new activity."
     }
   },
   "required": []
