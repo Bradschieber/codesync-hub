@@ -179,17 +179,17 @@ export default function AdminAllBuilders() {
                     {b.is_approved ? "Approved" : "Pending"}
                   </span>
                 </div>
-                <div className="col-span-3 flex justify-end gap-2 flex-wrap">
+                <div className="col-span-3 grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setDetailBuilderId(b.id)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50 whitespace-nowrap"
+                    className="flex items-center justify-center gap-1.5 px-2 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50 whitespace-nowrap"
                     style={{ borderColor: "#DEDBD6", color: NAVY }}
                   >
                     <Eye className="w-3 h-3" /> Details
                   </button>
                   <button
                     onClick={() => setMessageBuilder(b)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50 whitespace-nowrap"
+                    className="flex items-center justify-center gap-1.5 px-2 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50 whitespace-nowrap"
                     style={{ borderColor: "#DEDBD6", color: NAVY }}
                   >
                     <Mail className="w-3 h-3" /> Message
@@ -197,7 +197,7 @@ export default function AdminAllBuilders() {
                   <button
                     onClick={() => toggleApproval(b)}
                     disabled={updating === b.id}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors whitespace-nowrap"
+                    className="flex items-center justify-center gap-1.5 px-2 py-1.5 text-xs font-semibold border transition-colors whitespace-nowrap"
                     style={{
                       borderColor: b.is_approved ? "#27AE60" : "#9B1B30",
                       color: b.is_approved ? "#27AE60" : "#9B1B30",
@@ -210,7 +210,7 @@ export default function AdminAllBuilders() {
                   <button
                     onClick={() => setConfirmDelete(b)}
                     disabled={updating === b.id}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition-colors whitespace-nowrap"
+                    className="flex items-center justify-center gap-1 px-2 py-1.5 text-xs font-semibold border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition-colors whitespace-nowrap"
                     style={{ opacity: updating === b.id ? 0.5 : 1 }}
                   >
                     <Trash2 className="w-3 h-3" /> Delete
