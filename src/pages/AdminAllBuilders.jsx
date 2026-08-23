@@ -151,7 +151,7 @@ export default function AdminAllBuilders() {
           <div className="col-span-3">Builder</div>
           <div className="col-span-2">Location</div>
           <div className="col-span-2">Badges</div>
-          <div className="col-span-2">Stripe</div>
+          <div className="col-span-2">Status</div>
           <div className="col-span-3 text-right">Actions</div>
           </div>
           {filtered.length === 0 ? (
@@ -175,19 +175,21 @@ export default function AdminAllBuilders() {
                   </div>
                 </div>
                 <div className="col-span-2">
-                  <StripeStatusBadge builder={b} />
+                  <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={b.is_approved ? { backgroundColor: "#E8F5E9", color: "#27AE60" } : { backgroundColor: "#F9E5E8", color: "#9B1B30" }}>
+                    {b.is_approved ? "Approved" : "Pending"}
+                  </span>
                 </div>
-                <div className="col-span-3 flex justify-end gap-2">
+                <div className="col-span-3 flex justify-end gap-2 flex-wrap">
                   <button
                     onClick={() => setDetailBuilderId(b.id)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50 whitespace-nowrap"
                     style={{ borderColor: "#DEDBD6", color: NAVY }}
                   >
                     <Eye className="w-3 h-3" /> Details
                   </button>
                   <button
                     onClick={() => setMessageBuilder(b)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50 whitespace-nowrap"
                     style={{ borderColor: "#DEDBD6", color: NAVY }}
                   >
                     <Mail className="w-3 h-3" /> Message
@@ -195,7 +197,7 @@ export default function AdminAllBuilders() {
                   <button
                     onClick={() => toggleApproval(b)}
                     disabled={updating === b.id}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors whitespace-nowrap"
                     style={{
                       borderColor: b.is_approved ? "#27AE60" : "#9B1B30",
                       color: b.is_approved ? "#27AE60" : "#9B1B30",
@@ -208,7 +210,7 @@ export default function AdminAllBuilders() {
                   <button
                     onClick={() => setConfirmDelete(b)}
                     disabled={updating === b.id}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition-colors whitespace-nowrap"
                     style={{ opacity: updating === b.id ? 0.5 : 1 }}
                   >
                     <Trash2 className="w-3 h-3" /> Delete
