@@ -8,48 +8,43 @@ export default function About() {
   return (
     <div style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }} className="pt-20 pb-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1B2B4B", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
-            About Stringed Collective.
-          </h1>
-          <p className="text-lg leading-relaxed mb-4" style={{ color: "#333333" }}>
-            Stringed Collective is a modern marketplace for handcrafted instruments from independent builders.
-          </p>
-          <p className="text-lg leading-relaxed" style={{ color: "#333333" }}>
-            We bring instrument lovers and boutique makers together through a polished online shopping experience - making it easier to discover, purchase, and commission exceptional instruments from builders around the world.
-          </p>
-        </div>
-      </div>
-
-      {/* Story */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 gap-16 items-stretch mb-20">
-          <div>
-            <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
-            <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
-              Independent builders create some of the most inspiring instruments in the world - but their work is often difficult to discover.
-            </p>
-            <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
-              Many builders rely on personal websites, social media, word of mouth, and small communities to reach buyers. At the same time, instrument lovers are used to the convenience and structure of major online retailers, even when those retailers do not carry the kind of unique, handcrafted instruments they are looking for.
-            </p>
-            <p className="text-base leading-relaxed mb-5 font-medium" style={{ color: NAVY }}>
-              Stringed Collective was created to bridge that gap.
-            </p>
-            <p className="text-base leading-relaxed" style={{ color: "#333333" }}>
-              We give builders a professional marketplace to showcase their work, and we give buyers a trusted place to discover distinctive instruments, connect with makers, and complete purchases through a clear, organized process.
-            </p>
+      {/* Combined Hero + Story */}
+      <div style={{ background: "linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+          <div className="grid md:grid-cols-2 gap-16 items-stretch mb-20">
+            <div>
+              <h1 className="text-5xl sm:text-6xl font-bold mb-5 tracking-tight leading-tight" style={{ color: "#1B2B4B", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
+                About Stringed Collective.
+              </h1>
+              <p className="text-lg leading-relaxed mb-4" style={{ color: "#333333" }}>
+                Stringed Collective is a modern marketplace for handcrafted instruments from independent builders.
+              </p>
+              <p className="text-lg leading-relaxed mb-10" style={{ color: "#333333" }}>
+                We bring instrument lovers and boutique makers together through a polished online shopping experience - making it easier to discover, purchase, and commission exceptional instruments from builders around the world.
+              </p>
+              <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
+              <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
+                Independent builders create some of the most inspiring instruments in the world - but their work is often difficult to discover.
+              </p>
+              <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
+                Many builders rely on personal websites, social media, word of mouth, and small communities to reach buyers. At the same time, instrument lovers are used to the convenience and structure of major online retailers, even when those retailers do not carry the kind of unique, handcrafted instruments they are looking for.
+              </p>
+              <p className="text-base leading-relaxed mb-5 font-medium" style={{ color: NAVY }}>
+                Stringed Collective was created to bridge that gap.
+              </p>
+              <p className="text-base leading-relaxed" style={{ color: "#333333" }}>
+                We give builders a professional marketplace to showcase their work, and we give buyers a trusted place to discover distinctive instruments, connect with makers, and complete purchases through a clear, organized process.
+              </p>
+            </div>
+            <div className="relative">
+              <img
+                src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/95f649139_20230516_211402.jpg"
+                alt="Luthier laminating wood for a handcrafted guitar on a workbench"
+                className="w-full h-full object-cover"
+                style={{ minHeight: "100%", backgroundColor: "#EEF1F7" }}
+              />
+            </div>
           </div>
-          <div className="relative">
-            <img
-              src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/95f649139_20230516_211402.jpg"
-              alt="Luthier laminating wood for a handcrafted guitar on a workbench"
-              className="w-full h-full object-cover"
-              style={{ minHeight: "400px", maxHeight: "560px", backgroundColor: "#EEF1F7" }}
-            />
-          </div>
-        </div>
 
         {/* How It Works */}
         <div className="mb-20">
@@ -138,6 +133,7 @@ export default function About() {
               Become a Founding Builder
             </Link>
           </div>
+        </div>
         </div>
       </div>
     </div>
