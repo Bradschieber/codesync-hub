@@ -25,7 +25,7 @@ export default function About() {
 
       {/* Story */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 gap-16 items-start mb-20">
+        <div className="grid md:grid-cols-2 gap-16 items-stretch mb-20">
           <div>
             <h2 className="text-sm font-bold uppercase tracking-widest mb-5" style={{ color: "#6B6B6B" }}>Our Story</h2>
             <p className="text-base leading-relaxed mb-5" style={{ color: "#333333" }}>
@@ -46,7 +46,7 @@ export default function About() {
               src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/95f649139_20230516_211402.jpg"
               alt="Luthier laminating wood for a handcrafted guitar on a workbench"
               className="w-full h-full object-cover"
-              style={{ minHeight: "460px", backgroundColor: "#EEF1F7" }}
+              style={{ minHeight: "400px", maxHeight: "560px", backgroundColor: "#EEF1F7" }}
             />
           </div>
         </div>
