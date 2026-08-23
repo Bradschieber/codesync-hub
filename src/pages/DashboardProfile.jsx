@@ -10,6 +10,7 @@ import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import CustomBuildExamples from "../components/dashboard/CustomBuildExamples";
 import StorefrontProgressTracker from "../components/dashboard/StorefrontProgressTracker";
 import LocationFields from "../components/onboarding/LocationFields";
+import NotificationPreferences from "../components/dashboard/NotificationPreferences";
 
 const STORY_PROMPTS = [
   { icon: User, label: "Who You Are", hint: "Introduce yourself. Where are you from? What's your background? What makes you, you?", example: "I'm a builder based in Asheville, North Carolina, focused on handbuilt electric guitars and basses." },
@@ -77,6 +78,7 @@ export default function DashboardProfile() {
     business: useRef(null),
     policies: useRef(null),
     references: useRef(null),
+    notifications: useRef(null),
   };
 
   useEffect(() => { loadProfile(); }, []);
@@ -480,6 +482,13 @@ export default function DashboardProfile() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* 9. Notification Preferences */}
+        <div ref={sectionRefs.notifications}>
+          <AccordionSection id="notifications" title="Notification Preferences" isOpen={openSection === "notifications"} onToggle={toggleSection} complete={!!(form.notify_email !== false || form.notify_sms)}>
+            <NotificationPreferences form={form} setForm={setForm} />
+          </AccordionSection>
         </div>
 
         {/* Workshop Activity onboarding nudge */}

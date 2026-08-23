@@ -19,6 +19,7 @@ import LegalAcceptanceBlock from "../components/legal/LegalAcceptanceBlock";
 import LegalLink from "../components/legal/LegalLink";
 import { LEGAL_URLS, LEGAL_VERSIONS, logLegalAcceptance } from "../lib/legalConfig";
 import StripeConnectOnboarding from "../components/builder/StripeConnectOnboarding";
+import NotificationPreferences from "../components/dashboard/NotificationPreferences";
 
 const NAVY = "#2F3E55";
 
@@ -785,6 +786,11 @@ export default function BuilderOnboarding() {
                     </div>
                   </label>
                 </div>
+              </SectionCard>
+
+              {/* Notification preferences */}
+              <SectionCard>
+                <NotificationPreferences form={form} setForm={setForm} />
               </SectionCard>
             </div>
           )}
