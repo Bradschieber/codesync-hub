@@ -41,6 +41,14 @@ export default function About() {
               We give builders a professional marketplace to showcase their work, and we give buyers a trusted place to discover distinctive instruments, connect with makers, and complete purchases through a clear, organized process.
             </p>
           </div>
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1525201548942-d8732f6617c0?auto=format&fit=crop&w=1000&q=80"
+              alt="Luthier working on a handcrafted guitar in a workshop"
+              className="w-full h-full object-cover"
+              style={{ minHeight: "460px", backgroundColor: "#EEF1F7" }}
+            />
+          </div>
         </div>
 
         {/* How It Works */}
