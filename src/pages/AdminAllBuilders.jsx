@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle } from "lucide-react";
+import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle, Eye } from "lucide-react";
+import BuilderDetailDrawer from "@/components/admin/BuilderDetailDrawer";
 
 function StripeStatusBadge({ builder }) {
   const status = builder.stripe_onboarding_status;
@@ -35,6 +36,7 @@ export default function AdminAllBuilders() {
   const [filter, setFilter] = useState("all");
   const [updating, setUpdating] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [detailBuilderId, setDetailBuilderId] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -144,11 +146,11 @@ export default function AdminAllBuilders() {
         {/* Table */}
         <div className="bg-white border" style={{ borderColor: "#E0DDD8" }}>
           <div className="grid grid-cols-12 px-4 py-2 border-b text-xs font-semibold uppercase tracking-wide" style={{ borderColor: "#E0DDD8", color: "#7A7A7A", backgroundColor: "#F5F3F0" }}>
-            <div className="col-span-3">Builder</div>
-            <div className="col-span-2">Location</div>
-            <div className="col-span-2">Badges</div>
-            <div className="col-span-2">Stripe</div>
-            <div className="col-span-3 text-right">Approval</div>
+          <div className="col-span-3">Builder</div>
+          <div className="col-span-2">Location</div>
+          <div className="col-span-2">Badges</div>
+          <div className="col-span-2">Stripe</div>
+          <div className="col-span-3 text-right">Actions</div>
           </div>
           {filtered.length === 0 ? (
             <div className="text-center py-16 text-sm" style={{ color: "#9A9A9A" }}>No builders found.</div>
@@ -174,6 +176,13 @@ export default function AdminAllBuilders() {
                   <StripeStatusBadge builder={b} />
                 </div>
                 <div className="col-span-3 flex justify-end gap-2">
+                  <button
+                    onClick={() => setDetailBuilderId(b.id)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border transition-colors hover:bg-gray-50"
+                    style={{ borderColor: "#DEDBD6", color: NAVY }}
+                  >
+                    <Eye className="w-3 h-3" /> Details
+                  </button>
                   <button
                     onClick={() => toggleApproval(b)}
                     disabled={updating === b.id}
@@ -231,6 +240,10 @@ export default function AdminAllBuilders() {
             </div>
           </div>
         </div>
+      )}
+
+      {detailBuilderId && (
+        <BuilderDetailDrawer builderId={detailBuilderId} onClose={() => setDetailBuilderId(null)} />
       )}
     </div>
   );
