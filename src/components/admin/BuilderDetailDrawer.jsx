@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { X, Mail, Phone, MapPin, Globe, Music, Clock, DollarSign, Shield, Truck, Calendar, ExternalLink } from "lucide-react";
+import { normalizeSocialUrl } from "@/lib/socialLinks";
 
 const NAVY = "#2F3E55";
 const LABEL = "#7A7A7A";
@@ -31,9 +32,9 @@ function Section({ title, icon: Icon, children }) {
   );
 }
 
-function SocialLink({ url, label }) {
+function SocialLink({ url, label, platform }) {
   if (!url) return null;
-  const normalizedUrl = /^https?:\/\//i.test(url) ? url : `https://${url}`;
+  const normalizedUrl = normalizeSocialUrl(url, platform);
   return (
     <div>
       <dt className="text-xs font-medium uppercase tracking-wide mb-0.5" style={{ color: LABEL }}>{label}</dt>
@@ -193,9 +194,9 @@ export default function BuilderDetailDrawer({ builderId, onClose }) {
             {(builder.website_url || builder.facebook_url || builder.instagram_url || builder.x_url) && (
               <Section title="Website & Social" icon={Globe}>
                 <SocialLink url={builder.website_url} label="Website" />
-                <SocialLink url={builder.facebook_url} label="Facebook" />
-                <SocialLink url={builder.instagram_url} label="Instagram" />
-                <SocialLink url={builder.x_url} label="X (Twitter)" />
+                <SocialLink url={builder.facebook_url} label="Facebook" platform="facebook" />
+                <SocialLink url={builder.instagram_url} label="Instagram" platform="instagram" />
+                <SocialLink url={builder.x_url} label="X (Twitter)" platform="x" />
               </Section>
             )}
 
