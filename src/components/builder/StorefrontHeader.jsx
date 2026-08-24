@@ -1,4 +1,4 @@
-import { MapPin, Globe, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar, Package, Check } from "lucide-react";
+import { MapPin, Facebook, Instagram, Star, Award, Heart, HeartOff, MessageSquare, Hammer, Clock, DollarSign, Guitar, Package, Check } from "lucide-react";
 import { normalizeSocialUrl } from "@/lib/socialLinks";
 
 const NAVY = "#1B2B4B";
@@ -201,11 +201,6 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
               <Star className="w-4 h-4 text-wine-400 fill-wine-400" />
               <strong className="text-stone-700">{avgRating.toFixed(1)}</strong> ({reviewCount} reviews)
             </span>
-          )}
-          {builder.website_url && (
-            <a href={normalizeSocialUrl(builder.website_url)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-stone-800 transition-colors">
-              <Globe className="w-3.5 h-3.5" /> Website
-            </a>
           )}
           {builder.instagram_url && (
             <a href={normalizeSocialUrl(builder.instagram_url, "instagram")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-pink-500 hover:text-pink-700 transition-colors">
