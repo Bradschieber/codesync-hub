@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { X, Mail, Phone, MapPin, Globe, Music, Clock, DollarSign, Shield, Truck, Calendar, ExternalLink } from "lucide-react";
+import { X, Mail, Phone, MapPin, Globe, Music, Clock, DollarSign, Shield, Truck, Calendar, ExternalLink, Pencil } from "lucide-react";
 import { normalizeSocialUrl } from "@/lib/socialLinks";
+import BuilderEditForm from "./BuilderEditForm";
 
 const NAVY = "#2F3E55";
 const LABEL = "#7A7A7A";
@@ -50,10 +51,12 @@ function SocialLink({ url, label, platform }) {
 export default function BuilderDetailDrawer({ builderId, onClose }) {
   const [builder, setBuilder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (!builderId) return;
     setLoading(true);
+    setIsEditing(false);
     base44.entities.UserProfile.get(builderId)
       .then(setBuilder)
       .catch(() => setBuilder(null))
@@ -65,7 +68,7 @@ export default function BuilderDetailDrawer({ builderId, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end" style={{ backgroundColor: "rgba(0,0,0,0.4)" }} onClick={onClose}>
       <div
-        className="bg-white w-full max-w-2xl h-full overflow-y-auto shadow-2xl"
+        className="bg-white w-full max-w-2xl h-full overflow-y-auto shadow-2xl flex flex-col"
         onClick={e => e.stopPropagation()}
       >
         {loading ? (
@@ -74,6 +77,12 @@ export default function BuilderDetailDrawer({ builderId, onClose }) {
           </div>
         ) : !builder ? (
           <div className="flex items-center justify-center h-full text-sm" style={{ color: LABEL }}>Builder not found.</div>
+        ) : isEditing ? (
+          <BuilderEditForm
+            builder={builder}
+            onSaved={(updated) => { setBuilder(updated); setIsEditing(false); }}
+            onCancel={() => setIsEditing(false)}
+          />
         ) : (
           <>
             {/* Header */}
@@ -89,9 +98,20 @@ export default function BuilderDetailDrawer({ builderId, onClose }) {
                   {builder.tag_line && <p className="text-xs" style={{ color: SUBTLE }}>{builder.tag_line}</p>}
                 </div>
               </div>
-              <button onClick={onClose} className="p-2 hover:bg-gray-100 transition-colors">
-                <X className="w-5 h-5" style={{ color: LABEL }} />
-              </button>
+              <div className="flex items-center gap-1">
+                {!isEditing && (
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white rounded-md transition-colors hover:opacity-90"
+                    style={{ backgroundColor: NAVY }}
+                  >
+                    <Pencil className="w-3.5 h-3.5" /> Edit
+                  </button>
+                )}
+                <button onClick={onClose} className="p-2 hover:bg-gray-100 transition-colors">
+                  <X className="w-5 h-5" style={{ color: LABEL }} />
+                </button>
+              </div>
             </div>
 
             {/* Badges */}
