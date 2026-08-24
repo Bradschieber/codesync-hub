@@ -33,11 +33,12 @@ function Section({ title, icon: Icon, children }) {
 
 function SocialLink({ url, label }) {
   if (!url) return null;
+  const normalizedUrl = /^https?:\/\//i.test(url) ? url : `https://${url}`;
   return (
     <div>
       <dt className="text-xs font-medium uppercase tracking-wide mb-0.5" style={{ color: LABEL }}>{label}</dt>
       <dd>
-        <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm break-all hover:underline" style={{ color: NAVY }}>
+        <a href={normalizedUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm break-all hover:underline" style={{ color: NAVY }}>
           {url} <ExternalLink className="w-3 h-3 shrink-0" />
         </a>
       </dd>
