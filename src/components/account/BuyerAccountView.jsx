@@ -32,12 +32,13 @@ export default function BuyerAccountView({ user, profile, form, setForm, saving,
     <div style={{ backgroundColor: "#FAF9F7", minHeight: "100vh" }}>
       <div style={{ background: "linear-gradient(180deg, #EEF1F7 0%, #FAF9F7 100%)" }} className="pt-14 pb-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight mb-5" style={{ color: "#1A1A1A" }}>My Account</h1>
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 flex items-center justify-center text-white font-bold text-xl flex-shrink-0" style={{ backgroundColor: NAVY }}>
               {(user?.full_name || "U")[0]}
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>{user?.full_name}</h1>
+              <p className="text-xl font-semibold" style={{ color: "#1A1A1A" }}>{user?.full_name}</p>
               <p className="text-sm" style={{ color: "#7A7A7A" }}>{user?.email}</p>
             </div>
           </div>

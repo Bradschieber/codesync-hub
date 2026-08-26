@@ -51,7 +51,7 @@ export default function Messages() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center gap-3 mb-8">
-        <Link to={createPageUrl("Dashboard")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
+        <Link to={createPageUrl("Account")} className="text-stone-400 hover:text-wine-600"><ChevronLeft className="w-5 h-5" /></Link>
         <h1 className="text-3xl font-bold text-stone-800 flex items-center gap-3">
           <MessageSquare className="w-8 h-8 text-wine-600" /> My Messages
         </h1>
