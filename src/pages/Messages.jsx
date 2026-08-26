@@ -16,10 +16,19 @@ export default function Messages() {
     try {
       const u = await base44.auth.me();
       const profiles = await base44.entities.UserProfile.filter({ user_id: u.id });
-      if (profiles.length > 0) {
-        const msgs = await base44.entities.Message.filter({ recipient_id: profiles[0].id }, "-created_date");
-        setMessages(msgs);
-      }
+      // Match messages addressed by User.id (always present) and, when the user
+      // has a profile, by UserProfile.id. Builder replies to custom-build requests
+      // address the buyer by User.id, so users without a profile still see them.
+      const recipientIds = [u.id];
+      if (profiles.length > 0 && profiles[0].id) recipientIds.push(profiles[0].id);
+      const fetched = await Promise.all(
+        recipientIds.map(rid => base44.entities.Message.filter({ recipient_id: rid }, "-created_date"))
+      );
+      const seen = new Set();
+      const merged = [];
+      fetched.flat().forEach(m => { if (!seen.has(m.id)) { seen.add(m.id); merged.push(m); } });
+      merged.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+      setMessages(merged);
     } catch {
       base44.auth.redirectToLogin();
     }

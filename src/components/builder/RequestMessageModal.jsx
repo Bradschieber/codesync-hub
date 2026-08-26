@@ -37,17 +37,10 @@ export default function RequestMessageModal({ request, profile, user, onClose, o
       onStatusUpdated?.("in_discussion");
     }
 
-    // Resolve the buyer's UserProfile id so the reply lands in their Messages inbox
-    let buyerRecipientId = request.buyer_user_id || request.customer_email;
-    if (request.buyer_user_id) {
-      const buyerProfiles = await base44.entities.UserProfile.filter({ user_id: request.buyer_user_id });
-      if (buyerProfiles.length > 0) buyerRecipientId = buyerProfiles[0].id;
-    }
-
     const msg = await base44.entities.Message.create({
       sender_id: profile.id,
       sender_name: profile.business_name || profile.display_name,
-      recipient_id: buyerRecipientId,
+      recipient_id: request.buyer_user_id || request.customer_email,
       recipient_name: request.customer_name,
       subject: `Custom Build: ${request.build_type || "Your Request"}`,
       body: body.trim(),
