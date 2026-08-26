@@ -1,7 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 import { secrets } from 'base44:runtime';
 
-const APP_URL = 'https://stringed-collective.base44.app';
+import { APP_URL } from '../../shared/appUrl.js';
 const ONBOARDING_URL = `${APP_URL}/BuilderOnboarding`;
 const QUICK_START_URL = `${APP_URL}/BuilderQuickStartGuide`;
 

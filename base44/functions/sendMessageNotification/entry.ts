@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import { APP_URL } from '../../shared/appUrl.js';
 
 Deno.serve(async (req) => {
   try {
@@ -27,7 +28,7 @@ Deno.serve(async (req) => {
       await base44.asServiceRole.integrations.Core.SendEmail({
         to: profile.email,
         subject: `New Message on Stringed Collective: "${subject}"`,
-        body: `Hi ${profile.first_name || profile.display_name || 'Builder'},\n\n${senderName} sent you a new message: "${subject}".\n\nLog in to your dashboard to read and reply:\nhttps://app.stringedcollective.com\n\n— Stringed Collective`,
+        body: `Hi ${profile.first_name || profile.display_name || 'Builder'},\n\n${senderName} sent you a new message: "${subject}".\n\nLog in to your dashboard to read and reply:\n${APP_URL}\n\n— Stringed Collective`,
       });
       results.email = 'sent';
     }

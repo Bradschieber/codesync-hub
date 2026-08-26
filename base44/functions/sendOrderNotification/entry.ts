@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.23';
 
-const APP_URL = 'https://stringed-collective.base44.app';
+import { APP_URL } from '../../shared/appUrl.js';
 
 const EMAIL_TEMPLATES = {
   // ── BUYER notifications ──────────────────────────────────────────────
