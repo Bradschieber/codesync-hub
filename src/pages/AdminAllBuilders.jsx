@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle, Eye, Mail } from "lucide-react";
+import { Search, ShieldCheck, MapPin, CheckCircle, XCircle, ArrowLeft, Trash2, AlertCircle, Eye, EyeOff, Mail } from "lucide-react";
 import BuilderDetailDrawer from "@/components/admin/BuilderDetailDrawer";
 import MessageBuilderModal from "@/components/admin/MessageBuilderModal";
 
@@ -39,6 +39,8 @@ export default function AdminAllBuilders() {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [detailBuilderId, setDetailBuilderId] = useState(null);
   const [messageBuilder, setMessageBuilder] = useState(null);
+  const [confirmHide, setConfirmHide] = useState(null);
+  const [hideReason, setHideReason] = useState("");
 
   useEffect(() => { loadData(); }, []);
 
@@ -78,6 +80,21 @@ export default function AdminAllBuilders() {
     setUpdating(null);
   }
 
+  async function toggleHidden(builder) {
+    setUpdating(builder.id);
+    const willHide = !builder.storefront_hidden;
+    const patch = {
+      storefront_hidden: willHide,
+      storefront_hidden_at: willHide ? new Date().toISOString() : null,
+      storefront_hidden_reason: willHide ? (hideReason || null) : null,
+    };
+    await base44.entities.UserProfile.update(builder.id, patch);
+    setBuilders(prev => prev.map(b => b.id === builder.id ? { ...b, ...patch } : b));
+    setUpdating(null);
+    setConfirmHide(null);
+    setHideReason("");
+  }
+
   const filtered = builders.filter(b => {
     const matchSearch = !search ||
       b.business_name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -89,7 +106,8 @@ export default function AdminAllBuilders() {
       (filter === "approved" && b.is_approved) ||
       (filter === "pending" && !b.is_approved) ||
       (filter === "verified" && b.is_verified) ||
-      (filter === "founding" && b.founding_builder);
+      (filter === "founding" && b.founding_builder) ||
+      (filter === "hidden" && b.storefront_hidden);
     return matchSearch && matchFilter;
   });
 
@@ -142,6 +160,7 @@ export default function AdminAllBuilders() {
             <option value="pending">Pending Approval</option>
             <option value="verified">Verified</option>
             <option value="founding">Founding Builders</option>
+            <option value="hidden">Hidden</option>
           </select>
         </div>
 
@@ -175,9 +194,16 @@ export default function AdminAllBuilders() {
                   </div>
                 </div>
                 <div className="col-span-2">
-                  <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={b.is_approved ? { backgroundColor: "#E8F5E9", color: "#27AE60" } : { backgroundColor: "#F9E5E8", color: "#9B1B30" }}>
-                    {b.is_approved ? "Approved" : "Pending"}
-                  </span>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={b.is_approved ? { backgroundColor: "#E8F5E9", color: "#27AE60" } : { backgroundColor: "#F9E5E8", color: "#9B1B30" }}>
+                      {b.is_approved ? "Approved" : "Pending"}
+                    </span>
+                    {b.storefront_hidden && (
+                      <span className="text-xs font-semibold px-2 py-0.5 inline-block" style={{ backgroundColor: "#FEF3C7", color: "#92400E" }}>
+                        Hidden
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="col-span-3 grid grid-cols-2 gap-2">
                   <button
@@ -206,6 +232,19 @@ export default function AdminAllBuilders() {
                     }}
                   >
                     {b.is_approved ? <><CheckCircle className="w-3 h-3" /> Approved</> : <><XCircle className="w-3 h-3" /> Pending</>}
+                  </button>
+                  <button
+                    onClick={() => { setConfirmHide(b); setHideReason(""); }}
+                    disabled={updating === b.id}
+                    className="flex items-center justify-center gap-1.5 px-2 py-1.5 text-xs font-semibold border transition-colors whitespace-nowrap"
+                    style={{
+                      borderColor: b.storefront_hidden ? "#27AE60" : "#9B1B30",
+                      color: b.storefront_hidden ? "#27AE60" : "#9B1B30",
+                      backgroundColor: b.storefront_hidden ? "#E8F5E9" : "#F9E5E8",
+                      opacity: updating === b.id ? 0.5 : 1,
+                    }}
+                  >
+                    {b.storefront_hidden ? <><Eye className="w-3 h-3" /> Unhide</> : <><EyeOff className="w-3 h-3" /> Hide</>}
                   </button>
                   <button
                     onClick={() => setConfirmDelete(b)}
@@ -247,6 +286,48 @@ export default function AdminAllBuilders() {
                 className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors disabled:opacity-50"
               >
                 {updating === confirmDelete.id ? "Deleting..." : "Delete Builder"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hide/Unhide Confirmation Modal */}
+      {confirmHide && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+          <div className="bg-white w-full max-w-md p-6 shadow-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <EyeOff className="w-6 h-6 flex-shrink-0" style={{ color: "#9B1B30" }} />
+              <h3 className="text-base font-bold" style={{ color: "#1A1A1A" }}>
+                {confirmHide.storefront_hidden ? "Unhide Builder Storefront" : "Hide Builder Storefront"}
+              </h3>
+            </div>
+            <p className="text-sm mb-4" style={{ color: "#5A5A5A" }}>
+              {confirmHide.storefront_hidden
+                ? `This will bring ${confirmHide.business_name || confirmHide.display_name} back to all buyer-facing discovery surfaces.`
+                : `This will take ${confirmHide.business_name || confirmHide.display_name}'s storefront offline and remove them from the Builders directory, Catalog, featured sections, and From The Bench. Their data is preserved and this can be reversed anytime.`}
+            </p>
+            {!confirmHide.storefront_hidden && (
+              <textarea
+                value={hideReason}
+                onChange={e => setHideReason(e.target.value)}
+                rows={3}
+                placeholder="Optional: note why you're hiding this storefront (internal only)..."
+                className="w-full border px-3 py-2 text-sm mb-4 focus:outline-none resize-none"
+                style={{ borderColor: "#DEDBD6" }}
+              />
+            )}
+            <div className="flex gap-3 justify-end">
+              <button onClick={() => { setConfirmHide(null); setHideReason(""); }} className="px-4 py-2 text-sm font-medium border" style={{ borderColor: "#DEDBD6", color: "#4A4A4A" }}>
+                Cancel
+              </button>
+              <button
+                onClick={() => toggleHidden(confirmHide)}
+                disabled={updating === confirmHide.id}
+                className="px-4 py-2 text-sm font-semibold text-white transition-colors disabled:opacity-50"
+                style={{ backgroundColor: "#9B1B30" }}
+              >
+                {updating === confirmHide.id ? "Saving..." : confirmHide.storefront_hidden ? "Unhide Storefront" : "Hide Storefront"}
               </button>
             </div>
           </div>

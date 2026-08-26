@@ -43,7 +43,7 @@ export default function Catalog() {
       base44.entities.UserProfile.filter({ is_seller: true, is_approved: true }, "-created_date", 200),
     ]);
     // Only show products from approved builders
-    const approvedBuilderIds = new Set(bldrs.map(b => b.id));
+    const approvedBuilderIds = new Set(bldrs.filter(b => !b.storefront_hidden).map(b => b.id));
     // Enforce limited visibility rule: only show listings with a builder-approved marketplace hero image
     const eligible = prods.filter(p =>
       approvedBuilderIds.has(p.builder_id) && (

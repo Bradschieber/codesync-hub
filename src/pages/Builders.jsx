@@ -79,7 +79,8 @@ export default function Builders() {
     }
 
     // Build listings map: up to 3 products per builder with image + price for card thumbnails
-    const approvedBuilderIds = new Set(data.map(b => b.id));
+    const visibleBuilders = data.filter(b => !b.storefront_hidden);
+    const approvedBuilderIds = new Set(visibleBuilders.map(b => b.id));
     const listingsMap = {};
     // Prefer featured products first, then most recent
     const sortedProducts = [...products].sort((a, b) => {
@@ -98,8 +99,8 @@ export default function Builders() {
     });
 
     setBuilderListings(listingsMap);
-    setBuilders(data);
-    setShuffled(shuffle(data));
+    setBuilders(visibleBuilders);
+    setShuffled(shuffle(visibleBuilders));
     setLoading(false);
   }
 

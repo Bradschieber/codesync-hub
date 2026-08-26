@@ -317,6 +317,20 @@
       "type": "boolean",
       "default": false
     },
+    "storefront_hidden": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, the builder's storefront is offline to buyers and they are excluded from the Builders directory, Catalog, featured sections, and From The Bench. Admin-controlled and reversible; all builder data is preserved."
+    },
+    "storefront_hidden_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the storefront was last hidden. Null when not hidden."
+    },
+    "storefront_hidden_reason": {
+      "type": "string",
+      "description": "Optional internal admin note explaining why the storefront was hidden."
+    },
     "media_urls": {
       "type": "array",
       "items": {

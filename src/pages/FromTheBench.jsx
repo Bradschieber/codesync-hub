@@ -66,14 +66,18 @@ export default function FromTheBench() {
 
   useEffect(() => {
     async function load() {
-      const [buildUpdates, workshopPosts] = await Promise.all([
+      const [buildUpdates, workshopPosts, hiddenBuilders] = await Promise.all([
         base44.entities.BuildUpdate.filter({ is_public: true }, "-created_date", 200),
         base44.entities.WorkshopPost.filter({ is_public: true }, "-created_date", 200),
+        base44.entities.UserProfile.filter({ is_seller: true, storefront_hidden: true }, "-created_date", 200),
       ]);
+      const hiddenBuilderIds = new Set(hiddenBuilders.map(b => b.id));
       const combined = [
         ...buildUpdates.map(normalizeBuildUpdate),
         ...workshopPosts.map(normalizeWorkshopPost),
-      ].sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+      ]
+        .filter(p => !hiddenBuilderIds.has(p.builder_id))
+        .sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
       setAllPosts(combined);
       setLoading(false);
     }

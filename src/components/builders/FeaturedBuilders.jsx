@@ -8,7 +8,7 @@ function isFeaturedActive(builder) {
 
 export default function FeaturedBuilders({ builders, builderListings = {} }) {
   const featured = builders
-    .filter(isFeaturedActive)
+    .filter(b => isFeaturedActive(b) && !b.storefront_hidden)
     .slice(0, 4);
 
   if (featured.length === 0) return null;

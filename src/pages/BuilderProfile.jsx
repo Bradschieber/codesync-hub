@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import {
-  Guitar, Star, ChevronLeft, Quote, Hammer, MessageSquare, X, Check, PlayCircle, ArrowRight
+  Guitar, Star, ChevronLeft, Quote, Hammer, MessageSquare, X, Check, PlayCircle, ArrowRight, Store
 } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -22,6 +22,7 @@ export default function BuilderProfile() {
   const [user, setUser] = useState(null);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [unavailable, setUnavailable] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
 
@@ -32,6 +33,7 @@ export default function BuilderProfile() {
 
   async function loadAll() {
     if (!builderId) return;
+    setUnavailable(false);
     let isAdmin = false;
     let u = null;
     try { u = await base44.auth.me(); setUser(u); isAdmin = u?.role === "admin"; } catch {}
@@ -44,7 +46,15 @@ export default function BuilderProfile() {
     ]);
     // Builders can preview their own unapproved storefront; admins can preview any; public visitors only see approved ones
     const isOwner = u && bldrs.length > 0 && bldrs[0].user_id === u.id;
-    if (bldrs.length > 0 && (bldrs[0].is_approved || isAdmin || isOwner)) setBuilder(bldrs[0]);
+    const isHidden = bldrs[0]?.storefront_hidden === true;
+    if (bldrs.length > 0 && (bldrs[0].is_approved || isAdmin || isOwner)) {
+      // Hidden storefronts are offline to the public; admins and the builder can still preview
+      if (isHidden && !isAdmin && !isOwner) {
+        setUnavailable(true);
+      } else {
+        setBuilder(bldrs[0]);
+      }
+    }
     setProducts(prods);
     setReviews(revs);
     setReferences(refs);
@@ -71,6 +81,21 @@ export default function BuilderProfile() {
         <div className="h-56 rounded-2xl mb-6 bg-stone-200" />
         <div className="h-32 rounded-2xl bg-stone-100" />
       </div>
+    </div>
+  );
+
+  if (unavailable) return (
+    <div className="max-w-2xl mx-auto px-4 py-24 text-center" style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }}>
+      <div className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center" style={{ backgroundColor: "#F4F0EB" }}>
+        <Store className="w-7 h-7" style={{ color: "#9A9A9A" }} />
+      </div>
+      <h1 className="text-2xl font-bold mb-3" style={{ color: "#1A1A1A" }}>This storefront is temporarily unavailable</h1>
+      <p className="text-sm leading-relaxed mb-8" style={{ color: "#5A5A5A" }}>
+        This builder's storefront is not currently visible on Stringed Collective. Please check back later or browse other makers.
+      </p>
+      <Link to={createPageUrl("Builders")} className="inline-block px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "#1B2B4B" }}>
+        Browse All Builders
+      </Link>
     </div>
   );
 
