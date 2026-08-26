@@ -35,6 +35,11 @@ export default function BuilderLanding() {
                 Become a Founding Builder
               </button>
               <Link
+                to={createPageUrl("BuilderQuickStartGuide")}
+                className="text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors pt-3.5">
+                See what you'll need to get started
+              </Link>
+              <Link
                 to={createPageUrl("FounderLetter")}
                 className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors pt-3.5">
                 Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
@@ -162,6 +167,11 @@ export default function BuilderLanding() {
           )}
         </div>
         <p className="text-sm text-gray-400 text-center">We'll help founding builders get set up before launch.</p>
+        <p className="text-sm text-center mt-4">
+          <Link to={createPageUrl("BuilderQuickStartGuide")} className="font-medium text-gray-600 hover:text-gray-900 transition-colors underline">
+            Read the full Quick Start Guide
+          </Link>
+        </p>
       </section>
 
       {/* ── Founding Builders ── */}
@@ -204,18 +214,6 @@ export default function BuilderLanding() {
           <p className="text-blue-300 text-sm leading-relaxed mb-10 max-w-xl">
             This isn't about gatekeeping. It's about starting carefully - with builders who care deeply about their craft and want to help create something better.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
-            <button
-              onClick={() => setModalOpen(true)}
-              className="px-8 py-3.5 text-sm font-semibold text-[#1B2B4B] bg-white transition-colors hover:bg-gray-100">
-              Become a Founding Builder
-            </button>
-            <Link
-              to={createPageUrl("FounderLetter")}
-              className="flex items-center gap-1.5 text-sm font-medium text-blue-300 hover:text-white transition-colors">
-              Read the founder's letter <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
           <div className="border-t border-blue-900 pt-8 max-w-xl space-y-2">
             <p className="text-sm text-blue-200 font-medium">Have questions before you get started?</p>
             <p className="text-sm text-blue-200">
