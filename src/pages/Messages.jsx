@@ -2,19 +2,25 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { MessageSquare, Mail, Trash, ChevronLeft } from "lucide-react";
+import { MessageSquare, Mail, Trash, ChevronLeft, Send } from "lucide-react";
 import moment from "moment";
 
 export default function Messages() {
   const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [replyBody, setReplyBody] = useState("");
+  const [sendingReply, setSendingReply] = useState(false);
+  const [replySent, setReplySent] = useState(false);
+  const [replyError, setReplyError] = useState(null);
 
   useEffect(() => { loadMessages(); }, []);
 
   async function loadMessages() {
     try {
       const u = await base44.auth.me();
+      setUser(u);
       const profiles = await base44.entities.UserProfile.filter({ user_id: u.id });
       // Match messages addressed by User.id (always present) and, when the user
       // has a profile, by UserProfile.id. Builder replies to custom-build requests
@@ -37,6 +43,9 @@ export default function Messages() {
 
   async function handleMessageClick(message) {
     setSelectedMessage(message);
+    setReplyBody("");
+    setReplySent(false);
+    setReplyError(null);
     if (!message.is_read) {
       await base44.entities.Message.update(message.id, { is_read: true });
       setMessages(prev => prev.map(m => m.id === message.id ? { ...m, is_read: true } : m));
@@ -49,6 +58,40 @@ export default function Messages() {
       setMessages(prev => prev.filter(m => m.id !== id));
       setSelectedMessage(null);
     }
+  }
+
+  async function handleReply() {
+    if (!replyBody.trim() || !selectedMessage || !user) return;
+    setSendingReply(true);
+    setReplyError(null);
+    try {
+      // Resolve the builder's User.id so the "Notify Builder on New Message"
+      // automation emails them and the reply lands in their inbox.
+      let recipientId = selectedMessage.sender_id;
+      try {
+        const builderProfile = await base44.entities.UserProfile.get(selectedMessage.sender_id);
+        if (builderProfile?.user_id) recipientId = builderProfile.user_id;
+      } catch { /* sender_id may already be a user id */ }
+
+      await base44.entities.Message.create({
+        sender_id: user.id,
+        sender_name: user.full_name || user.email,
+        recipient_id: recipientId,
+        recipient_name: selectedMessage.sender_name,
+        subject: (selectedMessage.subject || "").startsWith("Re:") ? selectedMessage.subject : `Re: ${selectedMessage.subject || ""}`,
+        body: replyBody.trim(),
+        thread_id: selectedMessage.thread_id,
+        thread_type: selectedMessage.thread_type || "general",
+        linked_request_id: selectedMessage.linked_request_id,
+      });
+
+      setReplyBody("");
+      setReplySent(true);
+      setTimeout(() => setReplySent(false), 4000);
+    } catch (e) {
+      setReplyError(e?.message || "Failed to send reply");
+    }
+    setSendingReply(false);
   }
 
   if (loading) return (
@@ -115,6 +158,35 @@ export default function Messages() {
                 </button>
               </div>
               <p className="text-stone-700 leading-relaxed">{selectedMessage.body}</p>
+
+              <div className="mt-6 pt-5 border-t border-stone-200">
+                {replySent && (
+                  <p className="text-sm text-green-600 mb-2">✓ Your reply was sent to {selectedMessage.sender_name}.</p>
+                )}
+                {replyError && (
+                  <p className="text-sm text-red-600 mb-2">{replyError}</p>
+                )}
+                <textarea
+                  value={replyBody}
+                  onChange={e => setReplyBody(e.target.value)}
+                  rows={3}
+                  placeholder="Write a reply…"
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-wine-400 resize-none"
+                />
+                <div className="flex justify-end mt-2">
+                  <button
+                    onClick={handleReply}
+                    disabled={sendingReply || !replyBody.trim()}
+                    className="flex items-center gap-1.5 text-sm font-semibold text-white px-4 py-2 rounded-lg disabled:opacity-50 transition-colors"
+                    style={{ backgroundColor: "#9B1B30" }}
+                    onMouseEnter={e => { if (!sendingReply && replyBody.trim()) e.currentTarget.style.backgroundColor = "#7A1526"; }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = "#9B1B30"; }}
+                  >
+                    <Send className="w-4 h-4" />
+                    {sendingReply ? "Sending…" : "Send Reply"}
+                  </button>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full min-h-[300px] text-stone-400">
