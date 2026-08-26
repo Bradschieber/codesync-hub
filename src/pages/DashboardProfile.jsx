@@ -172,6 +172,16 @@ export default function DashboardProfile() {
                 <label className="block text-xs font-medium text-gray-600 mb-1">Business / Brand Name</label>
                 <input value={form.business_name || ""} onChange={e => setForm({...form, business_name: e.target.value})} placeholder="e.g. Hartman Guitars" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
               </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">First Name</label>
+                  <input value={form.first_name || ""} onChange={e => setForm({...form, first_name: e.target.value})} placeholder="First name" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Last Name</label>
+                  <input value={form.last_name || ""} onChange={e => setForm({...form, last_name: e.target.value})} placeholder="Last name" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+                </div>
+              </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Tagline <span className="text-gray-400 font-normal">(optional)</span></label>
                 <input value={form.tag_line || ""} onChange={e => setForm({...form, tag_line: e.target.value})} placeholder='e.g. "Handbuilt electric guitars from the Pacific Northwest"' className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />

@@ -462,6 +462,15 @@ export default function BuilderOnboarding() {
                 />
               </div>
 
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Field label="First Name">
+                  <input value={form.first_name || ""} onChange={e => updateForm("first_name", e.target.value)} placeholder="First name" className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
+                </Field>
+                <Field label="Last Name">
+                  <input value={form.last_name || ""} onChange={e => updateForm("last_name", e.target.value)} placeholder="Last name" className="w-full border px-3 py-2.5 text-sm focus:outline-none" style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }} />
+                </Field>
+              </div>
+
               <LocationFields form={form} setForm={setForm} />
 
               <Field label="Tagline (optional)" hint="A short line that captures your shop's identity - appears beneath your name on your storefront.">
