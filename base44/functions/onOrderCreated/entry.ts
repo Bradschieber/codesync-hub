@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
+import { sendAdminSms } from '../../shared/adminSms.js';
 
 /**
  * Entity automation handler — triggers on Order create and update.
@@ -41,6 +42,15 @@ Deno.serve(async (req) => {
     if (!shouldGenerate) {
       return Response.json({ skipped: true, reason: "Trigger condition not met" });
     }
+
+    // Admin SMS alert: new paid order
+    const buyerName = order.buyer_name || "Buyer";
+    const builderName = order.builder_name || "Builder";
+    const amount = order.total_gross_amount || order.total_amount || 0;
+    const amountStr = typeof amount === "number" ? amount.toFixed(2) : amount;
+    await sendAdminSms(
+      `Stringed Collective: New ${order.order_type} order — ${builderName} → ${buyerName} ($${amountStr}). Reason: ${reason}. Order: ${orderId}`
+    ).catch(e => console.error("Admin SMS error:", e.message));
 
     // Check if agreement already exists
     const existing = await base44.asServiceRole.entities.PurchaseAgreement.filter({ order_id: orderId });

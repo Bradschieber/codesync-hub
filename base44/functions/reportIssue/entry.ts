@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.23';
+import { sendAdminSms } from '../../shared/adminSms.js';
 
 Deno.serve(async (req) => {
   try {
@@ -88,6 +89,11 @@ Deno.serve(async (req) => {
       actor_role: 'buyer',
       details_json: { issue_type: issueType, description, dispute_id: dispute.id },
     });
+
+    // Admin SMS alert: buyer-reported issue
+    await sendAdminSms(
+      `Stringed Collective: Buyer issue reported on order ${orderId} (Builder: ${order.builder_name || "Unknown"}). Type: ${issueType}.`
+    ).catch(e => console.error('Admin SMS error:', e.message));
 
     return Response.json({ success: true, disputeId: dispute.id, message: 'Your issue has been reported. Our team will review it shortly.' });
   } catch (error) {
