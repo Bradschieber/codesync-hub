@@ -169,6 +169,9 @@ export default function BuilderOnboarding() {
 
   useEffect(() => { loadUser(); }, []);
 
+  // Scroll to top whenever the onboarding step changes
+  useEffect(() => { window.scrollTo(0, 0); }, [step]);
+
   async function loadUser() {
     try {
       const u = await base44.auth.me();
