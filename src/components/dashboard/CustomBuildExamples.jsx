@@ -35,12 +35,12 @@ export default function CustomBuildExamples({ form, setForm }) {
   }
 
   return (
-    <div className="mt-4 border p-4" style={{ borderColor: "#E3E0D8", backgroundColor: "#FAFAF8" }}>
+    <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
       <div className="flex items-center gap-2 mb-1">
         <Hammer className="w-4 h-4" style={{ color: "#2F3E55" }} />
-        <p className="text-sm font-semibold" style={{ color: "#1A1A1A" }}>Custom Build Examples</p>
+        <p className="text-sm font-bold" style={{ color: "#1A1A1A" }}>Custom Build Examples <span className="font-normal" style={{ color: "#9A9A9A" }}>(optional)</span></p>
       </div>
-      <p className="text-xs mb-4" style={{ color: "#9A9A9A" }}>
+      <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>
         Add photos of past custom work. An optional title and notes can be added to each - these appear on hover on your public storefront.
       </p>
 

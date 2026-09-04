@@ -822,13 +822,26 @@ export default function BuilderOnboarding() {
                             className="w-full border px-3 py-2.5 text-sm focus:outline-none resize-none"
                             style={{ borderColor: "#DEDBD6", backgroundColor: "#FFFFFF" }}
                           />
-                          <CustomBuildExamples form={form} setForm={setForm} />
                         </div>
                       )}
                     </div>
                   </label>
                 </div>
               </SectionCard>
+
+              {/* Custom Build Examples - a separate set of photos from the Step 3
+                  workshop gallery. Promoted to its own top-level section so it
+                  doesn't read as a minor nested element. Optional, not required. */}
+              {form.offers_custom_builds && (
+                <div className="space-y-3">
+                  <div className="px-4 py-3 border-l-2" style={{ borderColor: NAVY, backgroundColor: "#F2F5FA" }}>
+                    <p className="text-xs leading-relaxed" style={{ color: "#4A5A6A" }}>
+                      <span className="font-semibold" style={{ color: NAVY }}>Heads up:</span> these are different from your workshop gallery photos from Step 3. Add examples of finished custom work here, if you have any yet. You can always add these later from your dashboard.
+                    </p>
+                  </div>
+                  <CustomBuildExamples form={form} setForm={setForm} />
+                </div>
+              )}
 
               {/* Notification preferences */}
               <SectionCard>
