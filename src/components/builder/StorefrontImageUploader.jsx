@@ -70,9 +70,9 @@ export default function StorefrontImageUploader({
           onClick={() => fileInputRef.current?.click()}
           disabled={saving}
           className="w-full flex flex-col items-center justify-center border-2 border-dashed transition-colors disabled:opacity-50"
-          style={{ aspectRatio, borderColor: "#C8B89A", backgroundColor: "#FEFCF7", color: "#9A8878" }}
-          onMouseEnter={e => { if (!saving) { e.currentTarget.style.borderColor = "#2F3E55"; e.currentTarget.style.color = "#2F3E55"; } }}
-          onMouseLeave={e => { if (!saving) { e.currentTarget.style.borderColor = "#C8B89A"; e.currentTarget.style.color = "#9A8878"; } }}
+          style={{ aspectRatio, borderColor: "#9B1B30", backgroundColor: "#F9E5E8", color: "#7A1526" }}
+          onMouseEnter={e => { if (!saving) { e.currentTarget.style.borderColor = "#7A1526"; e.currentTarget.style.color = "#5C0F1C"; } }}
+          onMouseLeave={e => { if (!saving) { e.currentTarget.style.borderColor = "#9B1B30"; e.currentTarget.style.color = "#7A1526"; } }}
         >
           {saving ? (
             <Loader2 className="w-6 h-6 mb-2 animate-spin" />

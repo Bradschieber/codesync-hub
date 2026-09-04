@@ -53,9 +53,9 @@ export default function MediaUploader({ mediaUrls = [], onChange }) {
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
           className="flex flex-col items-center justify-center aspect-square border-2 border-dashed transition-colors disabled:opacity-50"
-          style={{ borderColor: "#C8B89A", backgroundColor: "#FEFCF7", color: "#9A8878" }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = "#2F3E55"; e.currentTarget.style.color = "#2F3E55"; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = "#C8B89A"; e.currentTarget.style.color = "#9A8878"; }}
+          style={{ borderColor: "#9B1B30", backgroundColor: "#F9E5E8", color: "#7A1526" }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = "#7A1526"; e.currentTarget.style.color = "#5C0F1C"; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = "#9B1B30"; e.currentTarget.style.color = "#7A1526"; }}
         >
           {uploading ? (
             <Loader2 className="w-7 h-7 animate-spin" />

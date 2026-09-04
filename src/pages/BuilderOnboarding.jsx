@@ -371,12 +371,15 @@ export default function BuilderOnboarding() {
               </div>
             </div>
           </div>
-          {/* Progress bar */}
-          <div className="h-px w-full" style={{ backgroundColor: "#E8E5E0" }}>
-            <div
-              className="h-full transition-all duration-500"
-              style={{ width: `${progressPct}%`, backgroundColor: NAVY }}
-            />
+          {/* Segmented ruby progress bar - one segment per step */}
+          <div className="flex items-center gap-1.5 w-full">
+            {STEPS.map((s, i) => (
+              <div
+                key={s.id}
+                className="h-1.5 flex-1 rounded-full transition-colors duration-300"
+                style={{ backgroundColor: i <= step ? "#9B1B30" : "#E8E4DC" }}
+              />
+            ))}
           </div>
         </div>
       </div>
