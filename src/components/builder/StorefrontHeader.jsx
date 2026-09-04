@@ -4,15 +4,30 @@ import { normalizeSocialUrl } from "@/lib/socialLinks";
 const NAVY = "#1B2B4B";
 
 const COLOR_SCHEMES = {
-  "earthy": { banner: "from-stone-800 to-stone-700", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50" },
-  "dark-wood": { banner: "from-stone-900 to-stone-800", accentText: "text-stone-800", accentBg: "bg-stone-100", accentBorder: "border-stone-300", sectionBg: "bg-stone-100" },
-  "slate": { banner: "from-slate-800 to-slate-600", accentText: "text-slate-700", accentBg: "bg-slate-50", accentBorder: "border-slate-200", sectionBg: "bg-slate-50" },
-  "warm-cream": { banner: "from-stone-700 to-stone-600", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50" },
-  "midnight": { banner: "from-indigo-950 to-slate-900", accentText: "text-indigo-700", accentBg: "bg-indigo-50", accentBorder: "border-indigo-200", sectionBg: "bg-indigo-50" },
+  "earthy": { banner: "from-stone-800 to-stone-700", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#FFFFFF" },
+  "dark-wood": { banner: "from-stone-900 to-stone-800", accentText: "text-stone-800", accentBg: "bg-stone-100", accentBorder: "border-stone-300", sectionBg: "bg-stone-100", textColor: "#FFFFFF" },
+  "slate": { banner: "from-slate-800 to-slate-600", accentText: "text-slate-700", accentBg: "bg-slate-50", accentBorder: "border-slate-200", sectionBg: "bg-slate-50", textColor: "#FFFFFF" },
+  "warm-cream": { banner: "from-stone-700 to-stone-600", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#FFFFFF" },
+  "midnight": { banner: "from-indigo-950 to-slate-900", accentText: "text-indigo-700", accentBg: "bg-indigo-50", accentBorder: "border-indigo-200", sectionBg: "bg-indigo-50", textColor: "#FFFFFF" },
+  "charcoal": { solid: "#2B2B29", accentText: "text-stone-800", accentBg: "bg-stone-100", accentBorder: "border-stone-300", sectionBg: "bg-stone-100", textColor: "#FFFFFF" },
+  "forest": { solid: "#3B4A32", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#FFFFFF" },
+  "deep-wine": { solid: "#5C1F2E", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#FFFFFF" },
+  "warm-graphite": { solid: "#5A5347", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#FFFFFF" },
+  "antique-brass": { solid: "#7A6A4F", accentText: "text-stone-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#FFFFFF" },
+  "warm-ivory": { solid: "#F0E6D6", accentText: "text-slate-800", accentBg: "bg-stone-50", accentBorder: "border-stone-200", sectionBg: "bg-stone-50", textColor: "#1E2A44" },
 };
 
 export function getScheme(key) {
   return COLOR_SCHEMES[key] || COLOR_SCHEMES["earthy"];
+}
+
+// Apply alpha to a hex color (for muted overlay text). Lets Warm Ivory render
+// dark navy text at reduced opacity instead of white.
+function withAlpha(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 // "classic" = text covers most of the banner (good for no/weak banner image)
@@ -73,8 +88,8 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
 
       {/* ── BANNER ── */}
       <div
-        className={`relative bg-gradient-to-r ${scheme.banner}`}
-        style={{ minHeight: layout.bannerMinHeight }}
+        className={`relative ${scheme.banner ? `bg-gradient-to-r ${scheme.banner}` : ""}`}
+        style={{ minHeight: layout.bannerMinHeight, ...(scheme.solid ? { backgroundColor: scheme.solid } : {}) }}
       >
         {builder.banner_image_url ? (
           <img src={builder.banner_image_url} alt="Banner" className="absolute inset-0 w-full h-full object-cover" />
@@ -109,12 +124,12 @@ export default function StorefrontHeader({ builder, avgRating, reviewCount, orde
 
         {/* Hero text */}
         <div className="relative z-10 px-6 sm:px-8" style={layout.contentPadding}>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-md mb-1">{name}</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold drop-shadow-md mb-1" style={{ color: scheme.textColor }}>{name}</h1>
           {builder.tag_line && (
-            <p className="text-white/80 text-base mb-2 max-w-xl">{builder.tag_line}</p>
+            <p className="text-base mb-2 max-w-xl" style={{ color: withAlpha(scheme.textColor, 0.8) }}>{builder.tag_line}</p>
           )}
           {builder.location && (
-            <p className="text-white/70 text-sm flex items-center gap-1.5 mb-2">
+            <p className="text-sm flex items-center gap-1.5 mb-2" style={{ color: withAlpha(scheme.textColor, 0.7) }}>
               <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
               {builder.location}
             </p>

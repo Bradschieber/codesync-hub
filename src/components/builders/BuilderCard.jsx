@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { MapPin, ArrowRight } from "lucide-react";
-import { getCardFallbackColor } from "../builder/CardPhotoUploader";
+import { getCardFallbackColor, getSchemeTextColor } from "../builder/CardPhotoUploader";
 import { track } from "@/lib/analytics";
 
 const NAVY = "#1B2B4B";
@@ -13,6 +13,7 @@ export default function BuilderCard({ builder, listings = [] }) {
   const name = builder.business_name || builder.display_name || "Builder";
   const initial = name[0]?.toUpperCase() || "B";
   const fallbackColor = getCardFallbackColor(builder.storefront_color_scheme);
+  const fallbackTextColor = getSchemeTextColor(builder.storefront_color_scheme);
 
   // Prefer tagline, then bio, then a human stat line
   const tagline = builder.tag_line || builder.bio || null;
@@ -48,7 +49,7 @@ export default function BuilderCard({ builder, listings = [] }) {
         ) : (
           // Fallback: solid storefront accent color with initial - looks intentional, not empty
           <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: fallbackColor }}>
-            <span className="font-bold text-white" style={{ fontSize: "3rem", opacity: 0.85 }}>
+            <span className="font-bold" style={{ fontSize: "3rem", opacity: 0.85, color: fallbackTextColor }}>
               {initial}
             </span>
           </div>

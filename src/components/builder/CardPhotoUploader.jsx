@@ -1,22 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Upload, X, Loader2, Check } from "lucide-react";
+import { getCardFallbackColor, getSchemeTextColor } from "@/lib/storefrontSchemes";
 
 const EXPORT_WIDTH = 1200;
 const EXPORT_HEIGHT = 900;
 
-// Maps storefront color scheme → hex color (used for card fallback by BuilderCard)
-export const SCHEME_COLORS = {
-  earthy: "#8B5E3C",
-  "dark-wood": "#44403C",
-  slate: "#475569",
-  "warm-cream": "#C2410C",
-  midnight: "#3730A3",
-};
-
-export function getCardFallbackColor(scheme) {
-  return SCHEME_COLORS[scheme] || "#1B2B4B";
-}
+// Scheme fallback color + text color live in @/lib/storefrontSchemes (shared
+// with the picker and StorefrontHeader). Re-exported here for BuilderCard.
+export { getCardFallbackColor, getSchemeTextColor };
 
 export default function CardPhotoUploader({ cardPhotoUrl, onChange, label = "Builder Card Photo", compact = false }) {
   const [cropMode, setCropMode] = useState(false);

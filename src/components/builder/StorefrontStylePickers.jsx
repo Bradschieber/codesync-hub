@@ -6,8 +6,12 @@
  * Layout: "classic" (Text-Forward) | "showcase" (Banner Showcase)
  * Color scheme: used as the fallback background for the Storefront Banner AND
  * the Builder Card Photo whenever no image is uploaded. If an image exists,
- * it takes priority over the scheme.
+ * it takes priority over the scheme. Warm Ivory is a light background; the
+ * storefront overlay text auto-switches to dark navy for it (handled in
+ * StorefrontHeader / BuilderCard via getSchemeTextColor).
  */
+import { STOREFRONT_SCHEMES } from "@/lib/storefrontSchemes";
+
 const LAYOUTS = [
   {
     id: "classic",
@@ -55,14 +59,6 @@ const LAYOUTS = [
   },
 ];
 
-const COLOR_SCHEMES = [
-  { id: "earthy", label: "Earthy Amber", swatch: "bg-amber-700" },
-  { id: "dark-wood", label: "Dark Wood", swatch: "bg-stone-800" },
-  { id: "slate", label: "Slate Blue", swatch: "bg-slate-700" },
-  { id: "warm-cream", label: "Warm Terracotta", swatch: "bg-orange-700" },
-  { id: "midnight", label: "Midnight Indigo", swatch: "bg-indigo-800" },
-];
-
 export default function StorefrontStylePickers({ form, setForm }) {
   return (
     <div className="space-y-6">
@@ -95,14 +91,14 @@ export default function StorefrontStylePickers({ form, setForm }) {
         <label className="block text-xs font-medium text-stone-600 mb-2">Color Scheme</label>
         <p className="text-xs text-stone-400 mb-2">Sets the fallback background for your storefront banner and builder card when no image is uploaded. Uploaded photos always take priority.</p>
         <div className="flex flex-wrap gap-2">
-          {COLOR_SCHEMES.map(c => (
+          {STOREFRONT_SCHEMES.map(c => (
             <button
               key={c.id}
               type="button"
               onClick={() => setForm(f => ({ ...f, storefront_color_scheme: c.id }))}
               className={`flex items-center gap-2 px-3 py-2 rounded-xl border-2 transition-colors text-sm ${form.storefront_color_scheme === c.id ? "border-amber-500 bg-amber-50" : "border-stone-200 hover:border-stone-300"}`}
             >
-              <span className={`w-4 h-4 rounded-full ${c.swatch}`} />
+              <span className="w-4 h-4 rounded-full border border-black/10" style={{ backgroundColor: c.color }} />
               {c.label}
             </button>
           ))}

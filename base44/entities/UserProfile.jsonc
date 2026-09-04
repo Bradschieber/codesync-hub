@@ -391,7 +391,13 @@
         "dark-wood",
         "slate",
         "warm-cream",
-        "midnight"
+        "midnight",
+        "charcoal",
+        "forest",
+        "deep-wine",
+        "warm-graphite",
+        "antique-brass",
+        "warm-ivory"
       ],
       "default": "earthy"
     },
