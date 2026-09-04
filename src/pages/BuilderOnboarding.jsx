@@ -10,6 +10,7 @@ import {
 import MediaUploader from "../components/dashboard/MediaUploader";
 import CardPhotoUploader from "../components/builder/CardPhotoUploader";
 import StorefrontImageUploader from "../components/builder/StorefrontImageUploader";
+import StorefrontStylePickers from "../components/builder/StorefrontStylePickers";
 import LocationFields from "../components/onboarding/LocationFields";
 import PoliciesEditor from "../components/dashboard/PoliciesEditor";
 import ReferencesSection from "../components/dashboard/ReferencesSection";
@@ -628,6 +629,13 @@ export default function BuilderOnboarding() {
                   uploadLabel="Upload Banner"
                   aspectRatio="16/5"
                 />
+              </div>
+
+              {/* Banner Layout + Color Scheme - shared with Update Builder Profile */}
+              <div className="border p-5" style={{ borderColor: "#D8D4CC", backgroundColor: "#FFFFFF" }}>
+                <p className="text-sm font-bold mb-1" style={{ color: "#1A1A1A" }}>Banner Layout & Color Scheme</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7A7A7A" }}>Choose how your storefront header is laid out and pick a fallback color used for your banner and builder card whenever you haven't uploaded images. Uploaded photos always take priority.</p>
+                <StorefrontStylePickers form={form} setForm={setForm} />
               </div>
 
               {/* Logo - optional, appears in storefront header */}
