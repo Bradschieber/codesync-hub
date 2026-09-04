@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, ShieldCheck, ArrowLeft, Trash2, UserX, UserCheck, AlertTriangle, UserPlus, AlertCircle } from "lucide-react";
+import { Search, ShieldCheck, ArrowLeft, Trash2, UserX, UserCheck, AlertTriangle, UserPlus, AlertCircle, KeyRound } from "lucide-react";
 
 const NAVY = "#2F3E55";
 
@@ -19,6 +19,8 @@ export default function AdminUserAccounts() {
   const [inviting, setInviting] = useState(false);
   const [inviteMsg, setInviteMsg] = useState(null);
   const [loadError, setLoadError] = useState(null);
+  const [resetting, setResetting] = useState(null);
+  const [resetMsg, setResetMsg] = useState(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -83,6 +85,19 @@ export default function AdminUserAccounts() {
     }
     setUpdating(null);
     setConfirmDelete(null);
+  }
+
+  async function sendReset(u) {
+    if (!u.email) return;
+    setResetting(u.id);
+    setResetMsg(null);
+    try {
+      await base44.auth.resetPasswordRequest(u.email);
+      setResetMsg({ id: u.id, type: "success", text: "Reset email sent." });
+    } catch (e) {
+      setResetMsg({ id: u.id, type: "error", text: e.message || "Failed to send reset email." });
+    }
+    setResetting(null);
   }
 
   const filtered = users.filter(u =>
@@ -219,7 +234,19 @@ export default function AdminUserAccounts() {
                     {u.is_active === false ? "Deactivated" : "Active"}
                   </span>
                 </div>
-                <div className="col-span-3 flex justify-end gap-2">
+                <div className="col-span-3 flex flex-wrap justify-end items-center gap-2">
+                  {resetMsg?.id === u.id && (
+                    <span className="text-xs" style={{ color: resetMsg.type === "success" ? "#27AE60" : "#DC2626" }}>{resetMsg.text}</span>
+                  )}
+                  <button
+                    onClick={() => sendReset(u)}
+                    disabled={resetting === u.id || updating === u.id}
+                    title="Send password reset email"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold border transition-colors disabled:opacity-50"
+                    style={{ borderColor: NAVY, color: NAVY, backgroundColor: "#F2F5FA" }}
+                  >
+                    <KeyRound className="w-3 h-3" /> {resetting === u.id ? "Sending..." : "Reset"}
+                  </button>
                   <button
                     onClick={() => toggleActive(u)}
                     disabled={updating === u.id}
