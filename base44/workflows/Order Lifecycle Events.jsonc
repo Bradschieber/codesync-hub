@@ -1,0 +1,37 @@
+{
+  "name": "Order Lifecycle Events",
+  "description": "Handles build_complete \u2192 buyer final payment notification, final_payment_paid \u2192 builder notification, delivery confirmation \u2192 warranty/return start dates, and admin payout alerts.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "update"
+      ],
+      "entity_name": "Order"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "order_lifecycle_events",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "orderLifecycle",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "orderLifecycle"
+  }
+}

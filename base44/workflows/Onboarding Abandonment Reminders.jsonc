@@ -1,0 +1,44 @@
+{
+  "name": "Onboarding Abandonment Reminders",
+  "description": "Scans all builders who started onboarding but haven't completed it. Sends up to 3 reminders (24h, 72h, 1 week after last activity) via email and/or SMS per their Step 4 notification preferences. Stops permanently after the 3rd reminder.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "interval",
+      "cron_expression": null,
+      "one_time_date": null,
+      "timezone": "UTC",
+      "interval_value": 1,
+      "interval_unit": "hours",
+      "interval_anchor": "2026-08-23T22:53:07.925000",
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "onboarding_abandonment_reminders",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendOnboardingReminder",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "sendOnboardingReminder"
+  }
+}
