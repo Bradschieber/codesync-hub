@@ -81,7 +81,7 @@ export default function Layout({ children, currentPageName }) {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-6">
               {navLinks.map(l => (
                 <Link
                   key={l.page}
@@ -193,7 +193,7 @@ export default function Layout({ children, currentPageName }) {
 
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="md:hidden p-2 text-gray-500 hover:text-indigo-700"
+                className="lg:hidden p-2 text-gray-500 hover:text-indigo-700"
               >
                 {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -203,13 +203,13 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Mobile Nav */}
         {menuOpen && (
-        <div className="md:hidden border-t px-4 py-3 space-y-1" style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E8EC" }}>
+        <div className="lg:hidden border-t px-4 pt-3 pb-5 space-y-1" style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E8EC" }}>
             {navLinks.map(l => (
               <Link
                 key={l.page}
                 to={createPageUrl(l.page)}
                 onClick={() => setMenuOpen(false)}
-                className={`block py-2.5 px-3 rounded-lg text-sm font-medium transition-colors ${
+                className={`block py-3 px-3 rounded-lg text-sm font-medium transition-colors ${
                   currentPageName === l.page ? "bg-stone-100 text-gray-900" : "text-gray-700 hover:bg-stone-50 hover:text-gray-900"
                 }`}
               >
