@@ -20,10 +20,10 @@ export default function BuilderLanding() {
               Built for Independent Instrument Builders
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6" style={{ color: NAVY }}>
-              A marketplace built for independent builders to be discovered.
+              A marketplace where independent builders get discovered.
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed mb-10">
-              Stringed Collective gives independent instrument builders a professional storefront, safer transaction tools, and active marketplace promotion designed to help the right kind of players discover their work.
+              A professional storefront, safer payments, and real marketplace promotion - all built to help the right players find your work.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4 mb-12">
               <button
