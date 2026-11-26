@@ -13,8 +13,8 @@ export default function BuilderLanding() {
     <div className="bg-white text-[#1B2B4B] font-sans">
 
       {/* ── Hero ── */}
-      <section className="max-w-6xl mx-auto px-6 pt-20 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <section className="max-w-6xl mx-auto px-6 pt-16 pb-14">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           <div>
             <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-6">
               Built for Independent Instrument Builders
@@ -70,7 +70,7 @@ export default function BuilderLanding() {
       <div className="border-t border-[#E5E8EC] max-w-6xl mx-auto" />
 
       {/* ── Problem Statement ── */}
-      <section className="max-w-3xl mx-auto px-6 py-20">
+      <section className="max-w-3xl mx-auto px-6 py-14">
         <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Need a Better Way to Sell</p>
         <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: NAVY }}>
           A storefront alone doesn't bring buyers
@@ -96,18 +96,18 @@ export default function BuilderLanding() {
 
       {/* ── Why Builders Join ── */}
       <section className="bg-white border-y border-[#E5E8EC]">
-        <div className="max-w-5xl mx-auto px-6 py-20">
+        <div className="max-w-5xl mx-auto px-6 py-14">
           <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">Why Builders Join Stringed Collective</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY }}>
             A better way to present your work, reach players, and manage sales
           </h2>
-          <p className="text-sm text-gray-500 leading-relaxed mb-12 max-w-2xl">
+          <p className="text-sm text-gray-500 leading-relaxed mb-10 max-w-2xl">
             Most platforms give builders a place to list. Stringed Collective is being built to help the right kind of players find those listings.
           </p>
           <img
             src="https://media.base44.com/images/public/699b4908ac9a3afade5feb65/69f72c11f_image.png"
             alt="Two unfinished electric guitar bodies with neck-through construction placed side by side on a table saw workbench"
-            className="w-full h-auto rounded-lg object-cover mb-12"
+            className="w-full h-auto rounded-lg object-cover mb-10"
             style={{ maxHeight: "440px" }}
           />
           <div className="grid sm:grid-cols-2 gap-8">
@@ -148,9 +148,9 @@ export default function BuilderLanding() {
       </section>
 
       {/* ── How It Works ── */}
-      <section className="max-w-4xl mx-auto px-6 py-20">
+      <section className="max-w-4xl mx-auto px-6 py-14">
         <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">How It Works</p>
-        <h2 className="text-2xl sm:text-3xl font-bold mb-12" style={{ color: NAVY }}>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-10" style={{ color: NAVY }}>
           Three steps to get started
         </h2>
         <div className="grid sm:grid-cols-3 gap-8 mb-8">
@@ -176,7 +176,7 @@ export default function BuilderLanding() {
 
       {/* ── Founding Builders ── */}
       <section className="bg-[#1B2B4B]">
-        <div className="max-w-3xl mx-auto px-6 py-20">
+        <div className="max-w-3xl mx-auto px-6 py-14">
           <p className="text-xs font-semibold tracking-widest uppercase text-blue-300 mb-4">Founding Builders</p>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
             Help shape the first version of Stringed Collective
@@ -233,7 +233,7 @@ export default function BuilderLanding() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="max-w-3xl mx-auto px-6 py-20 text-center">
+      <section className="max-w-3xl mx-auto px-6 py-14 text-center">
         <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: NAVY }}>
           Ready to help launch the Collective?
         </h2>
